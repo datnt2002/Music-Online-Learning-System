@@ -1,9 +1,10 @@
 import React from 'react';
-import backgroundImage from '../../assets/imgs/bg-authen.jpg';
-import googleIcon from '../../assets/icons/googleIcon.png';
-import facebookIcon from '../../assets/icons/FacebookIcon.png';
+import backgroundImage from '../../../assets/imgs/bg-authen.jpg';
+import googleIcon from '../../../assets/icons/googleIcon.png';
+import facebookIcon from '../../../assets/icons/FacebookIcon.png';
 import { Input as InputAntd } from 'antd';
-import { signIn } from '../../services/auth.service';
+import { signIn } from '../../../services/auth.service';
+import { Link } from 'react-router-dom';
 
 const Signin = () => {
   return (
@@ -50,7 +51,9 @@ const Signin = () => {
         <div>
           <h4 className="font-bold mt-3 mb-2">Don't have an account?</h4>
           {/* day la link router */}
-          <button className="text-[#D07F1F] underline underline-offset-2">Sign up</button>
+          <Link className="text-[#D07F1F] underline underline-offset-2" to="/signup">
+            Sign up
+          </Link>
         </div>
 
         <div className="flex flex-col flex-1">
