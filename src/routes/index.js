@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { AdminLayout } from '../components/Layout';
-import { NotFound } from '../components/Common';
-import Signin from '../features/Authentication/pages/Signin';
-import Signup from '../features/Authentication/pages/Signup';
+import { NotFound, PrivateRoute } from '../components/Common';
+import Signin from '../features/Authentication/Signin';
+import Signup from '../features/Authentication/Signup';
 
 export const publicRoutes = [
   { path: '/signin', element: <Signin /> },
@@ -17,6 +17,10 @@ export const publicRoutes = [
 export const privateRoutes = [
   {
     path: '/admin',
-    element: <AdminLayout />,
+    element: (
+      <PrivateRoute>
+        <AdminLayout />
+      </PrivateRoute>
+    ),
   },
 ];

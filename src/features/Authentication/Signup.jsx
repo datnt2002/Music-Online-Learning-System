@@ -1,7 +1,5 @@
 import React from 'react';
-import backgroundImage from '../../../assets/imgs/bg-authen.jpg';
-import googleIcon from '../../../assets/icons/googleIcon.png';
-import facebookIcon from '../../../assets/icons/FacebookIcon.png';
+import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { Input as InputAntd } from 'antd';
 import { Link } from 'react-router-dom';
 

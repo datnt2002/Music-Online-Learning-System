@@ -1,9 +1,9 @@
 import React from 'react';
-import backgroundImage from '../../../assets/imgs/bg-authen.jpg';
-import googleIcon from '../../../assets/icons/googleIcon.png';
-import facebookIcon from '../../../assets/icons/FacebookIcon.png';
+import backgroundImage from '../../assets/imgs/bg-authen.jpg';
+import googleIcon from '../../assets/icons/googleIcon.png';
+import facebookIcon from '../../assets/icons/FacebookIcon.png';
 import { Input as InputAntd } from 'antd';
-import { signIn } from '../../../services/auth.service';
+import { signIn } from '../../services/auth.service';
 import { Link } from 'react-router-dom';
 
 const Signin = () => {
