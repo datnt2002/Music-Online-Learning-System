@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import googleIcon from '../../assets/icons/googleIcon.png';
 import facebookIcon from '../../assets/icons/FacebookIcon.png';
 import { Input as InputAntd } from 'antd';
 import { signIn } from '../../services/auth.service';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/slice/authenticationSlice';
 
 const Signin = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    dispatch(
+      login({
+        username: username,
+        password: password,
+      })
+    );
+  };
   return (
     <div
       className="flex justify-end bg-cover w-screen min-h-screen"
@@ -24,19 +40,27 @@ const Signin = () => {
         {/* form */}
         <div className="flex mt-4">
           <form className="flex flex-col flex-1 gap-4 relative">
-            <InputAntd className="rounded-full p-4 border-2 border-[#F39D39] text-black " placeholder="Email" />
-            <InputAntd className="rounded-full p-4 border-2 border-[#F39D39] text-black " placeholder="Password" />
+            <InputAntd
+              className="rounded-full p-4 border-2 border-[#F39D39] text-black "
+              placeholder="Email"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+            <InputAntd
+              className="rounded-full p-4 border-2 border-[#F39D39] text-black "
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
 
             <button
               className="bg-[#F39D39] rounded-full text-white font-bold p-4 text-lg "
-              style={{ 'box-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
-              onClick={(e) => {
-                e.preventDefault();
-                signIn({
-                  username: 'admin',
-                  password: '123123',
-                });
-              }}
+              style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
+              onClick={handleLoginClick}
             >
               Log in
             </button>

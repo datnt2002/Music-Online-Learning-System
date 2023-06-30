@@ -1,7 +1,7 @@
-import API_SERVICE from './api.service';
+import axiosClient from './api.service';
 
 export const signIn = (data) => {
-  return API_SERVICE.post('users/login', data).then((res) => {
-    console.log('Login success');
+  return axiosClient.post('users/login', data).then((res) => {
+    return res.data;
   });
 };
