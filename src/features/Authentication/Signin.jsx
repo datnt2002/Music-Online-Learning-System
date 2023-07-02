@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Form, Input } from 'antd';
+
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import googleIcon from '../../assets/icons/googleIcon.png';
 import facebookIcon from '../../assets/icons/FacebookIcon.png';
-import { Input as InputAntd } from 'antd';
-import { signIn } from '../../services/auth.service';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/slice/authenticationSlice';
+import { signInAction } from '../../redux/slice/authenticationSlice';
+import { FORM_FIELDS } from '../../constants';
 
 const Signin = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
   const dispatch = useDispatch();
 
-  const handleLoginClick = (e) => {
-    e.preventDefault();
+  const handleLogin = (values) => {
     dispatch(
-      login({
-        username: username,
-        password: password,
+      signInAction({
+        username: values.username,
+        password: values.password,
+        remember: values.remember,
       })
     );
   };
+
   return (
     <div
       className="flex justify-end bg-cover w-screen min-h-screen"
@@ -36,40 +35,68 @@ const Signin = () => {
           <h1 className="text-3xl font-bold">LAUGAU</h1>
           <h4 className="text-sm font-bold mt-4 ">Log in to your LAUGAU account</h4>
         </div>
-
         {/* form */}
         <div className="flex mt-4">
-          <form className="flex flex-col flex-1 gap-4 relative">
-            <InputAntd
-              className="rounded-full p-4 border-2 border-[#F39D39] text-black "
-              placeholder="Email"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-            <InputAntd
-              className="rounded-full p-4 border-2 border-[#F39D39] text-black "
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-
-            <button
-              className="bg-[#F39D39] rounded-full text-white font-bold p-4 text-lg "
-              style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
-              onClick={handleLoginClick}
+          <Form
+            className="login-form flex flex-col w-full relative"
+            name="normal_login"
+            initialValues={{
+              remember: false,
+            }}
+            onFinish={handleLogin}
+          >
+            <Form.Item
+              name={FORM_FIELDS.USERNAME}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Username!',
+                },
+              ]}
             >
-              Log in
-            </button>
-          </form>
+              <Input
+                className="rounded-full p-4 border-2 border-[#F39D39] text-black "
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Username"
+              />
+            </Form.Item>
+            <Form.Item
+              name={FORM_FIELDS.PASSWORD}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+              ]}
+            >
+              <Input
+                className="rounded-full p-4 border-2 border-[#F39D39] text-black"
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Item>
+
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox className="-mt-2">Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-4 pb-4 h-fit"
+                style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
+              >
+                Log in
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
 
         <div>
           {/* day la link router */}
-          <button className="text-[#D07F1F] mt-4  underline underline-offset-2">Forgot Password?</button>
+          <button className="text-[#D07F1F] underline underline-offset-2">Forgot Password?</button>
         </div>
 
         <div>

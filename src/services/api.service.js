@@ -1,4 +1,7 @@
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { API_ERROR } from '../constants';
 
 const axiosClient = axios.create({
   baseURL: 'http://localhost:3000/api/',
@@ -24,12 +27,29 @@ axiosClient.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+
     return response.data;
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return Promise.reject(error);
+    // Show error
+    console.log('eerroreor', error.response.data);
+    switch (error.response.data.code) {
+      case 401:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
+      case 500:
+        break;
+      default:
+        break;
+    }
+    return error.response;
   }
 );
 
