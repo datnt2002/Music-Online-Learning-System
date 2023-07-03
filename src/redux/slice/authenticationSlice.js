@@ -5,6 +5,7 @@ const initialState = {
   currentUser: null,
   token: '',
   loading: false,
+  isSignUpSuccess: false,
   error: {
     signIn: null,
     signUp: null,
@@ -38,11 +39,14 @@ export const authenticationSlice = createSlice({
     },
     signupSuccess: (state, action) => {
       state.loading = false;
-      const {} = action.payload;
+      state.isSignUpSuccess = true;
+      // const { username, email } = action.payload;
+      // state.currentUser = { username, email };
     },
   },
 });
 
-export const { signInAction, signInSuccess, signInFail, logout, signup } = authenticationSlice.actions;
+export const { signInAction, signInSuccess, signInFail, logout, signupAction, signupSuccess } =
+  authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

@@ -10,3 +10,14 @@ export const signIn = (data) => {
       return error;
     });
 };
+
+export const signUp = (data) => {
+  return axiosClient
+    .post('users/auth/register', data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
