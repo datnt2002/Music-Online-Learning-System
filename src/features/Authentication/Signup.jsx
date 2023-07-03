@@ -1,9 +1,14 @@
 import React from 'react';
-import backgroundImage from '../../assets/imgs/bg-authen.jpg';
-import { Input as InputAntd } from 'antd';
 import { Link } from 'react-router-dom';
+import { Form, Input, Checkbox, Button } from 'antd';
+
+import backgroundImage from '../../assets/imgs/bg-authen.jpg';
+import { FORM_FIELDS } from '../../constants';
 
 const Signup = () => {
+  const handleRegister = (values) => {
+    console.log('Received values of form: ', values);
+  };
   return (
     <div
       className="flex justify-end bg-cover w-screen min-h-screen"
@@ -20,25 +25,97 @@ const Signup = () => {
 
         {/* form */}
         <div className="flex mt-4">
-          <form className="flex flex-col flex-1 gap-4 relative">
-            <InputAntd className="rounded-full p-4 border-2 border-[#F39D39] text-black " placeholder="Email" />
-            <InputAntd className="rounded-full p-4 border-2 border-[#F39D39] text-black " placeholder="Password" />
-            <InputAntd
-              className="rounded-full p-4 border-2 border-[#F39D39] text-black "
-              placeholder="Confirm Password"
-            />
-
-            <button
-              className="bg-[#F39D39] rounded-full text-white font-bold p-4 text-lg "
-              style={{ 'box-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
+          <Form className="flex flex-col flex-1 relative" name="register" onFinish={handleRegister} scrollToFirstError>
+            <Form.Item
+              name={FORM_FIELDS.USERNAME}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your username',
+                },
+              ]}
             >
-              Sign up
-            </button>
-          </form>
+              <Input className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Username*" />
+            </Form.Item>
+            <Form.Item
+              name={FORM_FIELDS.EMAIL}
+              rules={[
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
+                },
+                {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ]}
+            >
+              <Input className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Email*" />
+            </Form.Item>
+
+            <Form.Item
+              name={FORM_FIELDS.PASSWORD}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Password*" />
+            </Form.Item>
+
+            <Form.Item
+              name={FORM_FIELDS.CONFIRM_PASSWORD}
+              dependencies={[FORM_FIELDS.PASSWORD]}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue(FORM_FIELDS.PASSWORD) === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The new password that you entered do not match!'));
+                  },
+                }),
+              ]}
+            >
+              <Input.Password className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Confirm Password*" />
+            </Form.Item>
+            <Form.Item
+              name="agreement"
+              valuePropName="checked"
+              rules={[
+                {
+                  validator: (_, value) =>
+                    value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+                },
+              ]}
+            >
+              <Checkbox>
+                I have read the <a href="">agreement</a>
+              </Checkbox>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-4 pb-4 h-fit"
+                style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
+              >
+                Register
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
 
         <div>
-          <h4 className="font-bold mt-3 mb-2">Already have an account?</h4>
+          <h4 className="font-bold mb-2">Already have an account?</h4>
           {/* day la link router */}
           <Link className="text-[#D07F1F] underline underline-offset-2" to="/signin">
             Sign in

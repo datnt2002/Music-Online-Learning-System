@@ -57,7 +57,7 @@ const Signin = () => {
               <Input
                 className="rounded-full p-4 border-2 border-[#F39D39] text-black "
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
+                placeholder="Username*"
               />
             </Form.Item>
             <Form.Item
@@ -69,7 +69,7 @@ const Signin = () => {
                 },
               ]}
             >
-              <Input
+              <Input.Password
                 className="rounded-full p-4 border-2 border-[#F39D39] text-black"
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
@@ -95,8 +95,9 @@ const Signin = () => {
         </div>
 
         <div>
-          {/* day la link router */}
-          <button className="text-[#D07F1F] underline underline-offset-2">Forgot Password?</button>
+          <Link className="text-[#D07F1F] underline underline-offset-2" to="/forgotpassword">
+            Forgot Password?
+          </Link>
         </div>
 
         <div>

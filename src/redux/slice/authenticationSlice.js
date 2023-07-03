@@ -15,7 +15,7 @@ export const authenticationSlice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    signInAction: (state, action) => {
+    signInAction: (state) => {
       state.loading = true;
     },
     signInSuccess: (state, action) => {
@@ -33,7 +33,13 @@ export const authenticationSlice = createSlice({
       state.isLoggedIn = false;
       state.currentUser = undefined;
     },
-    signup: () => {},
+    signupAction: (state, action) => {
+      state.loading = true;
+    },
+    signupSuccess: (state, action) => {
+      state.loading = false;
+      const {} = action.payload;
+    },
   },
 });
 

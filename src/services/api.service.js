@@ -35,8 +35,8 @@ axiosClient.interceptors.response.use(
     // Do something with response error
     // Show error
     console.log('eerroreor', error.response.data);
-    switch (error.response.data.code) {
-      case 401:
+    switch (true) {
+      case error.response.data.code === 401:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -44,7 +44,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case 500:
+      case error.response.data.code === 500:
         break;
       default:
         break;
@@ -53,26 +53,4 @@ axiosClient.interceptors.response.use(
   }
 );
 
-// export const get = async (api, options = {}) => {
-//   const response = await axiosClient.get(api, options);
-//   return response.data;
-// };
-
-// export const post = async (api, options = {}) => {
-//   const response = await axiosClient.post(api, options);
-//   return response.data;
-// };
-
-// export const put = async (api, options = {}) => {
-//   const response = await axiosClient.put(api, options);
-//   return response.data;
-// };
-
-// const API_SERVICE = {
-//   post,
-//   get,
-//   put,
-// };
-
-// export default API_SERVICE;
 export default axiosClient;
