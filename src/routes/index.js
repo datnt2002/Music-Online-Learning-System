@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { AdminLayout } from '../components/Layout';
 import { NotFound, PrivateRoute } from '../components/Common';
 import Signin from '../features/Authentication/Signin';
 import Signup from '../features/Authentication/Signup';
 import ForgotPassword from '../features/Authentication/ForgotPassword';
+import AdminHomepage from '../features/Admin/AdminHomepage';
 
 export const publicRoutes = [
   { path: '/signin', element: <Signin /> },
@@ -14,6 +14,7 @@ export const publicRoutes = [
     path: '*',
     element: <NotFound />,
   },
+  { path: '/testadmin', element: <AdminHomepage /> },
 ];
 
 export const privateRoutes = [
@@ -21,7 +22,7 @@ export const privateRoutes = [
     path: '/admin',
     element: (
       <PrivateRoute>
-        <AdminLayout />
+        <AdminHomepage />
       </PrivateRoute>
     ),
   },

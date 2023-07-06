@@ -55,7 +55,7 @@ const Signin = () => {
               ]}
             >
               <Input
-                className="rounded-full p-4 border-2 border-[#F39D39] text-black "
+                className="rounded-full p-4 border-2 border-[#F39D39] text-black"
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Username*"
               />
