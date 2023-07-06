@@ -4,7 +4,7 @@ import { NotFound, PrivateRoute } from '../components/Common';
 import Signin from '../features/Authentication/Signin';
 import Signup from '../features/Authentication/Signup';
 import ForgotPassword from '../features/Authentication/ForgotPassword';
-import AdminHomepage from '../features/Admin/AdminHomepage';
+import ContentAdmin from '../features/Admin/ContentAdmin';
 
 export const publicRoutes = [
   { path: '/signin', element: <Signin /> },
@@ -14,15 +14,14 @@ export const publicRoutes = [
     path: '*',
     element: <NotFound />,
   },
-  { path: '/testadmin', element: <AdminHomepage /> },
+  { path: '/testadmin', element: <ContentAdmin /> },
 ];
-
 export const privateRoutes = [
   {
     path: '/admin',
     element: (
       <PrivateRoute>
-        <AdminHomepage />
+        <ContentAdmin />
       </PrivateRoute>
     ),
   },
