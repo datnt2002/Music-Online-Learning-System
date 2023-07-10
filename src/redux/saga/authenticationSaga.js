@@ -3,7 +3,14 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 import { call, fork, take, put } from 'redux-saga/effects';
 import { signIn, signUp } from '../../services/auth.service';
-import { signInAction, signInFail, signInSuccess, signupAction, signupSuccess } from '../slice/authenticationSlice';
+import {
+  signInAction,
+  signInFail,
+  signInSuccess,
+  signupAction,
+  signupFail,
+  signupSuccess,
+} from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 function* signInSaga() {
@@ -33,6 +40,7 @@ function* signInSaga() {
   }
 }
 
+//signup have test
 function* signUpSaga() {
   while (true) {
     try {
@@ -40,13 +48,13 @@ function* signUpSaga() {
         payload: { username, password, email },
       } = yield take(signupAction);
       //call api signup
-      const result = yield call(signUp, { username, password, email });
+      const result = yield call(signUp, { username, password, email, RoleId: 2 });
       console.log(result);
 
-      switch (result.code) {
-        case 200:
+      switch (true) {
+        case result.code === 200:
           Swal.fire({
-            title: 'Welcome new member',
+            title: 'Please check your email and verify new account!',
             width: 600,
             padding: '3em',
             color: '#716add',
@@ -59,7 +67,14 @@ function* signUpSaga() {
             `,
           });
           break;
-
+        case result.data.code === 409:
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          });
+          yield put(signupFail(result));
+          break;
         default:
           break;
       }

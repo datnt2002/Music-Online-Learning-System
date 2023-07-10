@@ -14,7 +14,6 @@ export const publicRoutes = [
     path: '*',
     element: <NotFound />,
   },
-  { path: '/testadmin', element: <ContentAdmin /> },
 ];
 export const privateRoutes = [
   {

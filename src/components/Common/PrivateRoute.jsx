@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-export const PrivateRoute = ({ child }) => {
+export const PrivateRoute = ({ children }) => {
   //check if user is login
   //If yes, show route
   //Else, go login
@@ -13,5 +13,5 @@ export const PrivateRoute = ({ child }) => {
     }
   }, [navigate, isLoggedIn]);
 
-  return <>{child}</>;
+  return <>{children}</>;
 };
