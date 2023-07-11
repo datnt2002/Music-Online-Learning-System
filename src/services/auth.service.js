@@ -21,3 +21,15 @@ export const signUp = (data) => {
       return err;
     });
 };
+
+export const forgotPassword = (data) => {
+  return axiosClient
+    .post('users/forgotpassword', data)
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

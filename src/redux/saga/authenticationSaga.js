@@ -2,8 +2,15 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
 import { call, fork, take, put } from 'redux-saga/effects';
-import { signIn, signUp } from '../../services/auth.service';
-import { signInAction, signInFail, signInSuccess, signupAction, signupFail } from '../slice/authenticationSlice';
+import { forgotPassword, signIn, signUp } from '../../services/auth.service';
+import {
+  forgotPasswordAction,
+  signInAction,
+  signInFail,
+  signInSuccess,
+  signupAction,
+  signupFail,
+} from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 function* signInSaga() {
@@ -86,7 +93,24 @@ function* signUpSaga() {
   }
 }
 
+function* forgotPasswordSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { username, email },
+      } = yield take(forgotPasswordAction);
+
+      console.log(username, email);
+      const result = yield call(forgotPassword, { username, email });
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* authenticationSaga() {
   yield fork(signInSaga);
   yield fork(signUpSaga);
+  yield fork(forgotPasswordSaga);
 }

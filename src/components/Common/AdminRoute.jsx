@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import HeaderAdmin from '../Layout/Admin/HeaderAdmin';
+import SiderAdmin from '../Layout/Admin/SiderAdmin';
+import { Layout } from 'antd';
+
 export const AdminRoute = ({ children }) => {
   //check if user is login
   //If yes, show route
@@ -19,5 +24,13 @@ export const AdminRoute = ({ children }) => {
     return state.authentication.currentUser;
   });
   console.log(currentUser);
-  return <>{children}</>;
+  return (
+    <>
+      <HeaderAdmin />
+      <Layout>
+        <SiderAdmin />
+        {children}
+      </Layout>
+    </>
+  );
 };

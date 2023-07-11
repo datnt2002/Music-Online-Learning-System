@@ -5,10 +5,21 @@ import { Button, Form, Input } from 'antd';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS } from '../../constants';
+import { useDispatch } from 'react-redux';
+import { forgotPasswordAction } from '../../redux/slice/authenticationSlice';
 
 const ForgotPassword = () => {
+  const dispatch = useDispatch();
 
-    const handleForgotPassword =()=>{}
+  const handleForgotPassword = (values) => {
+    dispatch(
+      forgotPasswordAction({
+        username: values.username,
+        email: values.email,
+      })
+    );
+    console.log(values);
+  };
 
   return (
     <div
@@ -26,8 +37,7 @@ const ForgotPassword = () => {
         {/* form */}
         <div className="flex mt-4">
           <Form
-            className="login-form flex flex-col w-full relative"
-            name="normal_login"
+            className=" flex flex-col w-full relative"
             initialValues={{
               remember: false,
             }}
@@ -54,6 +64,10 @@ const ForgotPassword = () => {
                 {
                   required: true,
                   message: 'Please input your Email!',
+                },
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
                 },
               ]}
             >

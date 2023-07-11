@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import HeaderDefault from '../Layout/User/HeaderDefault';
 
 const AuthorRoute = ({ children }) => {
   //check if user is login
@@ -20,7 +21,12 @@ const AuthorRoute = ({ children }) => {
     return state.authentication.currentUser;
   });
   console.log(currentUser);
-  return <>{children}</>;
+  return (
+    <>
+      <HeaderDefault />
+      {children}
+    </>
+  );
 };
 
 export default AuthorRoute;

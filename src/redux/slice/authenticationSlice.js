@@ -40,17 +40,24 @@ export const authenticationSlice = createSlice({
     signupSuccess: (state, action) => {
       state.loading = false;
       state.isSignUpSuccess = true;
-      // const { username, email } = action.payload;
-      // state.currentUser = { username, email };
     },
     signupFail: (state, action) => {
       state.loading = false;
       state.error.signUp = action.payload;
     },
+    forgotPasswordAction: (state, action) => {},
   },
 });
 
-export const { signInAction, signInSuccess, signInFail, logout, signupAction, signupSuccess, signupFail } =
-  authenticationSlice.actions;
+export const {
+  signInAction,
+  signInSuccess,
+  signInFail,
+  logout,
+  signupAction,
+  signupSuccess,
+  signupFail,
+  forgotPasswordAction,
+} = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;
