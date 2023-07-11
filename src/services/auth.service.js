@@ -4,7 +4,7 @@ export const signIn = (data) => {
   return axiosClient
     .post('users/auth/login', data)
     .then((res) => {
-      return res.data;
+      return res;
     })
     .catch((error) => {
       return error;

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
@@ -10,6 +10,7 @@ import { signInAction } from '../../redux/slice/authenticationSlice';
 import { FORM_FIELDS } from '../../constants';
 
 const Signin = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = (values) => {
@@ -18,6 +19,7 @@ const Signin = () => {
         username: values.username,
         password: values.password,
         remember: values.remember,
+        navigate: navigate,
       })
     );
   };

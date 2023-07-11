@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Form, Input, Checkbox, Button } from 'antd';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import 'sweetalert2/src/sweetalert2.scss';
 
@@ -11,7 +10,6 @@ import { FORM_FIELDS } from '../../constants';
 import { signupAction } from '../../redux/slice/authenticationSlice';
 
 const Signup = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleRegister = (values) => {
@@ -113,7 +111,7 @@ const Signup = () => {
               ]}
             >
               <Checkbox>
-                I have read the <a href="">agreement</a>
+                I have read the <Link href="">agreement</Link>
               </Checkbox>
             </Form.Item>
             <Form.Item>

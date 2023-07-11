@@ -3,14 +3,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 import { call, fork, take, put } from 'redux-saga/effects';
 import { signIn, signUp } from '../../services/auth.service';
-import {
-  signInAction,
-  signInFail,
-  signInSuccess,
-  signupAction,
-  signupFail,
-  signupSuccess,
-} from '../slice/authenticationSlice';
+import { signInAction, signInFail, signInSuccess, signupAction, signupFail } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 function* signInSaga() {
@@ -18,8 +11,9 @@ function* signInSaga() {
     try {
       //take payload from form login and call api login
       const {
-        payload: { username, password },
+        payload: { username, password, remember, navigate },
       } = yield take(signInAction);
+
       //the result is response from api
       //put to store
       const result = yield call(signIn, { username, password });
@@ -29,7 +23,15 @@ function* signInSaga() {
           yield put(signInFail(result));
           break;
         case 200:
-          yield put(signInSuccess(result));
+          yield put(signInSuccess(result.data));
+          if (remember) {
+            localStorage.setItem('token', result.data.token);
+          } else {
+            sessionStorage.setItem('token', result.data.token);
+          }
+
+          //doi seed data de theo role navigate ve dung trang
+          navigate('/admin');
           break;
         default:
           break;
