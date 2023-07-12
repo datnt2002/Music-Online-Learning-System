@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Checkbox, Button } from 'antd';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import { FORM_FIELDS } from '../../constants';
 import { signupAction } from '../../redux/slice/authenticationSlice';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleRegister = (values) => {
@@ -17,6 +18,7 @@ const Signup = () => {
         username: values.username,
         password: values.password,
         email: values.email,
+        navigate,
       })
     );
     console.log('Received values of form: ', values);

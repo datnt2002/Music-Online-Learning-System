@@ -5,9 +5,9 @@ import { API_ERROR } from '../constants';
 
 const axiosClient = axios.create({
   baseURL: 'http://localhost:3000/api/',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
 });
 
 // Add a request interceptor
@@ -37,6 +37,14 @@ axiosClient.interceptors.response.use(
     console.log('eerroreor', error.response.data);
     switch (true) {
       case error.response.data.code === 401:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
+      case error.response.data.code === 400:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,

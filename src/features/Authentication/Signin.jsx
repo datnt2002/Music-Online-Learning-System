@@ -112,14 +112,14 @@ const Signin = () => {
 
         <div className="flex flex-col flex-1">
           <button
-            className=" border-2 border-[#F39D39] p-2 rounded-full
+            className=" border-2 border-[#F39D39] p-1 rounded-full
         mt-3 text-base font-medium"
           >
             <img src={googleIcon} alt="googleIcon" className="inline-block mr-2" />
             <span> Continue with Google</span>
           </button>
           <button
-            className=" border-2 border-[#F39D39] p-2 rounded-full
+            className=" border-2 border-[#F39D39] p-1 rounded-full
         mt-3 text-base font-medium"
           >
             <img src={facebookIcon} alt="facebookIcon" className="inline-block" />

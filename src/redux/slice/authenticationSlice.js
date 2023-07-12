@@ -44,6 +44,7 @@ export const authenticationSlice = createSlice({
     signupFail: (state, action) => {
       state.loading = false;
       state.error.signUp = action.payload;
+      console.log(action);
     },
     forgotPasswordAction: (state, action) => {},
   },

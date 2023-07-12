@@ -1,7 +1,7 @@
+import { call, fork, take, put } from 'redux-saga/effects';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
-import { call, fork, take, put } from 'redux-saga/effects';
 import { forgotPassword, signIn, signUp } from '../../services/auth.service';
 import {
   forgotPasswordAction,
@@ -12,6 +12,7 @@ import {
   signupFail,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
+import { API_ERROR } from '../../constants';
 
 function* signInSaga() {
   while (true) {
@@ -31,14 +32,20 @@ function* signInSaga() {
           break;
         case 200:
           yield put(signInSuccess(result.data));
+          //store in session for login once
           if (remember) {
             localStorage.setItem('token', result.data.token);
           } else {
             sessionStorage.setItem('token', result.data.token);
           }
 
-          //doi seed data de theo role navigate ve dung trang
-          navigate('/admin');
+          if (result.data.user.Role.Rolename === 'admin') {
+            console.log('vao admin');
+            navigate('/admin');
+          } else {
+            console.log('user');
+            navigate('/');
+          }
           break;
         default:
           break;
@@ -53,17 +60,18 @@ function* signInSaga() {
 function* signUpSaga() {
   while (true) {
     try {
+      //destructuring payload
       const {
-        payload: { username, password, email },
+        payload: { username, password, email, navigate },
       } = yield take(signupAction);
       //call api signup
-      const result = yield call(signUp, { username, password, email, RoleId: 2 });
+      const result = yield call(signUp, { username, password, email });
       console.log(result);
 
       switch (true) {
         case result.code === 200:
           Swal.fire({
-            title: 'Please check your email and verify new account!',
+            title: result.message,
             width: 600,
             padding: '3em',
             color: '#716add',
@@ -74,14 +82,23 @@ function* signUpSaga() {
               left top
               no-repeat
             `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              console.log('I was closed by the timer');
+              navigate('/signin');
+            }
           });
           break;
         case result.data.code === 409:
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!',
+            text: API_ERROR.DEFAULT,
           });
+          yield put(signupFail(result));
+          break;
+        case result.code === 400:
           yield put(signupFail(result));
           break;
         default:
