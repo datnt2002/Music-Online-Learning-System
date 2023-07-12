@@ -35,7 +35,7 @@ const Signin = () => {
         {/* name page */}
         <div>
           <h1 className="text-3xl font-bold">LAUGAU</h1>
-          <h4 className="text-sm font-bold mt-4 ">Log in to your LAUGAU account</h4>
+          <h4 className="text-sm font-bold mt-4">Log in to your LAUGAU account</h4>
         </div>
         {/* form */}
         <div className="flex mt-4">
@@ -57,7 +57,7 @@ const Signin = () => {
               ]}
             >
               <Input
-                className="rounded-full p-4 border-2 border-[#F39D39] text-black"
+                className="rounded-full p-3 border-2 border-[#F39D39] text-black"
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Username*"
               />
@@ -72,7 +72,7 @@ const Signin = () => {
               ]}
             >
               <Input.Password
-                className="rounded-full p-4 border-2 border-[#F39D39] text-black"
+                className="rounded-full p-3 border-2 border-[#F39D39] text-black"
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Password"
@@ -80,14 +80,14 @@ const Signin = () => {
             </Form.Item>
 
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox className="-mt-2">Remember me</Checkbox>
+              <Checkbox className="-mt-2 mb-3">Remember me</Checkbox>
             </Form.Item>
 
             <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
-                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-4 pb-4 h-fit"
+                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit"
                 style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 Log in
@@ -112,14 +112,14 @@ const Signin = () => {
 
         <div className="flex flex-col flex-1">
           <button
-            className=" border-2 border-[#F39D39] p-4 rounded-full
+            className=" border-2 border-[#F39D39] p-2 rounded-full
         mt-3 text-base font-medium"
           >
             <img src={googleIcon} alt="googleIcon" className="inline-block mr-2" />
             <span> Continue with Google</span>
           </button>
           <button
-            className=" border-2 border-[#F39D39] p-4 rounded-full
+            className=" border-2 border-[#F39D39] p-2 rounded-full
         mt-3 text-base font-medium"
           >
             <img src={facebookIcon} alt="facebookIcon" className="inline-block" />

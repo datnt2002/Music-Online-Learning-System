@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
+import { useDispatch } from 'react-redux';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS } from '../../constants';
-import { useDispatch } from 'react-redux';
 import { forgotPasswordAction } from '../../redux/slice/authenticationSlice';
 
 const ForgotPassword = () => {
@@ -53,7 +53,7 @@ const ForgotPassword = () => {
               ]}
             >
               <Input
-                className="rounded-full p-4 border-2 border-[#F39D39] text-black "
+                className="rounded-full p-3 border-2 border-[#F39D39] text-black "
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Username*"
               />
@@ -72,9 +72,9 @@ const ForgotPassword = () => {
               ]}
             >
               <Input
-                className="rounded-full p-4 border-2 border-[#F39D39] text-black"
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Email"
+                className="rounded-full p-3 border-2 border-[#F39D39] text-black"
+                prefix={<MailOutlined className="site-form-item-icon" />}
+                placeholder="Email*"
               />
             </Form.Item>
 
@@ -82,7 +82,7 @@ const ForgotPassword = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-4 pb-4 h-fit"
+                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit"
                 style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 Verify
@@ -92,16 +92,14 @@ const ForgotPassword = () => {
         </div>
 
         <div>
-          <h4 className="font-bold mt-3 mb-2">Already have an account?</h4>
-          {/* day la link router */}
+          <h4 className="font-bold">Already have an account?</h4>
           <Link className="text-[#D07F1F] underline underline-offset-2" to="/signin">
             Sign In
           </Link>
         </div>
 
         <div>
-          <h4 className="font-bold mt-3 mb-2">Don't have an account?</h4>
-          {/* day la link router */}
+          <h4 className="font-bold mt-3">Don't have an account?</h4>
           <Link className="text-[#D07F1F] underline underline-offset-2" to="/signup">
             Sign up
           </Link>

@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Checkbox, Button } from 'antd';
-
-import 'sweetalert2/src/sweetalert2.scss';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS } from '../../constants';
@@ -48,7 +47,11 @@ const Signup = () => {
                 },
               ]}
             >
-              <Input className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Username*" />
+              <Input
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder="Username*"
+                prefix={<UserOutlined className="site-form-item-icon" />}
+              />
             </Form.Item>
             <Form.Item
               name={FORM_FIELDS.EMAIL}
@@ -63,7 +66,11 @@ const Signup = () => {
                 },
               ]}
             >
-              <Input className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Email*" />
+              <Input
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder="Email*"
+                prefix={<MailOutlined className="site-form-item-icon" />}
+              />
             </Form.Item>
 
             <Form.Item
@@ -76,7 +83,11 @@ const Signup = () => {
               ]}
               hasFeedback
             >
-              <Input.Password className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Password*" />
+              <Input.Password
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder="Password*"
+                prefix={<LockOutlined className="site-form-item-icon" />}
+              />
             </Form.Item>
 
             <Form.Item
@@ -98,7 +109,11 @@ const Signup = () => {
                 }),
               ]}
             >
-              <Input.Password className="rounded-full p-4 border-2 border-[#F39D39] " placeholder="Confirm Password*" />
+              <Input.Password
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder="Confirm Password*"
+                prefix={<LockOutlined className="site-form-item-icon" />}
+              />
             </Form.Item>
             <Form.Item
               name="agreement"
@@ -111,14 +126,18 @@ const Signup = () => {
               ]}
             >
               <Checkbox>
-                I have read the <Link href="">agreement</Link>
+                I have read the
+                <Link href="" className="font-bold">
+                  {' '}
+                  Terms And Policy
+                </Link>
               </Checkbox>
             </Form.Item>
             <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
-                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-4 pb-4 h-fit"
+                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit "
                 style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 Register
@@ -128,8 +147,7 @@ const Signup = () => {
         </div>
 
         <div>
-          <h4 className="font-bold mb-2">Already have an account?</h4>
-          {/* day la link router */}
+          <h4 className="font-bold mb-1">Already have an account?</h4>
           <Link className="text-[#D07F1F] underline underline-offset-2" to="/signin">
             Sign in
           </Link>
