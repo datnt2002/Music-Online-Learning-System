@@ -33,7 +33,7 @@ const Homepage = () => {
           <h6 className="mb-7">Courses to get you started</h6>
           <Button className="mb-6">Most popular</Button>
           <Button>Trending</Button>
-          <div className="flex">
+          <div className="flex gap-3">
             {Courses.map((course, index) => {
               return (
                 <Card hoverable cover={<img alt="example" src={course.image} />}>

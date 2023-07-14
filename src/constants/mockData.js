@@ -3,7 +3,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -13,7 +13,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -23,7 +23,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -33,7 +33,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -43,7 +43,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -53,7 +53,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -63,7 +63,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -73,7 +73,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -83,7 +83,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -93,7 +93,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -103,7 +103,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -113,7 +113,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -123,7 +123,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -133,7 +133,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -143,7 +143,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -153,7 +153,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
@@ -163,7 +163,7 @@ export const Courses = [
     id: 1,
     title: 'Course Title',
     price: '500,000',
-    image: '../assets/imgs/ngol.jpg',
+    image: require('../assets/imgs/ngol.jpg'),
     author: 'Dat dep zai',
     rating: '4.5',
     description:
