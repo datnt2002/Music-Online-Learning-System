@@ -1,8 +1,7 @@
 import React from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 
-const HeaderAuthen = () => {
+const AvatarDropdown = () => {
   return (
     <>
       <ShoppingCartOutlined />
@@ -17,4 +16,4 @@ const HeaderAuthen = () => {
   );
 };
 
-export default HeaderAuthen;
+export default AvatarDropdown;

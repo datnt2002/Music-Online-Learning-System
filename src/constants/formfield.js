@@ -3,4 +3,5 @@ export const FORM_FIELDS = {
   PASSWORD: 'password',
   EMAIL: 'email',
   CONFIRM_PASSWORD: 'confirm_password',
+  SEARCH: 'search',
 };

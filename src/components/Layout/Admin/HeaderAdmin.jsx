@@ -13,7 +13,14 @@ const HeaderAdmin = () => {
       <Header className="flex items-center bg-[#F39D39] ">
         <div className="demo-logo text-[#F5F5F5]">LauGau</div>
         <Search placeholder="input search text" onSearch={onSearch} enterButton />
-        <Avatar size="large" icon={<UserOutlined />} />
+        <div className="group relative">
+          <Avatar className="" size="large" icon={<UserOutlined />} />
+          <div className="absolute hidden w-8 group-hover:block">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
       </Header>
     </Layout>
   );
