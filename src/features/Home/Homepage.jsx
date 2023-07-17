@@ -5,6 +5,7 @@ import Meta from 'antd/es/card/Meta';
 import { Footer } from 'antd/es/layout/layout';
 import { Categories, Courses } from '../../constants/mockData';
 import { RightOutlined } from '@ant-design/icons';
+import ListContainer from '../../components/Container/ListCourses';
 
 const Homepage = () => {
   return (
@@ -29,34 +30,15 @@ const Homepage = () => {
 
       {/* course to get start */}
       <div className="ml-32 mr-32 mt-14">
-        <div>
-          <h6 className="mb-7">Courses to get you started</h6>
-          <Button className="mb-6">Most popular</Button>
-          <Button>Trending</Button>
-          <div className="flex gap-3">
-            {Courses.map((course, index) => {
-              return (
-                <Card hoverable cover={<img alt="example" src={course.image} />}>
-                  <Meta
-                    title={course.title}
-                    description={
-                      <>
-                        <h4>{course.author}</h4>
-                        <h3>{course.rating}</h3>
-                        <h1>{course.price}$</h1>
-                      </>
-                    }
-                  />
-                </Card>
-              );
-            })}
-          </div>
-        </div>
+        <h6 className="mb-7">Courses to get you started</h6>
+        <Button className="mb-6">Most popular</Button>
+        <Button>Trending</Button>
+        <ListContainer data={Courses} />
 
         {/* Feature courses */}
-        <div>
-          <h3>Feature courses</h3>
-          <div>
+        {/* <div> */}
+        <h3>Feature courses</h3>
+        {/* <div>
             <Card
               hoverable
               style={{ width: 240 }}
@@ -65,8 +47,8 @@ const Homepage = () => {
               <Meta title="Europe Street beat" description="www.instagram.com" />
             </Card>
           </div>
-        </div>
-
+        </div> */}
+        <ListContainer data={Courses} />
         {/* course to get start */}
         <div>
           <h3>Courses to get you started</h3>
