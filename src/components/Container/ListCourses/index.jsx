@@ -1,42 +1,47 @@
 import { Card, Col, Row } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const ListContainer = ({ data }) => {
+  const [width, setWidth] = useState(0);
+  const carousel = useRef();
+
+  useEffect(() => {
+    setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+  }, []);
+
   return (
-    <Row
-      justify="space-between"
-      wrap={false}
-      className="overflow-x-auto snap-x scroll-pl-2"
-      gutter={{ xs: 8, sm: 16, md: 24, lg: 28 }}
-    >
-      {data.map((course, index) => {
-        return (
-          <Col lg={4} md={5}>
-            <Card
-              hoverable
-              cover={
-                <div>
-                  <img alt="example" src={course.image} className=" aspect-video" />
-                </div>
-              }
-              className="snap-start"
-            >
-              <Meta
-                title={course.title}
-                description={
-                  <>
-                    <h4>{course.author}</h4>
-                    <h3>{course.rating}</h3>
-                    <h1>{course.price}$</h1>
-                  </>
+    <motion.div ref={carousel} className="overflow-hidden">
+      <motion.div drag="x" dragConstraints={{ right: 0, left: -width }} className="grid grid-flow-col gap-3">
+        {data.map((course, index) => {
+          return (
+            <motion.div className="">
+              <Card
+                hoverable
+                cover={
+                  <div>
+                    <img alt="example" src={course.image} className="aspect-video col-span-3" />
+                  </div>
                 }
-              />
-            </Card>
-          </Col>
-        );
-      })}
-    </Row>
+                className="snap-start"
+              >
+                <Meta
+                  title={course.title}
+                  description={
+                    <>
+                      <h4>{course.author}</h4>
+                      <h3>{course.rating}</h3>
+                      <h1>{course.price}$</h1>
+                    </>
+                  }
+                />
+              </Card>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+    </motion.div>
   );
 };
 
