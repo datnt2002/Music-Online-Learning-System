@@ -11,6 +11,13 @@ const HeaderDefault = () => {
   const handleSearch = (values) => {
     console.log('Success:', values);
   };
+
+  let isAuthenticated = false;
+  if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
+    isAuthenticated = true;
+  }
+  console.log(isAuthenticated);
+
   return (
     <Layout>
       <Header className="flex items-center bg-[#F39D39] h-16">
@@ -29,10 +36,7 @@ const HeaderDefault = () => {
           <Link to="">About us</Link>
         </div>
 
-        <div className="flex basis-32">
-          <AuthenticationButton />
-          {/* <AvatarDropdown /> */}
-        </div>
+        <div className="flex basis-32">{isAuthenticated ? <AvatarDropdown /> : <AuthenticationButton />}</div>
 
         {/* dark mode */}
         <div className="flex basis-20"></div>
