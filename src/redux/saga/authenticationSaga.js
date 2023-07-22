@@ -9,7 +9,6 @@ import {
   signInFail,
   signInSuccess,
   signupAction,
-  signupFail,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { API_ERROR } from '../../constants';
@@ -72,7 +71,7 @@ function* signUpSaga() {
         case result.code === 200:
           Swal.fire({
             title: result.message,
-            width: 600,
+            width: 850,
             padding: '3em',
             color: '#716add',
             background: `#fff `,
@@ -85,7 +84,6 @@ function* signUpSaga() {
             confirmButtonText: 'Got it',
           }).then((result) => {
             if (result.isConfirmed) {
-              console.log('I was closed by the timer');
               navigate('/signin');
             }
           });
@@ -93,14 +91,17 @@ function* signUpSaga() {
         case result.data.code === 409:
           Swal.fire({
             icon: 'error',
-            title: 'Oops...',
-            text: API_ERROR.DEFAULT,
+            title: API_ERROR.CHECK_USERNAME_OR_EMAIL,
+            text: result.data.message || API_ERROR.DEFAULT,
           });
-          yield put(signupFail(result));
           break;
-        case result.code === 400:
-          yield put(signupFail(result));
-          break;
+        // case result.code === 400:
+        //   Swal.fire({
+        //     icon: 'error',
+        //     title: 'Oops...',
+        //     text: result.data.message || API_ERROR.DEFAULT,
+        //   });
+        //   break;
         default:
           break;
       }

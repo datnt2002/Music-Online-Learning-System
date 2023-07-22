@@ -34,7 +34,7 @@ axiosClient.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     // Show error
-    console.log('eerroreor', error.response.data);
+    console.log('interceptor', error.response.data);
     switch (true) {
       case error.response.data.code === 401:
         Swal.fire({
