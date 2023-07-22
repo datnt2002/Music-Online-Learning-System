@@ -5,9 +5,11 @@ import ContentAdmin from '../features/Admin/ContentAdmin';
 import Homepage from '../features/Home/Homepage';
 import Profile from '../features/Profile/Profile';
 import AuthorRoute from '../components/Common/AuthorRoute';
+import CourseDetail from '../features/Home/CourseDetail';
 
 export const publicRoutes = [
   { path: '/', element: <Homepage /> },
+  { path: '/course-detail', element: <CourseDetail /> },
   {
     path: '*',
     element: <NotFound />,
