@@ -85,7 +85,6 @@ const ManageListAccount = () => {
           padding: 24,
           margin: 0,
           minHeight: 280,
-          //   background: colorBgContainer,
         }}
       >
         <Table columns={columns} dataSource={data} onChange={onChange} />

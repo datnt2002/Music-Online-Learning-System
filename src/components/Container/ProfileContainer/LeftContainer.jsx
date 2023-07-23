@@ -1,27 +1,47 @@
 import React from 'react';
 import { AntDesignOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
-
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar, Button } from 'antd';
+import { EditOutlined, EllipsisOutlined, SettingOutlined, ContactsOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
+import { Link } from 'react-router-dom';
+
 const { Meta } = Card;
+
 const LeftContainer = () => {
   return (
-    <>
+    <div className="flex flex-col items-center">
       {/* avatar */}
-      <div>
+      <div className="text-center">
         <Avatar
-          size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+          size={110}
           icon={<AntDesignOutlined />}
           src="https://www.astonvet.com/images/blog/fat-dog.jpg"
+          className="mb-2"
         />
 
-        <h2>Nguyen Trong Dat</h2>
-        <h2>Major</h2>
-        <h2>Location</h2>
+        <h1 className="text-2xl font-semibold">Nguyen Trong Dat</h1>
+        <p>Ke huy diet UI</p>
+        <p className="my-3">Ha Noi, Viet Nam</p>
 
-        <button>Edit your profile</button>
-        <button>teach on gauaguaang ang</button>
+        <Link>
+          <Button
+            type="primary"
+            className="rounded-full w-full text-white font-bold text-base py-2 h-fit"
+            icon={<EditOutlined />}
+          >
+            Edit your profile
+          </Button>
+        </Link>
+
+        <Link>
+          <Button
+            type="primary"
+            className="rounded-full w-full text-white font-bold text-base py-2 h-fit my-4"
+            icon={<ContactsOutlined />}
+          >
+            Teach on aleualeu
+          </Button>
+        </Link>
       </div>
 
       <Card
@@ -44,7 +64,7 @@ const LeftContainer = () => {
       <h2>Nguyen Trong Dat</h2>
       <h2>Major</h2>
       <h2>Location</h2>
-    </>
+    </div>
   );
 };
 
