@@ -1,6 +1,6 @@
+import React from 'react';
 import { Breadcrumb, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import React from 'react';
 
 import { Table } from 'antd';
 const columns = [
@@ -67,7 +67,7 @@ const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 
-const ContentAdmin = () => {
+const ManageListAccount = () => {
   return (
     <Layout
       style={{
@@ -94,4 +94,4 @@ const ContentAdmin = () => {
   );
 };
 
-export default ContentAdmin;
+export default ManageListAccount;

@@ -1,7 +1,11 @@
 import React from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const AvatarDropdown = () => {
+  const userInfo = useSelector((state) => state.authentication.currentUser);
+  console.log(userInfo);
   return (
     <>
       <div className="">
@@ -22,8 +26,8 @@ const AvatarDropdown = () => {
               alt="avatar"
               className="w-10 rounded-full aspect-square"
             />
-            <h3>Datnt</h3>
-            <h2>ehehehhhhhhhhhhhh</h2>
+            <Link to="/profile">{userInfo.username}</Link>
+            <h2>{userInfo.email}</h2>
           </div>
           <div>
             <h3>My Learning</h3>

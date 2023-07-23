@@ -1,26 +1,34 @@
 import React from 'react';
-
-import { Layout } from 'antd';
+import { Form, Input, Layout } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import { Header } from 'antd/es/layout/layout';
-import Search from 'antd/es/input/Search';
-import Avatar from 'antd/es/avatar/avatar';
-import { UserOutlined } from '@ant-design/icons';
+
+import { FORM_FIELDS } from '../../../constants/formfield';
+import AvatarDropdown from '../User/HeaderComponent/AvatarDropdown';
 
 const HeaderAdmin = () => {
-  const onSearch = (value) => console.log(value);
+  const handleSearch = (values) => {
+    console.log('Success:', values);
+  };
+
   return (
     <Layout>
-      <Header className="flex items-center bg-[#F39D39] ">
-        <div className="demo-logo text-[#F5F5F5]">LauGau</div>
-        <Search placeholder="input search text" onSearch={onSearch} enterButton />
-        <div className="group relative">
-          <Avatar className="" size="large" icon={<UserOutlined />} />
-          <div className="absolute hidden w-8 group-hover:block">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div>
+      <Header className="flex items-center bg-[#F39D39] h-16">
+        {/* Logo */}
+        <div className="flex basis-32 text-[#F5F5F5] text-xl ">LauGau</div>
+        {/* Searchbox */}
+        <Form onFinish={handleSearch} className="flex flex-1 justify-center h-full">
+          <Form.Item name={FORM_FIELDS.SEARCH} className="w-2/3">
+            <Input prefix={<SearchOutlined />} className="rounded-full top-4" />
+          </Form.Item>
+        </Form>
+
+        <div className="flex basis-32">
+          <AvatarDropdown />
         </div>
+
+        {/* dark mode */}
+        <div className="flex basis-20"></div>
       </Header>
     </Layout>
   );

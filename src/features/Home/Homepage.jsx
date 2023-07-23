@@ -10,7 +10,7 @@ import ListContainer from '../../components/Container/ListCourses';
 const Homepage = () => {
   return (
     <div>
-      <HeaderDefault />
+      {/* <HeaderDefault /> */}
       {/* sub nav */}
       <div
         className="bg-[#F39D39] h-16 rounded-full mt-4 ml-11 mr-11"

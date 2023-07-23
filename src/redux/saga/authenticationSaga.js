@@ -38,7 +38,7 @@ function* signInSaga() {
             sessionStorage.setItem('token', result.data.token);
           }
 
-          if (result.data.user.Role.Rolename === 'admin') {
+          if (result.data.user.Role.Rolename === 'ADMIN') {
             console.log('vao admin');
             navigate('/admin');
           } else {
