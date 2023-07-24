@@ -20,8 +20,8 @@ const Profile = () => {
         </div>
 
         {/* right container */}
-        <div className="flex-1">
-          <RightContainer className="" />
+        <div className="flex-1 mt-36 ml-12 mb-12">
+          <RightContainer />
         </div>
       </div>
       {/* left container */}

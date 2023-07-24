@@ -1,5 +1,4 @@
 import React from 'react';
-import HeaderDefault from '../../components/Layout/User/HeaderDefault';
 import { Button, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import { Footer } from 'antd/es/layout/layout';
@@ -10,7 +9,6 @@ import ListContainer from '../../components/Container/ListCourses';
 const Homepage = () => {
   return (
     <div>
-      {/* <HeaderDefault /> */}
       {/* sub nav */}
       <div
         className="bg-[#F39D39] h-16 rounded-full mt-4 ml-11 mr-11"

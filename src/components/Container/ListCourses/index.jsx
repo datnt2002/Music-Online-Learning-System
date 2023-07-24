@@ -1,4 +1,4 @@
-import { Card, Col, Row } from 'antd';
+import { Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
