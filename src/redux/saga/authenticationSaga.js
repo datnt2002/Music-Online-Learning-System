@@ -9,6 +9,8 @@ import {
   signInFail,
   signInSuccess,
   signupAction,
+  signupFail,
+  signupSuccess,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { API_ERROR } from '../../constants';
@@ -87,6 +89,7 @@ function* signUpSaga() {
               navigate('/signin');
             }
           });
+          yield put(signupSuccess(result));
           break;
         case result.data.code === 409:
           Swal.fire({
@@ -94,6 +97,7 @@ function* signUpSaga() {
             title: API_ERROR.CHECK_USERNAME_OR_EMAIL,
             text: result.data.message || API_ERROR.DEFAULT,
           });
+          yield put(signupFail(result));
           break;
         // case result.code === 400:
         //   Swal.fire({
