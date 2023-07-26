@@ -13,7 +13,6 @@ const Homepage = () => {
 
   useEffect(() => {
     dispatch(getListCourseAction());
-
     return () => {};
   }, []);
 
@@ -30,9 +29,13 @@ const Homepage = () => {
               Music <RightOutlined />
             </h1>
           </div>
-          {Categories.map((category, index) => {
-            return <p className=" flex-1">{category.title}</p>;
-          })}
+          {Categories.length > 0 ? (
+            Categories.map((category, index) => {
+              return <p className=" flex-1">{category.title}</p>;
+            })
+          ) : (
+            <div>áa</div>
+          )}
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import AuthorRoute from '../components/Common/AuthorRoute';
 import CourseDetail from '../features/Home/CourseDetail';
 import ManageListAccount from '../features/Admin/ManageListAccount';
 import HeaderDefault from '../components/Layout/User/HeaderDefault';
+import ManageListCourses from '../features/Admin/ManageListCourses';
 
 export const publicRoutes = [
   {
@@ -38,10 +39,18 @@ export const privateRoutes = [
 
 export const adminRoutes = [
   {
-    path: '/admin',
+    path: '/admin/list-accounts',
     element: (
       <AdminRoute>
         <ManageListAccount />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: '/admin/list-courses',
+    element: (
+      <AdminRoute>
+        <ManageListCourses />
       </AdminRoute>
     ),
   },
