@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Breadcrumb, Layout } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../components/Container/TableAdmin';
+import { getListAccountAction } from '../../redux/slice/userSlice';
 
 const ManageListAccount = () => {
+  const dispatch = useDispatch();
+  const listAccounts = useSelector((state) => state.user.listAccount);
+  console.log(listAccounts);
+  useEffect(() => {
+    dispatch(getListAccountAction());
+    return () => {};
+  }, []);
+
   return (
     <Layout
       style={{

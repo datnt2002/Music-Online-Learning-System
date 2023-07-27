@@ -13,6 +13,7 @@ const ManageListCourses = () => {
 
   useEffect(() => {
     dispatch(getListCourseAction());
+    return () => {};
   }, []);
 
   return (

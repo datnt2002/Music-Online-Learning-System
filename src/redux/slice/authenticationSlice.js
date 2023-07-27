@@ -5,11 +5,6 @@ const initialState = {
   currentUser: null,
   token: '',
   loading: false,
-  // isSignUpSuccess: false,
-  // error: {
-  //   signIn: null,
-  //   signUp: null,
-  // },
 };
 
 export const authenticationSlice = createSlice({
@@ -28,7 +23,6 @@ export const authenticationSlice = createSlice({
     },
     signInFail: (state, action) => {
       state.loading = false;
-      // state.error.signIn = action.payload;
     },
     logout: (state) => {
       state.isLoggedIn = false;
@@ -39,11 +33,9 @@ export const authenticationSlice = createSlice({
     },
     signupSuccess: (state, action) => {
       state.loading = false;
-      // state.isSignUpSuccess = true;
     },
     signupFail: (state, action) => {
       state.loading = false;
-      // state.error.signUp = action.payload;
     },
     forgotPasswordAction: (state, action) => {},
   },

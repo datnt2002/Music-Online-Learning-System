@@ -19,10 +19,9 @@ export const courseSlice = createSlice({
     getListCourseFail: (state) => {
       state.loading = false;
     },
-    setListCourse: (state, action) => {},
   },
 });
 
-export const { getListCourseAction, getListCourseSuccess, getListCourseFail, setListCourse } = courseSlice.actions;
+export const { getListCourseAction, getListCourseSuccess, getListCourseFail } = courseSlice.actions;
 
 export default courseSlice.reducer;
