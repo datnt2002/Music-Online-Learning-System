@@ -40,9 +40,9 @@ const TableAdmin = ({ dataSource }) => {
       onChange={onChange}
       className="max-w-full"
       scroll={{ x: totalColumnsWidth }}
-      expandable={{
-        defaultExpandAllRows: true,
-      }}
+      // expandable={{
+      //   defaultExpandAllRows: true,
+      // }}
     />
   );
 };
