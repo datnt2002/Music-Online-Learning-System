@@ -9,6 +9,7 @@ import ManageListAccount from '../features/Admin/ManageListAccount';
 import HeaderDefault from '../components/Layout/User/HeaderDefault';
 import ManageListCourses from '../features/Admin/ManageListCourses';
 
+
 export const publicRoutes = [
   {
     path: '/',

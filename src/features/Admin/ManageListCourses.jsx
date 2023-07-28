@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Breadcrumb, Layout } from 'antd';
+import { Breadcrumb, Layout, Skeleton } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListCourseAction } from '../../redux/slice/courseSlice';
-
 import TableAdmin from '../../components/Container/TableAdmin';
 
 const ManageListCourses = () => {
@@ -36,7 +35,7 @@ const ManageListCourses = () => {
           minHeight: 280,
         }}
       >
-        <TableAdmin dataSource={listCourse} />
+        {listCourse ? <TableAdmin dataSource={listCourse} /> : <Skeleton active />}
       </Content>
     </Layout>
   );

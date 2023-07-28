@@ -5,8 +5,8 @@ const TableAdmin = ({ dataSource }) => {
   const titleColumnList = dataSource.map((course) => {
     return Object.keys(course);
   });
-
-  const columns = titleColumnList[0].map((column, index) => {
+// the result of titleColumnList is [[]] so flat array ;
+  const columns = titleColumnList.flat().map((column, index) => {
     const data = {
       title: column,
       dataIndex: column,

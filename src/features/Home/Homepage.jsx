@@ -11,10 +11,10 @@ import { getListCourseAction } from '../../redux/slice/courseSlice';
 const Homepage = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getListCourseAction());
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getListCourseAction());
+  //   return () => {};
+  // }, []);
 
   return (
     <div>
