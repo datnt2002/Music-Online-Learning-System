@@ -9,7 +9,7 @@ export const courseSlice = createSlice({
   name: 'course',
   initialState,
   reducers: {
-    getListCourseAction: (state) => {
+    getListCourseAction: (state, action) => {
       state.loading = true;
     },
     getListCourseSuccess: (state, action) => {

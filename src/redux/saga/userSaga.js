@@ -10,6 +10,8 @@ function* getListAccountSaga() {
       const result = yield call(getListUser);
       console.log(result);
 
+
+      // doan nay la sw case
       if (result.data) {
         yield put(getListAccountSuccess(result.data));
       } else {

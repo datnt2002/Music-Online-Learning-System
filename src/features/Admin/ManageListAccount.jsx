@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Breadcrumb, Layout } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 
 import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../components/Container/TableAdmin';
-import { getListAccountAction } from '../../redux/slice/userSlice';
 import { Courses } from '../../constants/mockData';
 
 const ManageListAccount = () => {
-  const dispatch = useDispatch();
-  const listAccounts = useSelector((state) => state.user.listAccount);
+  const listAccounts = useSelector((state) => state.user.listAccounts);
   console.log(listAccounts);
-  useEffect(() => {
-    dispatch(getListAccountAction());
-    return () => {};
-  }, []);
 
   return (
     <Layout

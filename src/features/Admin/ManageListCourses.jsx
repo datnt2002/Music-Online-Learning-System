@@ -1,20 +1,13 @@
-import React, { useEffect } from 'react';
-import { Breadcrumb, Layout, Skeleton } from 'antd';
+import React from 'react';
+import { Breadcrumb, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { useDispatch, useSelector } from 'react-redux';
-import { getListCourseAction } from '../../redux/slice/courseSlice';
+import {  useSelector } from 'react-redux';
 import TableAdmin from '../../components/Container/TableAdmin';
 
 const ManageListCourses = () => {
-  const dispatch = useDispatch();
   const listCourse = useSelector((state) => state.course.listCourse);
   console.log(listCourse);
-
-  useEffect(() => {
-    dispatch(getListCourseAction());
-    return () => {};
-  }, []);
-
+  
   return (
     <Layout
       style={{
@@ -35,7 +28,7 @@ const ManageListCourses = () => {
           minHeight: 280,
         }}
       >
-        {listCourse ? <TableAdmin dataSource={listCourse} /> : <Skeleton active />}
+       <TableAdmin dataSource={listCourse} /> 
       </Content>
     </Layout>
   );

@@ -1,8 +1,9 @@
 import axiosClient from './api.service';
 
-export const getListCourses = () => {
+export const getListCourses = ( pageSize) => {
+  console.log(pageSize);
   return axiosClient
-    .get('courses', { params: { pageIndex: 1, pageSize: 1 } })
+    .get('courses', { params: { pageIndex: 1, pageSize: pageSize } })
     .then((res) => {
       return res;
     })

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
-  listAccount: [],
+  listAccounts: [],
 };
 
 export const userSlice = createSlice({
@@ -14,7 +14,7 @@ export const userSlice = createSlice({
     },
     getListAccountSuccess: (state, action) => {
       state.loading = false;
-      state.listAccount = action.payload;
+      state.listAccounts = action.payload;
     },
     getListAccountFail: (state) => {
       state.loading = false;
