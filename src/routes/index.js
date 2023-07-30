@@ -8,6 +8,7 @@ import CourseDetail from '../features/Home/CourseDetail';
 import ManageListAccount from '../features/Admin/ManageListAccount';
 import HeaderDefault from '../components/Layout/User/HeaderDefault';
 import ManageListCourses from '../features/Admin/ManageListCourses';
+import CreateCourse from '../features/Lecturer/CreateCourse';
 
 
 export const publicRoutes = [
@@ -33,6 +34,14 @@ export const privateRoutes = [
     element: (
       <AuthorRoute>
         <Profile />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: '/create-course',
+    element: (
+      <AuthorRoute>
+        <CreateCourse />
       </AuthorRoute>
     ),
   },

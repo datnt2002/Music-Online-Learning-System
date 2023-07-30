@@ -1,6 +1,6 @@
 import { fork, call, take, put } from 'redux-saga/effects';
 import { getListCourses } from '../../services/course.service';
-import { getListCourseAction, getListCourseFail, getListCourseSuccess } from '../slice/courseSlice';
+import { createNewCourseAction, getListCourseAction, getListCourseFail, getListCourseSuccess } from '../slice/courseSlice';
 
 function* getListCourseSaga() {
   while (true) {
@@ -22,6 +22,19 @@ function* getListCourseSaga() {
 }
 // }
 
+function* createNewCourseSaga(){
+  while(true){
+    try {
+      const {payload: {courseName }} = yield take(createNewCourseAction)
+      console.log(courseName);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+
 export default function* courseSaga() {
   yield fork(getListCourseSaga);
+  yield fork(createNewCourseSaga);
 }
