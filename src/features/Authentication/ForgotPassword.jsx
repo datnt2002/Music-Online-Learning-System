@@ -28,7 +28,7 @@ const ForgotPassword = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      <div className="self-center mr-8 w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
+      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
         {/* name page */}
         <div>
           <h1 className="text-3xl font-bold">LAUGAU</h1>
