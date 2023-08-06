@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, Rate } from 'antd';
+import { Breadcrumb, Button, Rate } from 'antd';
 import {
   ClockCircleOutlined,
   CheckCircleOutlined,
@@ -10,7 +10,7 @@ import {
 
 const CourseDetail = () => {
   return (
-    <>
+    <div className="">
       {/* brief course */}
       <div className="bg-black text-white py-14">
         <div className="mx-auto max-w-7xl">
@@ -58,6 +58,27 @@ const CourseDetail = () => {
               <h3>Vietnamese</h3>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* right container */}
+      <div className="bg-slate-600 fixed top-12 right-28 w-96">
+        <div className='w-full'>
+          <img className='aspect-video' src="https://t4.ftcdn.net/jpg/05/72/27/49/360_F_572274911_DJnVr6x6Q2CoyZlDnasqirIga0sDR54H.jpg" alt="" />
+        </div>
+        <div className='flex flex-col p-8'>
+          <div className='flex flex-col flex-1'>
+            <h1>1000000VND</h1>
+            <Button>Add to Cart</Button>
+            <Button>Buy Now</Button>
+          </div>
+          <p>This course includes</p>
+          <p>This course includes</p>
+          <p>This course includes</p>
+          <p>This course includes</p>
+          <p>This course includes</p>
+          <p>This course includes</p>
+          <p>This course includes</p>
         </div>
       </div>
 
@@ -164,12 +185,14 @@ const CourseDetail = () => {
           </div>
 
           {/* cmt and rating */}
-          <div></div>
+          <div>
+            <h2 className="text-xl mb-4">Rating And Comments</h2>
+            <hr />
+            <div>dfaerwfasfew</div>
+          </div>
         </div>
-
-        {/* add to cart box */}
       </div>
-    </>
+    </div>
   );
 };
 
