@@ -10,7 +10,7 @@ export const courseSlice = createSlice({
   name: 'course',
   initialState,
   reducers: {
-    getListCourseAction: (state, action) => {
+    getListCourseAction: (state) => {
       state.loading = true;
     },
     getListCourseSuccess: (state, action) => {
@@ -20,7 +20,7 @@ export const courseSlice = createSlice({
     getListCourseFail: (state) => {
       state.loading = false;
     },
-    createNewCourseAction: (state, action) => {
+    createNewCourseAction: (state) => {
       state.loading = true;
     },
     createNewCourseSuccess: (state, action) => {

@@ -1,14 +1,21 @@
 import { fork, call, take, put } from 'redux-saga/effects';
 import { getListCourses } from '../../services/course.service';
-import { createNewCourseAction, getListCourseAction, getListCourseFail, getListCourseSuccess } from '../slice/courseSlice';
+import {
+  createNewCourseAction,
+  getListCourseAction,
+  getListCourseFail,
+  getListCourseSuccess,
+} from '../slice/courseSlice';
 
 function* getListCourseSaga() {
   while (true) {
     try {
-    const {payload: {pageSize}} =  yield take(getListCourseAction);
-    console.log(pageSize);
-    const result = yield call(getListCourses,{ pageSize});
-    console.log(result);
+      const {
+        payload: { pageSize },
+      } = yield take(getListCourseAction);
+      console.log(pageSize);
+      const result = yield call(getListCourses, { pageSize });
+      console.log(result);
 
       if (result.data) {
         yield put(getListCourseSuccess(result.data));
@@ -22,17 +29,18 @@ function* getListCourseSaga() {
 }
 // }
 
-function* createNewCourseSaga(){
-  while(true){
+function* createNewCourseSaga() {
+  while (true) {
     try {
-      const {payload: {courseName }} = yield take(createNewCourseAction)
+      const {
+        payload: { courseName },
+      } = yield take(createNewCourseAction);
       console.log(courseName);
     } catch (error) {
       console.log(error);
     }
   }
 }
-
 
 export default function* courseSaga() {
   yield fork(getListCourseSaga);

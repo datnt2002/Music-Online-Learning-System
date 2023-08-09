@@ -29,14 +29,21 @@ export const AdminRoute = ({ children }) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getListCourseAction({
-      pageSize: 5
-    }));
+    dispatch(
+      getListCourseAction({
+        pageSize: 5,
+      })
+    );
     return () => {};
   }, []);
 
-    useEffect(() => {
-    dispatch(getListAccountAction());
+  useEffect(() => {
+    dispatch(
+      getListAccountAction({
+        pageSize: 4,
+        token: hasTokenInLocal ? hasTokenInLocal : hasTokenInSession
+      })
+    );
     return () => {};
   }, []);
 

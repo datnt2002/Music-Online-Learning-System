@@ -5,11 +5,12 @@ import { getListUser } from '../../services/account.service';
 function* getListAccountSaga() {
   while (true) {
     try {
-      yield take(getListAccountAction);
-
-      const result = yield call(getListUser);
+      const {
+        payload: { pageSize, token },
+      } = yield take(getListAccountAction);
+      console.log(pageSize, token);
+      const result = yield call(getListUser, { pageSize, token });
       console.log(result);
-
 
       // doan nay la sw case
       if (result.data) {

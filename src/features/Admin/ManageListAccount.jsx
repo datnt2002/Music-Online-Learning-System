@@ -29,7 +29,7 @@ const ManageListAccount = () => {
           minHeight: 280,
         }}
       >
-        <TableAdmin dataSource={Courses} />
+        <TableAdmin dataSource={listAccounts} />
       </Content>
     </Layout>
   );
