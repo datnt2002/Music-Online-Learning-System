@@ -119,12 +119,37 @@ function* forgotPasswordSaga() {
   while (true) {
     try {
       const {
-        payload: { username, email },
+        payload: { username, email, navigate },
       } = yield take(forgotPasswordAction);
 
       console.log(username, email);
       const result = yield call(forgotPassword, { username, email });
       console.log(result);
+      switch (true) {
+        case result.code === 200:
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate('/signin');
+            }
+          });
+          break;
+      
+        default:
+          break;
+      }
     } catch (error) {
       console.log(error);
     }

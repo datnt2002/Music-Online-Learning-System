@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
@@ -10,12 +10,13 @@ import { forgotPasswordAction } from '../../redux/slice/authenticationSlice';
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const handleForgotPassword = (values) => {
     dispatch(
       forgotPasswordAction({
         username: values.username,
         email: values.email,
+        navigate
       })
     );
     console.log(values);
