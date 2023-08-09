@@ -1,5 +1,5 @@
 import { fork, call, take, put } from 'redux-saga/effects';
-import { getListCourses } from '../../services/course.service';
+import { createNewCourse, getListCourses } from '../../services/course.service';
 import {
   createNewCourseAction,
   getListCourseAction,
@@ -33,9 +33,11 @@ function* createNewCourseSaga() {
   while (true) {
     try {
       const {
-        payload: { courseName },
+        payload: { courseName, price, isFree, subCateId, description, token },
       } = yield take(createNewCourseAction);
-      console.log(courseName);
+      console.log( courseName, price, isFree, subCateId ,description );
+      const result = yield call(createNewCourse,  { courseName, price, isFree, subCateId, description, token })
+      console.log(result);
     } catch (error) {
       console.log(error);
     }

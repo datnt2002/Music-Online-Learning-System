@@ -4,7 +4,6 @@ import {  useSelector } from 'react-redux';
 
 import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../components/Container/TableAdmin';
-import { Courses } from '../../constants/mockData';
 
 const ManageListAccount = () => {
   const listAccounts = useSelector((state) => state.user.listAccounts);

@@ -16,7 +16,7 @@ import {
   Upload,
 } from 'antd'
 import TextArea from 'antd/es/input/TextArea';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { createNewCourseAction } from '../../redux/slice/courseSlice';
 
 
@@ -33,11 +33,18 @@ const normFile = (e) => {
 
 const CreateCourse = () => {
     const dispatch = useDispatch()
-
+    const token = useSelector(state=> state.authentication.token)
+    console.log(token);
     const onFinish = (values) => {
         console.log('form', values);
+        
         dispatch(createNewCourseAction({
-            courseName: values.CourseName
+            courseName: values.CourseName,
+            description: values.Description,
+            price: values.Price,
+            isFree: values.Price > 0 ? false : true, 
+            subCateId: values.Category,
+            token
         }))
     }
 

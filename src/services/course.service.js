@@ -1,9 +1,9 @@
 import axiosClient from './api.service';
 
-export const getListCourses = (pageSize) => {
-  console.log(pageSize);
+export const getListCourses = (data) => {
+  console.log(data);
   return axiosClient
-    .get('courses', { params: { pageIndex: 1, pageSize: pageSize } })
+    .get('courses', { params: { pageIndex: 1, pageSize: data.pageSize } })
     .then((res) => {
       return res;
     })
@@ -13,8 +13,9 @@ export const getListCourses = (pageSize) => {
 };
 
 export const createNewCourse = (data) => {
+  console.log(data);
   return axiosClient
-    .post('courses', data)
+    .post('courses', data, {headers: { Authorization: `Bearer ${data.token}` }} )
     .then((res) => {
       return res;
     })
