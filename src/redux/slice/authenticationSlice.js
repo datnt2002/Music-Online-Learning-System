@@ -37,7 +37,12 @@ export const authenticationSlice = createSlice({
     signupFail: (state, action) => {
       state.loading = false;
     },
-    forgotPasswordAction: (state, action) => {},
+    forgotPasswordAction: (state, action) => {
+      // state.loading = true
+    },
+    // forgotPasswordSuccess: (state) => {
+    //   state.loading = false
+    // }
   },
 });
 
