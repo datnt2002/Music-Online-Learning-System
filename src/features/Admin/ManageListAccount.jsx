@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb, Layout } from 'antd';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../components/Container/TableAdmin';

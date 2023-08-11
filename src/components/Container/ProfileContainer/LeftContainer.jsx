@@ -23,7 +23,7 @@ const LeftContainer = () => {
           <EnvironmentOutlined className="align-[0.125rem]" /> Ha Noi, Viet Nam
         </p>
 
-        <Link>
+        <Link to="/edit-profile">
           <Button
             type="primary"
             className="rounded-full w-full text-white font-bold text-base py-2 h-fit"

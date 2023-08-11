@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Checkbox, Button, Spin } from 'antd';
-import { LockOutlined, UserOutlined, MailOutlined, LoadingOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS } from '../../constants';

@@ -10,13 +10,13 @@ import { forgotPasswordAction } from '../../redux/slice/authenticationSlice';
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleForgotPassword = (values) => {
     dispatch(
       forgotPasswordAction({
         username: values.username,
         email: values.email,
-        navigate
+        navigate,
       })
     );
     console.log(values);

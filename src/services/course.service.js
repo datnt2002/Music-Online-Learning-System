@@ -15,7 +15,7 @@ export const getListCourses = (data) => {
 export const createNewCourse = (data) => {
   console.log(data);
   return axiosClient
-    .post('courses', data, {headers: { Authorization: `Bearer ${data.token}` }} )
+    .post('courses', data, { headers: { Authorization: `Bearer ${data.token}` } })
     .then((res) => {
       return res;
     })

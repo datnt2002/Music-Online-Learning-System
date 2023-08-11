@@ -11,7 +11,6 @@ import ManageListCourses from '../features/Admin/ManageListCourses';
 import CreateCourse from '../features/Lecturer/CreateCourse';
 import EditProfile from '../features/Profile/EditProfile';
 
-
 export const publicRoutes = [
   {
     path: '/',

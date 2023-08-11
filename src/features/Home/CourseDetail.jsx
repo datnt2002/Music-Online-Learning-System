@@ -63,11 +63,15 @@ const CourseDetail = () => {
 
       {/* right container */}
       <div className="bg-slate-600 fixed top-12 right-28 w-96">
-        <div className='w-full'>
-          <img className='aspect-video' src="https://t4.ftcdn.net/jpg/05/72/27/49/360_F_572274911_DJnVr6x6Q2CoyZlDnasqirIga0sDR54H.jpg" alt="" />
+        <div className="w-full">
+          <img
+            className="aspect-video"
+            src="https://t4.ftcdn.net/jpg/05/72/27/49/360_F_572274911_DJnVr6x6Q2CoyZlDnasqirIga0sDR54H.jpg"
+            alt=""
+          />
         </div>
-        <div className='flex flex-col p-8'>
-          <div className='flex flex-col flex-1'>
+        <div className="flex flex-col p-8">
+          <div className="flex flex-col flex-1">
             <h1>1000000VND</h1>
             <Button>Add to Cart</Button>
             <Button>Buy Now</Button>

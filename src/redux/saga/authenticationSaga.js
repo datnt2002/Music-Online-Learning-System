@@ -99,13 +99,6 @@ function* signUpSaga() {
           });
           yield put(signupFail(result));
           break;
-        // case result.code === 400:
-        //   Swal.fire({
-        //     icon: 'error',
-        //     title: 'Oops...',
-        //     text: result.data.message || API_ERROR.DEFAULT,
-        //   });
-        //   break;
         default:
           break;
       }

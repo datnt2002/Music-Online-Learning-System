@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react';
-import { Button, Card } from 'antd';
+import React from 'react';
 import Meta from 'antd/es/card/Meta';
-import { Footer } from 'antd/es/layout/layout';
-import { Categories, Courses } from '../../constants/mockData';
+import { Button, Card } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
+import { Footer } from 'antd/es/layout/layout';
+
+import { Categories, Courses } from '../../constants/mockData';
 import ListContainer from '../../components/Container/ListCourses';
-import { useDispatch } from 'react-redux';
-import { getListCourseAction } from '../../redux/slice/courseSlice';
 
 const Homepage = () => {
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getListCourseAction());
-  //   return () => {};
-  // }, []);
-
   return (
     <div>
       {/* sub nav */}
