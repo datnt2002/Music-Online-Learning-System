@@ -9,6 +9,8 @@ import {
   signInFail,
   signInSuccess,
   signupAction,
+  signupFail,
+  signupSuccess,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { API_ERROR } from '../../constants';
@@ -40,7 +42,7 @@ function* signInSaga() {
 
           if (result.data.user.Role.Rolename === 'ADMIN') {
             console.log('vao admin');
-            navigate('/admin');
+            navigate('/admin/list-courses');
           } else {
             console.log('user');
             navigate('/');
@@ -87,6 +89,7 @@ function* signUpSaga() {
               navigate('/signin');
             }
           });
+          yield put(signupSuccess(result));
           break;
         case result.data.code === 409:
           Swal.fire({
@@ -94,6 +97,7 @@ function* signUpSaga() {
             title: API_ERROR.CHECK_USERNAME_OR_EMAIL,
             text: result.data.message || API_ERROR.DEFAULT,
           });
+          yield put(signupFail(result));
           break;
         // case result.code === 400:
         //   Swal.fire({
@@ -115,12 +119,37 @@ function* forgotPasswordSaga() {
   while (true) {
     try {
       const {
-        payload: { username, email },
+        payload: { username, email, navigate },
       } = yield take(forgotPasswordAction);
 
       console.log(username, email);
       const result = yield call(forgotPassword, { username, email });
       console.log(result);
+      switch (true) {
+        case result.code === 200:
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate('/signin');
+            }
+          });
+          break;
+      
+        default:
+          break;
+      }
     } catch (error) {
       console.log(error);
     }

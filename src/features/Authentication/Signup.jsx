@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Form, Input, Checkbox, Button } from 'antd';
-import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input, Checkbox, Button, Spin } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS } from '../../constants';
 import { signupAction } from '../../redux/slice/authenticationSlice';
+import Loading from '../../components/Common/Loading';
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const loading = useSelector((state) => state.authentication.loading);
+  console.log(loading);
   const handleRegister = (values) => {
     dispatch(
       signupAction({
@@ -30,7 +32,8 @@ const Signup = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      <div className="self-center mr-8 w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
+      {loading && <Spin indicator={<Loading />} />}
+      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
         {/* name page */}
         <div>
           <h1 className="text-3xl font-bold">LAUGAU</h1>

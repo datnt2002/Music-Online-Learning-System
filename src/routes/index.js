@@ -7,6 +7,10 @@ import AuthorRoute from '../components/Common/AuthorRoute';
 import CourseDetail from '../features/Home/CourseDetail';
 import ManageListAccount from '../features/Admin/ManageListAccount';
 import HeaderDefault from '../components/Layout/User/HeaderDefault';
+import ManageListCourses from '../features/Admin/ManageListCourses';
+import CreateCourse from '../features/Lecturer/CreateCourse';
+import EditProfile from '../features/Profile/EditProfile';
+
 
 export const publicRoutes = [
   {
@@ -25,7 +29,7 @@ export const publicRoutes = [
   },
 ];
 
-export const privateRoutes = [
+export const authorRoutes = [
   {
     path: '/profile',
     element: (
@@ -34,14 +38,38 @@ export const privateRoutes = [
       </AuthorRoute>
     ),
   },
+  {
+    path: '/create-course',
+    element: (
+      <AuthorRoute>
+        <CreateCourse />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: '/edit-profile',
+    element: (
+      <AuthorRoute>
+        <EditProfile />
+      </AuthorRoute>
+    ),
+  },
 ];
 
 export const adminRoutes = [
   {
-    path: '/admin',
+    path: '/admin/list-accounts',
     element: (
       <AdminRoute>
         <ManageListAccount />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: '/admin/list-courses',
+    element: (
+      <AdminRoute>
+        <ManageListCourses />
       </AdminRoute>
     ),
   },

@@ -1,16 +1,23 @@
-import React from 'react';
-import HeaderDefault from '../../components/Layout/User/HeaderDefault';
+import React, { useEffect } from 'react';
 import { Button, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import { Footer } from 'antd/es/layout/layout';
 import { Categories, Courses } from '../../constants/mockData';
 import { RightOutlined } from '@ant-design/icons';
 import ListContainer from '../../components/Container/ListCourses';
+import { useDispatch } from 'react-redux';
+import { getListCourseAction } from '../../redux/slice/courseSlice';
 
 const Homepage = () => {
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getListCourseAction());
+  //   return () => {};
+  // }, []);
+
   return (
     <div>
-      {/* <HeaderDefault /> */}
       {/* sub nav */}
       <div
         className="bg-[#F39D39] h-16 rounded-full mt-4 ml-11 mr-11"
@@ -22,9 +29,13 @@ const Homepage = () => {
               Music <RightOutlined />
             </h1>
           </div>
-          {Categories.map((category, index) => {
-            return <p className=" flex-1">{category.title}</p>;
-          })}
+          {Categories.length > 0 ? (
+            Categories.map((category, index) => {
+              return <p className=" flex-1">{category.title}</p>;
+            })
+          ) : (
+            <div>áa</div>
+          )}
         </div>
       </div>
 

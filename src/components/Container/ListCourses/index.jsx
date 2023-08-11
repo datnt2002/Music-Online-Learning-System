@@ -1,7 +1,8 @@
-import { Card, Col, Row } from 'antd';
+import { Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ListContainer = ({ data }) => {
   const [width, setWidth] = useState(0);
@@ -17,6 +18,7 @@ const ListContainer = ({ data }) => {
         {data.map((course, index) => {
           return (
             <motion.div className="">
+              <Link to="/course-detail">
               <Card
                 hoverable
                 cover={
@@ -37,6 +39,7 @@ const ListContainer = ({ data }) => {
                   }
                 />
               </Card>
+              </Link>
             </motion.div>
           );
         })}

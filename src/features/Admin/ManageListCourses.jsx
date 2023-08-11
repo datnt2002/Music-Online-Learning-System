@@ -1,14 +1,13 @@
 import React from 'react';
 import { Breadcrumb, Layout } from 'antd';
-import {  useSelector } from 'react-redux';
-
 import { Content } from 'antd/es/layout/layout';
+import {  useSelector } from 'react-redux';
 import TableAdmin from '../../components/Container/TableAdmin';
 
-const ManageListAccount = () => {
-  const listAccounts = useSelector((state) => state.user.listAccounts);
-  console.log(listAccounts);
-
+const ManageListCourses = () => {
+  const listCourse = useSelector((state) => state.course.listCourse);
+  console.log(listCourse);
+  
   return (
     <Layout
       style={{
@@ -22,16 +21,17 @@ const ManageListAccount = () => {
         items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
       ></Breadcrumb>
       <Content
+        className="h-screen"
         style={{
           padding: 24,
           margin: 0,
           minHeight: 280,
         }}
       >
-        <TableAdmin dataSource={listAccounts} />
+       <TableAdmin dataSource={listCourse} /> 
       </Content>
     </Layout>
   );
 };
 
-export default ManageListAccount;
+export default ManageListCourses;
