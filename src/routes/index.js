@@ -10,6 +10,8 @@ import HeaderDefault from '../components/Layout/User/HeaderDefault';
 import ManageListCourses from '../features/Admin/ManageListCourses';
 import CreateCourse from '../features/Lecturer/CreateCourse';
 import EditProfile from '../features/Profile/EditProfile';
+import CreateSection from '../features/Lecturer/CreateSection';
+import CreateLesson from '../features/Lecturer/CreateLesson';
 
 export const publicRoutes = [
   {
@@ -42,6 +44,22 @@ export const authorRoutes = [
     element: (
       <AuthorRoute>
         <CreateCourse />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: '/create-section',
+    element: (
+      <AuthorRoute>
+        <CreateSection />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: '/create-lesson',
+    element: (
+      <AuthorRoute>
+        <CreateLesson />
       </AuthorRoute>
     ),
   },
