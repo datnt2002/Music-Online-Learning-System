@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import avatarImage from '../../assets/imgs/ngol.jpg';
-import { Avatar, Badge, Breadcrumb, Button, Card, DatePicker, Form, Input, Select, Modal } from 'antd';
+import { Avatar, Badge, Button, Card, DatePicker, Form, Input, Select, Modal } from 'antd';
 import { EditTwoTone } from '@ant-design/icons';
 import { PROFILE_FORM_FIELDS } from '../../constants';
 import ChangePassword from './ChangePassword';
@@ -22,7 +22,7 @@ const EditProfile = () => {
     <>
       <div className="bg-amber-100 ">
         <div>
-          <Breadcrumb
+          {/* <Breadcrumb
             items={[
               {
                 title: 'Home',
@@ -37,28 +37,28 @@ const EditProfile = () => {
                 title: 'An Application',
               },
             ]}
-          />
+          /> */}
         </div>
 
         <div className="">
           <Form onFinish={onFinish} className="bg-white rounded-3xl m-6 flex flex-1">
-            <div className="flex flex-1/3 flex-col p-5">
+            <div className="flex flex-1 flex-col p-5">
               <Form.Item className="text-center py-6">
                 <Badge
                   color="#faad14"
                   count={<EditTwoTone />}
                   style={{ borderRadius: '100%', fontSize: '1.5rem' }}
-                  offset={[-10, 80]}
+                  offset={[-10, 130]}
                 >
-                  <Avatar shape="circle" size={100} src={avatarImage} />
+                  <Avatar shape="circle" size={150} src={avatarImage} />
                 </Badge>
               </Form.Item>
 
               <div className="flex">
-                <Form.Item label="First Name" name={PROFILE_FORM_FIELDS.FIRST_NAME} className="mr-2">
+                <Form.Item label="First Name" name={PROFILE_FORM_FIELDS.FIRST_NAME} className="flex-1 mr-2">
                   <Input />
                 </Form.Item>
-                <Form.Item label="Last Name" name={PROFILE_FORM_FIELDS.LAST_NAME}>
+                <Form.Item label="Last Name" name={PROFILE_FORM_FIELDS.LAST_NAME} className="flex-1">
                   <Input />
                 </Form.Item>
               </div>
