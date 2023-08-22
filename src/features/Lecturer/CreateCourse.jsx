@@ -1,10 +1,11 @@
 import React from 'react';
-import { Breadcrumb, Button, Form, Input, InputNumber, Select, Steps } from 'antd';
+import { Breadcrumb, Button, Form, Input, InputNumber, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewCourseAction } from '../../redux/slice/courseSlice';
 import { CREATE_COURSE_FORM_FIELDS } from '../../constants';
 import ExpandedForm from '../../components/Container/FormListContainer/ExpandedForm';
+import StepsCustom from '../../components/Container/StepsContainer/StepsCustom';
 
 const CreateCourse = () => {
   const dispatch = useDispatch();
@@ -25,30 +26,9 @@ const CreateCourse = () => {
     );
   };
 
-  const description = 'You can hover on the dot.';
-
   return (
     <div className="flex">
-      <div className="bg-emerald-300 p-6 ">
-        <Steps
-          current={0}
-          direction="vertical"
-          items={[
-            {
-              title: 'Step 1 ',
-              description,
-            },
-            {
-              title: 'Step 2',
-              description,
-            },
-            {
-              title: 'Step 3',
-              description,
-            },
-          ]}
-        />
-      </div>
+      <StepsCustom />
       <div className="flex flex-1 flex-col p-6 bg-amber-200">
         <div>
           <Breadcrumb

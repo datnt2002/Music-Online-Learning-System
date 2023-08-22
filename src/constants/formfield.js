@@ -36,3 +36,7 @@ export const CREATE_COURSE_FORM_FIELDS = {
   WHAT_WILL_LEARN: 'what_will_learn',
   REQUIREMENT: 'requirement',
 };
+
+export const CREATE_SECTION_FORM_FIELDS = {
+  SECTION_NAME: 'section_name',
+};
