@@ -23,7 +23,7 @@ const AuthorRoute = ({ children }) => {
   console.log(currentUser);
   return (
     <>
-      {/* <HeaderDefault /> */}
+      <HeaderDefault />
       {children}
     </>
   );

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
-  currentUser: null,
+  currentUser: {},
   token: '',
   loading: false,
 };
@@ -43,6 +43,15 @@ export const authenticationSlice = createSlice({
     // forgotPasswordSuccess: (state) => {
     //   state.loading = false
     // }
+    getCurrentUserAction: (state) => {
+      state.loading = true;
+      state.currentUser = {};
+    },
+    getCurrentUserSuccess: (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+      console.log(state.currentUser);
+    },
   },
 });
 
@@ -55,6 +64,8 @@ export const {
   signupSuccess,
   signupFail,
   forgotPasswordAction,
+  getCurrentUserAction,
+  getCurrentUserSuccess,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

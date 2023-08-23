@@ -4,8 +4,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const AvatarDropdown = () => {
-  const userInfo = useSelector((state) => state.authentication.currentUser);
-  console.log(userInfo);
+  const currentUser = useSelector((state) => {
+    return state.authentication.currentUser;
+  });
+  console.log(currentUser);
   return (
     <>
       <div className="">
@@ -26,8 +28,8 @@ const AvatarDropdown = () => {
               alt="avatar"
               className="w-10 rounded-full aspect-square"
             />
-            <Link to="/profile">{userInfo.username}</Link>
-            <h2>{userInfo.email}</h2>
+            <Link to="/profile">{currentUser.username}</Link>
+            <h2>{currentUser.email}</h2>
           </div>
           <div>
             <h3>My Learning</h3>

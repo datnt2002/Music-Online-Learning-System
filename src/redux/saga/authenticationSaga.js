@@ -2,9 +2,11 @@ import { call, fork, take, put } from 'redux-saga/effects';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
-import { forgotPassword, signIn, signUp } from '../../services/auth.service';
+import { forgotPassword, getCurrentUser, signIn, signUp } from '../../services/auth.service';
 import {
   forgotPasswordAction,
+  getCurrentUserAction,
+  getCurrentUserSuccess,
   signInAction,
   signInFail,
   signInSuccess,
@@ -139,7 +141,7 @@ function* forgotPasswordSaga() {
             }
           });
           break;
-      
+
         default:
           break;
       }
@@ -149,8 +151,31 @@ function* forgotPasswordSaga() {
   }
 }
 
+function* getCurrentUserSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { token },
+      } = yield take(getCurrentUserAction);
+
+      console.log(token);
+      const result = yield call(getCurrentUser, { token });
+      console.log(result);
+      switch (true) {
+        case result.code === 200:
+          yield put(getCurrentUserSuccess(result.data));
+          break;
+
+        default:
+          break;
+      }
+    } catch {}
+  }
+}
+
 export default function* authenticationSaga() {
   yield fork(signInSaga);
   yield fork(signUpSaga);
   yield fork(forgotPasswordSaga);
+  yield fork(getCurrentUserSaga);
 }

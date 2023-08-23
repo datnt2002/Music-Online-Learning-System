@@ -7,6 +7,7 @@ import SiderAdmin from '../Layout/Admin/SiderAdmin';
 import { Layout } from 'antd';
 import { getListCourseAction } from '../../redux/slice/courseSlice';
 import { getListAccountAction } from '../../redux/slice/userSlice';
+import { getCurrentUserAction } from '../../redux/slice/authenticationSlice';
 
 export const AdminRoute = ({ children }) => {
   //check if user is login
@@ -16,18 +17,23 @@ export const AdminRoute = ({ children }) => {
   const hasTokenInSession = sessionStorage.getItem('token');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!hasTokenInLocal && !hasTokenInSession) {
       navigate('/signin');
+    } else {
+      let token = hasTokenInSession || hasTokenInLocal;
+      console.log(token);
+      dispatch(getCurrentUserAction({ token: token }));
     }
-  }, [navigate, hasTokenInLocal, hasTokenInSession]);
+  }, [navigate, hasTokenInLocal, hasTokenInSession, dispatch]);
 
   const currentUser = useSelector((state) => {
     return state.authentication.currentUser;
   });
   console.log(currentUser);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       getListCourseAction({
@@ -41,7 +47,7 @@ export const AdminRoute = ({ children }) => {
     dispatch(
       getListAccountAction({
         pageSize: 4,
-        token: hasTokenInLocal ? hasTokenInLocal : hasTokenInSession
+        token: hasTokenInLocal ? hasTokenInLocal : hasTokenInSession,
       })
     );
     return () => {};
@@ -49,7 +55,7 @@ export const AdminRoute = ({ children }) => {
 
   return (
     <>
-      {/* <HeaderAdmin /> */}
+      <HeaderAdmin />
       <Layout>
         <SiderAdmin />
         {children}

@@ -2,10 +2,11 @@ import React from 'react';
 import { Table } from 'antd';
 
 const TableAdmin = ({ dataSource }) => {
+  //bi lay ra moi row 1 lan title, thanh ra neu co 4 row se la x4 title lap lai
   const titleColumnList = dataSource.map((course) => {
     return Object.keys(course);
   });
-// the result of titleColumnList is [[]] so flat array ;
+  // the result of titleColumnList is [[]] so flat array ;
   const columns = titleColumnList.flat().map((column, index) => {
     const data = {
       title: column,
