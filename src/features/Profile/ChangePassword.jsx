@@ -1,10 +1,22 @@
-import { Form, Input } from 'antd';
 import React from 'react';
+import { Form, Input } from 'antd';
+import { useDispatch } from 'react-redux';
 import { CHANGE_PASSWORD_FORM_FIELDS } from '../../constants';
+import { changePasswordAction } from '../../redux/slice/authenticationSlice';
 
 const ChangePassword = ({ handleOk }) => {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  console.log(token);
   const onFinish = (values) => {
     console.log('form', values);
+    dispatch(
+      changePasswordAction({
+        oldPassword: values.old_password,
+        newPassword: values.new_password,
+        token,
+      })
+    );
     handleOk();
   };
   return (

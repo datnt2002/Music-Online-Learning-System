@@ -50,7 +50,12 @@ export const authenticationSlice = createSlice({
     getCurrentUserSuccess: (state, action) => {
       state.loading = false;
       state.currentUser = action.payload;
-      console.log(state.currentUser);
+    },
+    changePasswordAction: (state) => {
+      state.loading = true;
+    },
+    changePasswordSuccess: (state, action) => {
+      state.loading = false;
     },
   },
 });
@@ -66,6 +71,8 @@ export const {
   forgotPasswordAction,
   getCurrentUserAction,
   getCurrentUserSuccess,
+  changePasswordAction,
+  changePasswordSuccess,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

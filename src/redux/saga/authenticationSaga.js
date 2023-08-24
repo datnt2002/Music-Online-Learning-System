@@ -2,8 +2,10 @@ import { call, fork, take, put } from 'redux-saga/effects';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
-import { forgotPassword, getCurrentUser, signIn, signUp } from '../../services/auth.service';
+import { changePassword, forgotPassword, getCurrentUser, signIn, signUp } from '../../services/auth.service';
 import {
+  changePasswordAction,
+  changePasswordSuccess,
   forgotPasswordAction,
   getCurrentUserAction,
   getCurrentUserSuccess,
@@ -173,9 +175,46 @@ function* getCurrentUserSaga() {
   }
 }
 
+function* changePasswordSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { oldPassword, newPassword, token },
+      } = yield take(changePasswordAction);
+      console.log(oldPassword, newPassword, token);
+
+      const result = yield call(changePassword, { oldPassword, newPassword, token });
+      console.log(result);
+      switch (true) {
+        case result.code === 200:
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          yield put(changePasswordSuccess(result));
+          break;
+
+        default:
+          break;
+      }
+    } catch (error) {}
+  }
+}
+
 export default function* authenticationSaga() {
   yield fork(signInSaga);
   yield fork(signUpSaga);
   yield fork(forgotPasswordSaga);
   yield fork(getCurrentUserSaga);
+  yield fork(changePasswordSaga);
 }

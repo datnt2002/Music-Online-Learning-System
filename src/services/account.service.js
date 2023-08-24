@@ -14,3 +14,14 @@ export const getListUser = (data) => {
       return err;
     });
 };
+
+export const disableUser = (data) => {
+  return axiosClient
+    .delete(`users/disable/${data}`, { headers: { Authorization: `Bearer ${data.token}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

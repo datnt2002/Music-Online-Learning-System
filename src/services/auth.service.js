@@ -34,6 +34,18 @@ export const forgotPassword = (data) => {
     });
 };
 
+export const changePassword = (data) => {
+  console.log(data);
+  const { oldPassword, newPassword } = data;
+  console.log(data);
+  return axiosClient
+    .put('users/changepassword', { oldPassword, newPassword }, { headers: { Authorization: `Bearer ${data.token}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => err);
+};
+
 export const getCurrentUser = (data) => {
   return axiosClient
     .get('users/profile', { headers: { Authorization: `Bearer ${data.token}` } })

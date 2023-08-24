@@ -75,7 +75,7 @@ export const authorRoutes = [
 
 export const adminRoutes = [
   {
-    path: '/admin/list-accounts',
+    path: '/list-accounts',
     element: (
       <AdminRoute>
         <ManageListAccount />
@@ -83,7 +83,7 @@ export const adminRoutes = [
     ),
   },
   {
-    path: '/admin/list-courses',
+    path: '/list-courses',
     element: (
       <AdminRoute>
         <ManageListCourses />

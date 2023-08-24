@@ -4,6 +4,8 @@ import { Avatar, Badge, Button, Card, DatePicker, Form, Input, Select, Modal } f
 import { EditTwoTone } from '@ant-design/icons';
 import { PROFILE_FORM_FIELDS } from '../../constants';
 import ChangePassword from './ChangePassword';
+import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+
 const EditProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onFinish = (values) => {
@@ -22,22 +24,7 @@ const EditProfile = () => {
     <>
       <div className="bg-amber-100 ">
         <div>
-          {/* <Breadcrumb
-            items={[
-              {
-                title: 'Home',
-              },
-              {
-                title: <a href="">Application Center</a>,
-              },
-              {
-                title: <a href="">Application List</a>,
-              },
-              {
-                title: 'An Application',
-              },
-            ]}
-          /> */}
+          <BreadCrumbCustom />
         </div>
 
         <div className="">
