@@ -1,9 +1,15 @@
 import React from 'react';
-import { AntDesignOutlined } from '@ant-design/icons';
-import { Avatar, Button } from 'antd';
-import { EditOutlined, EnvironmentOutlined, ContactsOutlined, FacebookFilled } from '@ant-design/icons';
-import { Card } from 'antd';
 import { Link } from 'react-router-dom';
+
+import { Avatar, Button, Card } from 'antd';
+import {
+  AntDesignOutlined,
+  InstagramOutlined,
+  EditOutlined,
+  EnvironmentOutlined,
+  ContactsOutlined,
+  FacebookFilled,
+} from '@ant-design/icons';
 
 const LeftContainer = () => {
   return (
@@ -26,7 +32,7 @@ const LeftContainer = () => {
         <Link to="/edit-profile">
           <Button
             type="primary"
-            className="rounded-full w-full text-white font-bold text-base py-2 h-fit"
+            className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4"
             icon={<EditOutlined className="align-[0.125rem]" />}
           >
             Edit your profile
@@ -36,7 +42,7 @@ const LeftContainer = () => {
         <Link>
           <Button
             type="primary"
-            className="rounded-full w-full text-white font-bold text-base py-2 h-fit my-4`"
+            className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4`"
             icon={<ContactsOutlined className="align-[0.125rem]" />}
           >
             Teach on aleualeu
@@ -44,7 +50,7 @@ const LeftContainer = () => {
         </Link>
       </div>
 
-      <Card size="small" title="About Dat dep zai" className="w-full mt-4">
+      <Card size="small" title="About Dat dep zai" className="w-full my-4">
         <p>Card content</p>
         <p>Card content</p>
       </Card>
@@ -70,12 +76,13 @@ const LeftContainer = () => {
       </table>
 
       {/* Social network */}
-      <div className="w-full">
-        <h2>On the web</h2>
+      <div className="w-full my-4">
+        <h1 className="font-semibold text-lg">On the web</h1>
+
         <Link>
           <Button
             type="primary"
-            className="rounded-full w-full text-white font-bold text-base py-2 h-fit"
+            className="rounded-full w-full bg-amber-400 text-white font-bold text-base py-2 h-fit my-4"
             icon={<FacebookFilled className="align-[0.125rem]" />}
           >
             Facebook
@@ -85,24 +92,24 @@ const LeftContainer = () => {
         <Link>
           <Button
             type="primary"
-            className="rounded-full w-full text-white font-bold text-base py-2 h-fit my-4`"
-            icon={<ContactsOutlined className="align-[0.125rem]" />}
+            className="rounded-full w-full bg-amber-400 text-white font-bold text-base py-2 h-fit"
+            icon={<InstagramOutlined className="align-[0.125rem]" />}
           >
-            Teach on aleualeu
+            Instagram
           </Button>
         </Link>
       </div>
 
       {/* About me */}
       <div className="max-w-[350px]">
-        <p>About me</p>
+        <h1 className="font-semibold text-lg">About me</h1>
         <p>
           Xin chao! My name is Mai. I am a graphic designer and illustrator. I believe that graphic design is all about
           having fun and exploring new perspectives, especially different culture and social knowledge.
         </p>
       </div>
 
-      <p>MEMBER SINCE: MAY 3, 2021</p>
+      <p className="my-3 font-medium">MEMBER SINCE: MAY 3, 2021</p>
     </div>
   );
 };
