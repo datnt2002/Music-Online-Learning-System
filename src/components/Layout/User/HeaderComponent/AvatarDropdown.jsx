@@ -1,34 +1,72 @@
 import React from 'react';
-import { DownOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { Dropdown, Space } from 'antd';
+import { ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons';
+import { Avatar, Dropdown, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import CartHoverDropDown from '../../../Container/Cart/CartHoverDropDown';
 
 const items = [
   {
     key: '1',
-    label: <Link to="/profile">1st menu item</Link>,
+    label: (
+      <Link to="/profile">
+        <Space className="flex">
+          <Avatar
+            size={43}
+            src="https://thichthucung.com/wp-content/uploads/meo-beo-phi-co-nguy-hiem-khong.jpg"
+            alt="Avatar"
+          />
+          <div className="flex flex-col">
+            <p>Username</p>
+            <p>Email</p>
+          </div>
+        </Space>
+      </Link>
+    ),
   },
   {
     type: 'divider',
   },
   {
     key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        2nd menu item (disabled)
-      </a>
-    ),
-    disabled: true,
+    label: <Link>My Learning</Link>,
   },
   {
     key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        3rd menu item (disabled)
-      </a>
-    ),
-    disabled: true,
+    label: <Link>My Cart</Link>,
+  },
+  {
+    key: '4',
+    label: <Link>Wishlist</Link>,
+  },
+  {
+    type: 'divider',
+  },
+  {
+    key: '5',
+    label: <Link>Messages</Link>,
+  },
+  {
+    type: 'divider',
+  },
+  {
+    key: '6',
+    label: <Link>Payment methods</Link>,
+  },
+  {
+    key: '7',
+    label: <Link>Purchase History</Link>,
+  },
+  {
+    type: 'divider',
+  },
+  {
+    key: '8',
+    label: <Link>Help</Link>,
+  },
+  {
+    key: '9',
+    label: <Link>Log out</Link>,
   },
 ];
 const AvatarDropdown = () => {
@@ -38,50 +76,20 @@ const AvatarDropdown = () => {
   console.log(currentUser);
 
   return (
-    <>
-      <div className="">
-        <ShoppingCartOutlined className="text-2xl" />
-      </div>
+    <Space size="large">
+      <Space size="large">
+        <CartHoverDropDown buttonTitle="Go to Wishlist" icon={<HeartOutlined className="text-2xl" />} />
+        <CartHoverDropDown buttonTitle="Go to Cart" icon={<ShoppingCartOutlined className="text-2xl" />} />
+      </Space>
 
       <Dropdown menu={{ items }}>
-        <Space>
-          <DownOutlined />
-        </Space>
+        <Avatar
+          size={43}
+          src="https://thichthucung.com/wp-content/uploads/meo-beo-phi-co-nguy-hiem-khong.jpg"
+          alt="Avatar"
+        />
       </Dropdown>
-      {/* personal info */}
-      {/* <div>
-            <img
-              src="https://cafefcdn.com/thumb_w/640/203337114487263232/2022/3/3/photo1646280815645-1646280816151764748403.jpg"
-              alt="avatar"
-              className="w-10 rounded-full aspect-square"
-            />
-            <Link to="/profile">{currentUser.username}</Link>
-            <h2>{currentUser.email}</h2>
-          </div>
-          <div>
-            <h3>My Learning</h3>
-            <h3>My Cart</h3>
-            <h3>WishList</h3>
-            <h3>Teach on</h3>
-          </div>
-          <div>
-            <h3>Notification</h3>
-            <h3>Message</h3>
-          </div>
-          <div>
-            <h3>My Learning</h3>
-            <h3>My Cart</h3>
-            <h3>WishList</h3>
-            <h3>Teach on</h3>
-            <h3>Teach on</h3>
-          </div>
-          <div>
-            <h3>Log out</h3>
-            <h3>Message</h3>
-          </div> */}
-
-      {/* </div> */}
-    </>
+    </Space>
   );
 };
 
