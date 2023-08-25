@@ -17,6 +17,7 @@ export const PROFILE_FORM_FIELDS = {
   GENDER: 'gender',
   DOB: 'dob',
   FACEBOOK: 'facebook',
+  INSTAGRAM: 'instagram',
   BIO: 'bio',
 };
 

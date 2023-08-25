@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import avatarImage from '../../assets/imgs/ngol.jpg';
-import { Avatar, Badge, Button, Card, DatePicker, Form, Input, Select, Modal } from 'antd';
+
+import { Avatar, Badge, Button, DatePicker, Form, Input, Select, Modal, Divider, Space } from 'antd';
 import { EditTwoTone } from '@ant-design/icons';
-import { PROFILE_FORM_FIELDS } from '../../constants';
+
 import ChangePassword from './ChangePassword';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import { PROFILE_FORM_FIELDS } from '../../constants';
+import TextArea from 'antd/es/input/TextArea';
+import CreditCard from '../../components/Container/CardTemplate/CreditCard';
 
 const EditProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,25 +25,48 @@ const EditProfile = () => {
   };
   return (
     <>
-      <div className="bg-amber-100 ">
-        <div>
+      <div>
+        <div className="pt-6 pl-6">
           <BreadCrumbCustom />
+          <h1 className="text-2xl font-semibold mt-2">Edit Your Profile</h1>
         </div>
-
-        <div className="">
-          <Form onFinish={onFinish} className="bg-white rounded-3xl m-6 flex flex-1">
+        <div>
+          <Form onFinish={onFinish} className=" border rounded-3xl my-6 mx-32 flex flex-1">
             <div className="flex flex-1 flex-col p-5">
-              <Form.Item className="text-center py-6">
+              <Form.Item className="text-center py-6 ">
                 <Badge
                   color="#faad14"
-                  count={<EditTwoTone />}
+                  count={<EditTwoTone className="cursor-pointer" onClick={showModal} />}
                   style={{ borderRadius: '100%', fontSize: '1.5rem' }}
                   offset={[-10, 130]}
                 >
-                  <Avatar shape="circle" size={150} src={avatarImage} />
+                  <Avatar
+                    shape="circle"
+                    size={150}
+                    alt="avatar"
+                    src="https://www.astonvet.com/images/blog/fat-dog.jpg"
+                  />
                 </Badge>
-              </Form.Item>
 
+                {/* <Modal
+                  destroyOnClose={true}
+                  footer={[
+                    <Button form="myForm" key="cancel-button" onClick={handleCancel}>
+                      Cancel
+                    </Button>,
+                    <Button form="myForm" key="submit" htmlType="submit">
+                      Submit
+                    </Button>,
+                    //
+                  ]}
+                  title="Change Password"
+                  open={isModalOpen}
+                  onCancel={handleCancel}
+                >
+                  <ChangePassword handleOk={handleOk} />
+                </Modal> */}
+              </Form.Item>
+              <Divider />
               <div className="flex">
                 <Form.Item label="First Name" name={PROFILE_FORM_FIELDS.FIRST_NAME} className="flex-1 mr-2">
                   <Input />
@@ -51,7 +77,7 @@ const EditProfile = () => {
               </div>
               <div className="flex">
                 <Form.Item label="Password" name={PROFILE_FORM_FIELDS.PASSWORD} className="flex-1 mr-2">
-                  <Input.Password placeholder="Input password" />
+                  <Input.Password disabled />
                 </Form.Item>
                 <Button onClick={showModal}>Change Password</Button>
                 <Modal
@@ -107,25 +133,28 @@ const EditProfile = () => {
               <Form.Item label="Facebook" name={PROFILE_FORM_FIELDS.FACEBOOK}>
                 <Input />
               </Form.Item>
-              <Form.Item label="Bio" name={PROFILE_FORM_FIELDS.BIO}>
+              <Form.Item label="Instagram" name={PROFILE_FORM_FIELDS.INSTAGRAM}>
                 <Input />
               </Form.Item>
-              <div>
-                <h1>
-                  Payment method
-                  <span>
-                    <Button>Add Payment Method</Button>
-                  </span>
-                </h1>
-                <div className="flex">
-                  <Card></Card>
-                </div>
-              </div>
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
+              <Form.Item label="Bio" name={PROFILE_FORM_FIELDS.BIO}>
+                <TextArea rows={4} />
               </Form.Item>
+
+              <Space direction="vertical">
+                <div className="flex flex-col gap-2">
+                  <h1>Payment method</h1>
+                  <Button className="w-min">Add Payment Method</Button>
+                </div>
+                <Space className="flex">
+                  <CreditCard />
+                  <CreditCard />
+                </Space>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit" className="bg-amber-400 w-full">
+                    Submit
+                  </Button>
+                </Form.Item>
+              </Space>
             </div>
           </Form>
         </div>
