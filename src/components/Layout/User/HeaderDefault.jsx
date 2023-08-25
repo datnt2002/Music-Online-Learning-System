@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Layout } from 'antd';
+import { Form, Input, Layout, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Header } from 'antd/es/layout/layout';
@@ -16,13 +16,14 @@ const HeaderDefault = () => {
   if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
     isAuthenticated = true;
   }
-  console.log(isAuthenticated);
 
   return (
     <Layout>
       <Header className="flex items-center bg-[#F39D39] h-16">
         {/* Logo */}
-        <div className="flex basis-32 text-[#F5F5F5] text-xl ">LauGau</div>
+        <Link className="flex basis-32 text-[#F5F5F5] text-xl" to="/">
+          LauGau
+        </Link>
         {/* Searchbox */}
         <Form onFinish={handleSearch} className="flex flex-1 justify-center h-full">
           <Form.Item name={FORM_FIELDS.SEARCH} rules={[{ required: true }]} className="w-2/3">
@@ -31,10 +32,10 @@ const HeaderDefault = () => {
         </Form>
 
         {/* navigation */}
-        <div className="flex basis-36">
+        <Space className="flex basis-36">
           <Link to="">About us</Link>
           <Link to="">About us</Link>
-        </div>
+        </Space>
 
         <div className="flex basis-32">{isAuthenticated ? <AvatarDropdown /> : <AuthenticationButton />}</div>
 

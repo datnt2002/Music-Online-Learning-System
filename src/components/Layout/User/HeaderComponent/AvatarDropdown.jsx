@@ -1,28 +1,55 @@
 import React from 'react';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { DownOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Dropdown, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+const items = [
+  {
+    key: '1',
+    label: <Link to="/profile">1st menu item</Link>,
+  },
+  {
+    type: 'divider',
+  },
+  {
+    key: '2',
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+        2nd menu item (disabled)
+      </a>
+    ),
+    disabled: true,
+  },
+  {
+    key: '3',
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+        3rd menu item (disabled)
+      </a>
+    ),
+    disabled: true,
+  },
+];
 const AvatarDropdown = () => {
   const currentUser = useSelector((state) => {
     return state.authentication.currentUser;
   });
   console.log(currentUser);
+
   return (
     <>
       <div className="">
         <ShoppingCartOutlined className="text-2xl" />
       </div>
-      <div className="group">
-        <img
-          src="https://cafefcdn.com/thumb_w/640/203337114487263232/2022/3/3/photo1646280815645-1646280816151764748403.jpg"
-          alt="avatar"
-          className="w-10 rounded-full aspect-square"
-        />
-        {/* hover avatar dropdown */}
-        <div className="fixed hidden bg-red-800 w-52 top-[4.2rem] z-50 group-hover:block">
-          {/* personal info */}
-          <div>
+
+      <Dropdown menu={{ items }}>
+        <Space>
+          <DownOutlined />
+        </Space>
+      </Dropdown>
+      {/* personal info */}
+      {/* <div>
             <img
               src="https://cafefcdn.com/thumb_w/640/203337114487263232/2022/3/3/photo1646280815645-1646280816151764748403.jpg"
               alt="avatar"
@@ -51,9 +78,9 @@ const AvatarDropdown = () => {
           <div>
             <h3>Log out</h3>
             <h3>Message</h3>
-          </div>
-        </div>
-      </div>
+          </div> */}
+
+      {/* </div> */}
     </>
   );
 };
