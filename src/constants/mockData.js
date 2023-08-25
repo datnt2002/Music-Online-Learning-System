@@ -208,4 +208,8 @@ export const Categories = [
     id: 1,
     title: 'Category',
   },
+  {
+    id: 1,
+    title: 'Category',
+  },
 ];

@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { Header } from 'antd/es/layout/layout';
 import { Form, Input, Layout, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { Header } from 'antd/es/layout/layout';
+import AvatarDropdown from './HeaderComponent/AvatarDropdown';
+
 import AuthenticationButton from './HeaderComponent/AuthenticationButton';
 import { FORM_FIELDS } from '../../../constants/formfield';
-import AvatarDropdown from './HeaderComponent/AvatarDropdown';
 
 const HeaderDefault = () => {
   const handleSearch = (values) => {
