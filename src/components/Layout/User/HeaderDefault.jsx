@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { Header } from 'antd/es/layout/layout';
 import { Form, Input, Layout, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import AvatarDropdown from './HeaderComponent/AvatarDropdown';
 
 import AuthenticationButton from './HeaderComponent/AuthenticationButton';
 import { FORM_FIELDS } from '../../../constants/formfield';
+import CombineAvatarAndCart from './HeaderComponent/CombineAvatarAndCart';
 
 const HeaderDefault = () => {
   const handleSearch = (values) => {
@@ -39,7 +39,7 @@ const HeaderDefault = () => {
           <Link to="">About us</Link>
         </Space>
 
-        <div className="flex basis-32">{isAuthenticated ? <AvatarDropdown /> : <AuthenticationButton />}</div>
+        <div className="flex basis-32">{isAuthenticated ? <CombineAvatarAndCart /> : <AuthenticationButton />}</div>
 
         {/* dark mode */}
         <div className="flex basis-20"></div>

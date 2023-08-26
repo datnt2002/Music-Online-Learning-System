@@ -24,10 +24,6 @@ export const authenticationSlice = createSlice({
     signInFail: (state, action) => {
       state.loading = false;
     },
-    logout: (state) => {
-      state.isLoggedIn = false;
-      state.currentUser = undefined;
-    },
     signupAction: (state, action) => {
       state.loading = true;
     },
@@ -64,7 +60,6 @@ export const {
   signInAction,
   signInSuccess,
   signInFail,
-  logout,
   signupAction,
   signupSuccess,
   signupFail,

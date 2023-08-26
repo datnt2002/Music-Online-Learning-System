@@ -1,13 +1,13 @@
 import React from 'react';
 import { Breadcrumb, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import TableAdmin from '../../components/Container/TableAdmin';
 
 const ManageListCourses = () => {
   const listCourse = useSelector((state) => state.course.listCourse);
   console.log(listCourse);
-  
+  const testCourse = [];
   return (
     <Layout
       style={{
@@ -28,7 +28,7 @@ const ManageListCourses = () => {
           minHeight: 280,
         }}
       >
-       <TableAdmin dataSource={listCourse} /> 
+        <TableAdmin dataSource={testCourse} />
       </Content>
     </Layout>
   );

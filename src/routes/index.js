@@ -38,7 +38,7 @@ export const publicRoutes = [
     ),
   },
   {
-    path: '/course-detail',
+    path: 'course-detail',
     element: (
       <PublicLayout>
         <CourseDetail />
@@ -57,7 +57,7 @@ export const publicRoutes = [
 
 export const userRoutes = [
   {
-    path: '/user/profile',
+    path: 'profile',
     element: (
       <UserRoute>
         <Profile />
@@ -65,7 +65,7 @@ export const userRoutes = [
     ),
   },
   {
-    path: '/user/profile/edit-profile',
+    path: 'profile/edit-profile',
     element: (
       <UserRoute>
         <EditProfile />
@@ -73,7 +73,7 @@ export const userRoutes = [
     ),
   },
   {
-    path: '/user/my-cart',
+    path: 'my-cart',
     element: (
       <UserRoute>
         <Cart />
@@ -81,7 +81,7 @@ export const userRoutes = [
     ),
   },
   {
-    path: '/user/my-wishlist',
+    path: 'my-wishlist',
     element: (
       <UserRoute>
         <Wishlist />
@@ -92,7 +92,7 @@ export const userRoutes = [
 
 export const authorRoutes = [
   {
-    path: '/lecturer',
+    path: '/',
     element: (
       <AuthorRoute>
         <DashboardLecturer />
@@ -100,7 +100,7 @@ export const authorRoutes = [
     ),
   },
   {
-    path: '/lecturer/my-course-management',
+    path: 'my-course-management',
     element: (
       <AuthorRoute>
         <LecturerCourse />
@@ -108,7 +108,7 @@ export const authorRoutes = [
     ),
   },
   {
-    path: '/lecturer/create-course',
+    path: 'create-course',
     element: (
       <AuthorRoute>
         <CreateCourse />
@@ -116,7 +116,7 @@ export const authorRoutes = [
     ),
   },
   {
-    path: '/lecturer/create-section',
+    path: 'create-section',
     element: (
       <AuthorRoute>
         <CreateSection />
@@ -125,4 +125,13 @@ export const authorRoutes = [
   },
 ];
 
-export const adminRoutes = [];
+export const adminRoutes = [
+  {
+    path: 'list-courses',
+    element: (
+      <AdminRoute>
+        <ManageListCourses />
+      </AdminRoute>
+    ),
+  },
+];

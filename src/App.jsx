@@ -15,15 +15,14 @@ function App() {
         {publicRoutes.map(({ path, element }, index) => {
           return <Route key={index} path={path} element={element} />;
         })}
-        {userRoutes.map(({ path, element }, index) => {
-          return <Route key={index} path={path} element={element} />;
-        })}
+        {userRoutes.map(({ path, element }, index) => (
+          <Route key={index} path={`/user/${path}`} element={element} />
+        ))}
         {authorRoutes.map(({ path, element }, index) => {
-          return <Route key={index} path={path} element={element} />;
+          return <Route key={index} path={`/lecturer/${path}`} element={element} />;
         })}
-
         {adminRoutes.map(({ path, element }, index) => (
-          <Route key={index} path={path} element={element} />
+          <Route key={index} path={`/admin/${path}`} element={element} />
         ))}
       </Routes>
     </BrowserRouter>
