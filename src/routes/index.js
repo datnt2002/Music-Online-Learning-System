@@ -134,4 +134,12 @@ export const adminRoutes = [
       </AdminRoute>
     ),
   },
+  {
+    path: 'list-accounts',
+    element: (
+      <AdminRoute>
+        <ManageListAccount />
+      </AdminRoute>
+    ),
+  },
 ];

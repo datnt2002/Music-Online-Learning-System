@@ -1,13 +1,22 @@
 import React from 'react';
 import { Empty, Table } from 'antd';
 
-const TableAdmin = ({ dataSource }) => {
-  console.log(dataSource);
+import flattenObj from '../../../utils/flattenObj';
+
+const TableAdmin = ({ dataSource, actions }) => {
   if (dataSource.length > 0) {
-    const titleColumnList = dataSource[0].map((course) => {
-      return Object.keys(course);
+    //solve nested object because of join database
+    const flattenData = dataSource.map((data, index) => {
+      //add a pair key and value to avoid warning unique table data
+      const clone = { ...data };
+      Object.assign(clone, { key: index });
+      const result = flattenObj(clone);
+      return result;
     });
-    const columns = titleColumnList.flat().map((column, index) => {
+
+    //get title of table by get key of obj
+    const titleColumnList = Object.keys(flattenData[0]);
+    const columns = titleColumnList.map((column, index) => {
       const data = {
         title: column,
         dataIndex: column,
@@ -23,10 +32,12 @@ const TableAdmin = ({ dataSource }) => {
     columns.push({
       title: 'Actions',
       fixed: 'right',
-      width: 100,
-      render: () => <a>action</a>,
+      width: 80,
+      align: 'center',
+      render: () => {
+        return actions;
+      },
     });
-    console.log(columns);
 
     const onChange = (pagination, filters, sorter, extra) => {
       console.log('params', pagination, filters, sorter, extra);
@@ -37,19 +48,15 @@ const TableAdmin = ({ dataSource }) => {
       <Table
         size="small"
         columns={columns}
-        dataSource={dataSource}
+        dataSource={flattenData}
         onChange={onChange}
         className="max-w-full"
         scroll={{ x: totalColumnsWidth }}
-        // expandable={{
-        //   defaultExpandAllRows: true,
-        // }}
       />
     );
   } else {
     return <Empty />;
   }
-  // the result of titleColumnList is [[]] so flat array ;
 };
 
 export default TableAdmin;

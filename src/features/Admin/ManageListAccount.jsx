@@ -1,7 +1,7 @@
 import React from 'react';
-import { Breadcrumb, Layout } from 'antd';
+import { Breadcrumb, Button, Layout } from 'antd';
 import { useSelector } from 'react-redux';
-
+import { UserDeleteOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../components/Container/TableAdmin';
 
@@ -28,7 +28,7 @@ const ManageListAccount = () => {
           minHeight: 280,
         }}
       >
-        <TableAdmin dataSource={listAccounts} />
+        <TableAdmin dataSource={listAccounts} actions={<Button icon={<UserDeleteOutlined />} />} />
       </Content>
     </Layout>
   );

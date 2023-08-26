@@ -6,7 +6,7 @@ import Sider from 'antd/es/layout/Sider';
 import { LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const iconRoutes = [
-  { key: '1', icon: <LaptopOutlined />, link: '/admin/list-courses', label: 'Courses Manage' },
+  { key: '1', icon: <LaptopOutlined />, link: '/lecturer/list-courses', label: 'Courses Manage' },
   { key: '2', icon: <NotificationOutlined />, link: '/route3' },
 ];
 
