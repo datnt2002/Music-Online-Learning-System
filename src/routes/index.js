@@ -3,44 +3,112 @@ import React from 'react';
 import { AdminRoute, NotFound } from '../components/Common';
 import Homepage from '../features/Home/Homepage';
 import Profile from '../features/Profile/Profile';
-import AuthorRoute from '../components/Common/AuthorRoute';
+
 import CourseDetail from '../features/Home/CourseDetail';
 import ManageListAccount from '../features/Admin/ManageListAccount';
-import HeaderDefault from '../components/Layout/User/HeaderDefault';
 import ManageListCourses from '../features/Admin/ManageListCourses';
-import CreateCourse from '../features/Lecturer/CreateCourse';
+import CreateCourse from '../features/Lecturer/CourseManagement/CreateCourse';
 import EditProfile from '../features/Profile/EditProfile';
-import CreateSection from '../features/Lecturer/CreateSection';
-import CreateLesson from '../features/Lecturer/CreateLesson';
+import CreateSection from '../features/Lecturer/CourseManagement/CreateSection';
+import CreateLesson from '../features/Lecturer/CourseManagement/CreateLesson';
+import AuthorRoute from '../components/Common/Guard/AuthorRoute';
+import UserRoute from '../components/Common/Guard/UserRoute';
+import HeaderDefault from '../components/Layout/User/HeaderDefault';
+import Cart from '../features/Home/Cart';
+import Wishlist from '../features/Home/Wishlist';
+import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer';
+import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
+
+const PublicLayout = ({ children }) => {
+  return (
+    <>
+      <HeaderDefault />
+      {children}
+    </>
+  );
+};
 
 export const publicRoutes = [
   {
     path: '/',
     element: (
-      <>
-        <HeaderDefault />
+      <PublicLayout>
         <Homepage />
-      </>
+      </PublicLayout>
     ),
   },
-  { path: '/course-detail', element: <CourseDetail /> },
+  {
+    path: '/course-detail',
+    element: (
+      <PublicLayout>
+        <CourseDetail />
+      </PublicLayout>
+    ),
+  },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <PublicLayout>
+        <NotFound />
+      </PublicLayout>
+    ),
+  },
+];
+
+export const userRoutes = [
+  {
+    path: '/user/profile',
+    element: (
+      <UserRoute>
+        <Profile />
+      </UserRoute>
+    ),
+  },
+  {
+    path: '/user/profile/edit-profile',
+    element: (
+      <UserRoute>
+        <EditProfile />
+      </UserRoute>
+    ),
+  },
+  {
+    path: '/user/my-cart',
+    element: (
+      <UserRoute>
+        <Cart />
+      </UserRoute>
+    ),
+  },
+  {
+    path: '/user/my-wishlist',
+    element: (
+      <UserRoute>
+        <Wishlist />
+      </UserRoute>
+    ),
   },
 ];
 
 export const authorRoutes = [
   {
-    path: '/profile',
+    path: '/lecturer',
     element: (
       <AuthorRoute>
-        <Profile />
+        <DashboardLecturer />
       </AuthorRoute>
     ),
   },
   {
-    path: '/create-course',
+    path: '/lecturer/my-course-management',
+    element: (
+      <AuthorRoute>
+        <LecturerCourse />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: '/lecturer/create-course',
     element: (
       <AuthorRoute>
         <CreateCourse />
@@ -48,46 +116,13 @@ export const authorRoutes = [
     ),
   },
   {
-    path: '/create-section',
+    path: '/lecturer/create-section',
     element: (
       <AuthorRoute>
         <CreateSection />
       </AuthorRoute>
     ),
   },
-  {
-    path: '/create-lesson',
-    element: (
-      <AuthorRoute>
-        <CreateLesson />
-      </AuthorRoute>
-    ),
-  },
-  {
-    path: '/edit-profile',
-    element: (
-      <AuthorRoute>
-        <EditProfile />
-      </AuthorRoute>
-    ),
-  },
 ];
 
-export const adminRoutes = [
-  {
-    path: '/list-accounts',
-    element: (
-      <AdminRoute>
-        <ManageListAccount />
-      </AdminRoute>
-    ),
-  },
-  {
-    path: '/list-courses',
-    element: (
-      <AdminRoute>
-        <ManageListCourses />
-      </AdminRoute>
-    ),
-  },
-];
+export const adminRoutes = [];

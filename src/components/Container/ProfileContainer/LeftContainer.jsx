@@ -29,7 +29,7 @@ const LeftContainer = () => {
           <EnvironmentOutlined className="align-[0.125rem]" /> Ha Noi, Viet Nam
         </p>
 
-        <Link to="/edit-profile">
+        <Link to="/user/profile/edit-profile">
           <Button
             type="primary"
             className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4"
@@ -39,7 +39,7 @@ const LeftContainer = () => {
           </Button>
         </Link>
 
-        <Link>
+        <Link to="/lecturer/my-course-management">
           <Button
             type="primary"
             className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4`"

@@ -1,2 +1,6 @@
 export * from './NotFound';
-export * from './AdminRoute';
+export * from './Guard/AdminRoute';
+export * from './Guard/AuthorRoute';
+export * from './Guard/UserRoute';
+export * from './Loading';
+export * from './NotFound';

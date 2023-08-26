@@ -1,9 +1,9 @@
 import React from 'react';
-import ExpandedForm from '../../components/Container/FormListContainer/ExpandedForm';
-import { CREATE_SECTION_FORM_FIELDS } from '../../constants';
+import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
+import { CREATE_SECTION_FORM_FIELDS } from '../../../constants';
 import { Button, Form } from 'antd';
-import CardTemplate from '../../components/Container/CardTemplate/CardTemplate';
-import StepsCustom from '../../components/Container/StepsContainer/StepsCustom';
+import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
+import CourseInfoCard from '../../../components/Container/CardTemplate/CourseInfoCard';
 
 const CreateSection = () => {
   const onFinish = (values) => {
@@ -23,7 +23,7 @@ const CreateSection = () => {
           />
           <div className="flex flex-col">
             <div className="m-6">
-              <CardTemplate />
+              <CourseInfoCard />
             </div>
             <Form.Item className="">
               <Button type="primary" htmlType="submit" className="w-full">

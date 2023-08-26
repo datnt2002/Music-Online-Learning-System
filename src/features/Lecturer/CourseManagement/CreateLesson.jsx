@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, InputNumber, Steps, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import Dragger from 'antd/es/upload/Dragger';
-import StepsCustom from '../../components/Container/StepsContainer/StepsCustom';
+import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 const layout = {
   labelCol: {
     span: 8,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardTemplate = () => {
+const CourseInfoCard = () => {
   return (
     <div class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
       <div class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600"></div>
@@ -25,4 +25,4 @@ const CardTemplate = () => {
   );
 };
 
-export default CardTemplate;
+export default CourseInfoCard;

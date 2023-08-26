@@ -7,7 +7,6 @@ import ChangePassword from './ChangePassword';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PROFILE_FORM_FIELDS } from '../../constants';
 import TextArea from 'antd/es/input/TextArea';
-import CreditCard from '../../components/Container/CardTemplate/CreditCard';
 
 const EditProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,14 +24,14 @@ const EditProfile = () => {
   };
   return (
     <>
-      <div>
-        <div className="pt-6 pl-6">
+      <div className="bg-slate-100">
+        <div className="pt-6 ml-44">
           <BreadCrumbCustom />
           <h1 className="text-2xl font-semibold mt-2">Edit Your Profile</h1>
         </div>
         <div>
-          <Form onFinish={onFinish} className=" border rounded-3xl my-6 mx-32 flex flex-1">
-            <div className="flex flex-1 flex-col p-5">
+          <Form onFinish={onFinish} className="bg-white border shadow-2xl rounded-3xl my-6 mx-44 flex flex-1">
+            <div className="flex flex-1 flex-col py-5 pl-14 pr-7">
               <Form.Item className="text-center py-6 ">
                 <Badge
                   color="#faad14"
@@ -47,24 +46,6 @@ const EditProfile = () => {
                     src="https://www.astonvet.com/images/blog/fat-dog.jpg"
                   />
                 </Badge>
-
-                {/* <Modal
-                  destroyOnClose={true}
-                  footer={[
-                    <Button form="myForm" key="cancel-button" onClick={handleCancel}>
-                      Cancel
-                    </Button>,
-                    <Button form="myForm" key="submit" htmlType="submit">
-                      Submit
-                    </Button>,
-                    //
-                  ]}
-                  title="Change Password"
-                  open={isModalOpen}
-                  onCancel={handleCancel}
-                >
-                  <ChangePassword handleOk={handleOk} />
-                </Modal> */}
               </Form.Item>
               <Divider />
               <div className="flex">
@@ -120,7 +101,7 @@ const EditProfile = () => {
                 <Input />
               </Form.Item>
             </div>
-            <div className="flex flex-1 flex-col p-5">
+            <div className="flex flex-1 flex-col py-8 pl-7 pr-14">
               <Form.Item label="Gender" name={PROFILE_FORM_FIELDS.GENDER}>
                 <Select>
                   <Select.Option value="male">male</Select.Option>
@@ -145,10 +126,7 @@ const EditProfile = () => {
                   <h1>Payment method</h1>
                   <Button className="w-min">Add Payment Method</Button>
                 </div>
-                <Space className="flex">
-                  <CreditCard />
-                  <CreditCard />
-                </Space>
+                <Space className="flex">{/* <CreditCard /> */}</Space>
                 <Form.Item>
                   <Button type="primary" htmlType="submit" className="bg-amber-400 w-full">
                     Submit

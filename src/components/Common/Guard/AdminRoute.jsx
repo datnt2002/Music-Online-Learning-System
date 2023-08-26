@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import HeaderAdmin from '../Layout/Admin/HeaderAdmin';
-import SiderAdmin from '../Layout/Admin/SiderAdmin';
+import HeaderAdmin from '../../Layout/Admin/HeaderAdmin';
+import SiderAdmin from '../../Layout/Admin/SiderAdmin';
 import { Layout } from 'antd';
-import { getListCourseAction } from '../../redux/slice/courseSlice';
-import { getListAccountAction } from '../../redux/slice/userSlice';
-import { getCurrentUserAction } from '../../redux/slice/authenticationSlice';
+import { getListCourseAction } from '../../../redux/slice/courseSlice';
+import { getListAccountAction } from '../../../redux/slice/userSlice';
+import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
 
 export const AdminRoute = ({ children }) => {
   //check if user is login

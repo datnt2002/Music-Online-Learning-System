@@ -7,8 +7,8 @@ import { Footer } from 'antd/es/layout/layout';
 import { Categories, Courses } from '../../constants/mockData';
 import ListContainer from '../../components/Container/ListCoursesContainer';
 import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCategory';
-import HorizontalCardTemplate from '../../components/Container/CardTemplate/HorizontalCardTemplate';
 import LecturerCard from '../../components/Container/CardTemplate/LecturerCard';
+import CourseHorizontalCard from '../../components/Container/CardTemplate/CourseHorizontalCard';
 
 const Homepage = () => {
   const onChange = (currentSlide) => {
@@ -76,7 +76,7 @@ const Homepage = () => {
           <h1 className="text-2xl font-semibold mb-5">Feature courses</h1>
           <Carousel afterChange={onChange}>
             {Courses.map((course, index) => {
-              return <HorizontalCardTemplate />;
+              return <CourseHorizontalCard />;
             })}
           </Carousel>
         </div>
@@ -148,12 +148,12 @@ const Homepage = () => {
               />
             </div>
             <div className="flex flex-1 flex-col gap-3">
-              <HorizontalCardTemplate />
-              <HorizontalCardTemplate />
-              <HorizontalCardTemplate />
-              <HorizontalCardTemplate />
-              <HorizontalCardTemplate />
-              <HorizontalCardTemplate />
+              <CourseHorizontalCard />
+              <CourseHorizontalCard />
+              <CourseHorizontalCard />
+              <CourseHorizontalCard />
+              <CourseHorizontalCard />
+
               <Pagination defaultCurrent={6} total={500} />
             </div>
           </div>

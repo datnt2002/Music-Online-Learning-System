@@ -9,7 +9,7 @@ const items = [
   {
     key: '1',
     label: (
-      <Link to="/profile">
+      <Link to="user/profile">
         <Space className="flex">
           <Avatar
             size={43}
@@ -33,11 +33,11 @@ const items = [
   },
   {
     key: '3',
-    label: <Link>My Cart</Link>,
+    label: <Link to="/user/my-cart">My Cart</Link>,
   },
   {
     key: '4',
-    label: <Link>Wishlist</Link>,
+    label: <Link to="/user/my-wishlist">Wishlist</Link>,
   },
   {
     type: 'divider',

@@ -2,10 +2,10 @@ import React from 'react';
 import { Breadcrumb, Button, Form, Input, InputNumber, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewCourseAction } from '../../redux/slice/courseSlice';
-import { CREATE_COURSE_FORM_FIELDS } from '../../constants';
-import ExpandedForm from '../../components/Container/FormListContainer/ExpandedForm';
-import StepsCustom from '../../components/Container/StepsContainer/StepsCustom';
+import { createNewCourseAction } from '../../../redux/slice/courseSlice';
+import { CREATE_COURSE_FORM_FIELDS } from '../../../constants';
+import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
+import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 
 const CreateCourse = () => {
   const dispatch = useDispatch();

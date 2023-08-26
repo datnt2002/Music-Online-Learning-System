@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
-import { adminRoutes, authorRoutes, publicRoutes } from './routes';
+import { adminRoutes, authorRoutes, publicRoutes, userRoutes } from './routes';
 import ForgotPassword from './features/Authentication/ForgotPassword';
 import Signin from './features/Authentication/Signin';
 import Signup from './features/Authentication/Signup';
@@ -13,6 +13,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         {publicRoutes.map(({ path, element }, index) => {
+          return <Route key={index} path={path} element={element} />;
+        })}
+        {userRoutes.map(({ path, element }, index) => {
           return <Route key={index} path={path} element={element} />;
         })}
         {authorRoutes.map(({ path, element }, index) => {

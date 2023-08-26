@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HorizontalCardTemplate = () => {
+const CourseHorizontalCard = () => {
   return (
     <div className="flex p-6 border">
       <div className="mr-6 max-w-[48rem] flex flex-1">
@@ -23,4 +23,4 @@ const HorizontalCardTemplate = () => {
   );
 };
 
-export default HorizontalCardTemplate;
+export default CourseHorizontalCard;
