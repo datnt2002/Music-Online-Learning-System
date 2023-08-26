@@ -1,6 +1,6 @@
 import { Divider } from 'antd';
 import React from 'react';
-import CardCart from '../../components/Container/Cart/CardCart';
+import CardInCart from '../../components/Container/Cart/CardInCart';
 
 const Wishlist = () => {
   return (
@@ -11,7 +11,7 @@ const Wishlist = () => {
           <h1 className="my-4">1 Course in Wishlist</h1>
           <Divider className="m-2" />
           <div className="mr-10">
-            <CardCart />
+            <CardInCart />
           </div>
         </div>
       </div>

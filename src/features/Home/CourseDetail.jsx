@@ -7,34 +7,17 @@ import {
   CheckOutlined,
   CaretRightOutlined,
 } from '@ant-design/icons';
+import BreadcrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import CourseDetailFloatingPanel from '../../components/Container/CourseContainer/CourseDetailFloatingPanel';
 
 const CourseDetail = () => {
   return (
     <div className="">
       {/* brief course */}
-      <div className="bg-black text-white py-14">
+      <div className="bg-amber-400 rounded-b-3xl shadow-lg text-white py-14">
         <div className="mx-auto max-w-7xl">
           <div className="ml-16">
-            <Breadcrumb
-              className="text-white"
-              separator=">"
-              items={[
-                {
-                  title: 'Home',
-                },
-                {
-                  title: 'Application Center',
-                  href: '',
-                },
-                {
-                  title: 'Application List',
-                  href: '',
-                },
-                {
-                  title: 'An Application',
-                },
-              ]}
-            />
+            <BreadcrumbCustom />
           </div>
 
           <div className="ml-16 max-w-2xl">
@@ -61,30 +44,7 @@ const CourseDetail = () => {
         </div>
       </div>
 
-      {/* right container */}
-      <div className="bg-slate-600 fixed top-12 right-28 w-96">
-        <div className="w-full">
-          <img
-            className="aspect-video"
-            src="https://t4.ftcdn.net/jpg/05/72/27/49/360_F_572274911_DJnVr6x6Q2CoyZlDnasqirIga0sDR54H.jpg"
-            alt=""
-          />
-        </div>
-        <div className="flex flex-col p-8">
-          <div className="flex flex-col flex-1">
-            <h1>1000000VND</h1>
-            <Button>Add to Cart</Button>
-            <Button>Buy Now</Button>
-          </div>
-          <p>This course includes</p>
-          <p>This course includes</p>
-          <p>This course includes</p>
-          <p>This course includes</p>
-          <p>This course includes</p>
-          <p>This course includes</p>
-          <p>This course includes</p>
-        </div>
-      </div>
+      <CourseDetailFloatingPanel />
 
       {/* What you learn */}
       <div className="mx-auto max-w-7xl pt-11">
