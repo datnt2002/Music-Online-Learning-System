@@ -1,6 +1,12 @@
 import { call, fork, put, take } from 'redux-saga/effects';
-import { getListAccountAction, getListAccountFail, getListAccountSuccess } from '../slice/userSlice';
-import { getListUser } from '../../services/account.service';
+import {
+  disableUserAction,
+  disableUserSuccess,
+  getListAccountAction,
+  getListAccountFail,
+  getListAccountSuccess,
+} from '../slice/userSlice';
+import { disableUser, getListUser } from '../../services/account.service';
 
 function* getListAccountSaga() {
   while (true) {
@@ -24,6 +30,31 @@ function* getListAccountSaga() {
   }
 }
 
+function* disableUserSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { id, token },
+      } = yield take(disableUserAction);
+      console.log(id, token);
+      const result = yield call(disableUser, { id, token });
+      console.log(result);
+
+      switch (true) {
+        case result.code === 200:
+          yield put(disableUserSuccess(result));
+          break;
+
+        default:
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* userSaga() {
   yield fork(getListAccountSaga);
+  yield fork(disableUserSaga);
 }

@@ -45,10 +45,8 @@ function* signInSaga() {
           }
 
           if (result.data.user.Role.Rolename === 'ADMIN') {
-            console.log('vao admin');
             navigate('/admin/list-courses');
           } else {
-            console.log('user');
             navigate('/');
           }
           break;

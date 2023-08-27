@@ -34,8 +34,8 @@ const TableAdmin = ({ dataSource, actions }) => {
       fixed: 'right',
       width: 80,
       align: 'center',
-      render: () => {
-        return actions;
+      render: (record) => {
+        return actions(record);
       },
     });
 

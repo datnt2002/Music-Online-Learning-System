@@ -16,8 +16,9 @@ export const getListUser = (data) => {
 };
 
 export const disableUser = (data) => {
+  console.log(data);
   return axiosClient
-    .delete(`users/disable/${data}`, { headers: { Authorization: `Bearer ${data.token}` } })
+    .delete(`users/disable/${data.id}`, { headers: { Authorization: `Bearer ${data.token}` } })
     .then((res) => {
       return res;
     })
