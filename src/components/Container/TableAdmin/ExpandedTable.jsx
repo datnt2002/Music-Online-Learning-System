@@ -1,67 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 
 const ExpandedTable = () => {
+  const [dataSource, setDataSource] = useState([]);
+  const [page, setPage] = useState();
+  const [pageSize, setPageSize] = useState();
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => setDataSource(data))
+      .catch((err) => console.log(err));
+  }, []);
+
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id',
+      sorter: (a, b) => {
+        return a.id > b.id;
+      },
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Title',
+      dataIndex: 'title',
+      key: 'title',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Action',
-      dataIndex: '',
-      key: 'x',
-      render: () => <a>Delete</a>,
+      title: 'completed',
+      dataIndex: 'completed',
+      key: 'completed',
+      render: (completed) => <p>{completed ? 'Complete' : 'In progress'}</p>,
     },
   ];
-  const data = [
-    {
-      key: 1,
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-    },
-    {
-      key: 2,
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-    },
-    {
-      key: 3,
-      name: 'Not Expandable',
-      age: 29,
-      address: 'Jiangsu No. 1 Lake Park',
-      description: 'This not expandable',
-    },
-    {
-      key: 4,
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      description: 'My name is Joe Black, I am 32 years old, living in Sydney No. 1 Lake Park.',
-    },
-  ];
+
   return (
     <Table
       columns={columns}
       expandable={{
         expandedRowRender: (record) => <p>{record.description}</p>,
       }}
-      dataSource={data}
+      dataSource={dataSource}
+      pagination={{
+        current: page,
+        pageSize: pageSize,
+        onChange: (page, pageSize) => {
+          setPage(page);
+          setPageSize(pageSize);
+        },
+      }}
     />
   );
 };

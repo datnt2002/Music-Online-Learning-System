@@ -20,10 +20,16 @@ const TableAdmin = ({ dataSource, actions }) => {
       const data = {
         title: column,
         dataIndex: column,
-        sorter: {
-          compare: (a, b) => a.column - b.column,
-          multiple: index,
+        sorter: (a, b) => {
+          if (a[column] > b[column]) {
+            return 1;
+          } else if (a[column] < b[column]) {
+            return -1;
+          } else {
+            return 0;
+          }
         },
+
         fixed: index < 2,
         width: 120,
       };
@@ -40,7 +46,7 @@ const TableAdmin = ({ dataSource, actions }) => {
     });
 
     const onChange = (pagination, filters, sorter, extra) => {
-      console.log('params', pagination, filters, sorter, extra);
+      console.log('params', pagination, sorter);
     };
 
     const totalColumnsWidth = columns.reduce((acc, column) => acc + column.width, 0);
