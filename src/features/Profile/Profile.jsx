@@ -16,10 +16,7 @@ const Profile = () => {
       </div>
 
       <div className="flex relative pt-16 px-12 pb-12 ">
-        <div
-          className="flex-1/3 items-start rounded-xl pt-6 px-8 pb-4 bg-white"
-          style={{ boxShadow: '0 1px 3px rgba(25,25,25,.1)' }}
-        >
+        <div className="flex-1/3 items-start rounded-xl pt-6 px-8 pb-4 bg-white shadow-2xl">
           <LeftContainer />
         </div>
 

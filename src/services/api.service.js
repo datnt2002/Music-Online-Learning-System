@@ -33,14 +33,6 @@ axiosClient.interceptors.response.use(
     // Show error
     console.log('interceptor', error.response.data);
     switch (true) {
-      case error.response.data.code === 401:
-        Swal.fire({
-          title: 'Error!',
-          text: error.response.data.message || API_ERROR.DEFAULT,
-          icon: 'error',
-          confirmButtonText: 'Got it!',
-        });
-        break;
       case error.response.data.code === 400:
         Swal.fire({
           title: 'Error!',
@@ -49,8 +41,31 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.code === 500:
+      case error.response.data.code === 401:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
         break;
+      case error.response.data.code === 403:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
+      case error.response.data.code === 500:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
+
       default:
         break;
     }

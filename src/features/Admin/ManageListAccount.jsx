@@ -3,8 +3,9 @@ import { Breadcrumb, Button, Layout, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserDeleteOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
-import TableAdmin from '../../components/Container/TableAdmin';
+
 import { disableUserAction } from '../../redux/slice/userSlice';
+import TableAdmin from '../../components/Container/TableAdmin/TableAdmin';
 
 const ManageListAccount = () => {
   //state of modal

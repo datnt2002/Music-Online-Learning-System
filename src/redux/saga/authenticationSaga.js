@@ -169,7 +169,9 @@ function* getCurrentUserSaga() {
         default:
           break;
       }
-    } catch {}
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 

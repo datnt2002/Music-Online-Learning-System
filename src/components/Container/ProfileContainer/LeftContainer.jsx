@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Avatar, Button, Card } from 'antd';
 import {
@@ -12,6 +13,8 @@ import {
 } from '@ant-design/icons';
 
 const LeftContainer = () => {
+  const userProfile = useSelector((state) => state.authentication.currentUser);
+  console.log(userProfile);
   return (
     <div className="flex flex-col items-center">
       {/* avatar */}

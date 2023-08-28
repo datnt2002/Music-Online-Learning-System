@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Breadcrumb, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { useSelector } from 'react-redux';
-import TableAdmin from '../../components/Container/TableAdmin';
+
+import ExpandedTable from '../../components/Container/TableAdmin/ExpandedTable';
 
 const ManageListCourses = () => {
   const listCourse = useSelector((state) => state.course.listCourse);
@@ -28,7 +30,7 @@ const ManageListCourses = () => {
           minHeight: 280,
         }}
       >
-        <TableAdmin dataSource={testCourse} />
+        <ExpandedTable />
       </Content>
     </Layout>
   );
