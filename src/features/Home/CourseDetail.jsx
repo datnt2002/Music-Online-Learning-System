@@ -6,9 +6,13 @@ import {
   GlobalOutlined,
   CheckOutlined,
   CaretRightOutlined,
+  HighlightOutlined,
+  NotificationOutlined,
 } from '@ant-design/icons';
+
 import BreadcrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import CourseDetailFloatingPanel from '../../components/Container/CourseContainer/CourseDetailFloatingPanel';
+import { Link } from 'react-router-dom';
 
 const CourseDetail = () => {
   return (
@@ -16,29 +20,38 @@ const CourseDetail = () => {
       {/* brief course */}
       <div className="bg-amber-400 rounded-b-3xl shadow-lg text-white py-14">
         <div className="mx-auto max-w-7xl">
-          <div className="ml-16">
+          <div className="ml-16 mb-4">
             <BreadcrumbCustom />
           </div>
 
           <div className="ml-16 max-w-2xl">
-            <h1 className="text-3xl">The Ultimate React Course 2023: React, Redux & More</h1>
-            <h2 className="text-xl">
+            <h1 className="text-3xl my-2">The Ultimate React Course 2023: React, Redux & More</h1>
+            <h2 className="text-xl my-2">
               Master modern React from beginner to advanced! Context API, React Query, Redux Toolkit, Tailwind, advanced
               patterns
             </h2>
-            <div className="flex">
-              <p className="bg-yellow-300 text-sm text-black py-1 px-2">Best seller</p>
-              <p>4.5</p>
-              <Rate disabled allowHalf defaultValue={4.5} />
-              <p>224 Rating</p>
-              <p>448 Subscribes</p>
+            <div className="flex my-2">
+              <p className="bg-yellow-300 text-sm text-black py-1 px-2 mr-2">Best seller</p>
+              <p className="align-middle mx-2 leading-1">4.5</p>
+              <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
+              <p className="align-middle mx-2 leading-1">
+                <HighlightOutlined className="align-[0.125rem]" /> 224 Rating
+              </p>
+              <p className="align-middle mx-2 leading-1">
+                <NotificationOutlined className="align-[0.125rem]" /> 448 Subscribes
+              </p>
             </div>
-            <p>Created by Author Name</p>
+            <p className="my-2">
+              Created by <Link className="underline">Author Name</Link>
+            </p>
             <div className="flex">
-              <ClockCircleOutlined />
-              <h3>Last update at 05/2023</h3>
-              <GlobalOutlined />
-              <h3>Vietnamese</h3>
+              <p className="mr-2">
+                <ClockCircleOutlined className="align-[0.125rem]" /> Last update at 05/2023
+              </p>
+
+              <p className="ml-2">
+                <GlobalOutlined className="align-[0.125rem]" /> Vietnamese
+              </p>
             </div>
           </div>
         </div>
@@ -50,11 +63,12 @@ const CourseDetail = () => {
       <div className="mx-auto max-w-7xl pt-11">
         <div className="ml-16 max-w-2xl">
           {/* what you learn */}
-          <div className="border-2 border-yellow-300">
-            <h2 className="text-xl mx-6 mb-4"> What you learn in this course</h2>
+          <div className="rounded-2xl border-2 shadow-md border-yellow-300 py-4">
+            <h2 className="text-xl mx-6 mb-4 font-medium"> What you learn in this course</h2>
             <ul className="flex flex-wrap justify-between mx-6">
               <li className="max-w-[18rem]">
-                <CheckOutlined /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình với REACT
+                <CheckOutlined className="align-[0.125rem]" /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình
+                với REACT
               </li>
               <li className="max-w-[18rem]">
                 <CheckOutlined /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình với REACT
@@ -69,15 +83,17 @@ const CourseDetail = () => {
           </div>
 
           {/* course content */}
-          <div>
-            <h2 className="text-xl mb-4">Course Content</h2>
+          <div className="my-6">
+            <h2 className="text-xl mb-4 font-medium">Course Content</h2>
             <div className="flex justify-between">
               <div className="flex">
                 <p>31 sections</p>
-                <CaretRightOutlined />
-                <p>411 lectures</p>
-                <CaretRightOutlined />
-                <p>67h 10m total length</p>
+                <p>
+                  <CaretRightOutlined className="align-[0.125rem]" /> 411 lectures
+                </p>
+                <p>
+                  <CaretRightOutlined className="align-[0.125rem]" /> 67h 10m total length
+                </p>
               </div>
               <button>Expand All Lessons</button>
             </div>
@@ -85,11 +101,11 @@ const CourseDetail = () => {
           </div>
 
           {/* requirement */}
-          <div>
-            <h2 className="text-xl mb-4">Requirements</h2>
+          <div className="my-6">
+            <h2 className="text-xl mb-4 font-medium">Requirements</h2>
             <ul>
               <li>
-                <CheckCircleOutlined />
+                <CheckCircleOutlined className="align-[0.125rem]" />
                 Có tư duy lập trình
               </li>
               <li>
@@ -104,8 +120,8 @@ const CourseDetail = () => {
           </div>
 
           {/* description */}
-          <div>
-            <h2 className="text-xl mb-4">Description</h2>
+          <div className="my-6">
+            <h2 className="text-xl mb-4 font-medium">Description</h2>
             <p>
               React.JS là một thư viện, framework giúp xây dựng một website hiện đại, có tính mở rộng và hiệu năng cực
               lớn. Các sản phẩm tiêu biểu sử dụng React có thể kể đến như Facebook và Instagram. Được Facebook chống
@@ -121,12 +137,12 @@ const CourseDetail = () => {
             </p>
           </div>
 
-          <div>
-            <h2 className="text-xl mb-4">Subcribes</h2>
+          <div className="my-6">
+            <h2 className="text-xl mb-4 font-medium">Subcribes</h2>
 
             <ul>
               <li>
-                <CheckCircleOutlined />
+                <CheckCircleOutlined className="align-[0.125rem]" />
                 Tất cả những bạn mới bắt đầu, những bạn muốn học lập trình với React, đang muốn học và làm chủ React thì
                 đây chính là khóa học các bạn tìm. React Ultimate, chỉ một là đủ.
               </li>
