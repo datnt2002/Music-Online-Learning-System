@@ -4,6 +4,8 @@ import { Avatar, Dropdown, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import DefaultAvatar from '../../../../assets/imgs/defaultAvatar.webp';
+
 const AvatarDropdown = () => {
   const currentUser = useSelector((state) => {
     return state.authentication.currentUser;
@@ -17,14 +19,10 @@ const AvatarDropdown = () => {
       label: (
         <Link to="/user/profile">
           <Space className="flex">
-            <Avatar
-              size={43}
-              src="https://thichthucung.com/wp-content/uploads/meo-beo-phi-co-nguy-hiem-khong.jpg"
-              alt="Avatar"
-            />
+            <Avatar size={43} src={currentUser.avatar ? currentUser.avatar : DefaultAvatar} alt="Avatar" />
             <div className="flex flex-col">
-              <p>Username</p>
-              <p>Email</p>
+              <p>{currentUser.username}</p>
+              <p>{currentUser.email}</p>
             </div>
           </Space>
         </Link>

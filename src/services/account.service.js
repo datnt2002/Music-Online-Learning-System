@@ -16,9 +16,22 @@ export const getListUser = (data) => {
 };
 
 export const disableUser = (data) => {
-  console.log(data);
   return axiosClient
     .delete(`users/disable/${data.id}`, { headers: { Authorization: `Bearer ${data.token}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const uploadAvatar = (data) => {
+  console.log(data);
+  const formData = new FormData();
+  formData.append(data.image);
+  return axiosClient
+    .patch('users/uploadAvatar', formData, { headers: { Authorization: `Bearer ${data.token}` } })
     .then((res) => {
       return res;
     })

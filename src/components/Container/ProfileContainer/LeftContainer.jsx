@@ -12,6 +12,8 @@ import {
   FacebookFilled,
 } from '@ant-design/icons';
 
+import DefaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
+
 const LeftContainer = () => {
   const userProfile = useSelector((state) => state.authentication.currentUser);
   console.log(userProfile);
@@ -22,12 +24,14 @@ const LeftContainer = () => {
         <Avatar
           size={110}
           icon={<AntDesignOutlined />}
-          src="https://www.astonvet.com/images/blog/fat-dog.jpg"
+          src={userProfile.avatar ? userProfile.avatar : DefaultAvatar}
           className="mb-2"
         />
 
-        <h1 className="text-2xl font-semibold">Nguyen Trong Dat</h1>
-        <p>Ke huy diet UI</p>
+        <h1 className="text-2xl font-semibold">
+          {userProfile.fullName ? userProfile.fullName : 'render name mac dinh'}
+        </h1>
+        <p className="italic">{userProfile.bio}</p>
         <p className="my-3">
           <EnvironmentOutlined className="align-[0.125rem]" /> Ha Noi, Viet Nam
         </p>
@@ -53,9 +57,9 @@ const LeftContainer = () => {
         </Link>
       </div>
 
-      <Card size="small" title="About Dat dep zai" className="w-full my-4">
-        <p>Card content</p>
-        <p>Card content</p>
+      <Card size="small" title={`About ${userProfile.fullName}`} className="w-full my-4">
+        <p>{userProfile.email}</p>
+        <p>{userProfile.phoneNumber}</p>
       </Card>
 
       {/* table statistic */}
@@ -106,13 +110,10 @@ const LeftContainer = () => {
       {/* About me */}
       <div className="max-w-[350px]">
         <h1 className="font-semibold text-lg">About me</h1>
-        <p>
-          Xin chao! My name is Mai. I am a graphic designer and illustrator. I believe that graphic design is all about
-          having fun and exploring new perspectives, especially different culture and social knowledge.
-        </p>
+        <p>{userProfile.bio}</p>
       </div>
 
-      <p className="my-3 font-medium">MEMBER SINCE: MAY 3, 2021</p>
+      <p className="my-3 font-medium">MEMBER SINCE: {userProfile.createdAt}</p>
     </div>
   );
 };

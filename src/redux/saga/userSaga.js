@@ -1,4 +1,8 @@
 import { call, fork, put, take } from 'redux-saga/effects';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
+
 import {
   disableUserAction,
   disableUserSuccess,
@@ -42,6 +46,20 @@ function* disableUserSaga() {
 
       switch (true) {
         case result.code === 200:
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
           yield put(disableUserSuccess(result));
           break;
 

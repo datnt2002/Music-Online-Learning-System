@@ -17,7 +17,6 @@ import {
   signupSuccess,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
-import { API_ERROR } from '../../constants';
 
 function* signInSaga() {
   while (true) {
@@ -44,7 +43,7 @@ function* signInSaga() {
             sessionStorage.setItem('token', result.data.token);
           }
 
-          if (result.data.user.Role.Rolename === 'ADMIN') {
+          if (result.data.user.role.Rolename === 'ADMIN') {
             navigate('/admin/list-courses');
           } else {
             navigate('/');
@@ -94,11 +93,6 @@ function* signUpSaga() {
           yield put(signupSuccess(result));
           break;
         case result.data.code === 409:
-          Swal.fire({
-            icon: 'error',
-            title: API_ERROR.CHECK_USERNAME_OR_EMAIL,
-            text: result.data.message || API_ERROR.DEFAULT,
-          });
           yield put(signupFail(result));
           break;
         default:

@@ -56,7 +56,7 @@ const TableAdmin = ({ dataSource, actions }) => {
         columns={columns}
         dataSource={flattenData}
         onChange={onChange}
-        className="max-w-full"
+        className="max-w-full rounded-xl"
         scroll={{ x: totalColumnsWidth }}
       />
     );

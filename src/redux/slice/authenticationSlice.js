@@ -21,7 +21,7 @@ export const authenticationSlice = createSlice({
       state.currentUser = user;
       state.token = token;
     },
-    signInFail: (state, action) => {
+    signInFail: (state) => {
       state.loading = false;
     },
     signupAction: (state, action) => {
@@ -53,6 +53,13 @@ export const authenticationSlice = createSlice({
     changePasswordSuccess: (state, action) => {
       state.loading = false;
     },
+    uploadAvatarAction: (state) => {
+      state.loading = true;
+    },
+    uploadAvatarSuccess: (state, action) => {
+      state.loading = false;
+      const {} = action.payload;
+    },
   },
 });
 
@@ -68,6 +75,8 @@ export const {
   getCurrentUserSuccess,
   changePasswordAction,
   changePasswordSuccess,
+  uploadAvatarAction,
+  uploadAvatarSuccess,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

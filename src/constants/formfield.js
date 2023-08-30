@@ -7,11 +7,10 @@ export const FORM_FIELDS = {
 };
 
 export const PROFILE_FORM_FIELDS = {
-  FIRST_NAME: 'first_name',
-  LAST_NAME: 'last_name',
+  FULL_NAME: 'fullName',
   PASSWORD: 'password',
   EMAIL: 'email',
-  PHONE_NUMBER: 'phone_number',
+  PHONE_NUMBER: 'phoneNumber',
   ADDRESS: 'address',
   NATION: 'nation',
   GENDER: 'gender',

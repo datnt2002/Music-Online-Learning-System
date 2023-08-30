@@ -10,7 +10,7 @@ const Profile = () => {
       <div className="absolute top-0 right-0 left-0 h-48">
         <img
           src="https://www-cdn.eumetsat.int/files/styles/16_9_large/s3/2022-03/ocean_0.jpg?h=2f83cd36&itok=KIa1F6id"
-          alt=""
+          alt="backImage"
           className="object-cover h-full w-full "
         />
       </div>

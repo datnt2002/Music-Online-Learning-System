@@ -57,6 +57,14 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
+      case error.response.data.code === 409:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
       case error.response.data.code === 500:
         Swal.fire({
           title: 'Error!',
