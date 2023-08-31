@@ -15,8 +15,11 @@ import {
   signupAction,
   signupFail,
   signupSuccess,
+  uploadAvatarAction,
+  uploadAvatarSuccess,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
+import { uploadAvatar } from '../../services/account.service';
 
 function* signInSaga() {
   while (true) {
@@ -205,10 +208,34 @@ function* changePasswordSaga() {
   }
 }
 
+function* upLoadAvatarSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { fileImage, token },
+      } = yield take(uploadAvatarAction);
+      console.log(fileImage);
+      const result = yield call(uploadAvatar, { fileImage, token });
+      console.log(result);
+      switch (true) {
+        case result.code === 200:
+          yield put(uploadAvatarSuccess)
+          break;
+
+        default:
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* authenticationSaga() {
   yield fork(signInSaga);
   yield fork(signUpSaga);
   yield fork(forgotPasswordSaga);
   yield fork(getCurrentUserSaga);
   yield fork(changePasswordSaga);
+  yield fork(upLoadAvatarSaga);
 }

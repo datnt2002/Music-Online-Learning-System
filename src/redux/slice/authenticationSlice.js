@@ -45,7 +45,9 @@ export const authenticationSlice = createSlice({
     },
     getCurrentUserSuccess: (state, action) => {
       state.loading = false;
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       state.currentUser = action.payload;
+      state.token = token
     },
     changePasswordAction: (state) => {
       state.loading = true;

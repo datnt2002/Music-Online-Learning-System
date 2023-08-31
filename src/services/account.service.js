@@ -29,7 +29,7 @@ export const disableUser = (data) => {
 export const uploadAvatar = (data) => {
   console.log(data);
   const formData = new FormData();
-  formData.append(data.image);
+  formData.append('file', data.fileImage);
   return axiosClient
     .patch('users/uploadAvatar', formData, { headers: { Authorization: `Bearer ${data.token}` } })
     .then((res) => {
