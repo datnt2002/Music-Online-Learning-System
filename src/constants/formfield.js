@@ -3,6 +3,8 @@ export const FORM_FIELDS = {
   PASSWORD: 'password',
   EMAIL: 'email',
   CONFIRM_PASSWORD: 'confirm_password',
+  FIRST_NAME: 'firstName',
+  LAST_NAME: 'lastName',
   SEARCH: 'search',
 };
 

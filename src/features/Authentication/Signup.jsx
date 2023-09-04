@@ -15,15 +15,17 @@ const Signup = () => {
   const loading = useSelector((state) => state.authentication.loading);
   console.log(loading);
   const handleRegister = (values) => {
+    console.log(values);
     dispatch(
       signupAction({
         username: values.username,
         password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
         email: values.email,
         navigate,
       })
     );
-    console.log('Received values of form: ', values);
   };
   return (
     <div
@@ -33,7 +35,7 @@ const Signup = () => {
       }}
     >
       {loading && <Spin indicator={<Loading />} />}
-      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
+      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center my-6">
         {/* name page */}
         <div>
           <h1 className="text-3xl font-bold">LAUGAU</h1>
@@ -43,6 +45,36 @@ const Signup = () => {
         {/* form */}
         <div className="flex mt-4">
           <Form className="flex flex-col flex-1 relative" name="register" onFinish={handleRegister} scrollToFirstError>
+            <Form.Item
+              name={FORM_FIELDS.FIRST_NAME}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your first name',
+                },
+              ]}
+            >
+              <Input
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder="First Name*"
+                prefix={<UserOutlined className="site-form-item-icon" />}
+              />
+            </Form.Item>
+            <Form.Item
+              name={FORM_FIELDS.LAST_NAME}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your last name',
+                },
+              ]}
+            >
+              <Input
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder="Last Name*"
+                prefix={<UserOutlined className="site-form-item-icon" />}
+              />
+            </Form.Item>
             <Form.Item
               name={FORM_FIELDS.USERNAME}
               rules={[
@@ -77,7 +109,6 @@ const Signup = () => {
                 prefix={<MailOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
-
             <Form.Item
               name={FORM_FIELDS.PASSWORD}
               rules={[
@@ -94,7 +125,6 @@ const Signup = () => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
-
             <Form.Item
               name={FORM_FIELDS.CONFIRM_PASSWORD}
               dependencies={[FORM_FIELDS.PASSWORD]}

@@ -20,6 +20,7 @@ import {
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { uploadAvatar } from '../../services/account.service';
+import { ROLE } from '../../constants/role';
 
 function* signInSaga() {
   while (true) {
@@ -46,7 +47,7 @@ function* signInSaga() {
             sessionStorage.setItem('token', result.data.token);
           }
 
-          if (result.data.user.role.Rolename === 'ADMIN') {
+          if (result.data.user.roles[0].Rolename === ROLE.ADMIN) {
             navigate('/admin/list-courses');
           } else {
             navigate('/');
@@ -67,14 +68,14 @@ function* signUpSaga() {
     try {
       //destructuring payload
       const {
-        payload: { username, password, email, navigate },
+        payload: { username, password, email, firstName, lastName, navigate },
       } = yield take(signupAction);
       //call api signup
-      const result = yield call(signUp, { username, password, email });
+      const result = yield call(signUp, { username, password, email, firstName, lastName });
       console.log(result);
 
-      switch (true) {
-        case result.code === 200:
+      switch (result.code) {
+        case 200:
           Swal.fire({
             title: result.message,
             width: 850,
@@ -95,7 +96,7 @@ function* signUpSaga() {
           });
           yield put(signupSuccess(result));
           break;
-        case result.data.code === 409:
+        case 409:
           yield put(signupFail(result));
           break;
         default:
@@ -114,11 +115,10 @@ function* forgotPasswordSaga() {
         payload: { username, email, navigate },
       } = yield take(forgotPasswordAction);
 
-      console.log(username, email);
       const result = yield call(forgotPassword, { username, email });
       console.log(result);
-      switch (true) {
-        case result.code === 200:
+      switch (result.code) {
+        case 200:
           Swal.fire({
             title: result.message,
             width: 850,
@@ -158,8 +158,8 @@ function* getCurrentUserSaga() {
       console.log(token);
       const result = yield call(getCurrentUser, { token });
       console.log(result);
-      switch (true) {
-        case result.code === 200:
+      switch (result.code) {
+        case 200:
           yield put(getCurrentUserSuccess(result.data));
           break;
 
@@ -182,8 +182,8 @@ function* changePasswordSaga() {
 
       const result = yield call(changePassword, { oldPassword, newPassword, token });
       console.log(result);
-      switch (true) {
-        case result.code === 200:
+      switch (result.code) {
+        case 200:
           Swal.fire({
             title: result.message,
             width: 850,
@@ -217,9 +217,9 @@ function* upLoadAvatarSaga() {
       console.log(fileImage);
       const result = yield call(uploadAvatar, { fileImage, token });
       console.log(result);
-      switch (true) {
-        case result.code === 200:
-          yield put(uploadAvatarSuccess)
+      switch (result.code) {
+        case 200:
+          yield put(uploadAvatarSuccess);
           break;
 
         default:
