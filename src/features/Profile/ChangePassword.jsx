@@ -20,7 +20,7 @@ const ChangePassword = ({ handleOk }) => {
     handleOk();
   };
   return (
-    <Form id="myForm" onFinish={onFinish}>
+    <Form id="myFormChangePassword" onFinish={onFinish}>
       <Form.Item label="Old Password" name={CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD}>
         <Input.Password />
       </Form.Item>

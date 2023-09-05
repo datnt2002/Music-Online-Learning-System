@@ -8,10 +8,11 @@ import { EditTwoTone } from '@ant-design/icons';
 import ChangePassword from './ChangePassword';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PROFILE_FORM_FIELDS } from '../../constants';
+import ModalEditAvatar from '../../components/Container/ModalContainer/ModalEditAvatar';
 
 const EditProfile = () => {
   const [isModalChangePasswordOpen, setIsModalChangePasswordOpen] = useState(false);
-
+  const [isModalEditAvatarOpen, setIsModalEditAvatarOpen] = useState(false);
   const currentUser = useSelector((state) => state.authentication.currentUser);
 
   const [form] = Form.useForm();
@@ -25,12 +26,23 @@ const EditProfile = () => {
   const showModalChangePassword = () => {
     setIsModalChangePasswordOpen(true);
   };
-  const handleOk = () => {
+  const handleOkModalChangePassword = () => {
     setIsModalChangePasswordOpen(false);
   };
-  const handleCancel = () => {
+  const handleCancelModalChangePassword = () => {
     setIsModalChangePasswordOpen(false);
   };
+
+  const showModalEditAvatar = () => {
+    setIsModalEditAvatarOpen(true);
+  };
+  const handleOkModalEditAvatar = () => {
+    setIsModalEditAvatarOpen(false);
+  };
+  const handleCancelModalEditAvatar = () => {
+    setIsModalEditAvatarOpen(false);
+  };
+
   return (
     <div className="bg-slate-100">
       <div className="pt-6 ml-44">
@@ -50,38 +62,20 @@ const EditProfile = () => {
                 count={<EditTwoTone className="cursor-pointer" />}
                 style={{ borderRadius: '100%', fontSize: '1.5rem' }}
                 offset={[-10, 130]}
+                onClick={showModalEditAvatar}
               >
-                <Avatar shape="circle" size={150} alt="avatar" src="https://www.astonvet.com/images/blog/fat-dog.jpg" />
+                <Avatar shape="circle" size={150} alt="avatar" src={currentUser.avatar} />
               </Badge>
             </Form.Item>
             <Divider />
-
             <Form.Item label="Full Name" name={PROFILE_FORM_FIELDS.FULL_NAME} className="flex-1 mr-2">
               <Input />
             </Form.Item>
-
             <div className="flex">
               <Form.Item label="Password" name={PROFILE_FORM_FIELDS.PASSWORD} className="flex-1 mr-2">
                 <Input.Password disabled />
               </Form.Item>
               <Button onClick={showModalChangePassword}>Change Password</Button>
-              <Modal
-                destroyOnClose={true}
-                footer={[
-                  <Button form="myForm" key="cancel-button" onClick={handleCancel}>
-                    Cancel
-                  </Button>,
-                  <Button form="myForm" key="submit" htmlType="submit">
-                    Submit
-                  </Button>,
-                  //
-                ]}
-                title="Change Password"
-                open={isModalChangePasswordOpen}
-                onCancel={handleCancel}
-              >
-                <ChangePassword handleOk={handleOk} />
-              </Modal>
             </div>
             <Form.Item
               rules={[
@@ -139,6 +133,37 @@ const EditProfile = () => {
             </Space>
           </div>
         </Form>
+
+        {/* modal change password */}
+        <Modal
+          destroyOnClose={true}
+          footer={[
+            <Button form="myFormChangePassword" key="cancel-button" onClick={handleCancelModalChangePassword}>
+              Cancel
+            </Button>,
+            <Button form="myFormChangePassword" key="submit" htmlType="submit">
+              Submit
+            </Button>,
+            //
+          ]}
+          title="Change Password"
+          open={isModalChangePasswordOpen}
+          onCancel={handleCancelModalChangePassword}
+        >
+          <ChangePassword handleOk={handleOkModalChangePassword} />
+        </Modal>
+
+        {/* modal edit avatar */}
+        <Modal
+          className="text-center"
+          destroyOnClose={true}
+          title="Upload Avatar"
+          open={isModalEditAvatarOpen}
+          onCancel={handleCancelModalEditAvatar}
+          footer={null}
+        >
+          <ModalEditAvatar handleOk={handleOkModalEditAvatar} />
+        </Modal>
       </div>
     </div>
   );
