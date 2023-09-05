@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Layout } from 'antd';
 
 import HeaderAdmin from '../../Layout/Admin/HeaderAdmin';
 import SiderAdmin from '../../Layout/Admin/SiderAdmin';
+import { Layout } from 'antd';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import { getListAccountAction } from '../../../redux/slice/userSlice';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
@@ -24,9 +24,15 @@ export const AdminRoute = ({ children }) => {
       navigate('/signin');
     } else {
       let token = hasTokenInSession || hasTokenInLocal;
+      console.log(token);
       dispatch(getCurrentUserAction({ token: token }));
     }
   }, [navigate, hasTokenInLocal, hasTokenInSession, dispatch]);
+
+  const currentUser = useSelector((state) => {
+    return state.authentication.currentUser;
+  });
+  console.log(currentUser);
 
   useEffect(() => {
     dispatch(
