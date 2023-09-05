@@ -1,24 +1,29 @@
-import { Menu } from 'antd';
-import Sider from 'antd/es/layout/Sider';
-import React from 'react';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-const iconRoutes = [
-  { key: '1', icon: <LaptopOutlined />, link: '/admin/list-courses', label: 'Courses Manage' },
-  { key: '2', icon: <UserOutlined />, link: '/admin/list-accounts', label: 'Accounts Manage' },
-  { key: '3', icon: <NotificationOutlined />, link: '/route3' },
-];
+import { Menu } from 'antd';
+import Sider from 'antd/es/layout/Sider';
+import React, { useState } from 'react';
+import { DesktopOutlined, BookOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 
 const SiderAdmin = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
-    <Sider className="w-52">
-      <Menu mode="inline" className="h-full border-r-8">
-        {iconRoutes.map((item) => (
-          <Menu.Item key={item.key} icon={item.icon}>
-            <Link to={item.link}>{item.label}</Link>
+    <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Menu className="h-full" mode="inline">
+        <Menu.Item key={1} icon={<PieChartOutlined />}>
+          <Link>DashBoard</Link>
+        </Menu.Item>
+        <Menu.SubMenu key="courses" title="Courses" icon={<DesktopOutlined />}>
+          <Menu.Item key={2} icon={<BookOutlined />}>
+            <Link to="/admin/list-courses">List Courses</Link>
           </Menu.Item>
-        ))}
+        </Menu.SubMenu>
+        <Menu.SubMenu key="accounts" title="Accounts" icon={<UserOutlined />}>
+          <Menu.Item key={2} icon={<TeamOutlined />}>
+            <Link to="/admin/list-accounts">List Accounts</Link>
+          </Menu.Item>
+        </Menu.SubMenu>
       </Menu>
     </Sider>
   );
