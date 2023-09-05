@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import React, { useState } from 'react';
-import {
-  DesktopOutlined,
-  FileOutlined,
-  BookOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { DesktopOutlined, BookOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 
 const SiderAdmin = () => {
   const [collapsed, setCollapsed] = useState(false);
