@@ -16,7 +16,7 @@ import DefaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
 
 const LeftContainer = () => {
   const userProfile = useSelector((state) => state.authentication.currentUser);
-  console.log(userProfile);
+
   return (
     <div className="flex flex-col items-center">
       {/* avatar */}
@@ -28,9 +28,7 @@ const LeftContainer = () => {
           className="mb-2"
         />
 
-        <h1 className="text-2xl font-semibold">
-          {userProfile.fullName ? userProfile.fullName : 'render name mac dinh'}
-        </h1>
+        <h1 className="text-2xl font-semibold">{userProfile.firstName + ' ' + userProfile.lastName}</h1>
         <p className="italic">{userProfile.bio}</p>
         <p className="my-3">
           <EnvironmentOutlined className="align-[0.125rem]" /> Ha Noi, Viet Nam
@@ -57,7 +55,7 @@ const LeftContainer = () => {
         </Link>
       </div>
 
-      <Card size="small" title={`About ${userProfile.fullName}`} className="w-full my-4">
+      <Card size="small" title={`About ${userProfile.firstName}`} className="w-full my-4">
         <p>{userProfile.email}</p>
         <p>{userProfile.phoneNumber}</p>
       </Card>

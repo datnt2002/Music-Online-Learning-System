@@ -47,7 +47,7 @@ export const authenticationSlice = createSlice({
       state.loading = false;
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       state.currentUser = action.payload;
-      state.token = token
+      state.token = token;
     },
     changePasswordAction: (state) => {
       state.loading = true;
@@ -58,9 +58,8 @@ export const authenticationSlice = createSlice({
     uploadAvatarAction: (state) => {
       state.loading = true;
     },
-    uploadAvatarSuccess: (state, action) => {
+    uploadAvatarSuccess: (state) => {
       state.loading = false;
-      const {} = action.payload;
     },
   },
 });

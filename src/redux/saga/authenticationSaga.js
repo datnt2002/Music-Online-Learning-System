@@ -219,7 +219,7 @@ function* upLoadAvatarSaga() {
       console.log(result);
       switch (result.code) {
         case 200:
-          yield put(uploadAvatarSuccess);
+          yield put(uploadAvatarSuccess(result));
           break;
 
         default:

@@ -9,7 +9,8 @@ export const FORM_FIELDS = {
 };
 
 export const PROFILE_FORM_FIELDS = {
-  FULL_NAME: 'fullName',
+  FIRST_NAME: 'firstName',
+  LAST_NAME: 'lastName',
   PASSWORD: 'password',
   EMAIL: 'email',
   PHONE_NUMBER: 'phoneNumber',

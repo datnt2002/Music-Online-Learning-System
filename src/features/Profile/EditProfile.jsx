@@ -9,6 +9,7 @@ import ChangePassword from './ChangePassword';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PROFILE_FORM_FIELDS } from '../../constants';
 import ModalEditAvatar from '../../components/Container/ModalContainer/ModalEditAvatar';
+import DefaultAvatar from '../../assets/imgs/defaultAvatar.webp';
 
 const EditProfile = () => {
   const [isModalChangePasswordOpen, setIsModalChangePasswordOpen] = useState(false);
@@ -64,13 +65,23 @@ const EditProfile = () => {
                 offset={[-10, 130]}
                 onClick={showModalEditAvatar}
               >
-                <Avatar shape="circle" size={150} alt="avatar" src={currentUser.avatar} />
+                <Avatar
+                  shape="circle"
+                  size={150}
+                  alt="avatar"
+                  src={'localhost:3000\\' + (currentUser.avatar ? currentUser.avatar : DefaultAvatar)}
+                />
               </Badge>
             </Form.Item>
             <Divider />
-            <Form.Item label="Full Name" name={PROFILE_FORM_FIELDS.FULL_NAME} className="flex-1 mr-2">
-              <Input />
-            </Form.Item>
+            <Space className="flex">
+              <Form.Item label="First Name" name={PROFILE_FORM_FIELDS.FIRST_NAME}>
+                <Input />
+              </Form.Item>
+              <Form.Item label="Last Name" name={PROFILE_FORM_FIELDS.LAST_NAME}>
+                <Input />
+              </Form.Item>
+            </Space>
             <div className="flex">
               <Form.Item label="Password" name={PROFILE_FORM_FIELDS.PASSWORD} className="flex-1 mr-2">
                 <Input.Password disabled />
@@ -119,18 +130,11 @@ const EditProfile = () => {
               <TextArea rows={4} />
             </Form.Item>
 
-            <Space direction="vertical">
-              <div className="flex flex-col gap-2">
-                <h1>Payment method</h1>
-                <Button className="w-min">Add Payment Method</Button>
-              </div>
-              <Space className="flex">{/* <CreditCard /> */}</Space>
-              <Form.Item>
-                <Button type="primary" htmlType="submit" className="bg-amber-400 w-full">
-                  Submit
-                </Button>
-              </Form.Item>
-            </Space>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="bg-amber-400 w-full">
+                Submit
+              </Button>
+            </Form.Item>
           </div>
         </Form>
 

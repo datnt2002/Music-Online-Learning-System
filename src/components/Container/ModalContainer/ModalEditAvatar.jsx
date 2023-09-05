@@ -1,8 +1,10 @@
-import ImgCrop from 'antd-img-crop';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import ImgCrop from 'antd-img-crop';
 import { PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { uploadAvatarAction } from '../../../redux/slice/authenticationSlice';
 
 const ModalEditAvatar = ({ handleOk }) => {
@@ -46,7 +48,6 @@ const ModalEditAvatar = ({ handleOk }) => {
       })
     );
     handleOk();
-    console.log(values);
   };
   return (
     <ImgCrop zoomSlider showReset cropShape="round">
