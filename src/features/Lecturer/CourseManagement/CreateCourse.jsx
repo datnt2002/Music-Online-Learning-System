@@ -1,19 +1,23 @@
 import React from 'react';
-import { Breadcrumb, Button, Form, Input, InputNumber, Select } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Button, Form, Input, InputNumber, Select } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+
 import { createNewCourseAction } from '../../../redux/slice/courseSlice';
 import { CREATE_COURSE_FORM_FIELDS } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
+import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import { Content } from 'antd/es/layout/layout';
 
 const CreateCourse = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
-  console.log(token);
   const onFinish = (values) => {
     console.log('form', values);
 
+    //sua lai db
     dispatch(
       createNewCourseAction({
         courseName: values.CourseName,
@@ -27,30 +31,16 @@ const CreateCourse = () => {
   };
 
   return (
-    <div className="flex">
-      <StepsCustom />
-      <div className="flex flex-1 flex-col p-6 bg-amber-200">
-        <div>
-          <Breadcrumb
-            items={[
-              {
-                title: 'Home',
-              },
-              {
-                title: <a href="">Application Center</a>,
-              },
-              {
-                title: <a href="">Application List</a>,
-              },
-              {
-                title: 'An Application',
-              },
-            ]}
-          ></Breadcrumb>
+    <Content>
+      <div className="flex flex-1 flex-col p-6 ">
+        <div className="pl-6">
+          <BreadCrumbCustom />
         </div>
+        <StepsCustom />
 
-        <div className=" bg-yellow-100 p-6 ">
-          <h1>Create New Course</h1>
+        {/* form */}
+        <div className="bg-white shadow-xl rounded-2xl p-6 ">
+          <h1 className="font-semibold text-2xl">Create New Course</h1>
           <Form layout="horizontal" onFinish={onFinish}>
             <div className="flex">
               <div className="flex flex-col basis-3/5 p-5">
@@ -91,7 +81,7 @@ const CreateCourse = () => {
                   nameFormList={CREATE_COURSE_FORM_FIELDS.REQUIREMENT}
                 />
                 <Form.Item className="flex-1 mx-5">
-                  <Button type="primary" htmlType="submit" className="w-full">
+                  <Button type="primary" htmlType="submit" className="bg-amber-500 w-full">
                     Submit
                   </Button>
                 </Form.Item>
@@ -100,7 +90,7 @@ const CreateCourse = () => {
           </Form>
         </div>
       </div>
-    </div>
+    </Content>
   );
 };
 

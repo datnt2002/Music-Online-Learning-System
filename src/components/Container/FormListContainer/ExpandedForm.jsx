@@ -4,7 +4,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const ExpandedForm = ({ title, nameFormList, placeholder }) => {
   return (
-    <div className="flex flex-1 flex-col p-5 m-5 bg-green-200">
+    <div className="flex flex-1 flex-col p-5 m-5 shadow-xl border rounded-2xl">
       <h1>{title}</h1>
       <Form.List name={nameFormList}>
         {(fields, { add, remove }) => (

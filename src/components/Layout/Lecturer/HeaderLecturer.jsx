@@ -9,8 +9,6 @@ const HeaderLecturer = () => {
       <Header className="flex justify-between items-center bg-[#F39D39] h-16">
         {/* Logo */}
         <div className="flex basis-32 text-[#F5F5F5] text-xl ">LauGau</div>
-        {/* Searchbox */}
-
         <div className="flex basis-32">
           <AvatarDropdown />
         </div>

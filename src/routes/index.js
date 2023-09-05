@@ -123,6 +123,14 @@ export const authorRoutes = [
       </AuthorRoute>
     ),
   },
+  {
+    path: 'create-lesson',
+    element: (
+      <AuthorRoute>
+        <CreateLesson />
+      </AuthorRoute>
+    ),
+  },
 ];
 
 export const adminRoutes = [

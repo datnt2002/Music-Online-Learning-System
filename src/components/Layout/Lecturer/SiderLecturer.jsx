@@ -17,11 +17,6 @@ const SiderLecturer = () => {
             <Link to="">My Courses</Link>
           </Menu.Item>
         </Menu.SubMenu>
-        <Menu.SubMenu key="accounts" title="Accounts" icon={<UserOutlined />}>
-          <Menu.Item key={2} icon={<TeamOutlined />}>
-            <Link to=""></Link>
-          </Menu.Item>
-        </Menu.SubMenu>
       </Menu>
     </Sider>
   );

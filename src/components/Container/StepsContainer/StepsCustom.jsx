@@ -1,26 +1,29 @@
 import { Steps } from 'antd';
 import React from 'react';
-
+import { VideoCameraAddOutlined, FolderAddOutlined, DesktopOutlined } from '@ant-design/icons';
 const StepsCustom = () => {
-  const description = 'You can hover on the dot.';
+  const description = 'You can hover on the ';
 
   return (
-    <div className="bg-emerald-300 p-6 ">
+    <div className="p-6">
       <Steps
         current={0}
-        direction="vertical"
+        direction="horizontal"
         items={[
           {
-            title: 'Step 1 ',
+            title: 'Create New Course',
             description,
+            icon: <DesktopOutlined />,
           },
           {
-            title: 'Step 2',
+            title: 'Create Section',
             description,
+            icon: <FolderAddOutlined />,
           },
           {
-            title: 'Step 3',
+            title: 'Create Lesson',
             description,
+            icon: <VideoCameraAddOutlined />,
           },
         ]}
       />
