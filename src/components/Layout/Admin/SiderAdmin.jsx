@@ -1,18 +1,26 @@
 import { Link } from 'react-router-dom';
 
-import { Menu } from 'antd';
+import { Button, Menu } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import React, { useState } from 'react';
-import { DesktopOutlined, BookOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  DesktopOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  BookOutlined,
+  PieChartOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
 const SiderAdmin = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+    <Sider trigger={null} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
       <Menu className="h-full" mode="inline">
         <Menu.Item key={1} icon={<PieChartOutlined />}>
-          <Link>DashBoard</Link>
+          <Link to="/admin/dashboard">DashBoard</Link>
         </Menu.Item>
         <Menu.SubMenu key="courses" title="Courses" icon={<DesktopOutlined />}>
           <Menu.Item key={2} icon={<BookOutlined />}>
@@ -24,6 +32,15 @@ const SiderAdmin = () => {
             <Link to="/admin/list-accounts">List Accounts</Link>
           </Menu.Item>
         </Menu.SubMenu>
+
+        <div className="w-[95%] text-center mx-auto">
+          <Button
+            className="!w-full"
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+          />
+        </div>
       </Menu>
     </Sider>
   );

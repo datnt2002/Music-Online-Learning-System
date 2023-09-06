@@ -1,2 +1,2 @@
 export * from './flattenObj';
-export * from './Sorter';
+export * from './sorter';

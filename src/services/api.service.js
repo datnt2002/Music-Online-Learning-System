@@ -32,8 +32,8 @@ axiosClient.interceptors.response.use(
     // Do something with response error
     // Show error
     console.log('interceptor', error.response.data);
-    switch (true) {
-      case error.response.data.code === 400:
+    switch (error.response.data.code) {
+      case 400:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -41,7 +41,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.code === 401:
+      case 401:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -49,7 +49,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.code === 403:
+      case 403:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -57,7 +57,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.code === 409:
+      case 409:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -65,7 +65,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.code === 500:
+      case 500:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,

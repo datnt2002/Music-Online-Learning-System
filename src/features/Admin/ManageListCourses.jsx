@@ -1,27 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Breadcrumb, Layout } from 'antd';
+import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
+import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 
 import ExpandedTable from '../../components/Container/TableAdmin/ExpandedTable';
 
 const ManageListCourses = () => {
   const listCourse = useSelector((state) => state.course.listCourse);
   console.log(listCourse);
-  const testCourse = [];
+
   return (
     <Layout
       style={{
         padding: '0 24px 24px',
       }}
     >
-      <Breadcrumb
-        style={{
-          margin: '16px 0',
-        }}
-        items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-      ></Breadcrumb>
       <Content
         className="h-screen"
         style={{
@@ -30,6 +25,7 @@ const ManageListCourses = () => {
           minHeight: 280,
         }}
       >
+        <BreadCrumbCustom />
         <ExpandedTable />
       </Content>
     </Layout>

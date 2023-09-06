@@ -18,6 +18,7 @@ import Cart from '../features/Home/Cart';
 import Wishlist from '../features/Home/Wishlist';
 import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer';
 import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
+import DashBoardAdmin from '../features/Admin/Dashboard';
 
 const PublicLayout = ({ children }) => {
   return (
@@ -134,6 +135,14 @@ export const authorRoutes = [
 ];
 
 export const adminRoutes = [
+  {
+    path: 'dashboard',
+    element: (
+      <AdminRoute>
+        <DashBoardAdmin />
+      </AdminRoute>
+    ),
+  },
   {
     path: 'list-courses',
     element: (
