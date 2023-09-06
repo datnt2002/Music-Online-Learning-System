@@ -8,6 +8,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import AuthenticationButton from './HeaderComponent/AuthenticationButton';
 import { FORM_FIELDS } from '../../../constants/formfield';
 import CombineAvatarAndCart from './HeaderComponent/CombineAvatarAndCart';
+import CategoryDropdown from '../../Container/CategoryContainer/CategoryDropdown';
 
 const HeaderDefault = () => {
   const handleSearch = (values) => {
@@ -26,6 +27,7 @@ const HeaderDefault = () => {
         <Link className="flex basis-32 text-[#F5F5F5] text-xl" to="/">
           LauGau
         </Link>
+        <CategoryDropdown />
         {/* Searchbox */}
         <Form onFinish={handleSearch} className="flex flex-1 justify-center h-full">
           <Form.Item name={FORM_FIELDS.SEARCH} rules={[{ required: true }]} className="w-2/3">
