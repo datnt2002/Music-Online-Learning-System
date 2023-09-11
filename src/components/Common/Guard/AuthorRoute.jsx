@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Layout from 'antd/es/layout/layout';
@@ -21,10 +20,6 @@ const AuthorRoute = ({ children }) => {
     }
   }, [navigate, hasTokenInLocal, hasTokenInSession]);
 
-  const currentUser = useSelector((state) => {
-    return state.authentication.currentUser;
-  });
-  console.log(currentUser);
   return (
     <>
       <HeaderLecturer />

@@ -19,6 +19,7 @@ import Wishlist from '../features/Home/Wishlist';
 import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer';
 import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
 import DashBoardAdmin from '../features/Admin/Dashboard';
+import Payment from '../features/Home/Payment';
 
 const PublicLayout = ({ children }) => {
   return (
@@ -86,6 +87,14 @@ export const userRoutes = [
     element: (
       <UserRoute>
         <Wishlist />
+      </UserRoute>
+    ),
+  },
+  {
+    path: 'payment',
+    element: (
+      <UserRoute>
+        <Payment />
       </UserRoute>
     ),
   },

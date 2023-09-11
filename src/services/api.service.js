@@ -4,7 +4,8 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { API_ERROR } from '../constants';
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  // baseURL: 'http://localhost:3000/api/',
+  baseURL: 'http://www.eschoolhub.click/',
 });
 
 // Add a request interceptor
@@ -32,7 +33,7 @@ axiosClient.interceptors.response.use(
     // Do something with response error
     // Show error
     console.log('interceptor', error.response.data);
-    switch (error.response.data.code) {
+    switch (error.response.code) {
       case 400:
         Swal.fire({
           title: 'Error!',
@@ -50,6 +51,14 @@ axiosClient.interceptors.response.use(
         });
         break;
       case 403:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
+      case 404:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,

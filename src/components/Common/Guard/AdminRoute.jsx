@@ -29,11 +29,6 @@ export const AdminRoute = ({ children }) => {
     }
   }, [navigate, hasTokenInLocal, hasTokenInSession, dispatch]);
 
-  const currentUser = useSelector((state) => {
-    return state.authentication.currentUser;
-  });
-  console.log(currentUser);
-
   useEffect(() => {
     dispatch(
       getListCourseAction({
