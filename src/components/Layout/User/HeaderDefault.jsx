@@ -1,22 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Header } from 'antd/es/layout/layout';
 import { Form, Input, Layout, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import AuthenticationButton from './HeaderComponent/AuthenticationButton';
-import { FORM_FIELDS } from '../../../constants/formfield';
 import CombineAvatarAndCart from './HeaderComponent/CombineAvatarAndCart';
 import CategoryDropdown from '../../Container/CategoryContainer/CategoryDropdown';
+import { FORM_FIELDS } from '../../../constants/formfield';
 
 const HeaderDefault = () => {
   const handleSearch = (values) => {
     console.log('Success:', values);
   };
 
+  const accessToken = useSelector((state) => state.authentication.accessToken);
+
   let isAuthenticated = false;
-  if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
+  if (accessToken) {
     isAuthenticated = true;
   }
 

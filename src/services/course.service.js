@@ -23,3 +23,17 @@ export const createNewCourse = (data) => {
       return err;
     });
 };
+
+export const getListCategory = (data) => {
+  console.log(data);
+  return axiosClient
+    .get('categories', {
+      params: { pageIndex: 1, pageSize: data.pageSize },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

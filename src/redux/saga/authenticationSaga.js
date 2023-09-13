@@ -21,6 +21,7 @@ import {
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { uploadAvatar } from '../../services/account.service';
 import { ROLE } from '../../constants/role';
+import { ADMIN_ROUTE, PUBLIC_ROUTE, TOKEN } from '../../constants';
 
 function* signInSaga() {
   while (true) {
@@ -40,17 +41,20 @@ function* signInSaga() {
           break;
         case 200:
           yield put(signInSuccess(result.data));
+
           //store in session for login once
           if (remember) {
-            localStorage.setItem('token', result.data.token);
+            sessionStorage.setItem(TOKEN.ACCESS_TOKEN, result.data.accessToken);
+            localStorage.setItem(TOKEN.REFRESH_TOKEN, result.data.refreshToken);
           } else {
-            sessionStorage.setItem('token', result.data.token);
+            sessionStorage.setItem(TOKEN.ACCESS_TOKEN, result.data.accessToken);
+            sessionStorage.setItem(TOKEN.REFRESH_TOKEN, result.data.refreshToken);
           }
 
-          if (result.data.user.roles[0].Rolename === ROLE.ADMIN) {
-            navigate('/admin/list-courses');
+          if (result.data.user.roles[0].roleName === ROLE.ADMIN) {
+            navigate(ADMIN_ROUTE.DASHBOARD);
           } else {
-            navigate('/');
+            navigate(PUBLIC_ROUTE.DEFAULT);
           }
           break;
         default:
@@ -91,7 +95,7 @@ function* signUpSaga() {
             confirmButtonText: 'Got it',
           }).then((result) => {
             if (result.isConfirmed) {
-              navigate('/signin');
+              navigate(PUBLIC_ROUTE.SIGN_IN);
             }
           });
           yield put(signupSuccess(result));
@@ -152,11 +156,11 @@ function* getCurrentUserSaga() {
   while (true) {
     try {
       const {
-        payload: { token },
+        payload: { accessToken },
       } = yield take(getCurrentUserAction);
 
-      console.log(token);
-      const result = yield call(getCurrentUser, { token });
+      console.log(accessToken);
+      const result = yield call(getCurrentUser, { accessToken });
       console.log(result);
       switch (result.code) {
         case 200:
@@ -204,7 +208,9 @@ function* changePasswordSaga() {
         default:
           break;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
