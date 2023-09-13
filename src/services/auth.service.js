@@ -1,6 +1,8 @@
+import { TOKEN } from '../constants';
 import axiosClient from './api.service';
 
 export const signIn = (data) => {
+  console.log(data);
   return axiosClient
     .post('users/auth/login', data)
     .then((res) => {
@@ -46,8 +48,21 @@ export const changePassword = (data) => {
 };
 
 export const getCurrentUser = (data) => {
+  console.log(data);
   return axiosClient
-    .get('users/profile/', { headers: { Authorization: `Bearer ${data.token}` } })
+    .get('users/profile/', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getAccessToken = () => {
+  const refreshToken = sessionStorage.getItem(TOKEN.REFRESH_TOKEN) || localStorage.getItem(TOKEN.REFRESH_TOKEN);
+  return axiosClient
+    .post('users/auth/refreshtoken', { refreshToken })
     .then((res) => {
       return res;
     })

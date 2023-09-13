@@ -1,16 +1,22 @@
 import React from 'react';
 
 import { Avatar, Dropdown, Space } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import DefaultAvatar from '../../../../assets/imgs/defaultAvatar.webp';
+import { logoutAction } from '../../../../redux/slice/authenticationSlice';
+import { PUBLIC_ROUTE } from '../../../../constants';
 
 const AvatarDropdown = () => {
   const currentUser = useSelector((state) => {
     return state.authentication.currentUser;
   });
-  const handleLogout = () => {};
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logoutAction());
+  };
   console.log(currentUser);
 
   const items = [
@@ -70,7 +76,11 @@ const AvatarDropdown = () => {
     },
     {
       key: '9',
-      label: <Link onClick={handleLogout}>Log out</Link>,
+      label: (
+        <Link to={PUBLIC_ROUTE.SIGN_IN} onClick={handleLogout}>
+          Log out
+        </Link>
+      ),
     },
   ];
 

@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   listCourse: [],
   currentCourse: [],
+  listCategory: [],
 };
 
 export const courseSlice = createSlice({
@@ -27,6 +28,16 @@ export const courseSlice = createSlice({
       state.loading = false;
       state.currentCourse = action.payload;
     },
+    getListCategoryAction: (state) => {
+      state.loading = true;
+    },
+    getListCategorySuccess: (state, action) => {
+      state.loading = false;
+      state.listCategory = action.payload;
+    },
+    getListCategoryFail: (state) => {
+      state.loading = false;
+    },
   },
 });
 
@@ -36,6 +47,9 @@ export const {
   getListCourseFail,
   createNewCourseAction,
   createNewCourseSuccess,
+  getListCategoryAction,
+  getListCategorySuccess,
+  getListCategoryFail,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

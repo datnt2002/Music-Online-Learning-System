@@ -1,17 +1,17 @@
 import axios from 'axios';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-import { API_ERROR } from '../constants';
+import { API_ERROR, TOKEN } from '../constants';
+import { getAccessToken } from './auth.service';
 
 const axiosClient = axios.create({
-  // baseURL: 'http://localhost:3000/api/',
-  baseURL: 'http://www.eschoolhub.click/',
+  baseURL: 'http://localhost:3000/api/',
+  // baseURL: 'http://www.eschoolhub.click/',
 });
 
 // Add a request interceptor
 axiosClient.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
+  async function (config) {
     return config;
   },
   function (error) {
@@ -28,12 +28,13 @@ axiosClient.interceptors.response.use(
 
     return response.data;
   },
-  function (error) {
+  async function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     // Show error
+    const originalRequest = error.config;
     console.log('interceptor', error.response.data);
-    switch (error.response.code) {
+    switch (true) {
       case 400:
         Swal.fire({
           title: 'Error!',
@@ -49,6 +50,20 @@ axiosClient.interceptors.response.use(
           icon: 'error',
           confirmButtonText: 'Got it!',
         });
+        break;
+      case error.response.data.status === 403 && error.response.data.errors === 'token expired':
+        try {
+          //call api get new access token
+          const result = await getAccessToken();
+          //set new token to session storage
+          sessionStorage.setItem(TOKEN.ACCESS_TOKEN, result.data);
+          //set new header with new token
+          originalRequest.headers['Authorization'] = `Bearer ${result.data}`;
+          //resend the original request
+          axios(originalRequest);
+        } catch (error) {
+          console.log(error);
+        }
         break;
       case 403:
         Swal.fire({
