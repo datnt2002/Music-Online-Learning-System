@@ -3,7 +3,7 @@ import axiosClient from './api.service';
 export const getListCourses = (data) => {
   console.log(data);
   return axiosClient
-    .get('courses', { params: { pageIndex: 1, pageSize: data.pageSize } })
+    .get('courses', { params: { pageIndex: data.pageIndex, pageSize: data.pageSize } })
     .then((res) => {
       return res;
     })

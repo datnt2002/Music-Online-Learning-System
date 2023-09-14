@@ -1,59 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
+import flattenObj from '../../../utils/flattenObj';
 
-const ExpandedTable = () => {
-  const [dataSource, setDataSource] = useState([]);
-  const [page, setPage] = useState();
-  const [pageSize, setPageSize] = useState();
+const ExpandedTable = ({ dataSource, actions }) => {
+  if (dataSource.length > 0) {
+    //solve nested object because of join database
+    const flattenData = dataSource.map((data, index) => {
+      //add a pair key and value to avoid warning unique table data
+      const clone = { ...data };
+      Object.assign(clone, { key: index });
+      const result = flattenObj(clone);
+      return result;
+    });
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => setDataSource(data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  const columns = [
-    {
-      title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
-      sorter: (a, b) => {
-        return a.id > b.id;
-      },
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'completed',
-      dataIndex: 'completed',
-      key: 'completed',
-      render: (completed) => <p>{completed ? 'Complete' : 'In progress'}</p>,
-    },
-  ];
-
-  return (
-    <Table
-      columns={columns}
-      expandable={{
-        expandedRowRender: (record) => <p>{record.description}</p>,
-      }}
-      dataSource={dataSource}
-      pagination={{
-        current: page,
-        pageSize: pageSize,
-        onChange: (page, pageSize) => {
-          setPage(page);
-          setPageSize(pageSize);
+    //get title of table by get key of obj
+    const titleColumnList = Object.keys(flattenData[0]);
+    const columns = titleColumnList.map((column, index) => {
+      const data = {
+        title: column,
+        dataIndex: column,
+        sorter: (a, b) => {
+          if (a[column] > b[column]) {
+            return 1;
+          } else if (a[column] < b[column]) {
+            return -1;
+          } else {
+            return 0;
+          }
         },
-      }}
-    />
-  );
+
+        fixed: index < 2,
+        width: 120,
+      };
+      return data;
+    });
+    // columns.push({
+    //   title: 'Actions',
+    //   fixed: 'right',
+    //   width: 80,
+    //   align: 'center',
+    //   render: (record) => {
+    //     return actions(record);
+    //   },
+    // });
+
+    const onChange = (pagination, filters, sorter, extra) => {
+      console.log('params', pagination, sorter);
+    };
+
+    const totalColumnsWidth = columns.reduce((acc, column) => acc + column.width, 0);
+    return (
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => <p>{record.description}</p>,
+        }}
+        dataSource={dataSource}
+        onChange={onChange}
+        scroll={{ x: totalColumnsWidth }}
+      />
+    );
+  }
 };
 
 export default ExpandedTable;

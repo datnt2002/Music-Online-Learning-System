@@ -16,13 +16,11 @@ function* getListAccountSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize, token },
+        payload: { pageSize, accessToken, pageIndex },
       } = yield take(getListAccountAction);
-      console.log(pageSize, token);
-      const result = yield call(getListUser, { pageSize, token });
-      console.log(result);
 
-      // doan nay la sw case
+      const result = yield call(getListUser, { pageSize, accessToken, pageIndex });
+
       if (result.data) {
         yield put(getListAccountSuccess(result.data));
       } else {
@@ -38,11 +36,10 @@ function* disableUserSaga() {
   while (true) {
     try {
       const {
-        payload: { id, token },
+        payload: { id, accessToken },
       } = yield take(disableUserAction);
-      console.log(id, token);
-      const result = yield call(disableUser, { id, token });
-      console.log(result);
+
+      const result = yield call(disableUser, { id, accessToken });
 
       switch (true) {
         case result.code === 200:

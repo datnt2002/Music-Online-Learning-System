@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Button, Layout, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserDeleteOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
-import { disableUserAction } from '../../redux/slice/userSlice';
+import { disableUserAction, getListAccountAction } from '../../redux/slice/userSlice';
 import TableAdmin from '../../components/Container/TableAdmin/TableAdmin';
+import { TOKEN } from '../../constants';
 
 const ManageListAccount = () => {
   //state of modal
@@ -15,12 +16,23 @@ const ManageListAccount = () => {
   const dispatch = useDispatch();
   //get list accounts from store
   const listAccounts = useSelector((state) => state.user.listAccounts);
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-  console.log(token);
+  const authToken =
+    JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+
+  useEffect(() => {
+    dispatch(
+      getListAccountAction({
+        pageIndex: 1,
+        pageSize: 4,
+        accessToken: authToken.accessToken,
+      })
+    );
+    return () => {};
+  }, [dispatch]);
 
   const handleDisableUser = (id) => {
     console.log('gau gau ', id);
-    dispatch(disableUserAction({ id, token }));
+    dispatch(disableUserAction({ id, accessToken: authToken.accessToken }));
     setOpen(false);
   };
 

@@ -43,3 +43,23 @@ export const CREATE_COURSE_FORM_FIELDS = {
 export const CREATE_SECTION_FORM_FIELDS = {
   SECTION_NAME: 'section_name',
 };
+
+export const VALIDATE_MESSAGE = {
+  USERNAME_REQUIRED: 'Please input your Username!',
+  EMAIL_REQUIRED: 'Please input your Email!',
+  EMAIL_NOT_VALID: 'The input is not valid E-mail!',
+  PASSWORD_REQUIRED: 'Please input your Password!',
+  FIRST_NAME_REQUIRED: 'Please input your first name',
+  LAST_NAME_REQUIRED: 'Please input your last name',
+  CONFIRM_PASSWORD_REQUIRED: 'Please confirm your password!',
+  PASSWORD_NOT_MATCH: 'The new password that you entered do not match!',
+};
+
+export const PLACEHOLDER_FORM = {
+  USERNAME: 'Username',
+  EMAIL: 'Email',
+  PASSWORD: 'Password',
+  FIRST_NAME: 'First Name',
+  LAST_NAME: 'Last Name',
+  CONFIRM_PASSWORD: 'Confirm Password',
+};

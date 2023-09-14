@@ -1,11 +1,10 @@
 import axiosClient from './api.service';
 
 export const getListUser = (data) => {
-  console.log(data);
   return axiosClient
     .get('users', {
-      params: { pageIndex: 1, pageSize: data.pageSize },
-      headers: { Authorization: `Bearer ${data.token}` },
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
     })
     .then((res) => {
       return res;
@@ -17,7 +16,7 @@ export const getListUser = (data) => {
 
 export const disableUser = (data) => {
   return axiosClient
-    .delete(`users/disable/${data.id}`, { headers: { Authorization: `Bearer ${data.token}` } })
+    .delete(`users/disable/${data.id}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

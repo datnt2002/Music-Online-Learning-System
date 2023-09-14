@@ -5,7 +5,7 @@ import { Form, Input, Checkbox, Button, Spin } from 'antd';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
-import { FORM_FIELDS } from '../../constants';
+import { FORM_FIELDS, PLACEHOLDER_FORM, PUBLIC_ROUTE, VALIDATE_MESSAGE } from '../../constants';
 import { signupAction } from '../../redux/slice/authenticationSlice';
 import Loading from '../../components/Common/Loading';
 
@@ -13,9 +13,9 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.authentication.loading);
-  console.log(loading);
+
   const handleRegister = (values) => {
-    console.log(values);
+    console.log('Sign up', values);
     dispatch(
       signupAction({
         username: values.username,
@@ -44,19 +44,19 @@ const Signup = () => {
 
         {/* form */}
         <div className="flex mt-4">
-          <Form className="flex flex-col flex-1 relative" name="register" onFinish={handleRegister} scrollToFirstError>
+          <Form className="flex flex-col flex-1 relative" onFinish={handleRegister} scrollToFirstError>
             <Form.Item
               name={FORM_FIELDS.FIRST_NAME}
               rules={[
                 {
                   required: true,
-                  message: 'Please input your first name',
+                  message: VALIDATE_MESSAGE.FIRST_NAME_REQUIRED,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
-                placeholder="First Name*"
+                placeholder={PLACEHOLDER_FORM.FIRST_NAME}
                 prefix={<UserOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
@@ -65,13 +65,13 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your last name',
+                  message: VALIDATE_MESSAGE.LAST_NAME_REQUIRED,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
-                placeholder="Last Name*"
+                placeholder={PLACEHOLDER_FORM.LAST_NAME}
                 prefix={<UserOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
@@ -80,13 +80,13 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your username',
+                  message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
-                placeholder="Username*"
+                placeholder={PLACEHOLDER_FORM.USERNAME}
                 prefix={<UserOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
@@ -94,18 +94,18 @@ const Signup = () => {
               name={FORM_FIELDS.EMAIL}
               rules={[
                 {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!',
+                  type: FORM_FIELDS.EMAIL,
+                  message: VALIDATE_MESSAGE.EMAIL_NOT_VALID,
                 },
                 {
                   required: true,
-                  message: 'Please input your E-mail!',
+                  message: VALIDATE_MESSAGE.EMAIL_REQUIRED,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
-                placeholder="Email*"
+                placeholder={PLACEHOLDER_FORM.EMAIL}
                 prefix={<MailOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
@@ -114,14 +114,14 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
                 },
               ]}
               hasFeedback
             >
               <Input.Password
                 className="rounded-full p-3 border-2 border-[#F39D39] "
-                placeholder="Password*"
+                placeholder={PLACEHOLDER_FORM.PASSWORD}
                 prefix={<LockOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
@@ -132,21 +132,21 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please confirm your password!',
+                  message: VALIDATE_MESSAGE.CONFIRM_PASSWORD_REQUIRED,
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
                     if (!value || getFieldValue(FORM_FIELDS.PASSWORD) === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('The new password that you entered do not match!'));
+                    return Promise.reject(new Error(VALIDATE_MESSAGE.PASSWORD_NOT_MATCH));
                   },
                 }),
               ]}
             >
               <Input.Password
                 className="rounded-full p-3 border-2 border-[#F39D39] "
-                placeholder="Confirm Password*"
+                placeholder={PLACEHOLDER_FORM.CONFIRM_PASSWORD}
                 prefix={<LockOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
@@ -163,7 +163,6 @@ const Signup = () => {
               <Checkbox>
                 I have read the
                 <Link href="" className="font-bold">
-                  {' '}
                   Terms And Policy
                 </Link>
               </Checkbox>
@@ -183,7 +182,7 @@ const Signup = () => {
 
         <div>
           <h4 className="font-bold mb-1">Already have an account?</h4>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to="/signin">
+          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_IN}>
             Sign in
           </Link>
         </div>

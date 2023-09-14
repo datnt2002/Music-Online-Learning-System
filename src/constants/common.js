@@ -3,8 +3,8 @@ export const API_ERROR = {
   CHECK_USERNAME_OR_EMAIL: 'Please check your username or email',
 };
 
-
 export const TOKEN = {
   ACCESS_TOKEN: 'accessToken',
-  REFRESH_TOKEN: 'refreshToken'
-}
+  REFRESH_TOKEN: 'refreshToken',
+  AUTH_TOKEN: 'authToken',
+};

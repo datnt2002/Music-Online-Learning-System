@@ -13,10 +13,10 @@ function* getListCourseSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize },
+        payload: { pageSize, pageIndex },
       } = yield take(getListCourseAction);
       console.log(pageSize);
-      const result = yield call(getListCourses, { pageSize });
+      const result = yield call(getListCourses, { pageSize, pageIndex });
       console.log(result);
 
       if (result.data) {

@@ -5,7 +5,7 @@ import { Button, Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
-import { FORM_FIELDS } from '../../constants';
+import { FORM_FIELDS, PLACEHOLDER_FORM, PUBLIC_ROUTE, VALIDATE_MESSAGE } from '../../constants';
 import { forgotPasswordAction } from '../../redux/slice/authenticationSlice';
 
 const ForgotPassword = () => {
@@ -19,7 +19,7 @@ const ForgotPassword = () => {
         navigate,
       })
     );
-    console.log(values);
+    console.log('Forgot password', values);
   };
 
   return (
@@ -37,26 +37,20 @@ const ForgotPassword = () => {
         </div>
         {/* form */}
         <div className="flex mt-4">
-          <Form
-            className=" flex flex-col w-full relative"
-            initialValues={{
-              remember: false,
-            }}
-            onFinish={handleForgotPassword}
-          >
+          <Form className=" flex flex-col w-full relative" onFinish={handleForgotPassword}>
             <Form.Item
               name={FORM_FIELDS.USERNAME}
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Username!',
+                  message: VALIDATE_MESSAGE.USERNAME_REQUIRED,
                 },
               ]}
             >
               <Input
-                className="rounded-full p-3 border-2 border-[#F39D39] text-black "
+                className="rounded-full p-3 border-2 border-[#F39D39] text-black"
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username*"
+                placeholder={PLACEHOLDER_FORM.USERNAME}
               />
             </Form.Item>
             <Form.Item
@@ -64,18 +58,18 @@ const ForgotPassword = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Email!',
+                  message: VALIDATE_MESSAGE.EMAIL_REQUIRED,
                 },
                 {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!',
+                  type: FORM_FIELDS.EMAIL,
+                  message: VALIDATE_MESSAGE.EMAIL_NOT_VALID,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] text-black"
                 prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="Email*"
+                placeholder={PLACEHOLDER_FORM.EMAIL}
               />
             </Form.Item>
 
@@ -94,14 +88,14 @@ const ForgotPassword = () => {
 
         <div>
           <h4 className="font-bold">Already have an account?</h4>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to="/signin">
+          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_IN}>
             Sign In
           </Link>
         </div>
 
         <div>
           <h4 className="font-bold mt-3">Don't have an account?</h4>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to="/signup">
+          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_UP}>
             Sign up
           </Link>
         </div>

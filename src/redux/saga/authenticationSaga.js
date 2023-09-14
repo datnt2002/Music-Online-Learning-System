@@ -36,19 +36,16 @@ function* signInSaga() {
       const result = yield call(signIn, { username, password });
       console.log(result);
       switch (result.code) {
-        case 401:
-          yield put(signInFail(result));
-          break;
         case 200:
           yield put(signInSuccess(result.data));
-
+          console.log(result.data);
           //store in session for login once
+          const authToken = { accessToken: result.data.accessToken, refreshToken: result.data.refreshToken };
+
           if (remember) {
-            sessionStorage.setItem(TOKEN.ACCESS_TOKEN, result.data.accessToken);
-            localStorage.setItem(TOKEN.REFRESH_TOKEN, result.data.refreshToken);
+            localStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           } else {
-            sessionStorage.setItem(TOKEN.ACCESS_TOKEN, result.data.accessToken);
-            sessionStorage.setItem(TOKEN.REFRESH_TOKEN, result.data.refreshToken);
+            sessionStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           }
 
           if (result.data.user.roles[0].roleName === ROLE.ADMIN) {
@@ -58,6 +55,7 @@ function* signInSaga() {
           }
           break;
         default:
+          yield put(signInFail(result));
           break;
       }
     } catch (error) {

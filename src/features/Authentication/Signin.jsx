@@ -7,13 +7,14 @@ import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import googleIcon from '../../assets/icons/googleIcon.png';
 import facebookIcon from '../../assets/icons/FacebookIcon.png';
 import { signInAction } from '../../redux/slice/authenticationSlice';
-import { FORM_FIELDS } from '../../constants';
+import { FORM_FIELDS, PLACEHOLDER_FORM, PUBLIC_ROUTE, VALIDATE_MESSAGE } from '../../constants';
 
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = (values) => {
+    console.log('sign in', values);
     dispatch(
       signInAction({
         username: values.username,
@@ -52,14 +53,14 @@ const Signin = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Username!',
+                  message: VALIDATE_MESSAGE.USERNAME_REQUIRED,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] text-black"
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username*"
+                placeholder={PLACEHOLDER_FORM.USERNAME}
               />
             </Form.Item>
             <Form.Item
@@ -67,7 +68,7 @@ const Signin = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Password!',
+                  message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
                 },
               ]}
             >
@@ -75,7 +76,7 @@ const Signin = () => {
                 className="rounded-full p-3 border-2 border-[#F39D39] text-black"
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder="Password"
+                placeholder={PLACEHOLDER_FORM.PASSWORD}
               />
             </Form.Item>
 
@@ -97,15 +98,14 @@ const Signin = () => {
         </div>
 
         <div>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to="/forgotpassword">
+          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.FORGOT_PASSWORD}>
             Forgot Password?
           </Link>
         </div>
 
         <div>
           <h4 className="font-bold mt-3 mb-2">Don't have an account?</h4>
-          {/* day la link router */}
-          <Link className="text-[#D07F1F] underline underline-offset-2" to="/signup">
+          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_UP}>
             Sign up
           </Link>
         </div>
