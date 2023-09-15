@@ -50,7 +50,7 @@ export const changePassword = (data) => {
 export const getCurrentUser = (data) => {
   console.log(data);
   return axiosClient
-    .get('users/profile/', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get('users/profile', { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

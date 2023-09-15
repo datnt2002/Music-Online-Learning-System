@@ -16,8 +16,6 @@ const HeaderAdmin = () => {
           <div className="flex basis-32">
             <AvatarDropdown />
           </div>
-          {/* dark mode */}
-          <div className="flex basis-20"></div>
         </div>
       </Header>
     </Layout>

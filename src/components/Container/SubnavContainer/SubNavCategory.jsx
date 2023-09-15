@@ -1,19 +1,21 @@
 import React from 'react';
-import { Categories } from '../../../constants/mockData';
+import { useSelector } from 'react-redux';
 
 const SubNavCategory = () => {
+  const categories = useSelector((state) => state.course.listCategory);
+
   return (
     <div className="flex h-full content-center flex-wrap">
-      {Categories.length > 0 ? (
-        Categories.map((category, index) => {
+      {categories.length > 0 ? (
+        categories.map((category) => {
           return (
-            <p className="flex-1 text-center" key={index}>
-              {category.title}
+            <p className="flex-1 text-center" key={category.cateId}>
+              {category.cateName}
             </p>
           );
         })
       ) : (
-        <div>áa</div>
+        <div></div>
       )}
     </div>
   );

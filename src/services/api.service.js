@@ -34,7 +34,7 @@ axiosClient.interceptors.response.use(
     // Show error
     const originalRequest = error.config;
     console.log('interceptor', error.response.data);
-    switch (true) {
+    switch (error.response.data.status) {
       case 400:
         Swal.fire({
           title: 'Error!',
@@ -51,7 +51,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.status === 403 && error.response.data.errors === 'token expired':
+      case 403 && error.response.data.errors === 'token expired':
         try {
           //call api get new access token
           const result = await getAccessToken();
@@ -99,6 +99,12 @@ axiosClient.interceptors.response.use(
         break;
 
       default:
+        Swal.fire({
+          title: 'Error!',
+          text: API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
         break;
     }
     return error.response;

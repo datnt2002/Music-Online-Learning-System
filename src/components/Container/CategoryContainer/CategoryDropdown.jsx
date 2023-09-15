@@ -5,43 +5,16 @@ import { Dropdown, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { getListCategoryAction } from '../../../redux/slice/courseSlice';
-import { TOKEN } from '../../../constants';
 
 const CategoryDropdown = () => {
-  const items = [
-    {
-      key: '2',
-      label: 'sub menu',
-      children: [
-        {
-          key: '2-1',
-          label: '3rd menu item',
-        },
-        {
-          key: '2-2',
-          label: '4th menu item',
-        },
-      ],
-    },
-    {
-      key: '3',
-      label: 'disabled sub menu',
-      children: [
-        {
-          key: '3-1',
-          label: '5d menu item',
-        },
-        {
-          key: '3-2',
-          label: '6th menu item',
-        },
-      ],
-    },
-  ];
-
   const categories = useSelector((state) => state.course.listCategory);
-  console.log(categories);
-
+  const items = categories.map((category) => {
+    return {
+      key: category.cateId,
+      label: category.cateName,
+      children: [],
+    };
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -49,7 +22,7 @@ const CategoryDropdown = () => {
         pageSize: 10,
       })
     );
-  }, []);
+  }, [dispatch]);
   return (
     <Dropdown
       menu={{
@@ -59,7 +32,7 @@ const CategoryDropdown = () => {
     >
       <Space>
         Category
-        <DownOutlined />
+        <DownOutlined className="align-[0.05rem]" />
       </Space>
     </Dropdown>
   );

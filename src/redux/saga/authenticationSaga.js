@@ -8,6 +8,7 @@ import {
   changePasswordSuccess,
   forgotPasswordAction,
   getCurrentUserAction,
+  getCurrentUserFail,
   getCurrentUserSuccess,
   signInAction,
   signInFail,
@@ -35,7 +36,7 @@ function* signInSaga() {
       //put to store
       const result = yield call(signIn, { username, password });
       console.log(result);
-      switch (result.code) {
+      switch (result.status) {
         case 200:
           yield put(signInSuccess(result.data));
           console.log(result.data);
@@ -156,16 +157,13 @@ function* getCurrentUserSaga() {
       const {
         payload: { accessToken },
       } = yield take(getCurrentUserAction);
-
-      console.log(accessToken);
       const result = yield call(getCurrentUser, { accessToken });
-      console.log(result);
-      switch (result.code) {
+      switch (result.status) {
         case 200:
           yield put(getCurrentUserSuccess(result.data));
           break;
-
         default:
+          yield put(getCurrentUserFail());
           break;
       }
     } catch (err) {

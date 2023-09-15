@@ -29,6 +29,7 @@ const Homepage = () => {
       type,
     };
   }
+
   const items = [
     getItem('Navigation One', 'sub1', <MailOutlined />, [
       getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),

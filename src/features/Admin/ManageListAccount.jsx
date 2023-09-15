@@ -7,6 +7,7 @@ import { Content } from 'antd/es/layout/layout';
 import { disableUserAction, getListAccountAction } from '../../redux/slice/userSlice';
 import TableAdmin from '../../components/Container/TableAdmin/TableAdmin';
 import { TOKEN } from '../../constants';
+import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 
 const ManageListAccount = () => {
   //state of modal
@@ -51,12 +52,9 @@ const ManageListAccount = () => {
         padding: '0 24px 24px',
       }}
     >
-      <Breadcrumb
-        style={{
-          margin: '16px 0',
-        }}
-        items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-      ></Breadcrumb>
+      <div className="my-5 ml-6">
+        <BreadCrumbCustom />
+      </div>
       <Content
         style={{
           padding: 24,

@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isLoggedIn: false,
   currentUser: {},
-  accessToken: '',
   loading: false,
 };
 
@@ -11,7 +10,7 @@ export const authenticationSlice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    logoutAction: (state) => {
+    logoutAction: () => {
       return initialState;
     },
     signInAction: (state) => {
@@ -20,9 +19,8 @@ export const authenticationSlice = createSlice({
     signInSuccess: (state, action) => {
       state.isLoggedIn = true;
       state.loading = false;
-      const { user, accessToken } = action.payload;
+      const { user } = action.payload;
       state.currentUser = user;
-      state.accessToken = accessToken;
     },
     signInFail: (state) => {
       state.loading = false;
@@ -48,9 +46,12 @@ export const authenticationSlice = createSlice({
     },
     getCurrentUserSuccess: (state, action) => {
       state.loading = false;
-      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      // console.log(action.payload);
+      // const {}
       state.currentUser = action.payload;
-      state.accessToken = token;
+    },
+    getCurrentUserFail: (state) => {
+      state.loading = false;
     },
     changePasswordAction: (state) => {
       state.loading = true;
@@ -78,6 +79,7 @@ export const {
   forgotPasswordAction,
   getCurrentUserAction,
   getCurrentUserSuccess,
+  getCurrentUserFail,
   changePasswordAction,
   changePasswordSuccess,
   uploadAvatarAction,
