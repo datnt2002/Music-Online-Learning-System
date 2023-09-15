@@ -2,7 +2,14 @@ import { call, fork, take, put } from 'redux-saga/effects';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
-import { changePassword, forgotPassword, getCurrentUser, signIn, signUp } from '../../services/auth.service';
+import {
+  changePassword,
+  forgotPassword,
+  getCurrentUser,
+  signIn,
+  signUp,
+  uploadAvatar,
+} from '../../services/auth.service';
 import {
   changePasswordAction,
   changePasswordSuccess,
@@ -20,7 +27,6 @@ import {
   uploadAvatarSuccess,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
-import { uploadAvatar } from '../../services/account.service';
 import { ROLE } from '../../constants/role';
 import { ADMIN_ROUTE, PUBLIC_ROUTE, TOKEN } from '../../constants';
 
@@ -77,7 +83,7 @@ function* signUpSaga() {
       const result = yield call(signUp, { username, password, email, firstName, lastName });
       console.log(result);
 
-      switch (result.code) {
+      switch (result.status) {
         case 200:
           Swal.fire({
             title: result.message,
@@ -120,7 +126,7 @@ function* forgotPasswordSaga() {
 
       const result = yield call(forgotPassword, { username, email });
       console.log(result);
-      switch (result.code) {
+      switch (result.status) {
         case 200:
           Swal.fire({
             title: result.message,
@@ -176,13 +182,14 @@ function* changePasswordSaga() {
   while (true) {
     try {
       const {
-        payload: { oldPassword, newPassword, token },
+        payload: { oldPassword, newPassword },
       } = yield take(changePasswordAction);
-      console.log(oldPassword, newPassword, token);
+      const { accessToken } =
+        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
 
-      const result = yield call(changePassword, { oldPassword, newPassword, token });
+      const result = yield call(changePassword, { oldPassword, newPassword, accessToken });
       console.log(result);
-      switch (result.code) {
+      switch (result.status) {
         case 200:
           Swal.fire({
             title: result.message,
@@ -214,12 +221,13 @@ function* upLoadAvatarSaga() {
   while (true) {
     try {
       const {
-        payload: { fileImage, token },
+        payload: { fileImage },
       } = yield take(uploadAvatarAction);
-      console.log(fileImage);
-      const result = yield call(uploadAvatar, { fileImage, token });
-      console.log(result);
-      switch (result.code) {
+
+      const { accessToken } =
+        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const result = yield call(uploadAvatar, { fileImage, accessToken });
+      switch (result.status) {
         case 200:
           yield put(uploadAvatarSuccess(result));
           break;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import ImgCrop from 'antd-img-crop';
 import { PlusOutlined } from '@ant-design/icons';
@@ -9,7 +9,6 @@ import { uploadAvatarAction } from '../../../redux/slice/authenticationSlice';
 
 const ModalEditAvatar = ({ handleOk }) => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.authentication.token);
 
   const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -44,7 +43,6 @@ const ModalEditAvatar = ({ handleOk }) => {
     dispatch(
       uploadAvatarAction({
         fileImage: values,
-        token,
       })
     );
     handleOk();

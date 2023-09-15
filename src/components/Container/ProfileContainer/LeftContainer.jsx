@@ -62,22 +62,24 @@ const LeftContainer = () => {
 
       {/* table statistic */}
       <table className="w-full">
-        <tr>
-          <td>Project Views</td>
-          <td className="text-right">173</td>
-        </tr>
-        <tr>
-          <td>Appreciations</td>
-          <td className="text-right">173</td>
-        </tr>
-        <tr>
-          <td>Followers</td>
-          <td className="text-right">173</td>
-        </tr>
-        <tr>
-          <td>Following</td>
-          <td className="text-right">173</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Project Views</td>
+            <td className="text-right">173</td>
+          </tr>
+          <tr>
+            <td>Appreciations</td>
+            <td className="text-right">173</td>
+          </tr>
+          <tr>
+            <td>Followers</td>
+            <td className="text-right">173</td>
+          </tr>
+          <tr>
+            <td>Following</td>
+            <td className="text-right">173</td>
+          </tr>
+        </tbody>
       </table>
 
       {/* Social network */}

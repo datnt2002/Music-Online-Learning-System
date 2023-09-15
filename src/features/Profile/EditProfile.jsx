@@ -9,7 +9,6 @@ import ChangePassword from './ChangePassword';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PROFILE_FORM_FIELDS } from '../../constants';
 import ModalEditAvatar from '../../components/Container/ModalContainer/ModalEditAvatar';
-import DefaultAvatar from '../../assets/imgs/defaultAvatar.webp';
 
 const EditProfile = () => {
   const [isModalChangePasswordOpen, setIsModalChangePasswordOpen] = useState(false);
@@ -19,7 +18,7 @@ const EditProfile = () => {
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue(currentUser);
-  }, [currentUser]);
+  }, [currentUser, form]);
 
   const handleEditProfile = (values) => {
     console.log('form', values);
@@ -65,12 +64,7 @@ const EditProfile = () => {
                 offset={[-10, 130]}
                 onClick={showModalEditAvatar}
               >
-                <Avatar
-                  shape="circle"
-                  size={150}
-                  alt="avatar"
-                  src={'localhost:3000\\' + (currentUser.avatar ? currentUser.avatar : DefaultAvatar)}
-                />
+                <Avatar shape="circle" size={150} alt="avatar" src={currentUser.avatar} />
               </Badge>
             </Form.Item>
             <Divider />

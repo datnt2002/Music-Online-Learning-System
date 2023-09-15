@@ -37,10 +37,10 @@ export const forgotPassword = (data) => {
 };
 
 export const changePassword = (data) => {
-  const { oldPassword, newPassword } = data;
+  const { oldPassword, newPassword, accessToken } = data;
 
   return axiosClient
-    .put('users/changepassword', { oldPassword, newPassword }, { headers: { Authorization: `Bearer ${data.token}` } })
+    .put('users/changepassword', { oldPassword, newPassword }, { headers: { Authorization: `Bearer ${accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -50,7 +50,7 @@ export const changePassword = (data) => {
 export const getCurrentUser = (data) => {
   console.log(data);
   return axiosClient
-    .get('users/profile', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get('users/profile/', { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -63,6 +63,19 @@ export const getAccessToken = () => {
   const refreshToken = sessionStorage.getItem(TOKEN.REFRESH_TOKEN) || localStorage.getItem(TOKEN.REFRESH_TOKEN);
   return axiosClient
     .post('users/auth/refreshtoken', { refreshToken })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const uploadAvatar = (data) => {
+  const formData = new FormData();
+  formData.append('file', data.fileImage);
+  return axiosClient
+    .patch('users/uploadAvatar', formData, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

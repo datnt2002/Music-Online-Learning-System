@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import DefaultAvatar from '../../../../assets/imgs/defaultAvatar.webp';
 import { logoutAction } from '../../../../redux/slice/authenticationSlice';
-import { PUBLIC_ROUTE } from '../../../../constants';
+import { PUBLIC_ROUTE, USER_ROUTE } from '../../../../constants';
 
 const AvatarDropdown = () => {
   const currentUser = useSelector((state) => {
@@ -23,9 +23,9 @@ const AvatarDropdown = () => {
     {
       key: '1',
       label: (
-        <Link to="/user/profile">
+        <Link to={USER_ROUTE.USER_PROFILE}>
           <Space className="flex">
-            <Avatar size={43} src={currentUser.avatar ? currentUser.avatar : DefaultAvatar} alt="Avatar" />
+            <Avatar size={43} src={currentUser.avatar} alt="Avatar" />
             <div className="flex flex-col">
               <p>{currentUser.username}</p>
               <p>{currentUser.email}</p>
@@ -43,11 +43,11 @@ const AvatarDropdown = () => {
     },
     {
       key: '3',
-      label: <Link to="/user/my-cart">My Cart</Link>,
+      label: <Link to={USER_ROUTE.USER_CART}>My Cart</Link>,
     },
     {
       key: '4',
-      label: <Link to="/user/my-wishlist">Wishlist</Link>,
+      label: <Link to={USER_ROUTE.USER_WISHLIST}>Wishlist</Link>,
     },
     {
       type: 'divider',
@@ -86,11 +86,7 @@ const AvatarDropdown = () => {
 
   return (
     <Dropdown menu={{ items }}>
-      <Avatar
-        size={43}
-        src="https://thichthucung.com/wp-content/uploads/meo-beo-phi-co-nguy-hiem-khong.jpg"
-        alt="Avatar"
-      />
+      <Avatar size={43} src={currentUser.avatar} alt="Avatar" />
     </Dropdown>
   );
 };

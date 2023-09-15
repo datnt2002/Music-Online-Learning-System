@@ -16,12 +16,7 @@ const HeaderDefault = () => {
     console.log('Success:', values);
   };
 
-  const accessToken = useSelector((state) => state.authentication.accessToken);
-
-  let isAuthenticated = false;
-  if (accessToken) {
-    isAuthenticated = true;
-  }
+  const isAuthenticated = useSelector((state) => state.authentication.isLoggedIn);
 
   return (
     <Layout>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TOKEN } from '../../constants';
 
 const initialState = {
   isLoggedIn: false,
@@ -11,6 +12,8 @@ export const authenticationSlice = createSlice({
   initialState,
   reducers: {
     logoutAction: () => {
+      sessionStorage.removeItem(TOKEN.AUTH_TOKEN);
+      localStorage.removeItem(TOKEN.AUTH_TOKEN);
       return initialState;
     },
     signInAction: (state) => {
@@ -46,6 +49,7 @@ export const authenticationSlice = createSlice({
     },
     getCurrentUserSuccess: (state, action) => {
       state.loading = false;
+      state.isLoggedIn = true;
       // console.log(action.payload);
       // const {}
       state.currentUser = action.payload;
