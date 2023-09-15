@@ -1,33 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Form, Input, InputNumber, Select } from 'antd';
+import { Button, Form, Input, InputNumber, Select, Upload, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { InboxOutlined } from '@ant-design/icons';
+import { Content } from 'antd/es/layout/layout';
 
 import { createNewCourseAction } from '../../../redux/slice/courseSlice';
 import { CREATE_COURSE_FORM_FIELDS } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { Content } from 'antd/es/layout/layout';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCourse = () => {
+  const [file, setFile] = useState();
+
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.authentication.token);
+  const navigate = useNavigate();
   const onFinish = (values) => {
     console.log('form', values);
 
-    //sua lai db
     dispatch(
       createNewCourseAction({
-        courseName: values.CourseName,
-        description: values.Description,
-        price: values.Price,
-        isFree: values.Price > 0 ? false : true,
-        subCateId: values.Category,
-        token,
+        courseName: values.courseName,
+        description: values.description,
+        price: values.price,
+        isFree: values.price > 0 ? false : true,
+        subCateId: values.subcategory,
+        file: file,
+        navigate,
       })
     );
+  };
+
+  const normFile = (e) => {
+    console.log('Upload event:', e);
+    // setFile(e.file);
   };
 
   return (
@@ -44,27 +53,58 @@ const CreateCourse = () => {
           <Form layout="horizontal" onFinish={onFinish}>
             <div className="flex">
               <div className="flex flex-col basis-3/5 p-5">
-                <Form.Item label="Course Name" name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}>
+                <Form.Item
+                  label={CREATE_COURSE_FORM_FIELDS.COURSE_NAME_LABEL}
+                  name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}
+                >
                   <Input />
                 </Form.Item>
-                <Form.Item label="Category" name={CREATE_COURSE_FORM_FIELDS.CATEGORY}>
+                <Form.Item label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL} name={CREATE_COURSE_FORM_FIELDS.CATEGORY}>
                   <Select>
                     <Select.Option value="demo">Demo</Select.Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Sub Category" name={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY}>
+                <Form.Item
+                  label={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY_LABEL}
+                  name={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY}
+                >
                   <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    <Select.Option value="1">Demo</Select.Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Brief Description" name={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}>
+                <Form.Item
+                  label={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION_LABEL}
+                  name={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}
+                >
                   <Input />
                 </Form.Item>
-                <Form.Item label="Price" name={CREATE_COURSE_FORM_FIELDS.PRICE}>
+                <Form.Item label={CREATE_COURSE_FORM_FIELDS.PRICE_LABEL} name={CREATE_COURSE_FORM_FIELDS.PRICE}>
                   <InputNumber className="w-full" />
                 </Form.Item>
-                <Form.Item label="Description" name={CREATE_COURSE_FORM_FIELDS.DESCRIPTION}>
+                <Form.Item
+                  label={CREATE_COURSE_FORM_FIELDS.DESCRIPTION_LABEL}
+                  name={CREATE_COURSE_FORM_FIELDS.DESCRIPTION}
+                >
                   <TextArea rows={4} />
+                </Form.Item>
+
+                <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL}>
+                  <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile}>
+                    <Upload.Dragger
+                      name="files"
+                      maxCount={1}
+                      customRequest={(info) => {
+                        console.log(info);
+                        setFile(info.file);
+                      }}
+                    >
+                      <p className="ant-upload-drag-icon">
+                        <InboxOutlined />
+                      </p>
+                      <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                      <p className="ant-upload-hint">Support for a single upload.</p>
+                    </Upload.Dragger>
+                  </Form.Item>
                 </Form.Item>
               </div>
 

@@ -14,6 +14,7 @@ export const LECTURER_ROUTE = {
   DASHBOARD: '/lecturer',
   MY_COURSE_MANAGEMENT: '/lecturer/my-course-management',
   CREATE_NEW_COURSE: '/lecturer/create-course',
+  CREATE_NEW_SECTION: '/lecturer/create-section',
 };
 
 export const ADMIN_ROUTE = {

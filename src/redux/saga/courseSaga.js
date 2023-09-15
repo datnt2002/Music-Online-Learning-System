@@ -1,13 +1,19 @@
 import { fork, call, take, put } from 'redux-saga/effects';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
+
 import { createNewCourse, getListCategory, getListCourses } from '../../services/course.service';
 import {
   createNewCourseAction,
+  createNewCourseSuccess,
   getListCategoryAction,
   getListCategorySuccess,
   getListCourseAction,
   getListCourseFail,
   getListCourseSuccess,
 } from '../slice/courseSlice';
+import { LECTURER_ROUTE, TOKEN } from '../../constants';
 
 function* getListCourseSaga() {
   while (true) {
@@ -35,11 +41,47 @@ function* createNewCourseSaga() {
   while (true) {
     try {
       const {
-        payload: { courseName, price, isFree, subCateId, description, token },
+        payload: { courseName, price, isFree, subCateId, description, file, navigate },
       } = yield take(createNewCourseAction);
-      console.log(courseName, price, isFree, subCateId, description);
-      const result = yield call(createNewCourse, { courseName, price, isFree, subCateId, description, token });
+      console.log(courseName, price, isFree, subCateId, description, file);
+      const { accessToken } =
+        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const result = yield call(createNewCourse, {
+        courseName,
+        price,
+        isFree,
+        subCateId,
+        description,
+        file,
+        accessToken,
+      });
       console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(createNewCourseSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(LECTURER_ROUTE.CREATE_NEW_SECTION);
+            }
+          });
+          break;
+
+        default:
+          break;
+      }
     } catch (error) {
       console.log(error);
     }

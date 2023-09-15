@@ -14,8 +14,20 @@ export const getListCourses = (data) => {
 
 export const createNewCourse = (data) => {
   console.log(data);
+  const formData = new FormData();
+  formData.append('courseName', data.courseName);
+  formData.append('subCateId', data.subCateId);
+  formData.append('price', data.price);
+  formData.append('isFree', data.isFree);
+  formData.append('description', data.description);
+  formData.append('file', data.file);
+
   return axiosClient
-    .post('courses', data, { headers: { Authorization: `Bearer ${data.token}` } })
+    .post('courses/', formData, {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZDM2MTNhMC01MzlkLTExZWUtYmUwZS0xN2YyZDVjNjFkYjkiLCJ1c2VybmFtZSI6ImxlY3R1cmVyMSIsImlhdCI6MTY5NDc3MzkwNiwiZXhwIjoxNjk1NjM3OTA2fQ.enXE3Yv3ej08fGbqK312T5K_DfZkV2so6ccvE0r-Voo`,
+      },
+    })
     .then((res) => {
       return res;
     })

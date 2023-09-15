@@ -30,7 +30,7 @@ export const AdminRoute = ({ children }) => {
   return (
     <>
       <HeaderAdmin />
-      <Layout className="h-screen">
+      <Layout className="min-h-screen">
         <SiderAdmin />
         {children}
       </Layout>

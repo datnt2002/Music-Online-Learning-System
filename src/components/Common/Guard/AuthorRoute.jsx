@@ -40,7 +40,7 @@ const AuthorRoute = ({ children }) => {
   return (
     <>
       <HeaderLecturer />
-      <Layout className="h-screen">
+      <Layout className="min-h-screen">
         <SiderLecturer />
         {children}
       </Layout>
