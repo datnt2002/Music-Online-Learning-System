@@ -17,6 +17,7 @@ const UserRoute = ({ children }) => {
     } else {
       //doi jwt co them role thi decode de giam dispactch get curent
       const authToken = JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+
       dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
     }
   }, [navigate, hasTokenInLocal, hasTokenInSession, dispatch]);

@@ -1,27 +1,22 @@
 import React from 'react';
-import { Button, Layout } from 'antd';
+import { Button } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
-import ExpandedTable from '../../../components/Container/TableAdmin/ExpandedTable';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { Link } from 'react-router-dom';
+import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
+import { LECTURER_ROUTE } from '../../../constants';
 const LecturerCourse = () => {
   return (
-    <Layout
-      style={{
-        padding: '0 24px 24px',
-      }}
-    >
-      <Content className="h-screen p-6">
-        <div>
-          <BreadCrumbCustom />
-        </div>
-        <Button>
-          <Link to="/lecturer/create-course">Create New Course</Link>
-        </Button>
-        <ExpandedTable />
-      </Content>
-    </Layout>
+    <Content className="h-screen p-6">
+      <div className="py-3">
+        <BreadCrumbCustom />
+      </div>
+      <Button className="pb-3">
+        <Link to={LECTURER_ROUTE.CREATE_NEW_COURSE}>Create New Course</Link>
+      </Button>
+      <TableAdmin dataSource={[]} />
+    </Content>
   );
 };
 

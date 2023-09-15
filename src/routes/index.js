@@ -20,8 +20,17 @@ import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer'
 import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
 import DashBoardAdmin from '../features/Admin/Dashboard';
 import Payment from '../features/Home/Payment';
+import { TOKEN } from '../constants';
+import { useDispatch } from 'react-redux';
+import { getCurrentUserAction } from '../redux/slice/authenticationSlice';
 
 const PublicLayout = ({ children }) => {
+  const dispatch = useDispatch();
+  const authToken =
+    JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN));
+  if (authToken) {
+    dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
+  }
   return (
     <>
       <HeaderDefault />

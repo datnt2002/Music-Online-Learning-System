@@ -44,7 +44,7 @@ const LeftContainer = () => {
           </Button>
         </Link>
 
-        <Link to="/lecturer/my-course-management">
+        <Link to="/lecturer">
           <Button
             type="primary"
             className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4`"

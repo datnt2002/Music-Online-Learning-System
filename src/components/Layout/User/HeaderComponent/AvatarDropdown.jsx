@@ -4,7 +4,6 @@ import { Avatar, Dropdown, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import DefaultAvatar from '../../../../assets/imgs/defaultAvatar.webp';
 import { logoutAction } from '../../../../redux/slice/authenticationSlice';
 import { PUBLIC_ROUTE, USER_ROUTE } from '../../../../constants';
 

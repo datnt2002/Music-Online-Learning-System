@@ -1,23 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Menu } from 'antd';
+import { Button, Menu } from 'antd';
 import Sider from 'antd/es/layout/Sider';
-import { DesktopOutlined, BookOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  DesktopOutlined,
+  BookOutlined,
+  PieChartOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from '@ant-design/icons';
+import { LECTURER_ROUTE } from '../../../constants';
 
 const SiderLecturer = () => {
+  const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
+  const items = [
+    {
+      key: LECTURER_ROUTE.DASHBOARD,
+      label: 'Dashboard',
+      icon: <PieChartOutlined />,
+    },
+    {
+      key: 'Courses',
+      label: 'Courses',
+      icon: <DesktopOutlined />,
+      children: [
+        {
+          key: LECTURER_ROUTE.MY_COURSE_MANAGEMENT,
+          label: 'My Courses',
+          icon: <BookOutlined />,
+        },
+      ],
+    },
+    {
+      title: '',
+      key: 'collapse',
+      label: (
+        <Button
+          className="!w-full border-none"
+          onClick={() => setCollapsed(!collapsed)}
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        ></Button>
+      ),
+    },
+  ];
+
   return (
-    <Sider className="w-52">
-      <Menu className="h-full" mode="inline">
-        <Menu.Item key={1} icon={<PieChartOutlined />}>
-          <Link>DashBoard</Link>
-        </Menu.Item>
-        <Menu.SubMenu key="courses" title="Courses" icon={<DesktopOutlined />}>
-          <Menu.Item key={2} icon={<BookOutlined />}>
-            <Link to="">My Courses</Link>
-          </Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
+    <Sider
+      className="w-52"
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={(value) => setCollapsed(value)}
+    >
+      <Menu
+        className="h-full"
+        mode="inline"
+        items={items}
+        onClick={({ key }) => {
+          if (key !== 'collapse') {
+            navigate(key);
+          }
+        }}
+      />
     </Sider>
   );
 };

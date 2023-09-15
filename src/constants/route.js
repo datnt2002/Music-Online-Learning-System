@@ -10,7 +10,12 @@ export const USER_ROUTE = {
   USER_CART: '/user/my-cart',
   USER_WISHLIST: '/user/my-wishlist',
 };
-export const LECTURER_ROUTE = {};
+export const LECTURER_ROUTE = {
+  DASHBOARD: '/lecturer',
+  MY_COURSE_MANAGEMENT: '/lecturer/my-course-management',
+  CREATE_NEW_COURSE: '/lecturer/create-course',
+};
+
 export const ADMIN_ROUTE = {
   DASHBOARD: '/admin/dashboard',
 };
