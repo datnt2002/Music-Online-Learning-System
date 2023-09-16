@@ -15,6 +15,7 @@ export const LECTURER_ROUTE = {
   MY_COURSE_MANAGEMENT: '/lecturer/my-course-management',
   CREATE_NEW_COURSE: '/lecturer/create-course',
   CREATE_NEW_SECTION: '/lecturer/create-section',
+  CREATE_NEW_LESSON: '/lecturer/create-lesson',
 };
 
 export const ADMIN_ROUTE = {

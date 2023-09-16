@@ -49,7 +49,9 @@ export const CREATE_COURSE_FORM_FIELDS = {
 };
 
 export const CREATE_SECTION_FORM_FIELDS = {
-  SECTION_NAME: 'section_name',
+  SECTION_NAME: 'sectionName',
+  TITLE: 'Section',
+  SECTION_PLACEHOLDER: 'Enter section',
 };
 
 export const VALIDATE_MESSAGE = {

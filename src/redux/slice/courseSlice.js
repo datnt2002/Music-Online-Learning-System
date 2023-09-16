@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   listCourse: [],
-  currentCourse: [],
+  currentCourse: {},
+  currentSection: {},
   listCategory: [],
 };
 
@@ -28,6 +29,19 @@ export const courseSlice = createSlice({
       state.loading = false;
       state.currentCourse = action.payload;
     },
+    createNewCourseFail: (state) => {
+      state.loading = false;
+    },
+    createNewSectionAction: (state) => {
+      state.loading = true;
+    },
+    createNewSectionSuccess: (state, action) => {
+      state.loading = false;
+      state.currentSection = action.payload;
+    },
+    createNewSectionFail: (state) => {
+      state.loading = false;
+    },
     getListCategoryAction: (state) => {
       state.loading = true;
     },
@@ -47,6 +61,10 @@ export const {
   getListCourseFail,
   createNewCourseAction,
   createNewCourseSuccess,
+  createNewCourseFail,
+  createNewSectionAction,
+  createNewSectionSuccess,
+  createNewSectionFail,
   getListCategoryAction,
   getListCategorySuccess,
   getListCategoryFail,

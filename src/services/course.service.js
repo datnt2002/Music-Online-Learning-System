@@ -36,6 +36,25 @@ export const createNewCourse = (data) => {
     });
 };
 
+export const createNewSection = (data) => {
+  console.log(data);
+  return axiosClient
+    .post(
+      'sections/',
+      {
+        sectionName: data.sectionName,
+        courseId: 'ffa08870-53b9-11ee-b2b4-3fb8c5bea852',
+      },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getListCategory = (data) => {
   console.log(data);
   return axiosClient
