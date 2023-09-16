@@ -1,52 +1,69 @@
+import React, { useEffect } from 'react';
 import { Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import React, { useEffect, useRef, useState } from 'react';
-import { LazyMotion, domAnimation, m } from 'framer-motion';
+import Slider from 'react-slick';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RightCircleOutlined, LeftCircleOutlined } from '@ant-design/icons';
 
-const ListContainer = ({ data }) => {
-  const [width, setWidth] = useState(0);
-  const carousel = useRef();
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import { getListCourseAction } from '../../../redux/slice/courseSlice';
+import CourseInfoCard from '../CardTemplate/CourseInfoCard';
+
+const ListContainer = () => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-  }, []);
+    dispatch(
+      getListCourseAction({
+        pageIndex: 1,
+        pageSize: 20,
+      })
+    );
+  }, [dispatch]);
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div className={className} onClick={onClick}>
+        <RightCircleOutlined />
+      </div>
+    );
+  }
 
+  const listCourse = useSelector((state) => state.course.listCourse);
+  console.log(listCourse);
+  const settings = {
+    className: 'slider variable-width',
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    variableWidth: true,
+    nextArrow: <SampleNextArrow />,
+  };
   return (
-    <LazyMotion features={domAnimation}>
-      <m.div ref={carousel} className="overflow-hidden">
-        <m.div drag="x" dragConstraints={{ right: 0, left: -width }} className="grid grid-flow-col gap-4">
-          {data.map((course, index) => {
-            return (
-              <m.div key={index} className="">
-                <Link to="/course-detail">
-                  <Card
-                    hoverable
-                    cover={
-                      <div>
-                        <img alt="example" src={course.image} className="aspect-video col-span-3" />
-                      </div>
-                    }
-                    className="snap-start"
-                  >
-                    <Meta
-                      title={course.title}
-                      description={
-                        <>
-                          <h4>{course.author}</h4>
-                          <h3>{course.rating}</h3>
-                          <h1>{course.price}$</h1>
-                        </>
-                      }
-                    />
-                  </Card>
-                </Link>
-              </m.div>
-            );
-          })}
-        </m.div>
-      </m.div>
-    </LazyMotion>
+    <div className="">
+      <Slider {...settings}>
+        {listCourse.map((course) => {
+          return (
+            <div key={course.courseId} className="my-3 mr-3">
+              <div class="relative flex w-[15rem] h-80 flex-col rounded-xl bg-white shadow-xl hover:scale-105">
+                <div class="relative mx-4 h-40 overflow-hidden rounded-xl shadow-lg">
+                  <img src={course.courseImg} alt="" className="object-cover h-full w-full" />
+                </div>
+                <div class="p-6">
+                  <h1 class="mb-2 truncate text-lg font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                    {course.courseName}
+                  </h1>
+                  <p class=" font-sans text-xs font-light leading-relaxed truncate">{course.description}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </Slider>
+    </div>
   );
 };
 

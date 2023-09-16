@@ -50,8 +50,6 @@ export const authenticationSlice = createSlice({
     getCurrentUserSuccess: (state, action) => {
       state.loading = false;
       state.isLoggedIn = true;
-      // console.log(action.payload);
-      // const {}
       state.currentUser = action.payload;
     },
     getCurrentUserFail: (state) => {

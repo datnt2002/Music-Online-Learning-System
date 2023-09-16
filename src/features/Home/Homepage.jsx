@@ -20,6 +20,7 @@ const Homepage = () => {
   const onClick = (e) => {
     console.log('click ', e);
   };
+
   function getItem(label, key, icon, children, type) {
     return {
       key,
@@ -69,7 +70,7 @@ const Homepage = () => {
             <Button>Most popular</Button>
             <Button>Trending</Button>
           </Space>
-          <ListContainer data={Courses} />
+          <ListContainer />
         </div>
 
         {/* Feature courses */}
