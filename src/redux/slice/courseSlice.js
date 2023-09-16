@@ -5,6 +5,7 @@ const initialState = {
   listCourse: [],
   currentCourse: {},
   currentSection: {},
+  currentLesson: {},
   listCategory: [],
 };
 
@@ -42,6 +43,16 @@ export const courseSlice = createSlice({
     createNewSectionFail: (state) => {
       state.loading = false;
     },
+    createNewLessonAction: (state) => {
+      state.loading = true;
+    },
+    createNewLessonSuccess: (state, action) => {
+      state.loading = false;
+      state.currentLesson = action.payload;
+    },
+    createNewLessonFail: (state) => {
+      state.loading = false;
+    },
     getListCategoryAction: (state) => {
       state.loading = true;
     },
@@ -65,6 +76,9 @@ export const {
   createNewSectionAction,
   createNewSectionSuccess,
   createNewSectionFail,
+  createNewLessonAction,
+  createNewLessonSuccess,
+  createNewLessonFail,
   getListCategoryAction,
   getListCategorySuccess,
   getListCategoryFail,

@@ -54,6 +54,15 @@ export const CREATE_SECTION_FORM_FIELDS = {
   SECTION_PLACEHOLDER: 'Enter section',
 };
 
+export const CREATE_LESSON_FORM_FIELDS = {
+  LESSON_NAME: 'lessonName',
+  LESSON_NAME_LABEL: 'Lesson Name',
+  LESSON_DESCRIPTION: 'lessonDescription',
+  LESSON_DESCRIPTION_LABEL: 'Description',
+  LESSON_VIDEO: 'file',
+  LESSON_VIDEO_LABEL: 'Video',
+};
+
 export const VALIDATE_MESSAGE = {
   USERNAME_REQUIRED: 'Please input your Username!',
   EMAIL_REQUIRED: 'Please input your Email!',

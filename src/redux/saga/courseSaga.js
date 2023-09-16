@@ -3,10 +3,19 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
-import { createNewCourse, createNewSection, getListCategory, getListCourses } from '../../services/course.service';
+import {
+  createNewCourse,
+  createNewLesson,
+  createNewSection,
+  getListCategory,
+  getListCourses,
+} from '../../services/course.service';
 import {
   createNewCourseAction,
   createNewCourseSuccess,
+  createNewLessonAction,
+  createNewLessonFail,
+  createNewLessonSuccess,
   createNewSectionAction,
   createNewSectionFail,
   createNewSectionSuccess,
@@ -135,6 +144,52 @@ function* createNewSectionSaga() {
   }
 }
 
+function* createNewLessonSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { lessonName, courseId, file, navigate },
+      } = yield take(createNewLessonAction);
+      console.log(lessonName, courseId);
+
+      const { accessToken } =
+        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const result = yield call(createNewLesson, { lessonName, file, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(createNewLessonSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          // .then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate(LECTURER_ROUTE.CREATE_NEW_LESSON);
+          //   }
+          // });
+          break;
+
+        default:
+          yield put(createNewLessonFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* getListCategorySaga() {
   while (true) {
     try {
@@ -157,4 +212,5 @@ export default function* courseSaga() {
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);
   yield fork(getListCategorySaga);
+  yield fork(createNewLessonSaga);
 }
