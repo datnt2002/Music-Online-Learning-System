@@ -9,6 +9,7 @@ export const USER_ROUTE = {
   USER_PROFILE: '/user/profile',
   USER_CART: '/user/my-cart',
   USER_WISHLIST: '/user/my-wishlist',
+  USER_EDIT_PROFILE: '/user/profile/edit-profile',
 };
 export const LECTURER_ROUTE = {
   DASHBOARD: '/lecturer',

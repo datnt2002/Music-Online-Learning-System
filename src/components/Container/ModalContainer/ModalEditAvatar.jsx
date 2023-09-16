@@ -6,10 +6,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 
 import { uploadAvatarAction } from '../../../redux/slice/authenticationSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ModalEditAvatar = ({ handleOk }) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
@@ -42,7 +43,8 @@ const ModalEditAvatar = ({ handleOk }) => {
     console.log(values);
     dispatch(
       uploadAvatarAction({
-        fileImage: values,
+        fileImage: values.file,
+        navigate,
       })
     );
     handleOk();
@@ -50,7 +52,8 @@ const ModalEditAvatar = ({ handleOk }) => {
   return (
     <ImgCrop zoomSlider showReset cropShape="round">
       <Upload
-        action={handleSubmitAvatar}
+        customRequest={handleSubmitAvatar}
+        // action={handleSubmitAvatar}
         listType="picture-circle"
         beforeUpload={beforeUpload}
         onPreview={onPreview}

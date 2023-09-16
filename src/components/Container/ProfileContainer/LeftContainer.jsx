@@ -12,7 +12,7 @@ import {
   FacebookFilled,
 } from '@ant-design/icons';
 
-import DefaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
+import { LECTURER_ROUTE, USER_ROUTE } from '../../../constants';
 
 const LeftContainer = () => {
   const userProfile = useSelector((state) => state.authentication.currentUser);
@@ -21,12 +21,7 @@ const LeftContainer = () => {
     <div className="flex flex-col items-center">
       {/* avatar */}
       <div className="text-center">
-        <Avatar
-          size={110}
-          icon={<AntDesignOutlined />}
-          src={userProfile.avatar ? userProfile.avatar : DefaultAvatar}
-          className="mb-2"
-        />
+        <Avatar size={110} icon={<AntDesignOutlined />} src={userProfile.avatar} className="mb-2" />
 
         <h1 className="text-2xl font-semibold">{userProfile.firstName + ' ' + userProfile.lastName}</h1>
         <p className="italic">{userProfile.bio}</p>
@@ -34,7 +29,7 @@ const LeftContainer = () => {
           <EnvironmentOutlined className="align-[0.125rem]" /> Ha Noi, Viet Nam
         </p>
 
-        <Link to="/user/profile/edit-profile">
+        <Link to={USER_ROUTE.USER_EDIT_PROFILE}>
           <Button
             type="primary"
             className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4"
@@ -44,7 +39,7 @@ const LeftContainer = () => {
           </Button>
         </Link>
 
-        <Link to="/lecturer">
+        <Link to={LECTURER_ROUTE.DASHBOARD}>
           <Button
             type="primary"
             className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4`"

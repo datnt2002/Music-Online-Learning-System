@@ -28,7 +28,7 @@ import {
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { ROLE } from '../../constants/role';
-import { ADMIN_ROUTE, PUBLIC_ROUTE, TOKEN } from '../../constants';
+import { ADMIN_ROUTE, PUBLIC_ROUTE, TOKEN, USER_ROUTE } from '../../constants';
 
 function* signInSaga() {
   while (true) {
@@ -221,7 +221,7 @@ function* upLoadAvatarSaga() {
   while (true) {
     try {
       const {
-        payload: { fileImage },
+        payload: { fileImage, navigate },
       } = yield take(uploadAvatarAction);
 
       const { accessToken } =
@@ -230,6 +230,24 @@ function* upLoadAvatarSaga() {
       switch (result.status) {
         case 200:
           yield put(uploadAvatarSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(USER_ROUTE.USER_PROFILE);
+            }
+          });
           break;
 
         default:
