@@ -49,7 +49,7 @@ export const publicRoutes = [
     ),
   },
   {
-    path: 'course-detail',
+    path: 'course-detail/:id',
     element: (
       <PublicLayout>
         <CourseDetail />

@@ -7,6 +7,7 @@ import {
   createNewCourse,
   createNewLesson,
   createNewSection,
+  getDetailCourse,
   getListCategory,
   getListCourses,
 } from '../../services/course.service';
@@ -19,6 +20,9 @@ import {
   createNewSectionAction,
   createNewSectionFail,
   createNewSectionSuccess,
+  getDetailCourseAction,
+  getDetailCourseFail,
+  getDetailCourseSuccess,
   getListCategoryAction,
   getListCategorySuccess,
   getListCourseAction,
@@ -33,21 +37,53 @@ function* getListCourseSaga() {
       const {
         payload: { pageSize, pageIndex },
       } = yield take(getListCourseAction);
-      console.log(pageSize);
-      const result = yield call(getListCourses, { pageSize, pageIndex });
-      console.log(result);
 
+      const result = yield call(getListCourses, { pageSize, pageIndex });
+
+      // switch (result.status) {
+      //   case 200:
+      //     yield put(getListCourseSuccess(result.data));
+      //     break;
+
+      //   default:
+      //     yield put(getListCourseFail(result));
+      //     break;
+      // }
       if (result.data) {
         yield put(getListCourseSuccess(result.data));
       } else {
-        yield put(getListCourseFail(result));
       }
     } catch (error) {
       console.log(error);
     }
   }
 }
-// }
+
+function* getDetailCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId },
+      } = yield take(getDetailCourseAction);
+
+      const result = yield call(getDetailCourse, { courseId });
+
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getDetailCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailCourseFail());
+
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 function* createNewCourseSaga() {
   while (true) {
@@ -213,4 +249,5 @@ export default function* courseSaga() {
   yield fork(createNewCourseSaga);
   yield fork(getListCategorySaga);
   yield fork(createNewLessonSaga);
+  yield fork(getDetailCourseSaga);
 }

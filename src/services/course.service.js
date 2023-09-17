@@ -12,6 +12,17 @@ export const getListCourses = (data) => {
     });
 };
 
+export const getDetailCourse = (data) => {
+  return axiosClient
+    .get(`courses/${data.courseId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const createNewCourse = (data) => {
   console.log(data);
   const formData = new FormData();

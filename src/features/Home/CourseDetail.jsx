@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Rate } from 'antd';
 import {
   ClockCircleOutlined,
@@ -12,9 +12,27 @@ import {
 
 import BreadcrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import CourseDetailFloatingPanel from '../../components/Container/CourseContainer/CourseDetailFloatingPanel';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDetailCourseAction } from '../../redux/slice/courseSlice';
 
 const CourseDetail = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  const pathNameArray = pathname.split('/').filter((item) => {
+    return item;
+  });
+  const currentCourse = useSelector((state) => state.course.currentCourse);
+  console.log(currentCourse);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      getDetailCourseAction({
+        courseId: pathNameArray[1],
+      })
+    );
+  }, [dispatch]);
+
   return (
     <div className="">
       {/* brief course */}
@@ -57,7 +75,7 @@ const CourseDetail = () => {
         </div>
       </div>
 
-      <CourseDetailFloatingPanel />
+      <CourseDetailFloatingPanel data={currentCourse} />
 
       {/* What you learn */}
       <div className="mx-auto max-w-7xl pt-11">

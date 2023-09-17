@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const CourseDetailFloatingPanel = () => {
+const CourseDetailFloatingPanel = ({ data }) => {
   return (
-    <div className="bg-white rounded-3xl shadow-2xl fixed top-28 right-28 w-96">
+    <div className="bg-white rounded-3xl shadow-2xl fixed top-28 right-28 w-96 ">
       <img
-        className="aspect-video "
-        src="https://www-cdn.eumetsat.int/files/styles/16_9_large/s3/2022-03/ocean_0.jpg?h=2f83cd36&itok=KIa1F6id"
+        className="aspect-video rounded-2xl mx-auto -mt-6 shadow-xl w-11/12"
+        src={data.courseImg}
         alt="courseImage"
       />
 
