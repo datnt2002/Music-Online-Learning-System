@@ -10,23 +10,40 @@ export const FORM_FIELDS = {
 
 export const PROFILE_FORM_FIELDS = {
   FIRST_NAME: 'firstName',
+  FIRST_NAME_LABEL: 'First Name',
   LAST_NAME: 'lastName',
+  LAST_NAME_LABEL: 'Last Name',
   PASSWORD: 'password',
+  PASSWORD_LABEL: 'Password',
   EMAIL: 'email',
+  EMAIL_LABEL: 'Email',
   PHONE_NUMBER: 'phoneNumber',
+  PHONE_NUMBER_LABEL: 'Phone Number',
   ADDRESS: 'address',
+  ADDRESS_LABEL: 'Address',
   NATION: 'nation',
+  NATION_LABEL: 'Nation',
   GENDER: 'gender',
+  GENDER_LABEL: 'Gender',
   DOB: 'dob',
+  DOB_LABEL: 'Date Of Birth',
   FACEBOOK: 'facebook',
+  FACEBOOK_LABEL: 'Facebook',
   INSTAGRAM: 'instagram',
+  INSTAGRAM_LABEL: 'Instagram',
   BIO: 'bio',
+  BIO_LABEL: 'Bio',
 };
 
 export const CHANGE_PASSWORD_FORM_FIELDS = {
-  NEW_PASSWORD: 'new_password',
-  OLD_PASSWORD: 'old_password',
-  CONFIRM_PASSWORD: 'confirm_password',
+  FORM_ID: 'myFormChangePassword',
+  FORM_TITLE: 'Change Password',
+  NEW_PASSWORD: 'newPassword',
+  NEW_PASSWORD_LABEL: 'New Password',
+  OLD_PASSWORD: 'oldPassword',
+  OLD_PASSWORD_LABEL: 'Old Password',
+  CONFIRM_PASSWORD: 'confirmPassword',
+  CONFIRM_PASSWORD_LABEL: 'Confirm Password',
 };
 
 export const CREATE_COURSE_FORM_FIELDS = {

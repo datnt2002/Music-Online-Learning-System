@@ -1,8 +1,9 @@
 import React from 'react';
-import { Breadcrumb } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
+import { Breadcrumb } from 'antd';
 
 import capitalize from '../../../utils/capitalize';
+import { PUBLIC_ROUTE } from '../../../constants';
 
 const BreadCrumbCustom = () => {
   //get url
@@ -15,7 +16,7 @@ const BreadCrumbCustom = () => {
 
   const items = [
     {
-      title: <Link to="/">Home</Link>,
+      title: <Link to={PUBLIC_ROUTE.DEFAULT}>Home</Link>,
     },
     ...pathNameArray.map((item, index) => {
       const routeTo = `/${pathNameArray.slice(0, index + 1).join('/')}`;

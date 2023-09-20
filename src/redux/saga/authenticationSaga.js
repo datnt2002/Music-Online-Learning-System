@@ -143,7 +143,7 @@ function* forgotPasswordSaga() {
             confirmButtonText: 'Got it',
           }).then((result) => {
             if (result.isConfirmed) {
-              navigate('/signin');
+              navigate(PUBLIC_ROUTE.SIGN_IN);
             }
           });
           break;

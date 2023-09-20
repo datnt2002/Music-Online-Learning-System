@@ -6,26 +6,23 @@ import { Layout } from 'antd';
 import HeaderAdmin from '../../Layout/Admin/HeaderAdmin';
 import SiderAdmin from '../../Layout/Admin/SiderAdmin';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
-import { PUBLIC_ROUTE, TOKEN } from '../../../constants';
-
+import { PUBLIC_ROUTE } from '../../../constants';
+import getTokenFromStorage from '../../../utils/getTokenFromStorage';
 export const AdminRoute = ({ children }) => {
   //check if user is login
   //If yes, show route
   //Else, go login
-  const hasTokenInLocal = localStorage.getItem(TOKEN.AUTH_TOKEN);
-  const hasTokenInSession = sessionStorage.getItem(TOKEN.AUTH_TOKEN);
-
+  const authToken = getTokenFromStorage();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!hasTokenInLocal && !hasTokenInSession) {
+    if (!authToken) {
       navigate(PUBLIC_ROUTE.SIGN_IN);
     } else {
-      let authToken = JSON.parse(hasTokenInSession) || JSON.parse(hasTokenInLocal);
       dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
     }
-  }, [navigate, hasTokenInLocal, hasTokenInSession, dispatch]);
+  }, [navigate, authToken, dispatch]);
 
   return (
     <>

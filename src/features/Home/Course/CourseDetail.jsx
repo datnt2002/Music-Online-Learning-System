@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+
 import { Rate } from 'antd';
 import {
   ClockCircleOutlined,
@@ -10,11 +13,9 @@ import {
   NotificationOutlined,
 } from '@ant-design/icons';
 
-import BreadcrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import CourseDetailFloatingPanel from '../../components/Container/CourseContainer/CourseDetailFloatingPanel';
-import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDetailCourseAction } from '../../redux/slice/courseSlice';
+import { getDetailCourseAction } from '../../../redux/slice/courseSlice';
+import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import CourseDetailFloatingPanel from '../../../components/Container/CourseContainer/CourseDetailFloatingPanel';
 
 const CourseDetail = () => {
   const location = useLocation();
@@ -34,7 +35,7 @@ const CourseDetail = () => {
   }, [dispatch]);
 
   return (
-    <div className="">
+    <div>
       {/* brief course */}
       <div className="bg-amber-400 rounded-b-3xl shadow-lg text-white py-14">
         <div className="mx-auto max-w-7xl">
@@ -43,7 +44,7 @@ const CourseDetail = () => {
           </div>
 
           <div className="ml-16 max-w-2xl">
-            <h1 className="text-3xl my-2">The Ultimate React Course 2023: React, Redux & More</h1>
+            <h1 className="text-3xl my-2">{currentCourse.courseName}</h1>
             <h2 className="text-xl my-2">
               Master modern React from beginner to advanced! Context API, React Query, Redux Toolkit, Tailwind, advanced
               patterns
@@ -64,7 +65,7 @@ const CourseDetail = () => {
             </p>
             <div className="flex">
               <p className="mr-2">
-                <ClockCircleOutlined className="align-[0.125rem]" /> Last update at 05/2023
+                <ClockCircleOutlined className="align-[0.125rem]" /> Last update at {currentCourse.updatedAt}
               </p>
 
               <p className="ml-2">

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Button, Layout, Modal } from 'antd';
+import { Button, Layout, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserDeleteOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
 import { disableUserAction, getListAccountAction } from '../../redux/slice/userSlice';
 import TableAdmin from '../../components/Container/TableAdmin/TableAdmin';
-import { TOKEN } from '../../constants';
+import getTokenFromStorage from '../../utils/getTokenFromStorage';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import ModalDisableAccount from '../../components/Container/ModalContainer/ModalDisableAccount';
 
 const ManageListAccount = () => {
   //state of modal
@@ -17,23 +18,22 @@ const ManageListAccount = () => {
   const dispatch = useDispatch();
   //get list accounts from store
   const listAccounts = useSelector((state) => state.user.listAccounts);
-  const authToken =
-    JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+
+  const { accessToken } = getTokenFromStorage();
 
   useEffect(() => {
     dispatch(
       getListAccountAction({
         pageIndex: 1,
         pageSize: 4,
-        accessToken: authToken.accessToken,
+        accessToken: accessToken,
       })
     );
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, accessToken]);
 
   const handleDisableUser = (id) => {
-    console.log('gau gau ', id);
-    dispatch(disableUserAction({ id, accessToken: authToken.accessToken }));
+    dispatch(disableUserAction({ id, accessToken: accessToken }));
     setOpen(false);
   };
 
@@ -92,7 +92,7 @@ const ManageListAccount = () => {
                   </Button>,
                 ]}
               >
-                {dataOfRecord && <p>Are you sure to delete account ${dataOfRecord.id}</p>}
+                {dataOfRecord && <ModalDisableAccount data={dataOfRecord} />}
               </Modal>
             </>
           )}

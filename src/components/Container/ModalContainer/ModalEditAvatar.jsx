@@ -53,7 +53,6 @@ const ModalEditAvatar = ({ handleOk }) => {
     <ImgCrop zoomSlider showReset cropShape="round">
       <Upload
         customRequest={handleSubmitAvatar}
-        // action={handleSubmitAvatar}
         listType="picture-circle"
         beforeUpload={beforeUpload}
         onPreview={onPreview}

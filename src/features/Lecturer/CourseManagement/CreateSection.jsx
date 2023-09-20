@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { Button, Form } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
@@ -9,7 +11,6 @@ import CourseInfoCard from '../../../components/Container/CardTemplate/CourseInf
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { CREATE_SECTION_FORM_FIELDS } from '../../../constants';
 import { createNewSectionAction } from '../../../redux/slice/courseSlice';
-import { useNavigate } from 'react-router-dom';
 
 const CreateSection = () => {
   const currentCourse = useSelector((state) => state.course.currentCourse);
@@ -36,7 +37,7 @@ const CreateSection = () => {
         <div className="pl-6">
           <BreadCrumbCustom />
         </div>
-        <StepsCustom />
+        <StepsCustom step={1} />
 
         <Form onFinish={handleSubmitSection} name="section-create" className=" flex-1">
           <div className="flex">

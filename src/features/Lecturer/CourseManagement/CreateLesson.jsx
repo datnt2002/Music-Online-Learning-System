@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { Button, Form, Input, Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
@@ -7,7 +9,6 @@ import { Content } from 'antd/es/layout/layout';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { CREATE_LESSON_FORM_FIELDS } from '../../../constants/formfield';
-import { useNavigate } from 'react-router-dom';
 import { createNewLessonAction } from '../../../redux/slice/courseSlice';
 
 const CreateLesson = () => {
@@ -27,19 +28,15 @@ const CreateLesson = () => {
     );
   };
 
-  const normFile = (e) => {
-    console.log('Upload event:', e);
-    // setFile(e.file);
-  };
   return (
     <Content>
       <div className="p-6">
         <div className="pl-6">
           <BreadCrumbCustom />
         </div>
-        <StepsCustom />
+        <StepsCustom step={2} />
         <div className="flex flex-col border bg-white shadow-2xl rounded-2xl p-6">
-          <h1 className="font-semibold text-2xl">Create New Lesson</h1>
+          <h1 className="font-semibold text-2xl mb-5">Create New Lesson</h1>
           <Form name="create-lesson" onFinish={handleSubmitLesson}>
             <Form.Item name={CREATE_LESSON_FORM_FIELDS.LESSON_NAME} label={CREATE_LESSON_FORM_FIELDS.LESSON_NAME_LABEL}>
               <Input />
@@ -56,7 +53,7 @@ const CreateLesson = () => {
               <Form.Item
                 name={CREATE_LESSON_FORM_FIELDS.LESSON_VIDEO}
                 valuePropName="fileList"
-                getValueFromEvent={normFile}
+                getValueFromEvent={() => {}}
               >
                 <Upload.Dragger
                   name="files"

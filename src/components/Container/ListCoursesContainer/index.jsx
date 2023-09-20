@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Card } from 'antd';
-import Meta from 'antd/es/card/Meta';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { RightCircleOutlined, LeftCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+
+import { RightCircleOutlined } from '@ant-design/icons';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -25,7 +24,7 @@ const ListContainer = () => {
     );
   }, [dispatch]);
   function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
+    const { className, onClick } = props;
     return (
       <div className={className} onClick={onClick}>
         <RightCircleOutlined />
@@ -40,23 +39,24 @@ const ListContainer = () => {
     className: 'slider variable-width',
     dots: true,
     infinite: true,
-    centerMode: true,
+    centerMode: false,
     variableWidth: true,
     nextArrow: <SampleNextArrow />,
+    // initialSlide: 0,
   };
 
   const handleViewDetailCourse = (courseId) => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
   };
   return (
-    <div className="">
+    <div >
       <Slider {...settings}>
         {listCourse.map((course) => {
           return (
             <div key={course.courseId} className="my-3 mr-3">
               <div
                 onClick={() => handleViewDetailCourse(course.courseId)}
-                className="relative flex w-[15rem] h-80 flex-col rounded-xl bg-white shadow-xl hover:scale-105"
+                className="relative flex w-[13rem] h-80 flex-col rounded-xl bg-white shadow-xl hover:scale-105"
               >
                 <div className="relative mx-4 h-40 overflow-hidden rounded-xl shadow-lg">
                   <img src={course.courseImg} alt="" className="object-cover h-full w-full" />

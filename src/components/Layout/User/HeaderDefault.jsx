@@ -3,19 +3,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Header } from 'antd/es/layout/layout';
-import { Form, Input, Layout, Space } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Layout, Space } from 'antd';
 
 import AuthenticationButton from './HeaderComponent/AuthenticationButton';
 import CombineAvatarAndCart from './HeaderComponent/CombineAvatarAndCart';
 import CategoryDropdown from '../../Container/CategoryContainer/CategoryDropdown';
-import { FORM_FIELDS } from '../../../constants/formfield';
+import Searchbox from '../../Container/SearchBoxContainer/SearchBox';
 
 const HeaderDefault = () => {
-  const handleSearch = (values) => {
-    console.log('Success:', values);
-  };
-
   const isAuthenticated = useSelector((state) => state.authentication.isLoggedIn);
 
   return (
@@ -27,12 +22,7 @@ const HeaderDefault = () => {
         </Link>
         <CategoryDropdown />
         {/* Searchbox */}
-        <Form onFinish={handleSearch} className="flex flex-1 justify-center h-full">
-          <Form.Item name={FORM_FIELDS.SEARCH} rules={[{ required: true }]} className="w-2/3">
-            <Input prefix={<SearchOutlined />} className="rounded-full top-4" />
-          </Form.Item>
-        </Form>
-
+        <Searchbox />
         {/* navigation */}
         <Space className="flex basis-36">
           <Link to="">About us</Link>
@@ -40,9 +30,6 @@ const HeaderDefault = () => {
         </Space>
 
         <div className="flex basis-32">{isAuthenticated ? <CombineAvatarAndCart /> : <AuthenticationButton />}</div>
-
-        {/* dark mode */}
-        <div className="flex basis-20"></div>
       </Header>
     </Layout>
   );

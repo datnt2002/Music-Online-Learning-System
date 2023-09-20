@@ -5,31 +5,27 @@ import Layout from 'antd/es/layout/layout';
 
 import SiderLecturer from '../../Layout/Lecturer/SiderLecturer';
 import HeaderLecturer from '../../Layout/Lecturer/HeaderLecturer';
-import { PUBLIC_ROUTE, ROLE, TOKEN } from '../../../constants';
-import { useDispatch, useSelector } from 'react-redux';
+import { PUBLIC_ROUTE } from '../../../constants';
+import { useDispatch } from 'react-redux';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
-import flattenObj from '../../../utils/flattenObj';
+import getTokenFromStorage from '../../../utils/getTokenFromStorage';
 
 const AuthorRoute = ({ children }) => {
   //check if user is login
   //If yes, show route
   //Else, go login
-  const hasTokenInLocal = localStorage.getItem(TOKEN.AUTH_TOKEN);
-  const hasTokenInSession = sessionStorage.getItem(TOKEN.AUTH_TOKEN);
-
+  const authToken = getTokenFromStorage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!hasTokenInLocal && !hasTokenInSession) {
+    if (!authToken) {
       navigate(PUBLIC_ROUTE.SIGN_IN);
     } else {
-      const authToken = JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
       dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
     }
-  }, [navigate, hasTokenInLocal, hasTokenInSession, dispatch]);
-  const currentUser = useSelector((state) => state.authentication.currentUser);
-  // console.log(flattenObj(currentUser));
+  }, [navigate, authToken, dispatch]);
+  // const currentUser = useSelector((state) => state.authentication.currentUser);
   // useEffect(() => {
   //   if (currentUser && currentUser.roles[0].Rolename !== ROLE.LECTURER) {
   //     // sau nay navigate to form dki lecturer

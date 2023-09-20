@@ -83,12 +83,35 @@ export const createNewLesson = (data) => {
     });
 };
 
+export const getLessonDetail = (data) => {
+  console.log(data);
+  return axiosClient
+    .get(`lessons/${data.id}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getListCategory = (data) => {
   console.log(data);
   return axiosClient
     .get('categories', {
       params: { pageIndex: 1, pageSize: data.pageSize },
     })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const createPayment = (data) => {
+  return axiosClient
+    .post('createPayment', {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

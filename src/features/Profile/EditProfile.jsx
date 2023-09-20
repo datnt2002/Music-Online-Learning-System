@@ -7,7 +7,7 @@ import { EditTwoTone } from '@ant-design/icons';
 
 import ChangePassword from './ChangePassword';
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { PROFILE_FORM_FIELDS } from '../../constants';
+import { CHANGE_PASSWORD_FORM_FIELDS, PROFILE_FORM_FIELDS, VALIDATE_MESSAGE } from '../../constants';
 import ModalEditAvatar from '../../components/Container/ModalContainer/ModalEditAvatar';
 
 const EditProfile = () => {
@@ -69,15 +69,19 @@ const EditProfile = () => {
             </Form.Item>
             <Divider />
             <Space className="flex">
-              <Form.Item label="First Name" name={PROFILE_FORM_FIELDS.FIRST_NAME}>
+              <Form.Item label={PROFILE_FORM_FIELDS.FIRST_NAME_LABEL} name={PROFILE_FORM_FIELDS.FIRST_NAME}>
                 <Input />
               </Form.Item>
-              <Form.Item label="Last Name" name={PROFILE_FORM_FIELDS.LAST_NAME}>
+              <Form.Item label={PROFILE_FORM_FIELDS.LAST_NAME_LABEL} name={PROFILE_FORM_FIELDS.LAST_NAME}>
                 <Input />
               </Form.Item>
             </Space>
             <div className="flex">
-              <Form.Item label="Password" name={PROFILE_FORM_FIELDS.PASSWORD} className="flex-1 mr-2">
+              <Form.Item
+                label={PROFILE_FORM_FIELDS.PASSWORD_LABEL}
+                name={PROFILE_FORM_FIELDS.PASSWORD}
+                className="flex-1 mr-2"
+              >
                 <Input.Password disabled />
               </Form.Item>
               <Button onClick={showModalChangePassword}>Change Password</Button>
@@ -86,41 +90,41 @@ const EditProfile = () => {
               rules={[
                 {
                   type: 'email',
-                  message: 'The input is not valid E-mail!',
+                  message: VALIDATE_MESSAGE.EMAIL_NOT_VALID,
                 },
               ]}
-              label="Email"
+              label={PROFILE_FORM_FIELDS.EMAIL_LABEL}
               name={PROFILE_FORM_FIELDS.EMAIL}
             >
               <Input />
             </Form.Item>
-            <Form.Item label="Phone Number" name={PROFILE_FORM_FIELDS.PHONE_NUMBER}>
+            <Form.Item label={PROFILE_FORM_FIELDS.PHONE_NUMBER_LABEL} name={PROFILE_FORM_FIELDS.PHONE_NUMBER}>
               <Input />
             </Form.Item>
-            <Form.Item label="Address" name={PROFILE_FORM_FIELDS.ADDRESS}>
+            <Form.Item label={PROFILE_FORM_FIELDS.ADDRESS_LABEL} name={PROFILE_FORM_FIELDS.ADDRESS}>
               <Input />
             </Form.Item>
-            <Form.Item label="Nation" name={PROFILE_FORM_FIELDS.NATION}>
+            <Form.Item label={PROFILE_FORM_FIELDS.NATION_LABEL} name={PROFILE_FORM_FIELDS.NATION}>
               <Input />
             </Form.Item>
           </div>
           <div className="flex flex-1 flex-col py-8 pl-7 pr-14">
-            <Form.Item label="Gender" name={PROFILE_FORM_FIELDS.GENDER}>
+            <Form.Item label={PROFILE_FORM_FIELDS.GENDER_LABEL} name={PROFILE_FORM_FIELDS.GENDER}>
               <Select>
                 <Select.Option value="male">male</Select.Option>
                 <Select.Option value="female">female</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item label="Date Of Birth" name={PROFILE_FORM_FIELDS.DOB}>
+            <Form.Item label={PROFILE_FORM_FIELDS.DOB_LABEL} name={PROFILE_FORM_FIELDS.DOB}>
               <DatePicker className="flex flex-1" />
             </Form.Item>
-            <Form.Item label="Facebook" name={PROFILE_FORM_FIELDS.FACEBOOK}>
+            <Form.Item label={PROFILE_FORM_FIELDS.FACEBOOK_LABEL} name={PROFILE_FORM_FIELDS.FACEBOOK}>
               <Input />
             </Form.Item>
-            <Form.Item label="Instagram" name={PROFILE_FORM_FIELDS.INSTAGRAM}>
+            <Form.Item label={PROFILE_FORM_FIELDS.INSTAGRAM_LABEL} name={PROFILE_FORM_FIELDS.INSTAGRAM}>
               <Input />
             </Form.Item>
-            <Form.Item label="Bio" name={PROFILE_FORM_FIELDS.BIO}>
+            <Form.Item label={PROFILE_FORM_FIELDS.BIO_LABEL} name={PROFILE_FORM_FIELDS.BIO}>
               <TextArea rows={4} />
             </Form.Item>
 
@@ -136,15 +140,19 @@ const EditProfile = () => {
         <Modal
           destroyOnClose={true}
           footer={[
-            <Button form="myFormChangePassword" key="cancel-button" onClick={handleCancelModalChangePassword}>
+            <Button
+              form={CHANGE_PASSWORD_FORM_FIELDS.FORM_ID}
+              key="cancel-button"
+              onClick={handleCancelModalChangePassword}
+            >
               Cancel
             </Button>,
-            <Button form="myFormChangePassword" key="submit" htmlType="submit">
+            <Button form={CHANGE_PASSWORD_FORM_FIELDS.FORM_ID} key="submit" htmlType="submit">
               Submit
             </Button>,
             //
           ]}
-          title="Change Password"
+          title={CHANGE_PASSWORD_FORM_FIELDS.FORM_TITLE}
           open={isModalChangePasswordOpen}
           onCancel={handleCancelModalChangePassword}
         >

@@ -4,6 +4,7 @@ import { adminRoutes, authorRoutes, publicRoutes, userRoutes } from './routes';
 import ForgotPassword from './features/Authentication/ForgotPassword';
 import Signin from './features/Authentication/Signin';
 import Signup from './features/Authentication/Signup';
+import { NotFound } from './components/Common';
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="*" element={<NotFound />} />
+
         {publicRoutes.map(({ path, element }, index) => {
           return <Route key={index} path={path} element={element} />;
         })}

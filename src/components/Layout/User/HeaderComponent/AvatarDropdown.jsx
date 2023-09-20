@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Avatar, Dropdown, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Avatar, Dropdown, Space } from 'antd';
 
 import { logoutAction } from '../../../../redux/slice/authenticationSlice';
 import { PUBLIC_ROUTE, USER_ROUTE } from '../../../../constants';
@@ -16,7 +16,6 @@ const AvatarDropdown = () => {
   const handleLogout = () => {
     dispatch(logoutAction());
   };
-  console.log(currentUser);
 
   const items = [
     {

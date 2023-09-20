@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Button } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { Link } from 'react-router-dom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import { LECTURER_ROUTE } from '../../../constants';
+
 const LecturerCourse = () => {
   return (
     <Content className="h-screen p-6">

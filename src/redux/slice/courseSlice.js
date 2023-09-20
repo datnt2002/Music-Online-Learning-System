@@ -63,6 +63,16 @@ export const courseSlice = createSlice({
     createNewLessonFail: (state) => {
       state.loading = false;
     },
+    getDetailLessonAction: (state) => {
+      state.loading = true;
+    },
+    getDetailLessonSuccess: (state, action) => {
+      state.loading = false;
+      state.currentLesson = action.payload;
+    },
+    getDetailLessonFail: (state) => {
+      state.loading = false;
+    },
     getListCategoryAction: (state) => {
       state.loading = true;
     },
@@ -83,6 +93,9 @@ export const {
   getDetailCourseAction,
   getDetailCourseSuccess,
   getDetailCourseFail,
+  getDetailLessonAction,
+  getDetailLessonSuccess,
+  getDetailLessonFail,
   createNewCourseAction,
   createNewCourseSuccess,
   createNewCourseFail,

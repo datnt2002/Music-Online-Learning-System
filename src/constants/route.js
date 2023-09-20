@@ -11,6 +11,7 @@ export const USER_ROUTE = {
   USER_CART: '/user/my-cart',
   USER_WISHLIST: '/user/my-wishlist',
   USER_EDIT_PROFILE: '/user/profile/edit-profile',
+  PAYMENT: '/user/payment',
 };
 export const LECTURER_ROUTE = {
   DASHBOARD: '/lecturer',
@@ -21,5 +22,7 @@ export const LECTURER_ROUTE = {
 };
 
 export const ADMIN_ROUTE = {
-  DASHBOARD: '/admin/dashboard',
+  DASHBOARD: '/admin',
+  LIST_COURSES: '/admin/list-courses',
+  LIST_ACCOUNTS: '/admin/list-accounts',
 };

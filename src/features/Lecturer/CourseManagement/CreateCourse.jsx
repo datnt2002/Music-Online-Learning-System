@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+import ImgCrop from 'antd-img-crop';
 import { Button, Form, Input, InputNumber, Select, Upload, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
-import { createNewCourseAction } from '../../../redux/slice/courseSlice';
+import { createNewCourseAction, getListCategoryAction } from '../../../redux/slice/courseSlice';
 import { CREATE_COURSE_FORM_FIELDS } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { useNavigate } from 'react-router-dom';
 
 const CreateCourse = () => {
   const [file, setFile] = useState();
+  const listCategories = useSelector((state) => state.course.listCategory);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,18 +36,42 @@ const CreateCourse = () => {
     );
   };
 
-  const normFile = (e) => {
-    console.log('Upload event:', e);
-    // setFile(e.file);
+  useEffect(() => {
+    dispatch(getListCategoryAction({ pageSize: 10 }));
+  }, [dispatch]);
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
   };
 
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+  };
   return (
     <Content>
       <div className="flex flex-1 flex-col p-6 ">
         <div className="pl-6">
           <BreadCrumbCustom />
         </div>
-        <StepsCustom />
+        <StepsCustom step={0} />
 
         {/* form */}
         <div className="bg-white shadow-xl rounded-2xl p-6 ">
@@ -61,7 +87,13 @@ const CreateCourse = () => {
                 </Form.Item>
                 <Form.Item label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL} name={CREATE_COURSE_FORM_FIELDS.CATEGORY}>
                   <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    {listCategories.map((category, index) => {
+                      return (
+                        <Select.Option key={category.cateId} value={category.cateId}>
+                          {category.cateName}
+                        </Select.Option>
+                      );
+                    })}
                   </Select>
                 </Form.Item>
                 <Form.Item
@@ -89,21 +121,25 @@ const CreateCourse = () => {
                 </Form.Item>
 
                 <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL}>
-                  <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile}>
-                    <Upload.Dragger
-                      name="files"
-                      maxCount={1}
-                      customRequest={(info) => {
-                        console.log(info);
-                        setFile(info.file);
-                      }}
-                    >
-                      <p className="ant-upload-drag-icon">
-                        <InboxOutlined />
-                      </p>
-                      <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                      <p className="ant-upload-hint">Support for a single upload.</p>
-                    </Upload.Dragger>
+                  <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={() => {}}>
+                    <ImgCrop zoomSlider showReset cropShape="rect" aspect={16 / 9}>
+                      <Upload.Dragger
+                        onPreview={onPreview}
+                        name="files"
+                        maxCount={1}
+                        customRequest={(info) => {
+                          console.log(info);
+                          setFile(info.file);
+                        }}
+                        beforeUpload={beforeUpload}
+                      >
+                        <p className="ant-upload-drag-icon">
+                          <InboxOutlined />
+                        </p>
+                        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                        <p className="ant-upload-hint">Support for a single upload.</p>
+                      </Upload.Dragger>
+                    </ImgCrop>
                   </Form.Item>
                 </Form.Item>
               </div>

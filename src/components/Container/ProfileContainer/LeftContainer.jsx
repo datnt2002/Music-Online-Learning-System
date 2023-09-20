@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons';
 
 import { LECTURER_ROUTE, USER_ROUTE } from '../../../constants';
+import dayjs from 'dayjs';
 
 const LeftContainer = () => {
   const userProfile = useSelector((state) => state.authentication.currentUser);
@@ -108,7 +109,7 @@ const LeftContainer = () => {
         <p>{userProfile.bio}</p>
       </div>
 
-      <p className="my-3 font-medium">MEMBER SINCE: {userProfile.createdAt}</p>
+      <p className="my-3 font-medium">MEMBER SINCE: {dayjs(userProfile.createdAt).format('DD/MM/YYYY')}</p>
     </div>
   );
 };

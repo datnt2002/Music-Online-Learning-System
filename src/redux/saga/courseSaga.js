@@ -226,6 +226,18 @@ function* createNewLessonSaga() {
   }
 }
 
+function* getDetailLessonSaga() {
+  while (true) {
+    try {
+      const {
+        payload: {},
+      } = yield take(getListCategoryAction);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* getListCategorySaga() {
   while (true) {
     try {
@@ -250,4 +262,5 @@ export default function* courseSaga() {
   yield fork(getListCategorySaga);
   yield fork(createNewLessonSaga);
   yield fork(getDetailCourseSaga);
+  yield fork(getDetailLessonSaga);
 }

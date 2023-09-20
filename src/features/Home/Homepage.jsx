@@ -9,11 +9,9 @@ import ListContainer from '../../components/Container/ListCoursesContainer';
 import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCategory';
 import LecturerCard from '../../components/Container/CardTemplate/LecturerCard';
 import CourseHorizontalCard from '../../components/Container/CardTemplate/CourseHorizontalCard';
+import ListFeatureCourses from '../../components/Container/ListCoursesContainer/ListFeatureCourses';
 
 const Homepage = () => {
-  const onChange = (currentSlide) => {
-    console.log(currentSlide);
-  };
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -76,11 +74,7 @@ const Homepage = () => {
         {/* Feature courses */}
         <div className="my-16">
           <h1 className="text-2xl font-semibold mb-5">Feature courses</h1>
-          <Carousel afterChange={onChange}>
-            {Courses.map((course, index) => {
-              return <CourseHorizontalCard />;
-            })}
-          </Carousel>
+          <ListFeatureCourses />
         </div>
         {/* course to get start */}
         <div className="my-16">
@@ -88,7 +82,7 @@ const Homepage = () => {
 
           <div className="grid grid-cols-5 gap-4 ">
             {Categories.map((category, index) => {
-              return <Button className="">Trending</Button>;
+              return <Button className="" key={index}>Trending</Button>;
             })}
           </div>
         </div>

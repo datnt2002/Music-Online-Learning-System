@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { USER_ROUTE } from '../../../constants';
 
 const CourseDetailFloatingPanel = ({ data }) => {
   return (
@@ -15,7 +17,9 @@ const CourseDetailFloatingPanel = ({ data }) => {
         <div className="flex flex-col flex-1">
           <h1>1000000VND</h1>
           <Button>Add to Cart</Button>
-          <Button>Buy Now</Button>
+          <Link to={USER_ROUTE.PAYMENT} className="w-full">
+            <Button>Buy Now</Button>
+          </Link>
         </div>
         <p>This course includes</p>
         <p>This course includes</p>
