@@ -1,10 +1,24 @@
-import { Button, Divider, Space } from 'antd';
-import React from 'react';
-import { LeftOutlined } from '@ant-design/icons';
+import { Button, Divider } from 'antd';
+import React, { useState } from 'react';
+import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { banks } from '../../../constants/banks';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPaymentAction } from '../../../redux/slice/courseSlice';
 
 const ChoosePaymentMethod = () => {
+  const dispatch = useDispatch();
+  const currentCourse = useSelector((state) => state.course.currentCourse);
+  const handleChoosePaymentMethod = (bankCode) => {
+    console.log(bankCode);
+    dispatch(
+      createPaymentAction({
+        bankCode: bankCode,
+        amount: currentCourse.price,
+      })
+    );
+  };
   return (
-    <div className="w-2/4 mt-10 mx-auto border rounded-2xl shadow-xl overflow-hidden">
+    <div className="w-2/5 mt-10 mx-auto border rounded-2xl shadow-xl overflow-hidden">
       <div>
         <img
           src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png"
@@ -25,8 +39,28 @@ const ChoosePaymentMethod = () => {
               <h1>VNpay scanncer app</h1>
               {/* <img src="" alt="" /> */}
             </div>
-            <div className="bg-white p-8 align-middle hover:shadow-2xl cursor-pointer">VNpay scanncer app</div>
-            <div className="bg-white p-8 align-middle hover:shadow-2xl cursor-pointer">VNpay scanncer app</div>
+            <div className="bg-white p-8 align-middle hover:shadow-2xl cursor-pointer">
+              <h1>Domestic card and bank account</h1>
+              <div>
+                <Divider />
+                <div className="grid grid-cols-4 gap-3">
+                  {banks.map((bank, index) => {
+                    return (
+                      <Button
+                        key={index}
+                        className="h-12"
+                        onClick={() => {
+                          handleChoosePaymentMethod(bank.bankCode);
+                        }}
+                      >
+                        <img className="h-full p-1 object-fit" src={bank.img} alt="" />
+                      </Button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className="bg-white p-8 align-middle hover:shadow-2xl cursor-pointer">VNPAY e-wallet</div>
           </div>
         </div>
       </div>

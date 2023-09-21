@@ -18,6 +18,7 @@ const TableAdmin = ({ dataSource, actions }) => {
     const titleColumnList = Object.keys(flattenData[0]);
     const columns = titleColumnList.map((column, index) => {
       const data = {
+        key: column,
         title: column,
         dataIndex: column,
         sorter: (a, b) => {

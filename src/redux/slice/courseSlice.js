@@ -83,6 +83,9 @@ export const courseSlice = createSlice({
     getListCategoryFail: (state) => {
       state.loading = false;
     },
+    createPaymentAction: (state) => {},
+    createPaymentSuccess: (state) => {},
+    createPaymentFail: (state) => {},
   },
 });
 
@@ -108,6 +111,9 @@ export const {
   getListCategoryAction,
   getListCategorySuccess,
   getListCategoryFail,
+  createPaymentAction,
+  createPaymentSuccess,
+  createPaymentFail,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

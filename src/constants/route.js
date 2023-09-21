@@ -11,7 +11,7 @@ export const USER_ROUTE = {
   USER_CART: '/user/my-cart',
   USER_WISHLIST: '/user/my-wishlist',
   USER_EDIT_PROFILE: '/user/profile/edit-profile',
-  PAYMENT: '/user/payment',
+  PAYMENT: '/user/payment-method',
 };
 export const LECTURER_ROUTE = {
   DASHBOARD: '/lecturer',

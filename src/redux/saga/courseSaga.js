@@ -7,6 +7,7 @@ import {
   createNewCourse,
   createNewLesson,
   createNewSection,
+  createPayment,
   getDetailCourse,
   getListCategory,
   getListCourses,
@@ -20,6 +21,7 @@ import {
   createNewSectionAction,
   createNewSectionFail,
   createNewSectionSuccess,
+  createPaymentAction,
   getDetailCourseAction,
   getDetailCourseFail,
   getDetailCourseSuccess,
@@ -30,6 +32,7 @@ import {
   getListCourseSuccess,
 } from '../slice/courseSlice';
 import { LECTURER_ROUTE, TOKEN } from '../../constants';
+import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 function* getListCourseSaga() {
   while (true) {
@@ -92,8 +95,8 @@ function* createNewCourseSaga() {
         payload: { courseName, price, isFree, subCateId, description, file, navigate },
       } = yield take(createNewCourseAction);
       console.log(courseName, price, isFree, subCateId, description, file);
-      const { accessToken } =
-        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const { accessToken } = getTokenFromStorage();
+
       const result = yield call(createNewCourse, {
         courseName,
         price,
@@ -143,8 +146,8 @@ function* createNewSectionSaga() {
         payload: { sectionName, courseId, navigate },
       } = yield take(createNewSectionAction);
       console.log(sectionName, courseId);
-      const { accessToken } =
-        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const { accessToken } = getTokenFromStorage();
+
       const result = yield call(createNewSection, { sectionName, courseId, accessToken });
       console.log(result);
       switch (result.status) {
@@ -188,8 +191,8 @@ function* createNewLessonSaga() {
       } = yield take(createNewLessonAction);
       console.log(lessonName, courseId);
 
-      const { accessToken } =
-        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const { accessToken } = getTokenFromStorage();
+
       const result = yield call(createNewLesson, { lessonName, file, accessToken });
       console.log(result);
       switch (result.status) {
@@ -255,6 +258,25 @@ function* getListCategorySaga() {
   }
 }
 
+function* paymentSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { amount, bankCode },
+      } = yield take(createPaymentAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(createPayment, { bankCode, amount, accessToken });
+      console.log(result);
+
+      window.open(result, '_blank');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* courseSaga() {
   yield fork(getListCourseSaga);
   yield fork(createNewSectionSaga);
@@ -263,4 +285,5 @@ export default function* courseSaga() {
   yield fork(createNewLessonSaga);
   yield fork(getDetailCourseSaga);
   yield fork(getDetailLessonSaga);
+  yield fork(paymentSaga);
 }

@@ -29,6 +29,7 @@ import {
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { ROLE } from '../../constants/role';
 import { ADMIN_ROUTE, PUBLIC_ROUTE, TOKEN, USER_ROUTE } from '../../constants';
+import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 function* signInSaga() {
   while (true) {
@@ -105,10 +106,9 @@ function* signUpSaga() {
           });
           yield put(signupSuccess(result));
           break;
-        case 409:
-          yield put(signupFail(result));
-          break;
+
         default:
+          yield put(signupFail(result));
           break;
       }
     } catch (error) {
@@ -184,9 +184,8 @@ function* changePasswordSaga() {
       const {
         payload: { oldPassword, newPassword },
       } = yield take(changePasswordAction);
-      const { accessToken } =
-        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
-
+      const { accessToken } = getTokenFromStorage();
+      console.log(accessToken);
       const result = yield call(changePassword, { oldPassword, newPassword, accessToken });
       console.log(result);
       switch (result.status) {
@@ -224,8 +223,8 @@ function* upLoadAvatarSaga() {
         payload: { fileImage, navigate },
       } = yield take(uploadAvatarAction);
 
-      const { accessToken } =
-        JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN));
+      const { accessToken } = getTokenFromStorage();
+
       const result = yield call(uploadAvatar, { fileImage, accessToken });
       switch (result.status) {
         case 200:

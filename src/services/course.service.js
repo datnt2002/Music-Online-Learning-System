@@ -110,8 +110,13 @@ export const getListCategory = (data) => {
 };
 
 export const createPayment = (data) => {
+  console.log(data);
   return axiosClient
-    .post('createPayment', {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .post(
+      'createPayment',
+      { language: 'vn', bankCode: data.bankCode, amount: data.amount },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
     .then((res) => {
       return res;
     })
