@@ -5,6 +5,7 @@ export const FORM_FIELDS = {
   CONFIRM_PASSWORD: 'confirm_password',
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
+  PHONE_NO: 'phoneNumber',
   SEARCH: 'search',
 };
 
@@ -82,6 +83,8 @@ export const CREATE_LESSON_FORM_FIELDS = {
 
 export const VALIDATE_MESSAGE = {
   USERNAME_REQUIRED: 'Please input your Username!',
+  USERNAME_MIN_CHARACTER: 'Username must be at least 8 characters!',
+  USERNAME_NOT_CONTAIN_SPECIAL: 'Username must not have special characters',
   EMAIL_REQUIRED: 'Please input your Email!',
   EMAIL_NOT_VALID: 'The input is not valid E-mail!',
   PASSWORD_REQUIRED: 'Please input your Password!',
@@ -89,6 +92,7 @@ export const VALIDATE_MESSAGE = {
   LAST_NAME_REQUIRED: 'Please input your last name',
   CONFIRM_PASSWORD_REQUIRED: 'Please confirm your password!',
   PASSWORD_NOT_MATCH: 'The new password that you entered do not match!',
+  PHONE_NUMBER_REQUIRED: 'Please input your Phone Number!',
 };
 
 export const PLACEHOLDER_FORM = {
@@ -98,4 +102,5 @@ export const PLACEHOLDER_FORM = {
   FIRST_NAME: 'First Name',
   LAST_NAME: 'Last Name',
   CONFIRM_PASSWORD: 'Confirm Password',
+  PHONE_NUMBER: 'Phone Number',
 };

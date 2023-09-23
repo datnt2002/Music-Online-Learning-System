@@ -49,7 +49,6 @@ export const publicRoutes = [
       </PublicLayout>
     ),
   },
-
   {
     path: 'course-detail/:id',
     element: (

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Checkbox, Button, Spin } from 'antd';
-import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { Form, Input, Button } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS, PLACEHOLDER_FORM, PUBLIC_ROUTE, VALIDATE_MESSAGE } from '../../constants';
@@ -23,6 +23,7 @@ const Signup = () => {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
+        phoneNumber: values.phoneNumber,
         navigate,
       })
     );
@@ -34,7 +35,7 @@ const Signup = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      {loading && <Spin indicator={<Loading />} />}
+      {loading && <Loading />}
       <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center my-6">
         {/* name page */}
         <div>
@@ -57,7 +58,7 @@ const Signup = () => {
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
                 placeholder={PLACEHOLDER_FORM.FIRST_NAME}
-                prefix={<UserOutlined className="site-form-item-icon" />}
+                prefix={<UserOutlined />}
               />
             </Form.Item>
             <Form.Item
@@ -75,19 +76,24 @@ const Signup = () => {
                 prefix={<UserOutlined className="site-form-item-icon" />}
               />
             </Form.Item>
+
             <Form.Item
               name={FORM_FIELDS.USERNAME}
               rules={[
                 {
                   required: true,
-                  message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
+                  message: VALIDATE_MESSAGE.USERNAME_REQUIRED,
+                },
+                {
+                  min: 8,
+                  message: VALIDATE_MESSAGE.USERNAME_MIN_CHARACTER,
                 },
               ]}
             >
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
                 placeholder={PLACEHOLDER_FORM.USERNAME}
-                prefix={<UserOutlined className="site-form-item-icon" />}
+                prefix={<UserOutlined />}
               />
             </Form.Item>
             <Form.Item
@@ -106,7 +112,23 @@ const Signup = () => {
               <Input
                 className="rounded-full p-3 border-2 border-[#F39D39] "
                 placeholder={PLACEHOLDER_FORM.EMAIL}
-                prefix={<MailOutlined className="site-form-item-icon" />}
+                prefix={<MailOutlined />}
+              />
+            </Form.Item>
+            <Form.Item
+              name={FORM_FIELDS.PHONE_NO}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: VALIDATE_MESSAGE.PHONE_NUMBER_REQUIRED,
+                },
+              ]}
+            >
+              <Input
+                className="rounded-full p-3 border-2 border-[#F39D39] "
+                placeholder={PLACEHOLDER_FORM.PHONE_NUMBER}
+                prefix={<PhoneOutlined />}
               />
             </Form.Item>
             <Form.Item
@@ -122,7 +144,7 @@ const Signup = () => {
               <Input.Password
                 className="rounded-full p-3 border-2 border-[#F39D39] "
                 placeholder={PLACEHOLDER_FORM.PASSWORD}
-                prefix={<LockOutlined className="site-form-item-icon" />}
+                prefix={<LockOutlined />}
               />
             </Form.Item>
             <Form.Item
@@ -147,26 +169,10 @@ const Signup = () => {
               <Input.Password
                 className="rounded-full p-3 border-2 border-[#F39D39] "
                 placeholder={PLACEHOLDER_FORM.CONFIRM_PASSWORD}
-                prefix={<LockOutlined className="site-form-item-icon" />}
+                prefix={<LockOutlined />}
               />
             </Form.Item>
-            <Form.Item
-              name="agreement"
-              valuePropName="checked"
-              rules={[
-                {
-                  validator: (_, value) =>
-                    value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-                },
-              ]}
-            >
-              <Checkbox>
-                I have read the
-                <Link href="" className="font-bold">
-                  Terms And Policy
-                </Link>
-              </Checkbox>
-            </Form.Item>
+
             <Form.Item>
               <Button
                 type="primary"

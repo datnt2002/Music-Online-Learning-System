@@ -78,10 +78,10 @@ function* signUpSaga() {
     try {
       //destructuring payload
       const {
-        payload: { username, password, email, firstName, lastName, navigate },
+        payload: { username, password, email, firstName, lastName, phoneNumber, navigate },
       } = yield take(signupAction);
       //call api signup
-      const result = yield call(signUp, { username, password, email, firstName, lastName });
+      const result = yield call(signUp, { username, password, email, firstName, lastName, phoneNumber });
       console.log(result);
 
       switch (result.status) {
