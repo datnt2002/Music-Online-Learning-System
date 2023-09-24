@@ -16,8 +16,7 @@ import Cart from '../features/Home/Cart';
 import Wishlist from '../features/Home/Wishlist';
 import LessonDetail from '../features/Home/Course/LessonDetail';
 import CourseDetail from '../features/Home/Course/CourseDetail';
-import ManageListAccount from '../features/Admin/ManageListAccount';
-import ManageListCourses from '../features/Admin/ManageListCourses';
+
 import DashBoardAdmin from '../features/Admin/Dashboard';
 import CreateCourse from '../features/Lecturer/CourseManagement/CreateCourse';
 import CreateSection from '../features/Lecturer/CourseManagement/CreateSection';
@@ -25,6 +24,10 @@ import CreateLesson from '../features/Lecturer/CourseManagement/CreateLesson';
 import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer';
 import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
 import ChoosePaymentMethod from '../features/Home/Payment/ChoosePaymentMethod';
+import ManageListCourses from '../features/Admin/Courses/ManageListCourses';
+import ManageListAccount from '../features/Admin/Accounts/ManageListAccount';
+import CoursesPending from '../features/Admin/Courses/CoursesPending';
+import LecturerRequests from '../features/Admin/Accounts/LecturerRequests';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -171,10 +174,26 @@ export const adminRoutes = [
     ),
   },
   {
+    path: 'pending-courses',
+    element: (
+      <AdminRoute>
+        <CoursesPending />
+      </AdminRoute>
+    ),
+  },
+  {
     path: 'list-accounts',
     element: (
       <AdminRoute>
         <ManageListAccount />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: 'lecturer-requests',
+    element: (
+      <AdminRoute>
+        <LecturerRequests />
       </AdminRoute>
     ),
   },

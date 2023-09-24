@@ -24,5 +24,7 @@ export const LECTURER_ROUTE = {
 export const ADMIN_ROUTE = {
   DASHBOARD: '/admin',
   LIST_COURSES: '/admin/list-courses',
+  PENDING_COURSES: '/admin/pending-courses',
   LIST_ACCOUNTS: '/admin/list-accounts',
+  LECTURER_REQUESTS: '/admin/lecturer-requests',
 };

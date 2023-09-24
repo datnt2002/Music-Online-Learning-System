@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { UserDeleteOutlined } from '@ant-design/icons';
 
-import TableAdmin from '../../components/Container/TableAdmin/TableAdmin';
-import { getListCourseAction } from '../../redux/slice/courseSlice';
+import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
+import { getListCourseAction } from '../../../redux/slice/courseSlice';
 
 const ManageListCourses = () => {
   const listCourse = useSelector((state) => state.course.listCourse);

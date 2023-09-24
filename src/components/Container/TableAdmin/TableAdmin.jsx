@@ -2,6 +2,8 @@ import React from 'react';
 import { Empty, Table } from 'antd';
 
 import flattenObj from '../../../utils/flattenObj';
+import dayjs from 'dayjs';
+import { DAY_FORMAT, TABLE_COLUMN } from '../../../constants';
 
 const TableAdmin = ({ dataSource, actions }) => {
   if (dataSource.length > 0) {
@@ -17,24 +19,49 @@ const TableAdmin = ({ dataSource, actions }) => {
     //get title of table by get key of obj
     const titleColumnList = Object.keys(flattenData[0]);
     const columns = titleColumnList.map((column, index) => {
-      const data = {
-        key: column,
-        title: column,
-        dataIndex: column,
-        sorter: (a, b) => {
-          if (a[column] > b[column]) {
-            return 1;
-          } else if (a[column] < b[column]) {
-            return -1;
-          } else {
-            return 0;
-          }
-        },
+      let data;
+      if (column === TABLE_COLUMN.CREATED_AT) {
+        data = {
+          key: column,
+          title: column,
+          dataIndex: column,
+          sorter: (a, b) => {
+            if (a[column] > b[column]) {
+              return 1;
+            } else if (a[column] < b[column]) {
+              return -1;
+            } else {
+              return 0;
+            }
+          },
 
-        fixed: index < 2,
-        width: 120,
-      };
-      return data;
+          fixed: index < 2,
+          width: 120,
+          render: (text) => {
+            return <span>{dayjs(text).format(DAY_FORMAT.D_M_Y)}</span>;
+          },
+        };
+        return data;
+      } else {
+        data = {
+          key: column,
+          title: column,
+          dataIndex: column,
+          sorter: (a, b) => {
+            if (a[column] > b[column]) {
+              return 1;
+            } else if (a[column] < b[column]) {
+              return -1;
+            } else {
+              return 0;
+            }
+          },
+
+          fixed: index < 2,
+          width: 120,
+        };
+        return data;
+      }
     });
     columns.push({
       title: 'Actions',

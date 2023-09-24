@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UserDeleteOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
-import { disableUserAction, getListAccountAction } from '../../redux/slice/userSlice';
-import TableAdmin from '../../components/Container/TableAdmin/TableAdmin';
-import getTokenFromStorage from '../../utils/getTokenFromStorage';
-import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import ModalDisableAccount from '../../components/Container/ModalContainer/ModalDisableAccount';
+import { disableUserAction, getListAccountAction } from '../../../redux/slice/userSlice';
+import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
+import getTokenFromStorage from '../../../utils/getTokenFromStorage';
+import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import ModalDisableAccount from '../../../components/Container/ModalContainer/ModalDisableAccount';
 
 const ManageListAccount = () => {
   //state of modal
@@ -25,7 +25,7 @@ const ManageListAccount = () => {
     dispatch(
       getListAccountAction({
         pageIndex: 1,
-        pageSize: 4,
+        pageSize: 10,
         accessToken: accessToken,
       })
     );

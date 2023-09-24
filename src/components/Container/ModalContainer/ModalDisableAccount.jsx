@@ -1,6 +1,7 @@
 import { Avatar } from 'antd';
 import React from 'react';
 import dayjs from 'dayjs';
+import defaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
 
 const ModalDisableAccount = ({ data }) => {
   console.log(data);
@@ -9,7 +10,7 @@ const ModalDisableAccount = ({ data }) => {
       <p className="text-center py-10 font-medium">Are you sure to delete account ${data.id}</p>
       <div className="flex">
         <div className="flex flex-1 items-center justify-center">
-          <Avatar className="" size={64} />
+          <Avatar className="" size={64} src={data.avatar || defaultAvatar} />
         </div>
         <div className="flex flex-1 flex-col">
           <p>

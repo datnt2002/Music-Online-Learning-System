@@ -11,6 +11,7 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  AppstoreAddOutlined,
 } from '@ant-design/icons';
 
 import { ADMIN_ROUTE } from '../../../constants';
@@ -35,6 +36,11 @@ const SiderAdmin = () => {
           label: 'List Courses',
           icon: <BookOutlined />,
         },
+        {
+          key: ADMIN_ROUTE.PENDING_COURSES,
+          label: 'Pending Courses',
+          icon: <AppstoreAddOutlined />,
+        },
       ],
     },
     {
@@ -45,6 +51,11 @@ const SiderAdmin = () => {
         {
           key: ADMIN_ROUTE.LIST_ACCOUNTS,
           label: 'List Accounts',
+          icon: <TeamOutlined />,
+        },
+        {
+          key: ADMIN_ROUTE.LECTURER_REQUESTS,
+          label: 'Lecturer Requests',
           icon: <TeamOutlined />,
         },
       ],

@@ -8,3 +8,7 @@ export const TOKEN = {
   REFRESH_TOKEN: 'refreshToken',
   AUTH_TOKEN: 'authToken',
 };
+
+export const DAY_FORMAT = {
+  D_M_Y: 'DD/MM/YYYY',
+};

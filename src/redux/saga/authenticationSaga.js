@@ -14,6 +14,8 @@ import {
   changePasswordAction,
   changePasswordSuccess,
   forgotPasswordAction,
+  forgotPasswordFail,
+  forgotPasswordSuccess,
   getCurrentUserAction,
   getCurrentUserFail,
   getCurrentUserSuccess,
@@ -56,7 +58,8 @@ function* signInSaga() {
             sessionStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           }
 
-          if (result.data.user.roles[0].roleName === ROLE.ADMIN) {
+          const roles = result.data.user?.roles;
+          if (roles.length > 0 && roles[0].roleName === ROLE.ADMIN) {
             navigate(ADMIN_ROUTE.DASHBOARD);
           } else {
             navigate(PUBLIC_ROUTE.DEFAULT);
@@ -128,6 +131,7 @@ function* forgotPasswordSaga() {
       console.log(result);
       switch (result.status) {
         case 200:
+          yield put(forgotPasswordSuccess());
           Swal.fire({
             title: result.message,
             width: 850,
@@ -149,6 +153,7 @@ function* forgotPasswordSaga() {
           break;
 
         default:
+          yield put(forgotPasswordFail());
           break;
       }
     } catch (error) {
