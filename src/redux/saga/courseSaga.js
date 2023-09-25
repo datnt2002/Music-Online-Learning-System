@@ -4,6 +4,8 @@ import 'sweetalert2/src/sweetalert2.scss';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 import {
+  EditCategory,
+  createNewCategory,
   createNewCourse,
   createNewLesson,
   createNewSection,
@@ -13,6 +15,9 @@ import {
   getListCourses,
 } from '../../services/course.service';
 import {
+  createCategoryAction,
+  createCategoryFail,
+  createCategorySuccess,
   createNewCourseAction,
   createNewCourseSuccess,
   createNewLessonAction,
@@ -22,6 +27,9 @@ import {
   createNewSectionFail,
   createNewSectionSuccess,
   createPaymentAction,
+  editCategoryAction,
+  editCategoryFail,
+  editCategorySuccess,
   getDetailCourseAction,
   getDetailCourseFail,
   getDetailCourseSuccess,
@@ -31,7 +39,7 @@ import {
   getListCourseFail,
   getListCourseSuccess,
 } from '../slice/courseSlice';
-import { LECTURER_ROUTE, TOKEN } from '../../constants';
+import { ADMIN_ROUTE, LECTURER_ROUTE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 function* getListCourseSaga() {
@@ -258,6 +266,86 @@ function* getListCategorySaga() {
   }
 }
 
+function* createCategorySaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateName, navigate },
+      } = yield take(createCategoryAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(createNewCategory, { cateName, accessToken });
+
+      switch (result.status) {
+        case 201:
+          yield put(createCategorySuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(ADMIN_ROUTE.LIST_CATEGORIES);
+            }
+          });
+          break;
+
+        default:
+          yield put(createCategoryFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* editCategorySaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId, cateName },
+      } = yield take(editCategoryAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(EditCategory, { cateId, cateName, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(editCategorySuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(editCategoryFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* paymentSaga() {
   while (true) {
     try {
@@ -285,5 +373,7 @@ export default function* courseSaga() {
   yield fork(createNewLessonSaga);
   yield fork(getDetailCourseSaga);
   yield fork(getDetailLessonSaga);
+  yield fork(createCategorySaga);
+  yield fork(editCategorySaga);
   yield fork(paymentSaga);
 }

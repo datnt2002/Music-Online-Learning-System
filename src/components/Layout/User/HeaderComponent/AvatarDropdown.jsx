@@ -6,6 +6,7 @@ import { Avatar, Dropdown, Space } from 'antd';
 
 import { logoutAction } from '../../../../redux/slice/authenticationSlice';
 import { PUBLIC_ROUTE, USER_ROUTE } from '../../../../constants';
+import defaultAvatar from '../../../../assets/imgs/defaultAvatar.webp';
 
 const AvatarDropdown = () => {
   const currentUser = useSelector((state) => {
@@ -23,7 +24,7 @@ const AvatarDropdown = () => {
       label: (
         <Link to={USER_ROUTE.USER_PROFILE}>
           <Space className="flex">
-            <Avatar size={43} src={currentUser.avatar} alt="Avatar" />
+            <Avatar size={43} src={currentUser.avatar || defaultAvatar} alt="Avatar" />
             <div className="flex flex-col">
               <p>{currentUser.username}</p>
               <p>{currentUser.email}</p>
@@ -84,7 +85,7 @@ const AvatarDropdown = () => {
 
   return (
     <Dropdown menu={{ items }}>
-      <Avatar size={43} src={currentUser.avatar} alt="Avatar" />
+      <Avatar size={43} src={currentUser.avatar || defaultAvatar} alt="Avatar" />
     </Dropdown>
   );
 };

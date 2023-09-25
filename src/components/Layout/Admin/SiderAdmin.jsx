@@ -12,6 +12,8 @@ import {
   TeamOutlined,
   UserOutlined,
   AppstoreAddOutlined,
+  ApartmentOutlined,
+  AppstoreOutlined,
 } from '@ant-design/icons';
 
 import { ADMIN_ROUTE } from '../../../constants';
@@ -57,6 +59,23 @@ const SiderAdmin = () => {
           key: ADMIN_ROUTE.LECTURER_REQUESTS,
           label: 'Lecturer Requests',
           icon: <TeamOutlined />,
+        },
+      ],
+    },
+    {
+      key: 'Categories',
+      label: 'Categories',
+      icon: <ApartmentOutlined />,
+      children: [
+        {
+          key: ADMIN_ROUTE.LIST_CATEGORIES,
+          label: 'List Categories',
+          icon: <AppstoreOutlined />,
+        },
+        {
+          key: ADMIN_ROUTE.CREATE_CATEGORY,
+          label: 'Create Category',
+          icon: <AppstoreAddOutlined />,
         },
       ],
     },

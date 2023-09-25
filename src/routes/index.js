@@ -28,6 +28,8 @@ import ManageListCourses from '../features/Admin/Courses/ManageListCourses';
 import ManageListAccount from '../features/Admin/Accounts/ManageListAccount';
 import CoursesPending from '../features/Admin/Courses/CoursesPending';
 import LecturerRequests from '../features/Admin/Accounts/LecturerRequests';
+import ManageListCategories from '../features/Admin/Categories/ManageListCategories';
+import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -194,6 +196,22 @@ export const adminRoutes = [
     element: (
       <AdminRoute>
         <LecturerRequests />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: 'list-categories',
+    element: (
+      <AdminRoute>
+        <ManageListCategories />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: 'create-category',
+    element: (
+      <AdminRoute>
+        <CreateNewCategory />
       </AdminRoute>
     ),
   },

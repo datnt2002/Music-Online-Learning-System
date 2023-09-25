@@ -72,6 +72,19 @@ export const CREATE_SECTION_FORM_FIELDS = {
   SECTION_PLACEHOLDER: 'Enter section',
 };
 
+export const CREATE_CATEGORY_FORM_FIELDS = {
+  CATEGORY_NAME: 'cateName',
+  TITLE: 'Category Name',
+  CATEGORY_PLACEHOLDER: 'Enter category',
+};
+
+export const EDIT_CATEGORY_FORM_FIELDS = {
+  CATEGORY_NAME: 'cateName',
+  CATEGORY_NAME_LABEL: 'Category Name',
+  CATE_ID: 'cateId',
+  CATE_ID_LABEL: 'Category Id',
+};
+
 export const CREATE_LESSON_FORM_FIELDS = {
   LESSON_NAME: 'lessonName',
   LESSON_NAME_LABEL: 'Lesson Name',

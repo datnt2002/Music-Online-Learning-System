@@ -109,6 +109,34 @@ export const getListCategory = (data) => {
     });
 };
 
+export const createNewCategory = (data) => {
+  console.log(data);
+  return axiosClient
+    .post('categories', { cateName: data.cateName }, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const EditCategory = (data) => {
+  console.log(data);
+  return axiosClient
+    .put(
+      `categories/${data.cateId}`,
+      { cateName: data.cateName },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const createPayment = (data) => {
   console.log(data);
   return axiosClient

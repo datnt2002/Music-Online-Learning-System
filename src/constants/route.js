@@ -27,4 +27,6 @@ export const ADMIN_ROUTE = {
   PENDING_COURSES: '/admin/pending-courses',
   LIST_ACCOUNTS: '/admin/list-accounts',
   LECTURER_REQUESTS: '/admin/lecturer-requests',
+  LIST_CATEGORIES: '/admin/list-categories',
+  CREATE_CATEGORY: '/admin/create-category',
 };

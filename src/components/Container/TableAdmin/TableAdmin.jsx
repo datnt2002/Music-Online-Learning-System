@@ -20,7 +20,7 @@ const TableAdmin = ({ dataSource, actions }) => {
     const titleColumnList = Object.keys(flattenData[0]);
     const columns = titleColumnList.map((column, index) => {
       let data;
-      if (column === TABLE_COLUMN.CREATED_AT) {
+      if (column === TABLE_COLUMN.CREATED_AT || column === TABLE_COLUMN.UPDATED_AT) {
         data = {
           key: column,
           title: column,
@@ -66,7 +66,7 @@ const TableAdmin = ({ dataSource, actions }) => {
     columns.push({
       title: 'Actions',
       fixed: 'right',
-      width: 80,
+      width: 100,
       align: 'center',
       render: (record) => {
         return actions(record);

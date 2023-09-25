@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Layout } from 'antd';
+import { Button, Layout, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { UserDeleteOutlined } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
@@ -23,7 +23,13 @@ const ManageListCourses = () => {
     return () => {};
   }, [dispatch]);
 
-  const handleShowDetailCourse = () => {};
+  const handleShowDetailCourse = (record) => {
+    console.log(record);
+  };
+
+  const handleDeleteCourse = (record) => {
+    console.log(record);
+  };
 
   return (
     <Layout
@@ -45,12 +51,20 @@ const ManageListCourses = () => {
         <TableAdmin
           dataSource={listCourse}
           actions={(record) => (
-            <Button
-              onClick={() => {
-                handleShowDetailCourse(record);
-              }}
-              icon={<UserDeleteOutlined />}
-            />
+            <Space>
+              <Button
+                onClick={() => {
+                  handleShowDetailCourse(record);
+                }}
+                icon={<EyeOutlined />}
+              />
+              <Button
+                onClick={() => {
+                  handleDeleteCourse(record);
+                }}
+                icon={<DeleteOutlined />}
+              />
+            </Space>
           )}
         />
       </Content>
