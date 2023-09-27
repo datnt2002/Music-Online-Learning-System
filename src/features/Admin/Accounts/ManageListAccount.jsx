@@ -72,28 +72,30 @@ const ManageListAccount = () => {
                 }}
                 icon={<UserDeleteOutlined />}
               />
-              <Modal
-                open={open}
-                title="Disable User"
-                onCancel={handleCancel}
-                footer={[
-                  <Button key="back" onClick={handleCancel}>
-                    Return
-                  </Button>,
-                  <Button
-                    className="bg-amber-500"
-                    key="submit"
-                    type="primary"
-                    onClick={() => {
-                      handleDisableUser(dataOfRecord.id);
-                    }}
-                  >
-                    Delete this user
-                  </Button>,
-                ]}
-              >
-                {dataOfRecord && <ModalDisableAccount data={dataOfRecord} />}
-              </Modal>
+              {open && (
+                <Modal
+                  open={open}
+                  title="Disable User"
+                  onCancel={handleCancel}
+                  footer={[
+                    <Button key="back" onClick={handleCancel}>
+                      Return
+                    </Button>,
+                    <Button
+                      className="bg-amber-500"
+                      key="submit"
+                      type="primary"
+                      onClick={() => {
+                        handleDisableUser(dataOfRecord.id);
+                      }}
+                    >
+                      Delete this user
+                    </Button>,
+                  ]}
+                >
+                  {dataOfRecord && <ModalDisableAccount data={dataOfRecord} />}
+                </Modal>
+              )}
             </>
           )}
         />

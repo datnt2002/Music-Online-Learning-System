@@ -37,7 +37,14 @@ const ForgotPassword = () => {
         <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
           {/* name page */}
           <div>
-            <h1 className="text-3xl font-bold">LAUGAU</h1>
+            <h1 className="text-3xl font-bold">
+              {' '}
+              <img
+                src="https://musicalminds.com.au/wp-content/uploads/2020/12/Musical_Minds_Logos_FA-01.png"
+                className="h-16 mx-auto"
+                alt=""
+              />
+            </h1>
             <h4 className="text-sm font-bold mt-4 ">Forget your LAUGAU account</h4>
           </div>
           {/* form */}
@@ -49,6 +56,14 @@ const ForgotPassword = () => {
                   {
                     required: true,
                     message: VALIDATE_MESSAGE.USERNAME_REQUIRED,
+                  },
+                  {
+                    min: 8,
+                    message: VALIDATE_MESSAGE.USERNAME_MIN_CHARACTER,
+                  },
+                  {
+                    max: 15,
+                    message: VALIDATE_MESSAGE.USERNAME_MAX_CHARACTER,
                   },
                 ]}
               >
@@ -68,6 +83,10 @@ const ForgotPassword = () => {
                   {
                     type: FORM_FIELDS.EMAIL,
                     message: VALIDATE_MESSAGE.EMAIL_NOT_VALID,
+                  },
+                  {
+                    min: 10,
+                    message: VALIDATE_MESSAGE.EMAIL_LENGTH,
                   },
                 ]}
               >

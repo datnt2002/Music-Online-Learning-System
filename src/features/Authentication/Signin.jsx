@@ -14,7 +14,6 @@ const Signin = () => {
   const dispatch = useDispatch();
 
   const handleLogin = (values) => {
-    console.log('sign in', values);
     dispatch(
       signInAction({
         username: values.username,
@@ -35,8 +34,14 @@ const Signin = () => {
       <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
         {/* name page */}
         <div>
-          <h1 className="text-3xl font-bold">LAUGAU</h1>
-          <h4 className="text-sm font-bold mt-4">Log in to your LAUGAU account</h4>
+          <h1 className="text-3xl font-bold">
+            <img
+              src="https://musicalminds.com.au/wp-content/uploads/2020/12/Musical_Minds_Logos_FA-01.png"
+              className="h-16 mx-auto"
+              alt=""
+            />
+          </h1>
+          <h4 className="text-sm font-bold mt-4">Sign in to your account</h4>
         </div>
         {/* form */}
         <div className="flex mt-4">
@@ -55,6 +60,14 @@ const Signin = () => {
                   required: true,
                   message: VALIDATE_MESSAGE.USERNAME_REQUIRED,
                 },
+                {
+                  min: 8,
+                  message: VALIDATE_MESSAGE.USERNAME_MIN_CHARACTER,
+                },
+                {
+                  max: 15,
+                  message: VALIDATE_MESSAGE.USERNAME_MAX_CHARACTER,
+                },
               ]}
             >
               <Input
@@ -69,6 +82,10 @@ const Signin = () => {
                 {
                   required: true,
                   message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
+                },
+                {
+                  min: 6,
+                  message: VALIDATE_MESSAGE.PASSWORD_LENGTH,
                 },
               ]}
             >
@@ -91,7 +108,7 @@ const Signin = () => {
                 className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit"
                 style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
-                Log in
+                Sign in
               </Button>
             </Form.Item>
           </Form>

@@ -15,7 +15,6 @@ const Signup = () => {
   const loading = useSelector((state) => state.authentication.loading);
 
   const handleRegister = (values) => {
-    console.log('Sign up', values);
     dispatch(
       signupAction({
         username: values.username,
@@ -39,8 +38,14 @@ const Signup = () => {
       <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center my-6">
         {/* name page */}
         <div>
-          <h1 className="text-3xl font-bold">LAUGAU</h1>
-          <h4 className="text-sm font-bold mt-4 ">Create your LAUGAU account</h4>
+          <h1 className="text-3xl font-bold">
+            <img
+              src="https://musicalminds.com.au/wp-content/uploads/2020/12/Musical_Minds_Logos_FA-01.png"
+              className="h-16 mx-auto"
+              alt=""
+            />
+          </h1>
+          <h4 className="text-base font-bold mt-4 ">Create your account</h4>
         </div>
 
         {/* form */}
@@ -48,10 +53,15 @@ const Signup = () => {
           <Form className="flex flex-col flex-1 relative" onFinish={handleRegister} scrollToFirstError>
             <Form.Item
               name={FORM_FIELDS.FIRST_NAME}
+              hasFeedback
               rules={[
                 {
                   required: true,
                   message: VALIDATE_MESSAGE.FIRST_NAME_REQUIRED,
+                },
+                {
+                  min: 2,
+                  message: VALIDATE_MESSAGE.FIRST_NAME_LENGTH,
                 },
               ]}
             >
@@ -63,10 +73,15 @@ const Signup = () => {
             </Form.Item>
             <Form.Item
               name={FORM_FIELDS.LAST_NAME}
+              hasFeedback
               rules={[
                 {
                   required: true,
                   message: VALIDATE_MESSAGE.LAST_NAME_REQUIRED,
+                },
+                {
+                  min: 2,
+                  message: VALIDATE_MESSAGE.LAST_NAME_LENGTH,
                 },
               ]}
             >
@@ -79,6 +94,7 @@ const Signup = () => {
 
             <Form.Item
               name={FORM_FIELDS.USERNAME}
+              hasFeedback
               rules={[
                 {
                   required: true,
@@ -88,6 +104,10 @@ const Signup = () => {
                   min: 8,
                   message: VALIDATE_MESSAGE.USERNAME_MIN_CHARACTER,
                 },
+                {
+                  max: 15,
+                  message: VALIDATE_MESSAGE.USERNAME_MAX_CHARACTER,
+                },
               ]}
             >
               <Input
@@ -96,8 +116,10 @@ const Signup = () => {
                 prefix={<UserOutlined />}
               />
             </Form.Item>
+
             <Form.Item
               name={FORM_FIELDS.EMAIL}
+              hasFeedback
               rules={[
                 {
                   type: FORM_FIELDS.EMAIL,
@@ -106,6 +128,10 @@ const Signup = () => {
                 {
                   required: true,
                   message: VALIDATE_MESSAGE.EMAIL_REQUIRED,
+                },
+                {
+                  min: 10,
+                  message: VALIDATE_MESSAGE.EMAIL_LENGTH,
                 },
               ]}
             >
@@ -123,6 +149,18 @@ const Signup = () => {
                   required: true,
                   message: VALIDATE_MESSAGE.PHONE_NUMBER_REQUIRED,
                 },
+                {
+                  min: 10,
+                  message: VALIDATE_MESSAGE.PHONE_NUMBER_MIN_LENGTH,
+                },
+                {
+                  max: 11,
+                  message: VALIDATE_MESSAGE.PHONE_NUMBER_MAX_LENGTH,
+                },
+                {
+                  pattern: new RegExp(/^[0-9]+$/),
+                  message: VALIDATE_MESSAGE.PHONE_NUMBER_REGEX,
+                },
               ]}
             >
               <Input
@@ -138,6 +176,7 @@ const Signup = () => {
                   required: true,
                   message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
                 },
+                { min: 6, message: VALIDATE_MESSAGE.PASSWORD_LENGTH },
               ]}
               hasFeedback
             >

@@ -25,6 +25,7 @@ export const ADMIN_ROUTE = {
   DASHBOARD: '/admin',
   LIST_COURSES: '/admin/list-courses',
   PENDING_COURSES: '/admin/pending-courses',
+  DELETE_COURSES: '/admin/delete-courses',
   LIST_ACCOUNTS: '/admin/list-accounts',
   LECTURER_REQUESTS: '/admin/lecturer-requests',
   LIST_CATEGORIES: '/admin/list-categories',

@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Layout, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { EyeOutlined, CarryOutOutlined } from '@ant-design/icons';
+import { EyeOutlined, RetweetOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 
-const CoursesPending = () => {
+const DeleteCourses = () => {
   const listCourse = useSelector((state) => state.course.listCourse);
   const dispatch = useDispatch();
   console.log(listCourse);
@@ -27,7 +27,7 @@ const CoursesPending = () => {
     console.log(record);
   };
 
-  const handleAcceptCourse = (record) => {
+  const handleRestoreCourse = (record) => {
     console.log(record);
   };
 
@@ -60,9 +60,9 @@ const CoursesPending = () => {
               />
               <Button
                 onClick={() => {
-                  handleAcceptCourse(record);
+                  handleRestoreCourse(record);
                 }}
-                icon={<CarryOutOutlined />}
+                icon={<RetweetOutlined />}
               />
             </Space>
           )}
@@ -72,4 +72,4 @@ const CoursesPending = () => {
   );
 };
 
-export default CoursesPending;
+export default DeleteCourses;

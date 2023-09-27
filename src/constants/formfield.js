@@ -95,17 +95,25 @@ export const CREATE_LESSON_FORM_FIELDS = {
 };
 
 export const VALIDATE_MESSAGE = {
+  FIRST_NAME_REQUIRED: 'Please input your first name',
+  FIRST_NAME_LENGTH: 'First name must be at least 2 characters',
+  LAST_NAME_REQUIRED: 'Please input your last name',
+  LAST_NAME_LENGTH: 'Last name must be at least 2 characters',
   USERNAME_REQUIRED: 'Please input your Username!',
   USERNAME_MIN_CHARACTER: 'Username must be at least 8 characters!',
+  USERNAME_MAX_CHARACTER: 'Username must have maximum 15 characters!',
   USERNAME_NOT_CONTAIN_SPECIAL: 'Username must not have special characters',
   EMAIL_REQUIRED: 'Please input your Email!',
   EMAIL_NOT_VALID: 'The input is not valid E-mail!',
+  EMAIL_LENGTH: 'Email must have at least 10 characters!',
+  PHONE_NUMBER_REQUIRED: 'Please input your Phone Number!',
+  PHONE_NUMBER_MIN_LENGTH: 'Phone Number must have at least 10 characters!',
+  PHONE_NUMBER_MAX_LENGTH: 'Phone number must have maximum 11 characters!',
+  PHONE_NUMBER_REGEX: 'Phone number must have number characters!',
   PASSWORD_REQUIRED: 'Please input your Password!',
-  FIRST_NAME_REQUIRED: 'Please input your first name',
-  LAST_NAME_REQUIRED: 'Please input your last name',
+  PASSWORD_LENGTH: 'Password must be at least 6 characters!',
   CONFIRM_PASSWORD_REQUIRED: 'Please confirm your password!',
   PASSWORD_NOT_MATCH: 'The new password that you entered do not match!',
-  PHONE_NUMBER_REQUIRED: 'Please input your Phone Number!',
 };
 
 export const PLACEHOLDER_FORM = {
