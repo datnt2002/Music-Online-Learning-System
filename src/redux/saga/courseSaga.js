@@ -10,9 +10,11 @@ import {
   createNewLesson,
   createNewSection,
   createPayment,
+  deleteCourseFromAdmin,
   getDetailCourse,
   getListCategory,
   getListCourses,
+  getListPendingCourse,
 } from '../../services/course.service';
 import {
   createCategoryAction,
@@ -27,6 +29,9 @@ import {
   createNewSectionFail,
   createNewSectionSuccess,
   createPaymentAction,
+  deleteCourseFromAdminAction,
+  deleteCourseFromAdminFail,
+  deleteCourseFromAdminSuccess,
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
@@ -37,6 +42,9 @@ import {
   getListCategorySuccess,
   getListCourseAction,
   getListCourseFail,
+  getListCoursePendingAction,
+  getListCoursePendingFail,
+  getListCoursePendingSuccess,
   getListCourseSuccess,
 } from '../slice/courseSlice';
 import { ADMIN_ROUTE, LECTURER_ROUTE } from '../../constants';
@@ -51,18 +59,82 @@ function* getListCourseSaga() {
 
       const result = yield call(getListCourses, { pageSize, pageIndex });
 
-      // switch (result.status) {
-      //   case 200:
-      //     yield put(getListCourseSuccess(result.data));
-      //     break;
+      switch (result.status) {
+        case 200:
+          yield put(getListCourseSuccess(result.data));
+          break;
 
-      //   default:
-      //     yield put(getListCourseFail(result));
-      //     break;
-      // }
-      if (result.data) {
-        yield put(getListCourseSuccess(result.data));
-      } else {
+        default:
+          yield put(getListCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* deleteCourseFromAdminSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId, navigate },
+      } = yield take(deleteCourseFromAdminAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(deleteCourseFromAdmin, { courseId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(deleteCourseFromAdminSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(ADMIN_ROUTE.DELETE_COURSES);
+            }
+          });
+          break;
+
+        default:
+          yield put(deleteCourseFromAdminFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* getListCoursePendingSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { pageSize, pageIndex },
+      } = yield take(getListCoursePendingAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getListPendingCourse, { pageSize, pageIndex, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(getListCoursePendingSuccess(result.data));
+          break;
+
+        default:
+          yield put(getListCoursePendingFail(result));
+          break;
       }
     } catch (error) {
       console.log(error);
@@ -367,6 +439,8 @@ function* paymentSaga() {
 
 export default function* courseSaga() {
   yield fork(getListCourseSaga);
+  yield fork(deleteCourseFromAdminSaga);
+  yield fork(getListCoursePendingSaga);
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);
   yield fork(getListCategorySaga);

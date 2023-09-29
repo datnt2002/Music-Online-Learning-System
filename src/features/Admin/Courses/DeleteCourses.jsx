@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Layout, Space } from 'antd';
+import { Button, Layout, Modal, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { EyeOutlined, RetweetOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
+import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 
 const DeleteCourses = () => {
+  const [open, setOpen] = useState(false);
+  const [dataOfRecord, setDataOfRecord] = useState();
   const listCourse = useSelector((state) => state.course.listCourse);
   const dispatch = useDispatch();
-  console.log(listCourse);
+
   useEffect(() => {
     dispatch(
       getListCourseAction({
@@ -25,6 +28,12 @@ const DeleteCourses = () => {
 
   const handleShowDetailCourse = (record) => {
     console.log(record);
+    setDataOfRecord(record);
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
   };
 
   const handleRestoreCourse = (record) => {
@@ -58,6 +67,21 @@ const DeleteCourses = () => {
                 }}
                 icon={<EyeOutlined />}
               />
+              {open && (
+                <Modal
+                  width={850}
+                  open={open}
+                  title="Course Detail"
+                  onCancel={handleCancel}
+                  footer={[
+                    <Button key="back" onClick={handleCancel}>
+                      Return
+                    </Button>,
+                  ]}
+                >
+                  {dataOfRecord && <ModalCourseDetail data={dataOfRecord} />}
+                </Modal>
+              )}
               <Button
                 onClick={() => {
                   handleRestoreCourse(record);

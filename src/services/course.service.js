@@ -12,6 +12,43 @@ export const getListCourses = (data) => {
     });
 };
 
+export const deleteCourseFromAdmin = (data) => {
+  return axiosClient
+    .delete(`courses/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getListPendingCourse = (data) => {
+  console.log(data);
+  return axiosClient
+    .get('courses/pending', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const approvedCourse = (data) => {
+  return axiosClient
+    .patch(`courses/approve/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getDetailCourse = (data) => {
   return axiosClient
     .get(`courses/${data.courseId}`)

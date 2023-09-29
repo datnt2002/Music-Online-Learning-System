@@ -23,6 +23,26 @@ export const courseSlice = createSlice({
     getListCourseFail: (state) => {
       state.loading = false;
     },
+    deleteCourseFromAdminAction: (state) => {
+      state.loading = true;
+    },
+    deleteCourseFromAdminSuccess: (state, action) => {
+      state.loading = false;
+      state.listCourse = action.payload;
+    },
+    deleteCourseFromAdminFail: (state) => {
+      state.loading = false;
+    },
+    getListCoursePendingAction: (state) => {
+      state.loading = true;
+    },
+    getListCoursePendingSuccess: (state, action) => {
+      state.loading = false;
+      state.listCourse = action.payload;
+    },
+    getListCoursePendingFail: (state) => {
+      state.loading = false;
+    },
     getDetailCourseAction: (state) => {
       state.loading = true;
     },
@@ -99,6 +119,12 @@ export const {
   getListCourseAction,
   getListCourseSuccess,
   getListCourseFail,
+  deleteCourseFromAdminAction,
+  deleteCourseFromAdminSuccess,
+  deleteCourseFromAdminFail,
+  getListCoursePendingAction,
+  getListCoursePendingSuccess,
+  getListCoursePendingFail,
   getDetailCourseAction,
   getDetailCourseSuccess,
   getDetailCourseFail,

@@ -20,7 +20,7 @@ function* getListAccountSaga() {
       } = yield take(getListAccountAction);
 
       const result = yield call(getListUser, { pageSize, accessToken, pageIndex });
-
+      console.log(result);
       if (result.data) {
         yield put(getListAccountSuccess(result.data));
       } else {
