@@ -1,10 +1,12 @@
 import React from 'react';
 import { Table } from 'antd';
-import flattenObj from '../../../utils/flattenObj';
 import dayjs from 'dayjs';
+import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+
+import flattenObj from '../../../utils/flattenObj';
 import { DAY_FORMAT, TABLE_COLUMN } from '../../../constants';
 
-const ExpandedTable = ({ dataSource, actions }) => {
+const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => {
   if (dataSource.length > 0) {
     //solve nested object because of join database
     const flattenData = dataSource.map((data, index) => {
@@ -81,7 +83,21 @@ const ExpandedTable = ({ dataSource, actions }) => {
       <Table
         columns={columns}
         expandable={{
-          expandedRowRender: (record) => <p>{record.description}</p>,
+          expandedRowRender: (record) =>
+            expandedData.map((data, index) => {
+              return data.cateId === record.cateId ? <p key={index}>{data.subCateName}</p> : <span key={index}></span>;
+            }),
+          expandIcon: ({ expanded, onExpand, record }) =>
+            expanded ? (
+              <MinusOutlined onClick={(e) => onExpand(record, e)} />
+            ) : (
+              <PlusOutlined
+                onClick={(e) => {
+                  onClickExpand(record);
+                  onExpand(record, e);
+                }}
+              />
+            ),
         }}
         dataSource={flattenData}
         onChange={onChange}

@@ -7,17 +7,19 @@ import { EditOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import ExpandedTable from '../../../components/Container/TableAdmin/ExpandedTable';
-import { editCategoryAction, getListCategoryAction } from '../../../redux/slice/courseSlice';
+import { editCategoryAction, getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
 import ModalEditCategory from '../../../components/Container/ModalContainer/ModalEditCategory';
 
 const ManageListCategories = () => {
   const [open, setOpen] = useState(false);
   const [dataOfRecord, setDataOfRecord] = useState();
+
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   const listCategories = useSelector((state) => state.course.listCategory);
-
+  const listSubcategories = useSelector((state) => state.course.listSubcategories);
+  console.log(listSubcategories);
   useEffect(() => {
     dispatch(
       getListCategoryAction({
@@ -56,6 +58,15 @@ const ManageListCategories = () => {
     setOpen(false);
   };
 
+  const handleGetSubCategories = (record) => {
+    console.log(record);
+    dispatch(
+      getSubCategoriesAction({
+        cateId: record.cateId,
+      })
+    );
+  };
+
   return (
     <Layout
       style={{
@@ -75,15 +86,17 @@ const ManageListCategories = () => {
       >
         <ExpandedTable
           dataSource={listCategories}
+          onClickExpand={handleGetSubCategories}
+          expandedData={listSubcategories}
           actions={(record) => (
             <Space>
-              <>
-                <Button
-                  onClick={() => {
-                    showModal(record);
-                  }}
-                  icon={<EditOutlined />}
-                />
+              <Button
+                onClick={() => {
+                  showModal(record);
+                }}
+                icon={<EditOutlined />}
+              />
+              {open && (
                 <Modal
                   open={open}
                   title="Edit Category"
@@ -106,7 +119,7 @@ const ManageListCategories = () => {
                 >
                   {dataOfRecord && <ModalEditCategory onFinish={handleEditCategory} form={form} data={dataOfRecord} />}
                 </Modal>
-              </>
+              )}
             </Space>
           )}
         />

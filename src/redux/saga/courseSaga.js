@@ -1,4 +1,4 @@
-import { fork, call, take, put } from 'redux-saga/effects';
+import { fork, call, take, put, select } from 'redux-saga/effects';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
@@ -15,6 +15,7 @@ import {
   getListCategory,
   getListCourses,
   getListPendingCourse,
+  getSubCategories,
 } from '../../services/course.service';
 import {
   createCategoryAction,
@@ -46,6 +47,9 @@ import {
   getListCoursePendingFail,
   getListCoursePendingSuccess,
   getListCourseSuccess,
+  getSubCategoriesAction,
+  getSubCategoriesFail,
+  getSubCategoriesSuccess,
 } from '../slice/courseSlice';
 import { ADMIN_ROUTE, LECTURER_ROUTE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
@@ -330,8 +334,7 @@ function* getListCategorySaga() {
 
       const result = yield call(getListCategory, { pageSize });
       console.log(result);
-
-      yield put(getListCategorySuccess(result.pageIndex.silced));
+      yield put(getListCategorySuccess(result.status.categories));
     } catch (error) {
       console.log(error);
     }
@@ -418,6 +421,45 @@ function* editCategorySaga() {
   }
 }
 
+const getListSubCategoriesFromStore = (state) => state.course.listSubcategories;
+
+function* getSubCateSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId },
+      } = yield take(getSubCategoriesAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getSubCategories, { cateId, accessToken });
+
+      let listSubCate = yield select(getListSubCategoriesFromStore);
+
+      switch (result.status) {
+        case 200:
+          if (listSubCate.length === 0) {
+            yield put(getSubCategoriesSuccess(result.data));
+          } else {
+            //check if in the store, the sub category hasn't been push
+            let isDuplicated = listSubCate.some((subCate) => {
+              return subCate.subCateId === result.data.subCateId;
+            });
+
+            if (!isDuplicated) {
+              yield put(getSubCategoriesSuccess(result.data));
+            }
+          }
+          break;
+
+        default:
+          yield put(getSubCategoriesFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* paymentSaga() {
   while (true) {
     try {
@@ -449,5 +491,6 @@ export default function* courseSaga() {
   yield fork(getDetailLessonSaga);
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
+  yield fork(getSubCateSaga);
   yield fork(paymentSaga);
 }

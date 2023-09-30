@@ -25,6 +25,9 @@ export const userSlice = createSlice({
     disableUserSuccess: (state) => {
       state.loading = false;
     },
+    disableUserFail: (state) => {
+      state.loading = false;
+    },
   },
 });
 
@@ -34,6 +37,7 @@ export const {
   getListAccountFail,
   disableUserAction,
   disableUserSuccess,
+  disableUserFail,
 } = userSlice.actions;
 
 export default userSlice.reducer;

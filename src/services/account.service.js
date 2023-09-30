@@ -24,5 +24,3 @@ export const disableUser = (data) => {
       return err;
     });
 };
-
-// api public

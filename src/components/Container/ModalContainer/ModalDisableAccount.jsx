@@ -16,6 +16,7 @@ const ModalDisableAccount = ({ data }) => {
           <p>
             Full Name: {data.firstName} {data.lastName}
           </p>
+          <p>Username: {data.username}</p>
           <p>Role: User</p>
           <p>Member since: {dayjs(data.createdAt).format('DD/MM/YYYY')}</p>
         </div>

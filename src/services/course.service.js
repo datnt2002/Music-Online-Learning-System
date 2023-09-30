@@ -174,6 +174,17 @@ export const EditCategory = (data) => {
     });
 };
 
+export const getSubCategories = (data) => {
+  return axiosClient
+    .get(`sub-categories/${data.cateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const createPayment = (data) => {
   console.log(data);
   return axiosClient

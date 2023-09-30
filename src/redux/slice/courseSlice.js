@@ -7,6 +7,7 @@ const initialState = {
   currentSection: {},
   currentLesson: {},
   listCategory: [],
+  listSubcategories: [],
 };
 
 export const courseSlice = createSlice({
@@ -109,6 +110,16 @@ export const courseSlice = createSlice({
     editCategoryAction: (state) => {},
     editCategorySuccess: (state) => {},
     editCategoryFail: (state) => {},
+    getSubCategoriesAction: (state) => {
+      state.loading = true;
+    },
+    getSubCategoriesSuccess: (state, action) => {
+      state.loading = false;
+      state.listSubcategories.push(action.payload);
+    },
+    getSubCategoriesFail: (state) => {
+      state.loading = false;
+    },
     createPaymentAction: (state) => {},
     createPaymentSuccess: (state) => {},
     createPaymentFail: (state) => {},
@@ -149,6 +160,9 @@ export const {
   editCategoryAction,
   editCategorySuccess,
   editCategoryFail,
+  getSubCategoriesAction,
+  getSubCategoriesSuccess,
+  getSubCategoriesFail,
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,

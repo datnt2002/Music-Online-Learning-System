@@ -5,26 +5,34 @@ import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 import {
   disableUserAction,
+  disableUserFail,
   disableUserSuccess,
   getListAccountAction,
   getListAccountFail,
   getListAccountSuccess,
 } from '../slice/userSlice';
 import { disableUser, getListUser } from '../../services/account.service';
+import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 function* getListAccountSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize, accessToken, pageIndex },
+        payload: { pageSize, pageIndex },
       } = yield take(getListAccountAction);
+
+      const { accessToken } = getTokenFromStorage();
 
       const result = yield call(getListUser, { pageSize, accessToken, pageIndex });
       console.log(result);
-      if (result.data) {
-        yield put(getListAccountSuccess(result.data));
-      } else {
-        yield put(getListAccountFail(result));
+      switch (result.status) {
+        case 200:
+          yield put(getListAccountSuccess(result.data));
+          break;
+
+        default:
+          yield put(getListAccountFail(result));
+          break;
       }
     } catch (error) {
       console.log(error);
@@ -36,8 +44,10 @@ function* disableUserSaga() {
   while (true) {
     try {
       const {
-        payload: { id, accessToken },
+        payload: { id },
       } = yield take(disableUserAction);
+
+      const { accessToken } = getTokenFromStorage();
 
       const result = yield call(disableUser, { id, accessToken });
 
@@ -61,6 +71,7 @@ function* disableUserSaga() {
           break;
 
         default:
+          yield put(disableUserFail(result));
           break;
       }
     } catch (error) {

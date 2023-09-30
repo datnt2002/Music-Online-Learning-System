@@ -6,7 +6,7 @@ import { Content } from 'antd/es/layout/layout';
 
 import { disableUserAction, getListAccountAction } from '../../../redux/slice/userSlice';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-import getTokenFromStorage from '../../../utils/getTokenFromStorage';
+
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import ModalDisableAccount from '../../../components/Container/ModalContainer/ModalDisableAccount';
 
@@ -19,21 +19,18 @@ const ManageListAccount = () => {
   //get list accounts from store
   const listAccounts = useSelector((state) => state.user.listAccounts);
 
-  const { accessToken } = getTokenFromStorage();
-
   useEffect(() => {
     dispatch(
       getListAccountAction({
         pageIndex: 1,
         pageSize: 10,
-        accessToken: accessToken,
       })
     );
     return () => {};
-  }, [dispatch, accessToken]);
+  }, [dispatch]);
 
   const handleDisableUser = (id) => {
-    dispatch(disableUserAction({ id, accessToken: accessToken }));
+    dispatch(disableUserAction({ id }));
     setOpen(false);
   };
 
