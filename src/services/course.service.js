@@ -185,6 +185,17 @@ export const getSubCategories = (data) => {
     });
 };
 
+export const createSubCate = (data) => {
+  return axiosClient
+    .post('sub-categories', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const createPayment = (data) => {
   console.log(data);
   return axiosClient

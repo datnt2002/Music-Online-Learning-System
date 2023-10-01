@@ -7,6 +7,8 @@ import { Avatar, Dropdown, Space } from 'antd';
 import { logoutAction } from '../../../redux/slice/authenticationSlice';
 import { PUBLIC_ROUTE } from '../../../constants';
 import adminAvatar from '../../../assets/imgs/adminAvatar.png';
+import { resetUserSliceAction } from '../../../redux/slice/userSlice';
+import { resetCourseSliceAction } from '../../../redux/slice/courseSlice';
 
 const AvatarAdmin = () => {
   const currentUser = useSelector((state) => {
@@ -16,6 +18,8 @@ const AvatarAdmin = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logoutAction());
+    dispatch(resetUserSliceAction());
+    dispatch(resetCourseSliceAction());
   };
 
   const items = [

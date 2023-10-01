@@ -30,4 +30,6 @@ export const ADMIN_ROUTE = {
   LECTURER_REQUESTS: '/admin/lecturer-requests',
   LIST_CATEGORIES: '/admin/list-categories',
   CREATE_CATEGORY: '/admin/create-category',
+  CREATE_SUB_CATEGORY: '/admin/create-sub-category',
+  EDIT_SUB_CATEGORY: '/admin/edit-sub-category',
 };

@@ -4,7 +4,7 @@ import { Button, Form, Input, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { CREATE_CATEGORY_FORM_FIELDS } from '../../../constants';
+import { CREATE_CATEGORY_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
 import { useDispatch } from 'react-redux';
 import { createCategoryAction } from '../../../redux/slice/courseSlice';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,6 @@ const CreateNewCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCreateNewCategory = (values) => {
-    console.log(values);
     dispatch(
       createCategoryAction({
         cateName: values.cateName,
@@ -43,7 +42,16 @@ const CreateNewCategory = () => {
           <Form layout="horizontal" onFinish={handleCreateNewCategory}>
             <div className="flex">
               <div className="flex flex-col flex-1 p-5">
-                <Form.Item label={CREATE_CATEGORY_FORM_FIELDS.TITLE} name={CREATE_CATEGORY_FORM_FIELDS.CATEGORY_NAME}>
+                <Form.Item
+                  label={CREATE_CATEGORY_FORM_FIELDS.TITLE}
+                  name={CREATE_CATEGORY_FORM_FIELDS.CATEGORY_NAME}
+                  rules={[
+                    {
+                      required: true,
+                      message: VALIDATE_MESSAGE.CATEGORY_REQUIRED,
+                    },
+                  ]}
+                >
                   <Input placeholder={CREATE_CATEGORY_FORM_FIELDS.CATEGORY_PLACEHOLDER} />
                 </Form.Item>
 

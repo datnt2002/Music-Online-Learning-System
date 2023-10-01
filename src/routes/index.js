@@ -31,6 +31,8 @@ import LecturerRequests from '../features/Admin/Accounts/LecturerRequests';
 import ManageListCategories from '../features/Admin/Categories/ManageListCategories';
 import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 import DeleteCourses from '../features/Admin/Courses/DeleteCourses';
+import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
+import EditSubCate from '../features/Admin/Categories/EditSubCate';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -221,6 +223,22 @@ export const adminRoutes = [
     element: (
       <AdminRoute>
         <CreateNewCategory />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: 'create-sub-category',
+    element: (
+      <AdminRoute>
+        <CreateSubCate />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: 'edit-sub-category',
+    element: (
+      <AdminRoute>
+        <EditSubCate />
       </AdminRoute>
     ),
   },

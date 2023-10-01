@@ -85,6 +85,14 @@ export const EDIT_CATEGORY_FORM_FIELDS = {
   CATE_ID_LABEL: 'Category Id',
 };
 
+export const SUB_CATEGORY_FORM_FIELDS = {
+  SUB_CATEGORY_NAME: 'subCateName',
+  SUB_CATEGORY_NAME_LABEL: 'Sub Category Name',
+  CATEGORY_NAME_LABEL: 'Category',
+  CATEGORY_ID: 'cateId',
+  SELECT_CATE_PLACEHOLDER: 'Select a category',
+};
+
 export const CREATE_LESSON_FORM_FIELDS = {
   LESSON_NAME: 'lessonName',
   LESSON_NAME_LABEL: 'Lesson Name',
@@ -114,6 +122,8 @@ export const VALIDATE_MESSAGE = {
   PASSWORD_LENGTH: 'Password must be at least 6 characters!',
   CONFIRM_PASSWORD_REQUIRED: 'Please confirm your password!',
   PASSWORD_NOT_MATCH: 'The new password that you entered do not match!',
+  CATEGORY_REQUIRED: 'Category name is required',
+  SUB_CATEGORY_REQUIRED: 'Sub category name is required',
 };
 
 export const PLACEHOLDER_FORM = {

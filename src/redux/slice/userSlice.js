@@ -9,6 +9,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    resetUserSliceAction: () => {
+      return initialState;
+    },
     getListAccountAction: (state) => {
       state.loading = true;
     },
@@ -32,6 +35,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  resetUserSliceAction,
   getListAccountAction,
   getListAccountSuccess,
   getListAccountFail,

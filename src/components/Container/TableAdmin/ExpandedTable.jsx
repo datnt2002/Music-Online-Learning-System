@@ -85,7 +85,11 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
         expandable={{
           expandedRowRender: (record) =>
             expandedData.map((data, index) => {
-              return data.cateId === record.cateId ? <p key={index}>{data.subCateName}</p> : <span key={index}></span>;
+              return data.cateId === record.cateId ? (
+                <p key={index}>Sub Category Name: {data.subCateName}</p>
+              ) : (
+                <span key={index}></span>
+              );
             }),
           expandIcon: ({ expanded, onExpand, record }) =>
             expanded ? (

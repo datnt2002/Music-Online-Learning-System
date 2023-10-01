@@ -14,6 +14,9 @@ export const courseSlice = createSlice({
   name: 'course',
   initialState,
   reducers: {
+    resetCourseSliceAction: () => {
+      return initialState;
+    },
     getListCourseAction: (state) => {
       state.loading = true;
     },
@@ -120,6 +123,16 @@ export const courseSlice = createSlice({
     getSubCategoriesFail: (state) => {
       state.loading = false;
     },
+    createSubCategoriesAction: (state) => {
+      state.loading = true;
+    },
+    createSubCategoriesSuccess: (state, action) => {
+      state.loading = false;
+      state.listSubcategories.push(action.payload);
+    },
+    createSubCategoriesFail: (state) => {
+      state.loading = false;
+    },
     createPaymentAction: (state) => {},
     createPaymentSuccess: (state) => {},
     createPaymentFail: (state) => {},
@@ -127,6 +140,7 @@ export const courseSlice = createSlice({
 });
 
 export const {
+  resetCourseSliceAction,
   getListCourseAction,
   getListCourseSuccess,
   getListCourseFail,
@@ -163,6 +177,9 @@ export const {
   getSubCategoriesAction,
   getSubCategoriesSuccess,
   getSubCategoriesFail,
+  createSubCategoriesAction,
+  createSubCategoriesSuccess,
+  createSubCategoriesFail,
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,

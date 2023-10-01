@@ -15,6 +15,8 @@ import {
   AppstoreAddOutlined,
   ApartmentOutlined,
   AppstoreOutlined,
+  DiffOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
 
 import { ADMIN_ROUTE } from '../../../constants';
@@ -82,6 +84,16 @@ const SiderAdmin = () => {
           key: ADMIN_ROUTE.CREATE_CATEGORY,
           label: 'Create Category',
           icon: <AppstoreAddOutlined />,
+        },
+        {
+          key: ADMIN_ROUTE.CREATE_SUB_CATEGORY,
+          label: 'Create Sub-Category',
+          icon: <DiffOutlined />,
+        },
+        {
+          key: ADMIN_ROUTE.EDIT_SUB_CATEGORY,
+          label: 'Edit Sub-Category',
+          icon: <EditOutlined />,
         },
       ],
     },

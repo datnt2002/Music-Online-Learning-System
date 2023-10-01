@@ -30,6 +30,9 @@ import {
   createNewSectionFail,
   createNewSectionSuccess,
   createPaymentAction,
+  createSubCategoriesAction,
+  createSubCategoriesFail,
+  createSubCategoriesSuccess,
   deleteCourseFromAdminAction,
   deleteCourseFromAdminFail,
   deleteCourseFromAdminSuccess,
@@ -460,6 +463,44 @@ function* getSubCateSaga() {
   }
 }
 
+function* createSubCateSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId, subCateName },
+      } = yield take(createSubCategoriesAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getSubCategories, { cateId, subCateName, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(createSubCategoriesSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(createSubCategoriesFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* paymentSaga() {
   while (true) {
     try {
@@ -492,5 +533,6 @@ export default function* courseSaga() {
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
   yield fork(getSubCateSaga);
+  yield fork(createSubCateSaga);
   yield fork(paymentSaga);
 }
