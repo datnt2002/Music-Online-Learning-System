@@ -12,6 +12,7 @@ export const USER_ROUTE = {
   USER_WISHLIST: '/user/my-wishlist',
   USER_EDIT_PROFILE: '/user/profile/edit-profile',
   PAYMENT: '/user/payment-method',
+  LECTURER_REQUEST_FORM: '/user/lecturer-request-form',
 };
 export const LECTURER_ROUTE = {
   DASHBOARD: '/lecturer',

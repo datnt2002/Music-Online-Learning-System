@@ -9,21 +9,42 @@ const ChangePassword = ({ handleOk }) => {
   const dispatch = useDispatch();
 
   const onFinish = (values) => {
-    console.log('form', values);
     dispatch(
       changePasswordAction({
-        oldPassword: values.old_password,
-        newPassword: values.new_password,
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
       })
     );
     handleOk();
   };
   return (
     <Form id={CHANGE_PASSWORD_FORM_FIELDS.FORM_ID} onFinish={onFinish}>
-      <Form.Item label={CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD_LABEL} name={CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD}>
+      <Form.Item
+        label={CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD_LABEL}
+        name={CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD}
+        rules={[
+          {
+            required: true,
+            message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
+          },
+          { min: 6, message: VALIDATE_MESSAGE.PASSWORD_LENGTH },
+        ]}
+        hasFeedback
+      >
         <Input.Password placeholder={CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD_LABEL} />
       </Form.Item>
-      <Form.Item label={CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD_LABEL} name={CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD}>
+      <Form.Item
+        label={CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD_LABEL}
+        name={CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD}
+        rules={[
+          {
+            required: true,
+            message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
+          },
+          { min: 6, message: VALIDATE_MESSAGE.PASSWORD_LENGTH },
+        ]}
+        hasFeedback
+      >
         <Input.Password placeholder={CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD_LABEL} />
       </Form.Item>
       <Form.Item
@@ -32,6 +53,10 @@ const ChangePassword = ({ handleOk }) => {
         dependencies={[CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD]}
         hasFeedback
         rules={[
+          {
+            required: true,
+            message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
+          },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue(CHANGE_PASSWORD_FORM_FIELDS.NEW_PASSWORD) === value) {

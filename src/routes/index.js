@@ -33,6 +33,7 @@ import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 import DeleteCourses from '../features/Admin/Courses/DeleteCourses';
 import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
+import LecturerRequestForm from '../features/Profile/LecturerRequestForm';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -109,6 +110,14 @@ export const userRoutes = [
     ),
   },
   {
+    path: 'lecturer-request-form',
+    element: (
+      <UserRoute>
+        <LecturerRequestForm />
+      </UserRoute>
+    ),
+  },
+  {
     path: 'payment-method',
     element: (
       <UserRoute>
@@ -127,6 +136,7 @@ export const authorRoutes = [
       </AuthorRoute>
     ),
   },
+
   {
     path: 'my-course-management',
     element: (

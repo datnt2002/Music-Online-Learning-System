@@ -12,6 +12,7 @@ import {
 } from '../../services/auth.service';
 import {
   changePasswordAction,
+  changePasswordFail,
   changePasswordSuccess,
   forgotPasswordAction,
   forgotPasswordFail,
@@ -26,6 +27,7 @@ import {
   signupFail,
   signupSuccess,
   uploadAvatarAction,
+  uploadAvatarFail,
   uploadAvatarSuccess,
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
@@ -213,6 +215,7 @@ function* changePasswordSaga() {
           break;
 
         default:
+          yield put(changePasswordFail())
           break;
       }
     } catch (error) {
@@ -255,6 +258,7 @@ function* upLoadAvatarSaga() {
           break;
 
         default:
+          yield put(uploadAvatarFail());
           break;
       }
     } catch (error) {

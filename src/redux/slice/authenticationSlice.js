@@ -28,13 +28,13 @@ export const authenticationSlice = createSlice({
     signInFail: (state) => {
       state.loading = false;
     },
-    signupAction: (state, action) => {
+    signupAction: (state) => {
       state.loading = true;
     },
-    signupSuccess: (state, action) => {
+    signupSuccess: (state) => {
       state.loading = false;
     },
-    signupFail: (state, action) => {
+    signupFail: (state) => {
       state.loading = false;
     },
     forgotPasswordAction: (state) => {
@@ -61,13 +61,19 @@ export const authenticationSlice = createSlice({
     changePasswordAction: (state) => {
       state.loading = true;
     },
-    changePasswordSuccess: (state, action) => {
+    changePasswordSuccess: (state) => {
+      state.loading = false;
+    },
+    changePasswordFail: (state) => {
       state.loading = false;
     },
     uploadAvatarAction: (state) => {
       state.loading = true;
     },
     uploadAvatarSuccess: (state) => {
+      state.loading = false;
+    },
+    uploadAvatarFail: (state) => {
       state.loading = false;
     },
   },
@@ -89,8 +95,10 @@ export const {
   getCurrentUserFail,
   changePasswordAction,
   changePasswordSuccess,
+  changePasswordFail,
   uploadAvatarAction,
   uploadAvatarSuccess,
+  uploadAvatarFail,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

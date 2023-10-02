@@ -10,6 +10,7 @@ import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCat
 import LecturerCard from '../../components/Container/CardTemplate/LecturerCard';
 import CourseHorizontalCard from '../../components/Container/CardTemplate/CourseHorizontalCard';
 import ListFeatureCourses from '../../components/Container/ListCoursesContainer/ListFeatureCourses';
+import backgroundImage from '../../assets/imgs/404bg.jpg';
 
 const Homepage = () => {
   const handleChange = (value) => {
@@ -82,7 +83,11 @@ const Homepage = () => {
 
           <div className="grid grid-cols-5 gap-4 ">
             {Categories.map((category, index) => {
-              return <Button className="" key={index}>Trending</Button>;
+              return (
+                <Button className="" key={index}>
+                  Trending
+                </Button>
+              );
             })}
           </div>
         </div>
