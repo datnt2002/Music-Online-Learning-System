@@ -1,15 +1,15 @@
 export const Categories = [
   {
-    subCateId: '6fb13620-5f93-11ee-a1ce-6f8b997d1749',
+    subCateId: 'afwefawefawefawe',
     isDeleted: false,
     subCateName: 'subCateName',
     createdBy: 'admin001',
-    cateId: 1,
+    cateId: '2',
     updatedAt: '2023-09-30T13:15:33.379Z',
     createdAt: '2023-09-30T13:15:33.379Z',
   },
   {
-    subCateId: '2',
+    subCateId: 'aefwfweafawefawefweafwaefawe',
     subCateName: 'Launchpad',
     cateId: '1',
     isDeleted: false,
@@ -18,5 +18,4 @@ export const Categories = [
     updatedBy: null,
     updatedAt: null,
   },
-  {},
 ];

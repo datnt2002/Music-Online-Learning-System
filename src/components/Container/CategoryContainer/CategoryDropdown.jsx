@@ -5,6 +5,7 @@ import { Dropdown, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { getListCategoryAction } from '../../../redux/slice/courseSlice';
+import { Categories } from '../../../constants/mockData';
 
 const CategoryDropdown = () => {
   const categories = useSelector((state) => state.course.listCategory);
@@ -12,7 +13,14 @@ const CategoryDropdown = () => {
     return {
       key: category.cateId,
       label: category.cateName,
-      children: [],
+      children: Categories.filter((subCate) => {
+        return subCate.cateId === category.cateId;
+      }).map((subCate) => {
+        return {
+          key: subCate.subCateId,
+          label: subCate.subCateName
+        }
+      })
     };
   });
   const dispatch = useDispatch();
@@ -23,10 +31,15 @@ const CategoryDropdown = () => {
       })
     );
   }, [dispatch]);
+
+  const handleChooseCategory = ({ key }) => {
+    console.log(`Click on item ${key}`);
+  };
   return (
     <Dropdown
       menu={{
         items,
+        onClick: handleChooseCategory,
       }}
       className="cursor-pointer"
     >
