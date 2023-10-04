@@ -8,15 +8,18 @@ import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
-import { createNewCourseAction, getListCategoryAction } from '../../../redux/slice/courseSlice';
-import { CREATE_COURSE_FORM_FIELDS } from '../../../constants';
+import { createNewCourseAction, getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
+import { CREATE_COURSE_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import Loading from '../../../components/Common/Loading';
 
 const CreateCourse = () => {
   const [file, setFile] = useState();
   const listCategories = useSelector((state) => state.course.listCategory);
+  const listSubCategories = useSelector((state) => state.course.listSubcategories);
+  const loading = useSelector((state) => state.course.loading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,8 +68,13 @@ const CreateCourse = () => {
       message.error('Image must smaller than 2MB!');
     }
   };
+
+  const handleChooseCategory = (value) => {
+    dispatch(getSubCategoriesAction({ cateId: value }));
+  };
   return (
     <Content>
+      {loading && <Loading />}
       <div className="flex flex-1 flex-col p-6 ">
         <div className="pl-6">
           <BreadCrumbCustom />
@@ -82,12 +90,17 @@ const CreateCourse = () => {
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.COURSE_NAME_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}
+                  rules={[{ required: true, message: VALIDATE_MESSAGE.COURSE_NAME_REQUIRED }]}
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL} name={CREATE_COURSE_FORM_FIELDS.CATEGORY}>
-                  <Select>
-                    {listCategories.map((category, index) => {
+                <Form.Item
+                  label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL}
+                  name={CREATE_COURSE_FORM_FIELDS.CATEGORY}
+                  rules={[{ required: true, message: VALIDATE_MESSAGE.CATEGORY_REQUIRED }]}
+                >
+                  <Select onChange={handleChooseCategory}>
+                    {listCategories.map((category) => {
                       return (
                         <Select.Option key={category.cateId} value={category.cateId}>
                           {category.cateName}
@@ -99,28 +112,41 @@ const CreateCourse = () => {
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY}
+                  rules={[{ required: true, message: VALIDATE_MESSAGE.SUB_CATEGORY_REQUIRED }]}
                 >
                   <Select>
-                    <Select.Option value="1">Demo</Select.Option>
+                    {listSubCategories.map((subCate) => {
+                      return (
+                        <Select.Option key={subCate.subCateId} value={subCate.subCateId}>
+                          {subCate.subCateName}
+                        </Select.Option>
+                      );
+                    })}
                   </Select>
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}
+                  rules={[{ required: true, message: VALIDATE_MESSAGE.BRIEF_DESCRIPTION_REQUIRED }]}
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item label={CREATE_COURSE_FORM_FIELDS.PRICE_LABEL} name={CREATE_COURSE_FORM_FIELDS.PRICE}>
+                <Form.Item
+                  label={CREATE_COURSE_FORM_FIELDS.PRICE_LABEL}
+                  name={CREATE_COURSE_FORM_FIELDS.PRICE}
+                  rules={[{ required: true, message: VALIDATE_MESSAGE.PRICE_REQUIRED }]}
+                >
                   <InputNumber className="w-full" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.DESCRIPTION_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.DESCRIPTION}
+                  rules={[{ required: true, message: VALIDATE_MESSAGE.DESCRIPTION_REQUIRED }]}
                 >
                   <TextArea rows={4} />
                 </Form.Item>
 
-                <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL}>
+                <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL} >
                   <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={() => {}}>
                     <ImgCrop zoomSlider showReset cropShape="rect" aspect={16 / 9}>
                       <Upload.Dragger

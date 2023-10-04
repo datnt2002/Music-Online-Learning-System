@@ -51,8 +51,8 @@ function* disableUserSaga() {
 
       const result = yield call(disableUser, { id, accessToken });
 
-      switch (true) {
-        case result.code === 200:
+      switch (result.status) {
+        case 200:
           Swal.fire({
             title: result.message,
             width: 850,

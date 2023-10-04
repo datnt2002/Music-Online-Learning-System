@@ -9,6 +9,7 @@ import {
   PieChartOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  FolderAddOutlined,
 } from '@ant-design/icons';
 import { LECTURER_ROUTE } from '../../../constants';
 
@@ -30,6 +31,11 @@ const SiderLecturer = () => {
           key: LECTURER_ROUTE.MY_COURSE_MANAGEMENT,
           label: 'My Courses',
           icon: <BookOutlined />,
+        },
+        {
+          key: LECTURER_ROUTE.CREATE_NEW_COURSE,
+          label: 'Create Course',
+          icon: <FolderAddOutlined />,
         },
       ],
     },

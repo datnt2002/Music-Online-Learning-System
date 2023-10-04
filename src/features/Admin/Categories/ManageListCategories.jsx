@@ -19,7 +19,7 @@ const ManageListCategories = () => {
   const dispatch = useDispatch();
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubcategories = useSelector((state) => state.course.listSubcategories);
-  console.log(listSubcategories);
+
   useEffect(() => {
     dispatch(
       getListCategoryAction({

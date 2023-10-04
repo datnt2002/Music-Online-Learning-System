@@ -39,8 +39,9 @@ export const getListPendingCourse = (data) => {
 };
 
 export const approvedCourse = (data) => {
+  console.log(data);
   return axiosClient
-    .patch(`courses/approve/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .patch(`courses/approve/${data.courseId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -73,7 +74,7 @@ export const createNewCourse = (data) => {
   return axiosClient
     .post('courses/', formData, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZDM2MTNhMC01MzlkLTExZWUtYmUwZS0xN2YyZDVjNjFkYjkiLCJ1c2VybmFtZSI6ImxlY3R1cmVyMSIsImlhdCI6MTY5NDc3MzkwNiwiZXhwIjoxNjk1NjM3OTA2fQ.enXE3Yv3ej08fGbqK312T5K_DfZkV2so6ccvE0r-Voo`,
+        Authorization: `Bearer ${data.accessToken}`,
       },
     })
     .then((res) => {

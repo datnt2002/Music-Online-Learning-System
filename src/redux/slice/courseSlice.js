@@ -47,6 +47,15 @@ export const courseSlice = createSlice({
     getListCoursePendingFail: (state) => {
       state.loading = false;
     },
+    approvedCoursePendingAction: (state) => {
+      state.loading = true;
+    },
+    approvedCoursePendingSuccess: (state, action) => {
+      state.loading = false;
+    },
+    approvedCoursePendingFail: (state) => {
+      state.loading = false;
+    },
     getDetailCourseAction: (state) => {
       state.loading = true;
     },
@@ -150,6 +159,9 @@ export const {
   getListCoursePendingAction,
   getListCoursePendingSuccess,
   getListCoursePendingFail,
+  approvedCoursePendingAction,
+  approvedCoursePendingSuccess,
+  approvedCoursePendingFail,
   getDetailCourseAction,
   getDetailCourseSuccess,
   getDetailCourseFail,

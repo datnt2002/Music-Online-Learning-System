@@ -130,6 +130,11 @@ export const VALIDATE_MESSAGE = {
   PASSWORD_NOT_MATCH: 'The new password that you entered do not match!',
   CATEGORY_REQUIRED: 'Category name is required',
   SUB_CATEGORY_REQUIRED: 'Sub category name is required',
+
+  COURSE_NAME_REQUIRED: 'Please input Course Name!',
+  BRIEF_DESCRIPTION_REQUIRED: 'Please input brief description!',
+  PRICE_REQUIRED: 'Please input price',
+  DESCRIPTION_REQUIRED: 'Please input description!',
 };
 
 export const PLACEHOLDER_FORM = {

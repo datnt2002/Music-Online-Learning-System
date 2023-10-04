@@ -7,7 +7,7 @@ import { EyeOutlined, CarryOutOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-import { getListCoursePendingAction } from '../../../redux/slice/courseSlice';
+import { approvedCoursePendingAction, getListCoursePendingAction } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,6 +40,12 @@ const CoursesPending = () => {
 
   const handleAcceptCourse = (record) => {
     console.log(record);
+    dispatch(
+      approvedCoursePendingAction({
+        courseId: record.courseId,
+        navigate,
+      })
+    );
   };
 
   return (

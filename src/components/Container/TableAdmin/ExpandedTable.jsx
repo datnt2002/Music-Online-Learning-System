@@ -86,7 +86,9 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
           expandedRowRender: (record) =>
             expandedData.map((data, index) => {
               return data.cateId === record.cateId ? (
-                <p key={index}>Sub Category Name: {data.subCateName}</p>
+                <p key={index}>
+                  Sub Cate ID: {data.subCateId} | Sub Category Name: {data.subCateName}
+                </p>
               ) : (
                 <span key={index}></span>
               );

@@ -5,6 +5,7 @@ import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 import {
   EditCategory,
+  approvedCourse,
   createNewCategory,
   createNewCourse,
   createNewLesson,
@@ -18,10 +19,14 @@ import {
   getSubCategories,
 } from '../../services/course.service';
 import {
+  approvedCoursePendingAction,
+  approvedCoursePendingFail,
+  approvedCoursePendingSuccess,
   createCategoryAction,
   createCategoryFail,
   createCategorySuccess,
   createNewCourseAction,
+  createNewCourseFail,
   createNewCourseSuccess,
   createNewLessonAction,
   createNewLessonFail,
@@ -149,6 +154,49 @@ function* getListCoursePendingSaga() {
   }
 }
 
+function* approvedCoursePendingSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId, navigate },
+      } = yield take(approvedCoursePendingAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(approvedCourse, { courseId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(approvedCoursePendingSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(ADMIN_ROUTE.LIST_COURSES);
+            }
+          });
+          break;
+
+        default:
+          yield put(approvedCoursePendingFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* getDetailCourseSaga() {
   while (true) {
     try {
@@ -218,6 +266,7 @@ function* createNewCourseSaga() {
           break;
 
         default:
+          yield put(createNewCourseFail());
           break;
       }
     } catch (error) {
@@ -524,6 +573,7 @@ export default function* courseSaga() {
   yield fork(getListCourseSaga);
   yield fork(deleteCourseFromAdminSaga);
   yield fork(getListCoursePendingSaga);
+  yield fork(approvedCoursePendingSaga);
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);
   yield fork(getListCategorySaga);
