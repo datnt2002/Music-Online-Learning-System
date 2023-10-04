@@ -12,8 +12,10 @@ const ModalEditAvatar = ({ handleOk }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    const isAllowedType = allowedTypes.includes(file.type);
+    // const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isAllowedType) {
       message.error('You can only upload JPG/PNG file!');
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
@@ -21,7 +23,7 @@ const ModalEditAvatar = ({ handleOk }) => {
       message.error('Image must smaller than 2MB!');
     }
 
-    return isJpgOrPng && isLt2M;
+    return isAllowedType && isLt2M;
   };
 
   const onPreview = async (file) => {

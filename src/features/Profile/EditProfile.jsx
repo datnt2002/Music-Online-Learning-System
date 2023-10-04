@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Avatar, Badge, Button, DatePicker, Form, Input, Select, Modal, Divider, Space } from 'antd';
+import { Avatar, Badge, Button, DatePicker, Form, Input, Select, Modal, Divider } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { EditTwoTone } from '@ant-design/icons';
 
@@ -169,9 +169,15 @@ const EditProfile = () => {
           <div className="flex flex-1 flex-col py-8 pl-7 pr-14">
             <Form.Item label={PROFILE_FORM_FIELDS.GENDER_LABEL} name={PROFILE_FORM_FIELDS.GENDER}>
               <Select>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE_VALUE}>{PROFILE_FORM_FIELDS.GENDER_MALE}</Select.Option>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE_VALUE}>{PROFILE_FORM_FIELDS.GENDER_FEMALE}</Select.Option>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_OTHER_VALUE}>{PROFILE_FORM_FIELDS.GENDER_OTHER}</Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE_VALUE}>
+                  {PROFILE_FORM_FIELDS.GENDER_MALE}
+                </Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE_VALUE}>
+                  {PROFILE_FORM_FIELDS.GENDER_FEMALE}
+                </Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_OTHER_VALUE}>
+                  {PROFILE_FORM_FIELDS.GENDER_OTHER}
+                </Select.Option>
               </Select>
             </Form.Item>
             <Form.Item label={PROFILE_FORM_FIELDS.DOB_LABEL} name={PROFILE_FORM_FIELDS.DOB}>

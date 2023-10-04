@@ -42,6 +42,14 @@ const ChangePassword = ({ handleOk }) => {
             message: VALIDATE_MESSAGE.PASSWORD_REQUIRED,
           },
           { min: 6, message: VALIDATE_MESSAGE.PASSWORD_LENGTH },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue(CHANGE_PASSWORD_FORM_FIELDS.OLD_PASSWORD) !== value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error(VALIDATE_MESSAGE.NEW_PASSWORD_DIFFERENT));
+            },
+          }),
         ]}
         hasFeedback
       >

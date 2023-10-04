@@ -128,6 +128,7 @@ export const VALIDATE_MESSAGE = {
   PASSWORD_LENGTH: 'Password must be at least 6 characters!',
   CONFIRM_PASSWORD_REQUIRED: 'Please confirm your password!',
   PASSWORD_NOT_MATCH: 'The new password that you entered do not match!',
+  NEW_PASSWORD_DIFFERENT: 'The new password need to different than old password!',
   CATEGORY_REQUIRED: 'Category name is required',
   SUB_CATEGORY_REQUIRED: 'Sub category name is required',
 
