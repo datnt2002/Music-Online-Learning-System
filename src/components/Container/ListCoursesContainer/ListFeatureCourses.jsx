@@ -27,13 +27,13 @@ const ListFeatureCourses = () => {
   };
   return (
     <Slider {...settings}>
-      {listCourse.map((course, index) => {
+      {listCourse.map((course) => {
         return (
-          <div className="!flex p-6 border rounded-2xl" key={course.courseId}>
+          <div className="!flex p-6 rounded-2xl" key={course.courseId}>
             <div className="mr-6 flex flex-1">
               <img
                 src={course.courseImg}
-                className="aspect-video rounded-2xl shadow-xl object-cover h-full w-full"
+                className="aspect-video shadow-xl object-cover h-full w-full"
                 alt="course avatar"
               />
             </div>

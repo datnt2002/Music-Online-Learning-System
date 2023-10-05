@@ -3,8 +3,6 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { RightCircleOutlined } from '@ant-design/icons';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -23,14 +21,6 @@ const ListContainer = () => {
       })
     );
   }, [dispatch]);
-  function SampleNextArrow(props) {
-    const { className, onClick } = props;
-    return (
-      <div className={className} onClick={onClick}>
-        <RightCircleOutlined />
-      </div>
-    );
-  }
 
   const listCourse = useSelector((state) => state.course.listCourse);
   console.log(listCourse);
@@ -41,7 +31,7 @@ const ListContainer = () => {
     infinite: true,
     centerMode: false,
     variableWidth: true,
-    nextArrow: <SampleNextArrow />,
+
     // initialSlide: 0,
   };
 
@@ -49,16 +39,16 @@ const ListContainer = () => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
   };
   return (
-    <div>
+    <div className="">
       <Slider {...settings}>
         {listCourse.map((course) => {
           return (
-            <div key={course.courseId} className="my-3 mr-3">
+            <div key={course.courseId} className="my-3 mr-3 ">
               <div
                 onClick={() => handleViewDetailCourse(course.courseId)}
-                className="relative flex w-[13rem] h-80 flex-col rounded-xl bg-white shadow-xl hover:scale-105"
+                className="relative flex w-[13rem] h-80 flex-col border rounded-lg shadow-lg backdrop-blur-3xl bg-white/80 hover:scale-105"
               >
-                <div className="relative mx-4 h-40 overflow-hidden rounded-xl shadow-lg">
+                <div className="relative m-4 h-40 overflow-hidden">
                   <img src={course.courseImg} alt="" className="object-cover h-full w-full" />
                 </div>
                 <div className="p-6">

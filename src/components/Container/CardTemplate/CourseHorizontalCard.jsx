@@ -4,7 +4,7 @@ const CourseHorizontalCard = ({ courseData }) => {
   return (
     <div className="flex p-6 border rounded-2xl shadow-xl ml-4">
       <div className="mr-6 flex basis-1/3">
-        <img src={courseData.courseImg} className="aspect-video rounded-2xl shadow-md " alt="" />
+        <img src={courseData.courseImg} className="aspect-video  shadow-md " alt="" />
       </div>
 
       <div className="flex flex-col flex-1">

@@ -7,7 +7,7 @@ import CartAndWishList from './CartAndWishList';
 
 const CombineAvatarAndCart = () => {
   return (
-    <Space size="large">
+    <Space>
       <CartAndWishList />
       <AvatarDropdown />
     </Space>

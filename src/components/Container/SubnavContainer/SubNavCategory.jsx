@@ -9,7 +9,7 @@ const SubNavCategory = () => {
       {categories.length > 0 ? (
         categories.map((category) => {
           return (
-            <p className="flex-1 text-center" key={category.cateId}>
+            <p className="flex-1 text-center cursor-pointer" key={category.cateId}>
               {category.cateName}
             </p>
           );

@@ -7,7 +7,7 @@ const PopularTopic = () => {
     <>
       {Categories.map((category, index) => {
         return (
-          <Button className="" key={index}>
+          <Button className="rounded-none" key={index}>
             Trending
           </Button>
         );
