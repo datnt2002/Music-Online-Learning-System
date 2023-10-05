@@ -12,3 +12,7 @@ export const TOKEN = {
 export const DAY_FORMAT = {
   D_M_Y: 'DD/MM/YYYY',
 };
+
+export const STORAGE = {
+  COURSE: 'course',
+};

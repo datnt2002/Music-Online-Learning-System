@@ -59,7 +59,7 @@ import {
   getSubCategoriesFail,
   getSubCategoriesSuccess,
 } from '../slice/courseSlice';
-import { ADMIN_ROUTE, LECTURER_ROUTE } from '../../constants';
+import { ADMIN_ROUTE, LECTURER_ROUTE, STORAGE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 function* getListCourseSaga() {
@@ -229,7 +229,7 @@ function* createNewCourseSaga() {
       const {
         payload: { courseName, price, isFree, subCateId, description, file, navigate },
       } = yield take(createNewCourseAction);
-      console.log(courseName, price, isFree, subCateId, description, file);
+
       const { accessToken } = getTokenFromStorage();
 
       const result = yield call(createNewCourse, {
@@ -241,10 +241,11 @@ function* createNewCourseSaga() {
         file,
         accessToken,
       });
-      console.log(result);
+
       switch (result.status) {
         case 200:
           yield put(createNewCourseSuccess(result.data));
+          sessionStorage.setItem(STORAGE.COURSE, JSON.stringify(result.data));
           Swal.fire({
             title: result.message,
             width: 850,

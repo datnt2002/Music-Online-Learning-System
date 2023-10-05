@@ -62,7 +62,6 @@ export const getDetailCourse = (data) => {
 };
 
 export const createNewCourse = (data) => {
-  console.log(data);
   const formData = new FormData();
   formData.append('courseName', data.courseName);
   formData.append('subCateId', data.subCateId);
@@ -72,7 +71,7 @@ export const createNewCourse = (data) => {
   formData.append('file', data.file);
 
   return axiosClient
-    .post('courses/', formData, {
+    .post('courses', formData, {
       headers: {
         Authorization: `Bearer ${data.accessToken}`,
       },
@@ -92,7 +91,7 @@ export const createNewSection = (data) => {
       'sections/',
       {
         sectionName: data.sectionName,
-        courseId: 'ffa08870-53b9-11ee-b2b4-3fb8c5bea852',
+        courseId: data.courseId,
       },
       { headers: { Authorization: `Bearer ${data.accessToken}` } }
     )
@@ -112,7 +111,7 @@ export const createNewLesson = (data) => {
   formData.append('file', data.file);
   console.log(data);
   return axiosClient
-    .post('lessons/', formData, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .post('lessons', formData, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

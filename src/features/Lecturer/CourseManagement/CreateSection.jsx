@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Form } from 'antd';
@@ -9,11 +9,11 @@ import ExpandedForm from '../../../components/Container/FormListContainer/Expand
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import CourseInfoCard from '../../../components/Container/CardTemplate/CourseInfoCard';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { CREATE_SECTION_FORM_FIELDS } from '../../../constants';
+import { CREATE_SECTION_FORM_FIELDS, STORAGE } from '../../../constants';
 import { createNewSectionAction } from '../../../redux/slice/courseSlice';
 
 const CreateSection = () => {
-  const currentCourse = useSelector((state) => state.course.currentCourse);
+  const currentCourse = JSON.parse(sessionStorage.getItem(STORAGE.COURSE));
   console.log(currentCourse);
 
   const dispatch = useDispatch();

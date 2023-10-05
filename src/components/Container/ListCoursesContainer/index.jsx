@@ -49,7 +49,7 @@ const ListContainer = () => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
   };
   return (
-    <div >
+    <div>
       <Slider {...settings}>
         {listCourse.map((course) => {
           return (
