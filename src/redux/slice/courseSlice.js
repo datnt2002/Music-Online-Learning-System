@@ -142,6 +142,15 @@ export const courseSlice = createSlice({
     createSubCategoriesFail: (state) => {
       state.loading = false;
     },
+    deleteSubCategoriesAction: (state) => {
+      state.loading = true;
+    },
+    deleteSubCategoriesSuccess: (state) => {
+      state.loading = false;
+    },
+    deleteSubCategoriesFail: (state) => {
+      state.loading = false;
+    },
     createPaymentAction: (state) => {},
     createPaymentSuccess: (state) => {},
     createPaymentFail: (state) => {},
@@ -192,6 +201,9 @@ export const {
   createSubCategoriesAction,
   createSubCategoriesSuccess,
   createSubCategoriesFail,
+  deleteSubCategoriesAction,
+  deleteSubCategoriesSuccess,
+  deleteSubCategoriesFail,
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,

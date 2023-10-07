@@ -50,6 +50,21 @@ export const approvedCourse = (data) => {
     });
 };
 
+export const getListDeleteCourse = (data) => {
+  console.log(data);
+  return axiosClient
+    .get('courses/deleted', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getDetailCourse = (data) => {
   return axiosClient
     .get(`courses/${data.courseId}`)
@@ -188,6 +203,17 @@ export const getSubCategories = (data) => {
 export const createSubCate = (data) => {
   return axiosClient
     .post('sub-categories', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const deleteSubCate = (data) => {
+  return axiosClient
+    .delete(`sub-categories/${data.subCateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

@@ -12,6 +12,7 @@ import {
   createNewSection,
   createPayment,
   deleteCourseFromAdmin,
+  deleteSubCate,
   getDetailCourse,
   getListCategory,
   getListCourses,
@@ -41,6 +42,9 @@ import {
   deleteCourseFromAdminAction,
   deleteCourseFromAdminFail,
   deleteCourseFromAdminSuccess,
+  deleteSubCategoriesAction,
+  deleteSubCategoriesFail,
+  deleteSubCategoriesSuccess,
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
@@ -48,6 +52,7 @@ import {
   getDetailCourseFail,
   getDetailCourseSuccess,
   getListCategoryAction,
+  getListCategoryFail,
   getListCategorySuccess,
   getListCourseAction,
   getListCourseFail,
@@ -112,11 +117,12 @@ function* deleteCourseFromAdminSaga() {
               no-repeat
             `,
             confirmButtonText: 'Got it',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate(ADMIN_ROUTE.DELETE_COURSES);
-            }
           });
+          // .then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate(ADMIN_ROUTE.DELETE_COURSES);
+          //   }
+          // });
           break;
 
         default:
@@ -185,6 +191,7 @@ function* approvedCoursePendingSaga() {
               navigate(ADMIN_ROUTE.LIST_COURSES);
             }
           });
+          //learn how to reload after modify.
           break;
 
         default:
@@ -387,7 +394,15 @@ function* getListCategorySaga() {
 
       const result = yield call(getListCategory, { pageSize });
       console.log(result);
-      yield put(getListCategorySuccess(result.status.categories));
+      switch (result.status) {
+        case 200:
+          yield put(getListCategorySuccess(result.data));
+          break;
+
+        default:
+          yield put(getListCategoryFail());
+          break;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -551,6 +566,44 @@ function* createSubCateSaga() {
   }
 }
 
+function* deleteSubCateSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { subCateId },
+      } = yield take(deleteSubCategoriesAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(deleteSubCate, { subCateId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(deleteSubCategoriesSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(deleteSubCategoriesFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* paymentSaga() {
   while (true) {
     try {
@@ -585,5 +638,6 @@ export default function* courseSaga() {
   yield fork(editCategorySaga);
   yield fork(getSubCateSaga);
   yield fork(createSubCateSaga);
+  yield fork(deleteSubCateSaga);
   yield fork(paymentSaga);
 }

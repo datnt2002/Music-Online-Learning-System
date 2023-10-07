@@ -1,12 +1,15 @@
 import React from 'react';
-import { Table } from 'antd';
+import { useDispatch } from 'react-redux';
+import { Button, Table } from 'antd';
 import dayjs from 'dayjs';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import flattenObj from '../../../utils/flattenObj';
 import { DAY_FORMAT, TABLE_COLUMN } from '../../../constants';
+import { deleteSubCategoriesAction } from '../../../redux/slice/courseSlice';
 
 const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => {
+  const dispatch = useDispatch();
   if (dataSource.length > 0) {
     //solve nested object because of join database
     const flattenData = dataSource.map((data, index) => {
@@ -78,6 +81,14 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
       console.log('params', pagination, sorter);
     };
 
+    const handleDeleteSubCate = (subCateId) => {
+      dispatch(
+        deleteSubCategoriesAction({
+          subCateId: subCateId,
+        })
+      );
+    };
+
     const totalColumnsWidth = columns.reduce((acc, column) => acc + column.width, 0);
     return (
       <Table
@@ -86,9 +97,12 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
           expandedRowRender: (record) =>
             expandedData.map((data, index) => {
               return data.cateId === record.cateId ? (
-                <p key={index}>
-                  Sub Cate ID: {data.subCateId} | Sub Category Name: {data.subCateName}
-                </p>
+                <div key={index} className="flex justify-between mx-4">
+                  <p>
+                    Sub Cate ID: {data.subCateId} | Sub Category Name: {data.subCateName}
+                  </p>
+                  <Button icon={<DeleteOutlined />} onClick={() => handleDeleteSubCate(data.subCateId)} />
+                </div>
               ) : (
                 <span key={index}></span>
               );
