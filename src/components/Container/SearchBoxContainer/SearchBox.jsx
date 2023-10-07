@@ -10,7 +10,7 @@ const Searchbox = () => {
   return (
     <Form onFinish={handleSearch} className="w-full h-full mx-2">
       <Form.Item name={FORM_FIELDS.SEARCH}>
-        <Input prefix={<SearchOutlined />} className="rounded-full top-4" />
+        <Input prefix={<SearchOutlined />} className="rounded-full top-4 border-black" />
       </Form.Item>
     </Form>
   );

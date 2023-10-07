@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Layout } from 'antd';
+import { Divider, Layout } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 
 import { ADMIN_ROUTE } from '../../../constants';
@@ -29,6 +29,7 @@ const HeaderAdmin = () => {
           <AvatarAdmin />
         </div>
       </Header>
+      <Divider className="bg-black my-0 border-b-2" />
     </Layout>
   );
 };

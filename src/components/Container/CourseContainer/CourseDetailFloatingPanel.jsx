@@ -6,7 +6,7 @@ import { USER_ROUTE } from '../../../constants';
 
 const CourseDetailFloatingPanel = ({ data }) => {
   return (
-    <div className="bg-white rounded-3xl shadow-2xl fixed top-28 right-28 w-96 ">
+    <div className="bg-white border-black border rounded-3xl shadow-2xl fixed top-28 right-28 w-96 ">
       <img
         className="aspect-video rounded-2xl mx-auto -mt-6 shadow-xl w-11/12"
         src={data.courseImg}

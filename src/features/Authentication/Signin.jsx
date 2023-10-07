@@ -30,12 +30,11 @@ const Signin = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center">
+      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/50 rounded-3xl shadow-lg p-6 backdrop-blur-sm text-center">
         {/* name page */}
         <div>
-          <h1 className="text-3xl font-bold">
-            <img src={logo} className="h-16 mx-auto" alt="" />
-          </h1>
+          <img src={logo} className="h-16 mx-auto" alt="" />
+
           <h4 className="text-sm font-bold mt-4">Sign in to your account</h4>
         </div>
         {/* form */}
@@ -110,14 +109,14 @@ const Signin = () => {
         </div>
 
         <div>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.FORGOT_PASSWORD}>
+          <Link className="text-[#d33d57] underline underline-offset-2" to={PUBLIC_ROUTE.FORGOT_PASSWORD}>
             Forgot Password?
           </Link>
         </div>
 
         <div>
           <h4 className="font-bold mt-3 mb-2">Don't have an account?</h4>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_UP}>
+          <Link className="text-[#d33d57] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_UP}>
             Sign up
           </Link>
         </div>

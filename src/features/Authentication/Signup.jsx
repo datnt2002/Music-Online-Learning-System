@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 
+import logo from '../../assets/imgs/fullLogo.png';
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
 import { FORM_FIELDS, PLACEHOLDER_FORM, PUBLIC_ROUTE, VALIDATE_MESSAGE } from '../../constants';
 import { signupAction } from '../../redux/slice/authenticationSlice';
@@ -35,15 +36,11 @@ const Signup = () => {
       }}
     >
       {loading && <Loading />}
-      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center my-6">
+      <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/50 rounded-3xl shadow-lg p-6 backdrop-blur-sm text-center my-6">
         {/* name page */}
         <div>
           <h1 className="text-3xl font-bold">
-            <img
-              src="https://musicalminds.com.au/wp-content/uploads/2020/12/Musical_Minds_Logos_FA-01.png"
-              className="h-16 mx-auto"
-              alt=""
-            />
+            <img src={logo} alt="" className="h-16 mx-auto" />
           </h1>
           <h4 className="text-base font-bold mt-4 ">Create your account</h4>
         </div>
@@ -66,7 +63,7 @@ const Signup = () => {
               ]}
             >
               <Input
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.FIRST_NAME}
                 prefix={<UserOutlined />}
               />
@@ -86,7 +83,7 @@ const Signup = () => {
               ]}
             >
               <Input
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.LAST_NAME}
                 prefix={<UserOutlined className="site-form-item-icon" />}
               />
@@ -111,7 +108,7 @@ const Signup = () => {
               ]}
             >
               <Input
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.USERNAME}
                 prefix={<UserOutlined />}
               />
@@ -136,7 +133,7 @@ const Signup = () => {
               ]}
             >
               <Input
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.EMAIL}
                 prefix={<MailOutlined />}
               />
@@ -164,7 +161,7 @@ const Signup = () => {
               ]}
             >
               <Input
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.PHONE_NUMBER}
                 prefix={<PhoneOutlined />}
               />
@@ -181,7 +178,7 @@ const Signup = () => {
               hasFeedback
             >
               <Input.Password
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.PASSWORD}
                 prefix={<LockOutlined />}
               />
@@ -206,7 +203,7 @@ const Signup = () => {
               ]}
             >
               <Input.Password
-                className="rounded-full p-3 border-2 border-[#F39D39] "
+                className="rounded-full p-3 border-2 border-black "
                 placeholder={PLACEHOLDER_FORM.CONFIRM_PASSWORD}
                 prefix={<LockOutlined />}
               />
@@ -216,7 +213,7 @@ const Signup = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit "
+                className="login-form-button basis-full bg-black rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit "
                 style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 Register
@@ -227,7 +224,7 @@ const Signup = () => {
 
         <div>
           <h4 className="font-bold mb-1">Already have an account?</h4>
-          <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_IN}>
+          <Link className="text-[#d33d57] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_IN}>
             Sign in
           </Link>
         </div>

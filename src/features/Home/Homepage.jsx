@@ -9,58 +9,64 @@ import ListFeatureCourses from '../../components/Container/ListCoursesContainer/
 import PopularTopic from '../../components/Container/HomepageContainer/PopularTopic';
 import PopularAuthor from '../../components/Container/HomepageContainer/PopularAuthor';
 import AllCourses from '../../components/Container/HomepageContainer/AllCourses';
+import introBg from '../../assets/imgs/intro-bg.jpg';
+import repeatBg from '../../assets/imgs/repeatbg.jpg';
 
 const Homepage = () => {
   return (
     <div>
       {/* sub nav */}
-      <div className="h-16 mt-4 mx-11">
-        <SubNavCategory />
-      </div>
-      <Divider className="mt-0 bg-black" />
+      <div style={{ backgroundImage: `url(${introBg})` }} className="bg-cover">
+        <div className="h-16 mt-4 mx-11">
+          <SubNavCategory />
+        </div>
+        <Divider className="mt-0 bg-black" />
 
-      <div className="text-center my-40">
-        <h1 className="text-6xl">Lorem ipsum dolor</h1>
-        <h1 className="text-6xl">awefwfafaefaewfeawfaeafe</h1>
-      </div>
-
-      <Divider className=" bg-black" />
-
-      {/* course to get start */}
-      <div className="mx-32 mt-14">
-        <div className="my-16">
-          <h1 className="text-2xl font-semibold mb-10 text-center">Courses to get you started</h1>
-          <ListContainer />
+        <div className="text-center mt-52 h-[27rem]">
+          <h1 className="text-6xl mb-8 font-bohemian tracking-wide">Play to perfection</h1>
+          <h1 className="text-6xl font-bohemian tracking-wide">Inspire to greatness</h1>
         </div>
 
-        {/* Feature courses */}
-        <div className="my-16">
-          <h1 className="text-2xl font-semibold mb-10 text-center">Feature courses</h1>
-          <ListFeatureCourses />
-        </div>
-        {/* course to get start */}
-        <div className="my-16">
-          <h1 className="text-2xl font-semibold mb-10 text-center">Popular Topics</h1>
-          <div className="grid grid-cols-5 gap-4">
-            <PopularTopic />
+        <Divider className=" bg-black mt-0" />
+      </div>
+      <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }} className=" bg-repeat-y">
+        <div className="mx-32 mt-14">
+          <div className="my-16">
+            <h1 className="text-2xl font-semibold mb-10 text-center font-bohemian">Courses to get you started</h1>
+            <ListContainer />
+          </div>
+
+          {/* Feature courses */}
+          <div className="my-16">
+            <h1 className="text-2xl font-semibold mb-10 text-center">Feature courses</h1>
+            <ListFeatureCourses />
+          </div>
+          {/* course to get start */}
+          <div className="my-16">
+            <h1 className="text-2xl font-semibold mb-10 text-center">Popular Topics</h1>
+            <div className="grid grid-cols-5 gap-4">
+              <PopularTopic />
+            </div>
+          </div>
+
+          {/* Popular authors */}
+          <div className="my-16">
+            <h1 className="text-2xl font-semibold mb-10 text-center">Popular authors</h1>
+            <div className="flex">
+              <PopularAuthor />
+            </div>
+          </div>
+
+          <div className="my-16">
+            <h1 className="text-2xl font-semibold mb-10 text-center">All Music Courses</h1>
+            {/* filter and sort */}
+            <AllCourses />
           </div>
         </div>
-
-        {/* Popular authors */}
-        <div className="my-16">
-          <h1 className="text-2xl font-semibold mb-10 text-center">Popular authors</h1>
-          <div className="flex">
-            <PopularAuthor />
-          </div>
-        </div>
-
-        <div className="my-16">
-          <h1 className="text-2xl font-semibold mb-10 text-center">All Music Courses</h1>
-          {/* filter and sort */}
-          <AllCourses />
-        </div>
+        <Footer className="h-40 bg-white/50 backdrop-blur-sm">
+          <h1 className="text-black">Ant Design ©2023 Created by Ant UED</h1>
+        </Footer>
       </div>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
     </div>
   );
 };

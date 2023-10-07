@@ -5,6 +5,7 @@ import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
 import backgroundImage from '../../assets/imgs/bg-authen.jpg';
+import logo from '../../assets/imgs/fullLogo.png';
 import { FORM_FIELDS, PLACEHOLDER_FORM, PUBLIC_ROUTE, VALIDATE_MESSAGE } from '../../constants';
 import { forgotPasswordAction } from '../../redux/slice/authenticationSlice';
 import Loading from '../../components/Common/Loading';
@@ -34,18 +35,12 @@ const ForgotPassword = () => {
         }}
       >
         {loading && <Loading />}
-        <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/80 rounded-lg shadow-lg p-6 backdrop-blur-sm text-center ">
+        <div className="self-center mr-8 ml-8 w-full md:w-1/2 lg:w-1/3 bg-white/50 rounded-3xl shadow-lg p-6 backdrop-blur-sm text-center ">
           {/* name page */}
           <div>
-            <h1 className="text-3xl font-bold">
-              {' '}
-              <img
-                src="https://musicalminds.com.au/wp-content/uploads/2020/12/Musical_Minds_Logos_FA-01.png"
-                className="h-16 mx-auto"
-                alt=""
-              />
-            </h1>
-            <h4 className="text-sm font-bold mt-4 ">Forget your LAUGAU account</h4>
+            <img src={logo} className="h-16 mx-auto" alt="" />
+
+            <h4 className="text-sm font-bold mt-4 ">Forget your The Muse account</h4>
           </div>
           {/* form */}
           <div className="flex mt-4">
@@ -68,7 +63,7 @@ const ForgotPassword = () => {
                 ]}
               >
                 <Input
-                  className="rounded-full p-3 border-2 border-[#F39D39] text-black"
+                  className="rounded-full p-3 border-2 border-black text-black"
                   prefix={<UserOutlined className="site-form-item-icon" />}
                   placeholder={PLACEHOLDER_FORM.USERNAME}
                 />
@@ -91,7 +86,7 @@ const ForgotPassword = () => {
                 ]}
               >
                 <Input
-                  className="rounded-full p-3 border-2 border-[#F39D39] text-black"
+                  className="rounded-full p-3 border-2 border-black text-black"
                   prefix={<MailOutlined className="site-form-item-icon" />}
                   placeholder={PLACEHOLDER_FORM.EMAIL}
                 />
@@ -101,7 +96,7 @@ const ForgotPassword = () => {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  className="login-form-button basis-full bg-[#F39D39] rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit"
+                  className="login-form-button basis-full bg-black rounded-full text-white font-bold text-lg w-full pt-2 pb-2 h-fit"
                   style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
                 >
                   Verify
@@ -112,14 +107,14 @@ const ForgotPassword = () => {
 
           <div>
             <h4 className="font-bold">Already have an account?</h4>
-            <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_IN}>
+            <Link className="text-[#d33d57] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_IN}>
               Sign In
             </Link>
           </div>
 
           <div>
             <h4 className="font-bold mt-3">Don't have an account?</h4>
-            <Link className="text-[#D07F1F] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_UP}>
+            <Link className="text-[#d33d57] underline underline-offset-2" to={PUBLIC_ROUTE.SIGN_UP}>
               Sign up
             </Link>
           </div>

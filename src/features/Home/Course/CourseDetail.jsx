@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Rate } from 'antd';
+import { Divider, Rate } from 'antd';
 import {
   ClockCircleOutlined,
   CheckCircleOutlined,
@@ -16,6 +16,7 @@ import {
 import { getDetailCourseAction } from '../../../redux/slice/courseSlice';
 import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import CourseDetailFloatingPanel from '../../../components/Container/CourseContainer/CourseDetailFloatingPanel';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const CourseDetail = () => {
   const location = useLocation();
@@ -24,7 +25,7 @@ const CourseDetail = () => {
     return item;
   });
   const currentCourse = useSelector((state) => state.course.currentCourse);
-  console.log(currentCourse);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -35,16 +36,16 @@ const CourseDetail = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      {/* brief course */}
-      <div className="bg-amber-400 rounded-b-3xl shadow-lg text-white py-14">
+    <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
+      <Divider className="bg-black mt-12" />
+      <div className=" text-black pb-14">
         <div className="mx-auto max-w-7xl">
           <div className="ml-16 mb-4">
             <BreadcrumbCustom />
           </div>
 
           <div className="ml-16 max-w-2xl">
-            <h1 className="text-3xl my-2">{currentCourse.courseName}</h1>
+            <h1 className="text-3xl my-2 font-bohemian">{currentCourse.courseName}</h1>
             <h2 className="text-xl my-2">
               Master modern React from beginner to advanced! Context API, React Query, Redux Toolkit, Tailwind, advanced
               patterns
@@ -74,6 +75,7 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
+        <Divider className="bg-black mt-10" />
       </div>
 
       <CourseDetailFloatingPanel data={currentCourse} />
