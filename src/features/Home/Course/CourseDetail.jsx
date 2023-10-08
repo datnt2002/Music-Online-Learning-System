@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Divider, Rate } from 'antd';
+import { Divider, Menu, Rate } from 'antd';
 import {
   ClockCircleOutlined,
   CheckCircleOutlined,
@@ -17,7 +17,37 @@ import { getDetailCourseAction } from '../../../redux/slice/courseSlice';
 import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import CourseDetailFloatingPanel from '../../../components/Container/CourseContainer/CourseDetailFloatingPanel';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
+import LecturerCard from '../../../components/Container/CardTemplate/LecturerCard';
+import defaultCourse from '../../../assets/imgs/default-course.png';
+import CourseHorizontalCard from '../../../components/Container/CardTemplate/CourseHorizontalCard';
+import Footer from '../../../components/Common/Footer';
 
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
+const items = [
+  getItem('Navigation One', 'sub1', <></>, [
+    getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),
+    getItem('Item 2', 'g2', null, [getItem('Option 3', '3'), getItem('Option 4', '4')], 'group'),
+  ]),
+  getItem('Navigation Two', 'sub2', <></>, [
+    getItem('Option 5', '5'),
+    getItem('Option 6', '6'),
+    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+  ]),
+  getItem('Navigation Three', 'sub4', <></>, [
+    getItem('Option 9', '9'),
+    getItem('Option 10', '10'),
+    getItem('Option 11', '11'),
+    getItem('Option 12', '12'),
+  ]),
+];
 const CourseDetail = () => {
   const location = useLocation();
   const { pathname } = location;
@@ -25,7 +55,8 @@ const CourseDetail = () => {
     return item;
   });
   const currentCourse = useSelector((state) => state.course.currentCourse);
-
+  const listCourse = useSelector((state) => state.course.listCourse);
+  console.log(listCourse);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -35,9 +66,12 @@ const CourseDetail = () => {
     );
   }, [dispatch]);
 
+  const onClick = (e) => {
+    console.log('click ', e);
+  };
   return (
     <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
-      <Divider className="bg-black mt-12" />
+      <Divider className="bg-black mt-8" />
       <div className=" text-black pb-14">
         <div className="mx-auto max-w-7xl">
           <div className="ml-16 mb-4">
@@ -75,30 +109,33 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
-        <Divider className="bg-black mt-10" />
+        <Divider className="bg-black mt-10 mb-0" />
       </div>
 
       <CourseDetailFloatingPanel data={currentCourse} />
 
       {/* What you learn */}
-      <div className="mx-auto max-w-7xl pt-11">
+      <div className="mx-auto max-w-7xl">
         <div className="ml-16 max-w-2xl">
           {/* what you learn */}
-          <div className="rounded-2xl border-2 shadow-md border-yellow-300 py-4">
-            <h2 className="text-xl mx-6 mb-4 font-medium"> What you learn in this course</h2>
+          <div className="rounded-2xl border-2 shadow-md border-black py-4">
+            <h2 className="text-xl mx-6 mb-2 font-medium"> What you learn in this course</h2>
             <ul className="flex flex-wrap justify-between mx-6">
               <li className="max-w-[18rem]">
                 <CheckOutlined className="align-[0.125rem]" /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình
                 với REACT
               </li>
               <li className="max-w-[18rem]">
-                <CheckOutlined /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình với REACT
+                <CheckOutlined className="align-[0.125rem]" /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình
+                với REACT
               </li>
               <li className="max-w-[18rem]">
-                <CheckOutlined /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình với REACT
+                <CheckOutlined className="align-[0.125rem]" /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình
+                với REACT
               </li>
               <li className="max-w-[18rem]">
-                <CheckOutlined /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình với REACT
+                <CheckOutlined className="align-[0.125rem]" /> HỌC đi đôi với "THỰC HÀNH", xây dựng ĐAM MÊ về lập trình
+                với REACT
               </li>
             </ul>
           </div>
@@ -116,9 +153,9 @@ const CourseDetail = () => {
                   <CaretRightOutlined className="align-[0.125rem]" /> 67h 10m total length
                 </p>
               </div>
-              <button>Expand All Lessons</button>
             </div>
-            <div>List course dropdown</div>
+
+            <Menu className=" bg-white/90 rounded-2xl mt-6" onClick={onClick} mode="inline" items={items} />
           </div>
 
           {/* requirement */}
@@ -126,15 +163,15 @@ const CourseDetail = () => {
             <h2 className="text-xl mb-4 font-medium">Requirements</h2>
             <ul>
               <li>
-                <CheckCircleOutlined className="align-[0.125rem]" />
+                <CheckCircleOutlined className="align-[0.125rem] mr-4" />
                 Có tư duy lập trình
               </li>
               <li>
-                <CheckCircleOutlined />
+                <CheckCircleOutlined className="align-[0.125rem] mr-4" />
                 Có tư duy lập trình
               </li>
               <li>
-                <CheckCircleOutlined />
+                <CheckCircleOutlined className="align-[0.125rem] mr-4" />
                 Có tư duy lập trình
               </li>
             </ul>
@@ -163,36 +200,35 @@ const CourseDetail = () => {
 
             <ul>
               <li>
-                <CheckCircleOutlined className="align-[0.125rem]" />
+                <CheckCircleOutlined className="align-[0.125rem] mr-4" />
                 Tất cả những bạn mới bắt đầu, những bạn muốn học lập trình với React, đang muốn học và làm chủ React thì
                 đây chính là khóa học các bạn tìm. React Ultimate, chỉ một là đủ.
               </li>
             </ul>
           </div>
 
-          {/* Best seller */}
           <div>
-            <h2 className="text-xl mb-4">Best seller</h2>
+            <h2 className="text-xl mb-2 font-medium">Instructor</h2>
+            <LecturerCard />
           </div>
 
-          {/* recommend combo bought */}
           <div>
-            <h2 className="text-xl mb-4">recommend combo bought</h2>
-          </div>
-
-          {/* author */}
-          <div>
-            <h2 className="text-xl mb-4">Author</h2>
+            <h2 className="text-xl mb-4 font-medium">Students also bought</h2>
+            <div className="">
+              {listCourse.map((course) => {
+                return <CourseHorizontalCard courseData={course} />;
+              })}
+            </div>
           </div>
 
           {/* cmt and rating */}
           <div>
-            <h2 className="text-xl mb-4">Rating And Comments</h2>
-            <hr />
-            <div>dfaerwfasfew</div>
+            <h2 className="text-xl mb-4 font-medium">Rating And Comments</h2>
+            <div></div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

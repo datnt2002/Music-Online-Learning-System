@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import HeaderDefault from '../../Layout/User/HeaderDefault';
+import Footer from '../Footer';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
 import { PUBLIC_ROUTE } from '../../../constants';
 import getTokenFromStorage from '../../../utils/getTokenFromStorage';
+
 const UserRoute = ({ children }) => {
   const authToken = getTokenFromStorage();
 
@@ -24,6 +26,7 @@ const UserRoute = ({ children }) => {
     <>
       <HeaderDefault />
       {children}
+      <Footer />
     </>
   );
 };

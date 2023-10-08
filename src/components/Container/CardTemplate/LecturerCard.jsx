@@ -6,7 +6,7 @@ import defaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
 
 const LecturerCard = () => {
   return (
-    <div className="flex flex-1 rounded-2xl mr-4 border border-black bg-white/50 bg-opacity-70">
+    <div className="flex flex-1 rounded-2xl mr-4 border border-black ">
       <div className="flex basis-1/4 pl-6">
         <Avatar size={68} alt="avatar author" shape="circle" className="my-auto mx-auto" src={defaultAvatar} />
       </div>

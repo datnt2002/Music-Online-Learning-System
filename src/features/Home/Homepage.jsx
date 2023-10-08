@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Divider } from 'antd';
-// import { Footer } from 'antd/es/layout/layout';
 
 import ListContainer from '../../components/Container/ListCoursesContainer';
 import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCategory';
