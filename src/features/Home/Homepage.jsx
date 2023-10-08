@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Divider } from 'antd';
-import { Footer } from 'antd/es/layout/layout';
+// import { Footer } from 'antd/es/layout/layout';
 
 import ListContainer from '../../components/Container/ListCoursesContainer';
 import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCategory';
@@ -10,6 +10,7 @@ import PopularAuthor from '../../components/Container/HomepageContainer/PopularA
 import AllCourses from '../../components/Container/HomepageContainer/AllCourses';
 import introBg from '../../assets/imgs/intro-bg.jpg';
 import repeatBg from '../../assets/imgs/repeatbg.jpg';
+import Footer from '../../components/Common/Footer';
 
 const Homepage = () => {
   return (
@@ -53,9 +54,7 @@ const Homepage = () => {
             <AllCourses />
           </div>
         </div>
-        <Footer className="h-40 bg-white/50 backdrop-blur-sm">
-          <h1 className="text-black">Ant Design ©2023 Created by Ant UED</h1>
-        </Footer>
+        <Footer />
       </div>
     </div>
   );

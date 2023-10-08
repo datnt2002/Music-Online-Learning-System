@@ -4,3 +4,4 @@ export * from './Guard/UserRoute';
 export * from './NotFound';
 export * from './Loading';
 export * from './VerifySuccess';
+export * from './Footer';

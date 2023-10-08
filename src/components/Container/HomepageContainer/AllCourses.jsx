@@ -35,6 +35,7 @@ const AllCourses = () => {
     <div>
       <div className="flex py-4 pr-4 my-4">
         <Select
+          className="border border-black rounded-lg"
           defaultValue="Choose category"
           size="large"
           onChange={handleSelectCategory}
@@ -46,14 +47,12 @@ const AllCourses = () => {
       </div>
 
       <div className="flex">
-        <div className="flex flex-col basis-1/4">
+        <div className="flex flex-col basis-1/4 mr-4">
           <Menu
             onClick={handleFilterBySubCate}
-            style={{
-              width: 256,
-            }}
             mode="inline"
             items={items}
+            className="rounded-2xl border border-black"
           />
         </div>
         <div className="flex flex-1 flex-col gap-3">
@@ -61,7 +60,7 @@ const AllCourses = () => {
             return <CourseHorizontalCard courseData={course} />;
           })}
 
-          <Pagination defaultCurrent={6} total={500} />
+          <Pagination defaultCurrent={6} total={500} className="text-center" />
         </div>
       </div>
     </div>

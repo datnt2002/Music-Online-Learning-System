@@ -7,10 +7,10 @@ const AuthenticationButton = () => {
   return (
     <Space>
       <Link to={PUBLIC_ROUTE.SIGN_IN}>
-        <Button>Sign in</Button>
+        <Button className='border border-black'>Sign in</Button>
       </Link>
       <Link to={PUBLIC_ROUTE.SIGN_UP}>
-        <Button>Sign up</Button>
+        <Button className='border border-black'>Sign up</Button>
       </Link>
     </Space>
   );
