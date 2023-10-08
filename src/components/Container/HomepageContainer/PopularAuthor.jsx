@@ -1,15 +1,38 @@
 import React from 'react';
 import LecturerCard from '../CardTemplate/LecturerCard';
-import { Space } from 'antd';
+import { Carousel } from 'antd';
 
 const PopularAuthor = () => {
   return (
-    <Space>
-      <LecturerCard />
-      <LecturerCard />
-      <LecturerCard />
-      <LecturerCard />
-    </Space>
+    <Carousel rows={1} slidesPerRow={4} infinite={true}>
+      <div className="flex">
+        <LecturerCard />
+      </div>
+      <div className="flex">
+        <LecturerCard />
+      </div>
+      <div className="flex">
+        <LecturerCard />
+      </div>
+      <div className="flex">
+        <LecturerCard />
+      </div>
+      <div className="flex">
+        <LecturerCard />
+      </div>{' '}
+      <div className="flex">
+        <LecturerCard />
+      </div>{' '}
+      <div className="flex">
+        <LecturerCard />
+      </div>{' '}
+      <div className="flex">
+        <LecturerCard />
+      </div>{' '}
+      <div className="flex">
+        <LecturerCard />
+      </div>
+    </Carousel>
   );
 };
 

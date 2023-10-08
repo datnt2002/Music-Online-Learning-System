@@ -8,6 +8,8 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import { PUBLIC_ROUTE } from '../../../constants';
+import { Rate } from 'antd';
+import defaultCourse from '../../../assets/imgs/default-course.png';
 
 const ListContainer = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,6 @@ const ListContainer = () => {
   }, [dispatch]);
 
   const listCourse = useSelector((state) => state.course.listCourse);
-  console.log(listCourse);
 
   const settings = {
     className: 'slider variable-width',
@@ -31,38 +32,40 @@ const ListContainer = () => {
     infinite: true,
     centerMode: false,
     variableWidth: true,
-
-    // initialSlide: 0,
   };
 
   const handleViewDetailCourse = (courseId) => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
   };
+
   return (
-    <div className="">
-      <Slider {...settings}>
-        {listCourse.map((course) => {
-          return (
-            <div key={course.courseId} className="my-3 mr-3 ">
-              <div
-                onClick={() => handleViewDetailCourse(course.courseId)}
-                className="relative flex w-[13rem] h-80 flex-col border rounded-lg shadow-lg backdrop-blur-3xl bg-white/80 hover:scale-105"
-              >
-                <div className="relative m-4 h-40 overflow-hidden">
-                  <img src={course.courseImg} alt="" className="object-cover h-full w-full" />
+    <Slider {...settings}>
+      {listCourse.map((course) => {
+        return (
+          <div key={course.courseId} className="my-3 mr-3">
+            <div
+              onClick={() => handleViewDetailCourse(course.courseId)}
+              className="relative flex w-[16rem] h-80 flex-col border border-black rounded-lg backdrop-blur-3xl bg-white/50 bg-opacity-80 hover:scale-105"
+            >
+              <div className="relative m-4 h-40 overflow-hidden">
+                <img src={course.courseImg || defaultCourse} alt="error" className="object-cover h-full w-full" />
+              </div>
+              <div className="px-6 pb-6 pt-3">
+                <h1 className="truncate text-lg font-bohemian font-semibold leading-snug text-blue-gray-900 antialiased">
+                  {course.courseName}
+                </h1>
+                <p className="underline font-sans text-xs font-light leading-relaxed truncate">Author</p>
+                <div className="flex">
+                  <p className="font-sans text-sm font-light leading-relaxed truncate"> 4.5</p>
+                  <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
                 </div>
-                <div className="p-6">
-                  <h1 className="mb-2 truncate text-lg font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                    {course.courseName}
-                  </h1>
-                  <p className=" font-sans text-xs font-light leading-relaxed truncate">{course.description}</p>
-                </div>
+                <p className="font-sans text-base font-medium leading-relaxed truncate">${course.price}</p>
               </div>
             </div>
-          );
-        })}
-      </Slider>
-    </div>
+          </div>
+        );
+      })}
+    </Slider>
   );
 };
 

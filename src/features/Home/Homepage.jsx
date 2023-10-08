@@ -6,7 +6,6 @@ import { Footer } from 'antd/es/layout/layout';
 import ListContainer from '../../components/Container/ListCoursesContainer';
 import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCategory';
 import ListFeatureCourses from '../../components/Container/ListCoursesContainer/ListFeatureCourses';
-import PopularTopic from '../../components/Container/HomepageContainer/PopularTopic';
 import PopularAuthor from '../../components/Container/HomepageContainer/PopularAuthor';
 import AllCourses from '../../components/Container/HomepageContainer/AllCourses';
 import introBg from '../../assets/imgs/intro-bg.jpg';
@@ -32,7 +31,7 @@ const Homepage = () => {
       <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }} className=" bg-repeat-y">
         <div className="mx-32 mt-14">
           <div className="my-16">
-            <h1 className="text-2xl font-semibold mb-10 text-center font-bohemian">Courses to get you started</h1>
+            <h1 className="text-2xl font-semibold mb-10 text-center">Courses to get you started</h1>
             <ListContainer />
           </div>
 
@@ -41,20 +40,11 @@ const Homepage = () => {
             <h1 className="text-2xl font-semibold mb-10 text-center">Feature courses</h1>
             <ListFeatureCourses />
           </div>
-          {/* course to get start */}
-          <div className="my-16">
-            <h1 className="text-2xl font-semibold mb-10 text-center">Popular Topics</h1>
-            <div className="grid grid-cols-5 gap-4">
-              <PopularTopic />
-            </div>
-          </div>
 
           {/* Popular authors */}
           <div className="my-16">
             <h1 className="text-2xl font-semibold mb-10 text-center">Popular authors</h1>
-            <div className="flex">
-              <PopularAuthor />
-            </div>
+            <PopularAuthor />
           </div>
 
           <div className="my-16">
