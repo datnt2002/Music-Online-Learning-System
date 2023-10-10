@@ -14,8 +14,10 @@ import {
   deleteCourseFromAdmin,
   deleteSubCate,
   getDetailCourse,
+  getDetailPendingCourse,
   getListCategory,
   getListCourses,
+  getListDeleteCourse,
   getListPendingCourse,
   getSubCategories,
 } from '../../services/course.service';
@@ -51,6 +53,7 @@ import {
   getDetailCourseAction,
   getDetailCourseFail,
   getDetailCourseSuccess,
+  getDetailPendingCourseAction,
   getListCategoryAction,
   getListCategoryFail,
   getListCategorySuccess,
@@ -60,6 +63,9 @@ import {
   getListCoursePendingFail,
   getListCoursePendingSuccess,
   getListCourseSuccess,
+  getListDeletedCourseAction,
+  getListDeletedCourseFail,
+  getListDeletedCourseSuccess,
   getSubCategoriesAction,
   getSubCategoriesFail,
   getSubCategoriesSuccess,
@@ -78,7 +84,7 @@ function* getListCourseSaga() {
 
       switch (result.status) {
         case 200:
-          yield put(getListCourseSuccess(result.data));
+          yield put(getListCourseSuccess(result));
           break;
 
         default:
@@ -147,11 +153,37 @@ function* getListCoursePendingSaga() {
 
       switch (result.status) {
         case 200:
-          yield put(getListCoursePendingSuccess(result.data));
+          yield put(getListCoursePendingSuccess(result));
           break;
 
         default:
           yield put(getListCoursePendingFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* getDetailPendingCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId },
+      } = yield take(getDetailPendingCourseAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getDetailPendingCourse, { courseId, accessToken });
+
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getDetailCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailCourseFail(result));
           break;
       }
     } catch (error) {
@@ -186,18 +218,45 @@ function* approvedCoursePendingSaga() {
               no-repeat
             `,
             confirmButtonText: 'Got it',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate(ADMIN_ROUTE.LIST_COURSES);
-            }
           });
-          //learn how to reload after modify.
+
+          // .then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate(ADMIN_ROUTE.LIST_COURSES);
+          //   }
+          // });
           break;
 
         default:
           yield put(approvedCoursePendingFail(result));
           break;
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* getListCourseDeletedSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { pageSize, pageIndex },
+      } = yield take(getListDeletedCourseAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getListDeleteCourse, { pageSize, pageIndex, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(getListDeletedCourseSuccess(result));
+          break;
+
+        default:
+          yield put(getListDeletedCourseFail(result));
+          break;
+      }
+      break;
     } catch (error) {
       console.log(error);
     }
@@ -626,7 +685,9 @@ function* paymentSaga() {
 export default function* courseSaga() {
   yield fork(getListCourseSaga);
   yield fork(deleteCourseFromAdminSaga);
+  yield fork(getListCourseDeletedSaga);
   yield fork(getListCoursePendingSaga);
+  yield fork(getDetailPendingCourseSaga);
   yield fork(approvedCoursePendingSaga);
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);

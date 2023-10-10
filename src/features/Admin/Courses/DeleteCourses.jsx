@@ -7,19 +7,20 @@ import { EyeOutlined, RetweetOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-import { getListCourseAction } from '../../../redux/slice/courseSlice';
+import { getDetailCourseAction, getListDeletedCourseAction } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 
 const DeleteCourses = () => {
   const [open, setOpen] = useState(false);
-  const [dataOfRecord, setDataOfRecord] = useState();
+  const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
+  const pagination = useSelector((state) => state.course.pagination);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
-      getListCourseAction({
-        pageIndex: 1,
+      getListDeletedCourseAction({
+        pageIndex: pageIndex,
         pageSize: 5,
       })
     );
@@ -28,7 +29,11 @@ const DeleteCourses = () => {
 
   const handleShowDetailCourse = (record) => {
     console.log(record);
-    setDataOfRecord(record);
+    dispatch(
+      getDetailCourseAction({
+        courseId: record.courseId,
+      })
+    );
     setOpen(true);
   };
 
@@ -59,6 +64,8 @@ const DeleteCourses = () => {
       >
         <TableAdmin
           dataSource={listCourse}
+          pagination={pagination}
+          setPageIndex={setPageIndex}
           actions={(record) => (
             <Space>
               <Button
@@ -67,21 +74,7 @@ const DeleteCourses = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-              {open && (
-                <Modal
-                  width={850}
-                  open={open}
-                  title="Course Detail"
-                  onCancel={handleCancel}
-                  footer={[
-                    <Button key="back" onClick={handleCancel}>
-                      Return
-                    </Button>,
-                  ]}
-                >
-                  {dataOfRecord && <ModalCourseDetail data={dataOfRecord} />}
-                </Modal>
-              )}
+
               <Button
                 onClick={() => {
                   handleRestoreCourse(record);
@@ -91,6 +84,21 @@ const DeleteCourses = () => {
             </Space>
           )}
         />
+        {open && (
+          <Modal
+            width={850}
+            open={open}
+            title="Course Detail"
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Return
+              </Button>,
+            ]}
+          >
+            <ModalCourseDetail />
+          </Modal>
+        )}
       </Content>
     </Layout>
   );

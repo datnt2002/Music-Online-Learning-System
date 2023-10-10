@@ -3,34 +3,43 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Layout, Modal, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import { useNavigate } from 'react-router-dom';
 import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-import { deleteCourseFromAdminAction, getListCourseAction } from '../../../redux/slice/courseSlice';
+import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
+import {
+  deleteCourseFromAdminAction,
+  getDetailCourseAction,
+  getListCourseAction,
+} from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
-import { useNavigate } from 'react-router-dom';
 
 const ManageListCourses = () => {
   const [open, setOpen] = useState(false);
-  const [dataOfRecord, setDataOfRecord] = useState();
+  const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
+  const pagination = useSelector((state) => state.course.pagination);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
       getListCourseAction({
-        pageIndex: 1,
-        pageSize: 5,
+        pageIndex: pageIndex,
+        pageSize: 3,
       })
     );
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, pageIndex]);
 
   const handleShowDetailCourse = (record) => {
-    console.log(record);
-    setDataOfRecord(record);
+    dispatch(
+      getDetailCourseAction({
+        courseId: record.courseId,
+      })
+    );
     setOpen(true);
   };
 
@@ -66,6 +75,8 @@ const ManageListCourses = () => {
       >
         <TableAdmin
           dataSource={listCourse}
+          pagination={pagination}
+          setPageIndex={setPageIndex}
           actions={(record) => (
             <Space>
               <Button
@@ -74,21 +85,6 @@ const ManageListCourses = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-              {open && (
-                <Modal
-                  width={850}
-                  open={open}
-                  title="Course Detail"
-                  onCancel={handleCancel}
-                  footer={[
-                    <Button key="back" onClick={handleCancel}>
-                      Return
-                    </Button>,
-                  ]}
-                >
-                  {dataOfRecord && <ModalCourseDetail data={dataOfRecord} />}
-                </Modal>
-              )}
               <Button
                 onClick={() => {
                   handleDeleteCourse(record);
@@ -98,6 +94,21 @@ const ManageListCourses = () => {
             </Space>
           )}
         />
+        {open && (
+          <Modal
+            width={850}
+            open={open}
+            title="Course Detail"
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Return
+              </Button>,
+            ]}
+          >
+            <ModalCourseDetail />
+          </Modal>
+        )}
       </Content>
     </Layout>
   );

@@ -7,30 +7,39 @@ import { EyeOutlined, CarryOutOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-import { approvedCoursePendingAction, getListCoursePendingAction } from '../../../redux/slice/courseSlice';
+import {
+  approvedCoursePendingAction,
+  getDetailPendingCourseAction,
+  getListCoursePendingAction,
+} from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 import { useNavigate } from 'react-router-dom';
 
 const CoursesPending = () => {
   const [open, setOpen] = useState(false);
-  const [dataOfRecord, setDataOfRecord] = useState();
+  const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
+  const pagination = useSelector((state) => state.course.pagination);
+  console.log(listCourse);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
       getListCoursePendingAction({
-        pageIndex: 1,
+        pageIndex: pageIndex,
         pageSize: 10,
       })
     );
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, pageIndex]);
 
   const handleShowDetailCourse = (record) => {
-    console.log(record);
-    setDataOfRecord(record);
+    dispatch(
+      getDetailPendingCourseAction({
+        courseId: record.courseId,
+      })
+    );
     setOpen(true);
   };
 
@@ -38,12 +47,18 @@ const CoursesPending = () => {
     setOpen(false);
   };
 
-  const handleAcceptCourse = (record) => {
-    console.log(record);
-    dispatch(
+  const handleAcceptCourse = async (record) => {
+    await dispatch(
       approvedCoursePendingAction({
         courseId: record.courseId,
         navigate,
+      })
+    );
+
+    dispatch(
+      getListCoursePendingAction({
+        pageIndex: pageIndex,
+        pageSize: 10,
       })
     );
   };
@@ -67,6 +82,8 @@ const CoursesPending = () => {
       >
         <TableAdmin
           dataSource={listCourse}
+          pagination={pagination}
+          setPageIndex={setPageIndex}
           actions={(record) => (
             <Space>
               <Button
@@ -75,21 +92,7 @@ const CoursesPending = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-              {open && (
-                <Modal
-                  width={850}
-                  open={open}
-                  title="Course Detail"
-                  onCancel={handleCancel}
-                  footer={[
-                    <Button key="back" onClick={handleCancel}>
-                      Return
-                    </Button>,
-                  ]}
-                >
-                  {dataOfRecord && <ModalCourseDetail data={dataOfRecord} />}
-                </Modal>
-              )}
+
               <Button
                 onClick={() => {
                   handleAcceptCourse(record);
@@ -99,6 +102,21 @@ const CoursesPending = () => {
             </Space>
           )}
         />
+        {open && (
+          <Modal
+            width={850}
+            open={open}
+            title="Course Detail"
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Return
+              </Button>,
+            ]}
+          >
+            <ModalCourseDetail />
+          </Modal>
+        )}
       </Content>
     </Layout>
   );

@@ -5,7 +5,7 @@ import flattenObj from '../../../utils/flattenObj';
 import dayjs from 'dayjs';
 import { DAY_FORMAT, TABLE_COLUMN } from '../../../constants';
 
-const TableAdmin = ({ dataSource, actions }) => {
+const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
   if (dataSource.length > 0) {
     //solve nested object because of join database
     const flattenData = dataSource.map((data, index) => {
@@ -86,6 +86,13 @@ const TableAdmin = ({ dataSource, actions }) => {
         onChange={onChange}
         className="max-w-full rounded-xl"
         scroll={{ x: totalColumnsWidth }}
+        pagination={{
+          pageSize: pagination.pageSize,
+          total: pagination.totalCount,
+          onChange: (page) => {
+            setPageIndex(page);
+          },
+        }}
       />
     );
   } else {

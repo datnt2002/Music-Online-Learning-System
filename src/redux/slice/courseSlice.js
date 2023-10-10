@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   listCourse: [],
+  pagination: {},
   currentCourse: {},
   currentSection: {},
   currentLesson: {},
@@ -22,7 +23,9 @@ export const courseSlice = createSlice({
     },
     getListCourseSuccess: (state, action) => {
       state.loading = false;
-      state.listCourse = action.payload;
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      state.listCourse = data;
+      state.pagination = { pageIndex, pageSize, totalCount, totalPages };
     },
     getListCourseFail: (state) => {
       state.loading = false;
@@ -42,7 +45,9 @@ export const courseSlice = createSlice({
     },
     getListCoursePendingSuccess: (state, action) => {
       state.loading = false;
-      state.listCourse = action.payload;
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      state.listCourse = data;
+      state.pagination = { pageIndex, pageSize, totalCount, totalPages };
     },
     getListCoursePendingFail: (state) => {
       state.loading = false;
@@ -56,7 +61,22 @@ export const courseSlice = createSlice({
     approvedCoursePendingFail: (state) => {
       state.loading = false;
     },
+    getListDeletedCourseAction: (state) => {
+      state.loading = true;
+    },
+    getListDeletedCourseSuccess: (state, action) => {
+      state.loading = false;
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      state.listCourse = data;
+      state.pagination = { pageIndex, pageSize, totalCount, totalPages };
+    },
+    getListDeletedCourseFail: (state) => {
+      state.loading = false;
+    },
     getDetailCourseAction: (state) => {
+      state.loading = true;
+    },
+    getDetailPendingCourseAction: (state) => {
       state.loading = true;
     },
     getDetailCourseSuccess: (state, action) => {
@@ -171,7 +191,11 @@ export const {
   approvedCoursePendingAction,
   approvedCoursePendingSuccess,
   approvedCoursePendingFail,
+  getListDeletedCourseAction,
+  getListDeletedCourseSuccess,
+  getListDeletedCourseFail,
   getDetailCourseAction,
+  getDetailPendingCourseAction,
   getDetailCourseSuccess,
   getDetailCourseFail,
   getDetailLessonAction,

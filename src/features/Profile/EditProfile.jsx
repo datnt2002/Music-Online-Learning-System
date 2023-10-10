@@ -11,6 +11,7 @@ import { CHANGE_PASSWORD_FORM_FIELDS, PROFILE_FORM_FIELDS, VALIDATE_MESSAGE } fr
 import ModalEditAvatar from '../../components/Container/ModalContainer/ModalEditAvatar';
 import defaultAvatar from '../../assets/imgs/defaultAvatar.webp';
 import Loading from '../../components/Common/Loading';
+import repeatBg from '../../assets/imgs/repeatbg.jpg';
 
 const EditProfile = () => {
   const [isModalChangePasswordOpen, setIsModalChangePasswordOpen] = useState(false);
@@ -46,13 +47,14 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="bg-slate-100">
+    <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
       {loading && <Loading />}
+      <Divider className="bg-black mb-0 mt-3" />
       <div className="pt-6 ml-44">
         <BreadCrumbCustom />
         <h1 className="text-2xl font-semibold mt-2">Edit Your Profile</h1>
       </div>
-      <div>
+      <div className="pb-4">
         <Form
           form={form}
           onFinish={handleEditProfile}
@@ -194,7 +196,7 @@ const EditProfile = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="bg-amber-400 w-full">
+              <Button type="primary" htmlType="submit" className="bg-black w-full">
                 Submit
               </Button>
             </Form.Item>

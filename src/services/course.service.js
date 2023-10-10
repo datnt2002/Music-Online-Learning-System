@@ -76,6 +76,17 @@ export const getDetailCourse = (data) => {
     });
 };
 
+export const getDetailPendingCourse = (data) => {
+  return axiosClient
+    .get(`courses/pending/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const createNewCourse = (data) => {
   const formData = new FormData();
   formData.append('courseName', data.courseName);

@@ -44,7 +44,7 @@ const LeftContainer = () => {
         <Link to={USER_ROUTE.USER_EDIT_PROFILE}>
           <Button
             type="primary"
-            className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4"
+            className="rounded-full bg-black w-full text-white font-bold text-base py-2 h-fit my-4"
             icon={<EditOutlined className="align-[0.125rem]" />}
           >
             Edit your profile
@@ -54,14 +54,14 @@ const LeftContainer = () => {
         <Button
           onClick={handleNavigateLecturer}
           type="primary"
-          className="rounded-full bg-amber-400 w-full text-white font-bold text-base py-2 h-fit my-4`"
+          className="rounded-full bg-black w-full text-white font-bold text-base py-2 h-fit my-4`"
           icon={<ContactsOutlined className="align-[0.125rem]" />}
         >
           Teach on Music Space
         </Button>
       </div>
 
-      <Card size="small" title={`About ${userProfile.firstName}`} className="w-full my-4">
+      <Card size="small" title={`About ${userProfile.firstName}`} className="w-full my-4 border border-black">
         <p>{userProfile.email}</p>
         <p>{userProfile.phoneNumber}</p>
       </Card>
@@ -95,7 +95,7 @@ const LeftContainer = () => {
         <Link>
           <Button
             type="primary"
-            className="rounded-full w-full bg-amber-400 text-white font-bold text-base py-2 h-fit my-4"
+            className="rounded-full w-full bg-black text-white font-bold text-base py-2 h-fit my-4"
             icon={<FacebookFilled className="align-[0.125rem]" />}
           >
             Facebook
@@ -105,7 +105,7 @@ const LeftContainer = () => {
         <Link>
           <Button
             type="primary"
-            className="rounded-full w-full bg-amber-400 text-white font-bold text-base py-2 h-fit"
+            className="rounded-full w-full bg-black text-white font-bold text-base py-2 h-fit"
             icon={<InstagramOutlined className="align-[0.125rem]" />}
           >
             Instagram
