@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Layout from 'antd/es/layout/layout';
 
 import SiderLecturer from '../../Layout/Lecturer/SiderLecturer';
 import HeaderLecturer from '../../Layout/Lecturer/HeaderLecturer';
 import { PUBLIC_ROUTE } from '../../../constants';
-import { useDispatch } from 'react-redux';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
 import getTokenFromStorage from '../../../utils/getTokenFromStorage';
 

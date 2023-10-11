@@ -9,11 +9,12 @@ import { InboxOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
 import { createNewCourseAction, getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
-import { CREATE_COURSE_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
+import { CREATE_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import Loading from '../../../components/Common/Loading';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const CreateCourse = () => {
   const [file, setFile] = useState();
@@ -40,7 +41,7 @@ const CreateCourse = () => {
   };
 
   useEffect(() => {
-    dispatch(getListCategoryAction({ pageSize: 10 }));
+    dispatch(getListCategoryAction({ pageSize: PAGINATION.PAGE_SIZE }));
   }, [dispatch]);
 
   const onPreview = async (file) => {
@@ -75,14 +76,17 @@ const CreateCourse = () => {
   return (
     <Content>
       {loading && <Loading />}
-      <div className="flex flex-1 flex-col p-6 ">
+      <div
+        className="flex flex-1 flex-col p-6"
+        style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}
+      >
         <div className="pl-6">
           <BreadCrumbCustom />
         </div>
         <StepsCustom step={0} />
 
         {/* form */}
-        <div className="bg-white shadow-xl rounded-2xl p-6 ">
+        <div className="bg-white border border-black rounded-2xl p-6 ">
           <h1 className="font-semibold text-2xl">Create New Course</h1>
           <Form layout="horizontal" onFinish={onFinish}>
             <div className="flex">
@@ -92,14 +96,14 @@ const CreateCourse = () => {
                   name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.COURSE_NAME_REQUIRED }]}
                 >
-                  <Input />
+                  <Input className="border border-black rounded-md" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.CATEGORY}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.CATEGORY_REQUIRED }]}
                 >
-                  <Select onChange={handleChooseCategory}>
+                  <Select onChange={handleChooseCategory} className="border border-black rounded-md">
                     {listCategories.map((category) => {
                       return (
                         <Select.Option key={category.cateId} value={category.cateId}>
@@ -114,7 +118,7 @@ const CreateCourse = () => {
                   name={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.SUB_CATEGORY_REQUIRED }]}
                 >
-                  <Select>
+                  <Select className="border border-black rounded-md">
                     {listSubCategories.map((subCate) => {
                       return (
                         <Select.Option key={subCate.subCateId} value={subCate.subCateId}>
@@ -129,24 +133,24 @@ const CreateCourse = () => {
                   name={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.BRIEF_DESCRIPTION_REQUIRED }]}
                 >
-                  <Input />
+                  <Input className="border border-black rounded-md" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.PRICE_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.PRICE}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.PRICE_REQUIRED }]}
                 >
-                  <InputNumber className="w-full" />
+                  <InputNumber className="w-full border border-black rounded-md" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.DESCRIPTION_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.DESCRIPTION}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.DESCRIPTION_REQUIRED }]}
                 >
-                  <TextArea rows={4} />
+                  <TextArea rows={4} className="border border-black rounded-md" />
                 </Form.Item>
 
-                <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL} >
+                <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL}>
                   <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={() => {}}>
                     <ImgCrop zoomSlider showReset cropShape="rect" aspect={16 / 9}>
                       <Upload.Dragger
@@ -183,7 +187,7 @@ const CreateCourse = () => {
                   nameFormList={CREATE_COURSE_FORM_FIELDS.REQUIREMENT}
                 />
                 <Form.Item className="flex-1 mx-5">
-                  <Button type="primary" htmlType="submit" className="bg-amber-500 w-full">
+                  <Button type="primary" htmlType="submit" className="bg-black w-full">
                     Submit
                   </Button>
                 </Form.Item>
