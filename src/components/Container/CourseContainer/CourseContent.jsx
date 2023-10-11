@@ -2,9 +2,13 @@ import React from 'react';
 import { CaretRightOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { USER_ROUTE } from '../../../constants';
 
 const CourseContent = () => {
   const sections = useSelector((state) => state.course.listSections);
+  const navigate = useNavigate();
+
   const items = sections.map((section) => {
     return {
       key: section.sectionId,
@@ -20,7 +24,8 @@ const CourseContent = () => {
   });
 
   const onClick = (e) => {
-    console.log('click ', e);
+    console.log('click ', e.key);
+    navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
   };
   return (
     <div className="my-6">

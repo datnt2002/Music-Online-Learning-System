@@ -9,6 +9,7 @@ export const PUBLIC_ROUTE = {
 
 export const USER_ROUTE = {
   USER_PROFILE: '/user/profile',
+  LESSON_DETAIL: '/user/lesson-detail',
   USER_CART: '/user/my-cart',
   USER_WISHLIST: '/user/my-wishlist',
   USER_EDIT_PROFILE: '/user/profile/edit-profile',

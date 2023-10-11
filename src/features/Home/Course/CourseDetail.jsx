@@ -94,9 +94,7 @@ const CourseDetail = () => {
           {/* description */}
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Description</h2>
-            <p>
-                {currentCourse.description}
-            </p>
+            <p>{currentCourse.description}</p>
           </div>
 
           <div>

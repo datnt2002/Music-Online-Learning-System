@@ -164,7 +164,7 @@ export const createNewLesson = (data) => {
 export const getLessonDetail = (data) => {
   console.log(data);
   return axiosClient
-    .get(`lessons/${data.id}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get(`lessons/${data.lessonId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

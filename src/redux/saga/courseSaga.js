@@ -15,6 +15,7 @@ import {
   deleteSubCate,
   getDetailCourse,
   getDetailPendingCourse,
+  getLessonDetail,
   getListCategory,
   getListCourses,
   getListDeleteCourse,
@@ -54,6 +55,9 @@ import {
   getDetailCourseAction,
   getDetailCourseFail,
   getDetailCourseSuccess,
+  getDetailLessonAction,
+  getDetailLessonFail,
+  getDetailLessonSuccess,
   getDetailPendingCourseAction,
   getListCategoryAction,
   getListCategoryFail,
@@ -481,8 +485,21 @@ function* getDetailLessonSaga() {
   while (true) {
     try {
       const {
-        payload: {},
-      } = yield take(getListCategoryAction);
+        payload: { lessonId },
+      } = yield take(getDetailLessonAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getLessonDetail, { lessonId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(getDetailLessonSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailLessonFail(result));
+          break;
+      }
     } catch (error) {
       console.log(error);
     }

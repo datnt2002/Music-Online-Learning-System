@@ -102,7 +102,7 @@ export const userRoutes = [
     ),
   },
   {
-    path: 'lesson-detail',
+    path: 'lesson-detail/:id',
     element: (
       <UserRoute>
         <LessonDetail />
