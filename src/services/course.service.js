@@ -65,6 +65,23 @@ export const getListDeleteCourse = (data) => {
     });
 };
 
+export const restoreDeleteCourse = (data) => {
+  return axiosClient
+    .patch(
+      `courses/restore/${data.courseId}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${data.accessToken}` },
+      }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getDetailCourse = (data) => {
   return axiosClient
     .get(`courses/${data.courseId}`)

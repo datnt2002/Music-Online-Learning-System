@@ -20,6 +20,7 @@ import {
   getListDeleteCourse,
   getListPendingCourse,
   getSubCategories,
+  restoreDeleteCourse,
 } from '../../services/course.service';
 import {
   approvedCoursePendingAction,
@@ -69,6 +70,9 @@ import {
   getSubCategoriesAction,
   getSubCategoriesFail,
   getSubCategoriesSuccess,
+  restoreDeletedCourseAction,
+  restoreDeletedCourseFail,
+  restoreDeletedCourseSuccess,
 } from '../slice/courseSlice';
 import { ADMIN_ROUTE, LECTURER_ROUTE, STORAGE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
@@ -257,6 +261,51 @@ function* getListCourseDeletedSaga() {
           break;
       }
       break;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* restoreCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId },
+      } = yield take(restoreDeletedCourseAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(restoreDeleteCourse, { courseId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(restoreDeletedCourseSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+
+          // .then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate(ADMIN_ROUTE.LIST_COURSES);
+          //   }
+          // });
+          break;
+
+        default:
+          yield put(restoreDeletedCourseFail(result));
+          break;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -686,6 +735,7 @@ export default function* courseSaga() {
   yield fork(getListCourseSaga);
   yield fork(deleteCourseFromAdminSaga);
   yield fork(getListCourseDeletedSaga);
+  yield fork(restoreCourseSaga);
   yield fork(getListCoursePendingSaga);
   yield fork(getDetailPendingCourseSaga);
   yield fork(approvedCoursePendingSaga);

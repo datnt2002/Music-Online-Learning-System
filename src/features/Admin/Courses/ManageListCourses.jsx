@@ -14,6 +14,7 @@ import {
   getListCourseAction,
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
+import { PAGINATION } from '../../../constants';
 
 const ManageListCourses = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ const ManageListCourses = () => {
     dispatch(
       getListCourseAction({
         pageIndex: pageIndex,
-        pageSize: 3,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
     return () => {};
@@ -44,7 +45,6 @@ const ManageListCourses = () => {
   };
 
   const handleDeleteCourse = (record) => {
-    console.log(record);
     dispatch(
       deleteCourseFromAdminAction({
         courseId: record.courseId,

@@ -73,6 +73,15 @@ export const courseSlice = createSlice({
     getListDeletedCourseFail: (state) => {
       state.loading = false;
     },
+    restoreDeletedCourseAction: (state) => {
+      state.loading = true;
+    },
+    restoreDeletedCourseSuccess: (state) => {
+      state.loading = false;
+    },
+    restoreDeletedCourseFail: (state) => {
+      state.loading = false;
+    },
     getDetailCourseAction: (state) => {
       state.loading = true;
     },
@@ -194,6 +203,9 @@ export const {
   getListDeletedCourseAction,
   getListDeletedCourseSuccess,
   getListDeletedCourseFail,
+  restoreDeletedCourseAction,
+  restoreDeletedCourseSuccess,
+  restoreDeletedCourseFail,
   getDetailCourseAction,
   getDetailPendingCourseAction,
   getDetailCourseSuccess,

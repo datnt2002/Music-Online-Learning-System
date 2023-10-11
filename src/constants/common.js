@@ -16,3 +16,7 @@ export const DAY_FORMAT = {
 export const STORAGE = {
   COURSE: 'course',
 };
+
+export const PAGINATION = {
+  PAGE_SIZE: 10,
+};

@@ -14,6 +14,7 @@ import {
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 import { useNavigate } from 'react-router-dom';
+import { PAGINATION } from '../../../constants';
 
 const CoursesPending = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ const CoursesPending = () => {
     dispatch(
       getListCoursePendingAction({
         pageIndex: pageIndex,
-        pageSize: 10,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
     return () => {};
@@ -47,18 +48,11 @@ const CoursesPending = () => {
     setOpen(false);
   };
 
-  const handleAcceptCourse = async (record) => {
-    await dispatch(
+  const handleAcceptCourse = (record) => {
+    dispatch(
       approvedCoursePendingAction({
         courseId: record.courseId,
         navigate,
-      })
-    );
-
-    dispatch(
-      getListCoursePendingAction({
-        pageIndex: pageIndex,
-        pageSize: 10,
       })
     );
   };
@@ -92,7 +86,6 @@ const CoursesPending = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-
               <Button
                 onClick={() => {
                   handleAcceptCourse(record);

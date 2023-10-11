@@ -7,8 +7,13 @@ import { EyeOutlined, RetweetOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-import { getDetailCourseAction, getListDeletedCourseAction } from '../../../redux/slice/courseSlice';
+import {
+  getDetailCourseAction,
+  getListDeletedCourseAction,
+  restoreDeletedCourseAction,
+} from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
+import { PAGINATION } from '../../../constants';
 
 const DeleteCourses = () => {
   const [open, setOpen] = useState(false);
@@ -21,14 +26,13 @@ const DeleteCourses = () => {
     dispatch(
       getListDeletedCourseAction({
         pageIndex: pageIndex,
-        pageSize: 5,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
     return () => {};
   }, [dispatch]);
 
   const handleShowDetailCourse = (record) => {
-    console.log(record);
     dispatch(
       getDetailCourseAction({
         courseId: record.courseId,
@@ -42,7 +46,11 @@ const DeleteCourses = () => {
   };
 
   const handleRestoreCourse = (record) => {
-    console.log(record);
+    dispatch(
+      restoreDeletedCourseAction({
+        courseId: record.courseId,
+      })
+    );
   };
 
   return (
