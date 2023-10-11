@@ -6,7 +6,7 @@ import { Rate } from 'antd';
 
 const CourseHorizontalCard = ({ courseData }) => {
   return (
-    <div className="flex p-6 border border-black rounded-2xl ml-4">
+    <div className="flex p-6 border border-black rounded-2xl ml-4" key={courseData.courseId}>
       <div className="mr-6 flex basis-1/3">
         <img src={courseData.courseImg || defaultCourse} className="aspect-video" alt="" />
       </div>

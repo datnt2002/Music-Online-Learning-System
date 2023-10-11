@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Divider, Rate } from 'antd';
-import { ClockCircleOutlined, GlobalOutlined, HighlightOutlined, NotificationOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, HighlightOutlined, NotificationOutlined } from '@ant-design/icons';
 
-import { getDetailCourseAction } from '../../../redux/slice/courseSlice';
+import { getDetailCourseAction, getListCourseAction } from '../../../redux/slice/courseSlice';
 import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import CourseDetailFloatingPanel from '../../../components/Container/CourseContainer/CourseDetailFloatingPanel';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
@@ -15,6 +15,7 @@ import Footer from '../../../components/Common/Footer';
 import WhatLearnDetail from '../../../components/Container/CourseContainer/WhatLearnDetail';
 import CourseContent from '../../../components/Container/CourseContainer/CourseContent';
 import RequirementContainer from '../../../components/Container/CourseContainer/RequirementContainer';
+import { PAGINATION } from '../../../constants';
 
 const CourseDetail = () => {
   const location = useLocation();
@@ -23,7 +24,6 @@ const CourseDetail = () => {
     return item;
   });
   const currentCourse = useSelector((state) => state.course.currentCourse);
-  console.log(currentCourse);
   const listCourse = useSelector((state) => state.course.listCourse);
 
   const dispatch = useDispatch();
@@ -31,6 +31,13 @@ const CourseDetail = () => {
     dispatch(
       getDetailCourseAction({
         courseId: pathNameArray[1],
+      })
+    );
+
+    dispatch(
+      getListCourseAction({
+        pageSize: PAGINATION.PAGE_SIZE,
+        pageIndex: 1,
       })
     );
   }, []);
@@ -64,15 +71,10 @@ const CourseDetail = () => {
             <p className="my-2">
               Created by <Link className="underline">Author Name</Link>
             </p>
-            <div className="flex">
-              <p className="mr-2">
-                <ClockCircleOutlined className="align-[0.125rem]" /> Last update at {currentCourse.updatedAt}
-              </p>
 
-              <p className="ml-2">
-                <GlobalOutlined className="align-[0.125rem]" /> Vietnamese
-              </p>
-            </div>
+            <p className="mr-2">
+              <ClockCircleOutlined className="align-[0.125rem]" /> Last update at {currentCourse.updatedAt}
+            </p>
           </div>
         </div>
         <Divider className="bg-black mt-10 mb-0" />
@@ -93,17 +95,7 @@ const CourseDetail = () => {
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Description</h2>
             <p>
-              React.JS là một thư viện, framework giúp xây dựng một website hiện đại, có tính mở rộng và hiệu năng cực
-              lớn. Các sản phẩm tiêu biểu sử dụng React có thể kể đến như Facebook và Instagram. Được Facebook chống
-              lưng, cũng như đầu tư mạnh mẽ, cộng với một cộng đồng đông đảo sử dụng, React chính là thư viện Frontend
-              phổ biến nhất hiện nay, bỏ xa Vue và Angular. Với tên gọi React ULTIMATE - mục tiêu đề ra của khóa học,
-              đấy chính là nó là phiên bản cuối cùng, là thứ DUY NHẤT các bạn cần, cũng như cập nhật MỚI NHẤT & ĐẦY ĐỦ
-              NHẤT cho người mới bắt đầu, muốn có một góc nhìn "thực sự chính xác" về React.JS. Ngoài ra, khi kết thúc
-              khóa học, các bạn mới bắt đầu sẽ có đủ tự tin để làm chủ React, cũng như hiểu được, nắm vững được những
-              kiến thức cốt lõi nhất để có thể xây dựng, phát triển một website thực tế với React.JS Khóa học sẽ thực sự
-              bổ ích cũng như mang lại rất nhiều kiến thức cho các bạn mới bắt đầu. Với phương châm, học đi đôi với thực
-              hành, chúng ta chỉ học "vừa đủ", chỉ học những kiến thức code lỗi nhất, hi vọng các bạn sẽ học hỏi được
-              nhiều kiến thức, cũng như tự tin sử dụng React cho công việc của mình.
+                {currentCourse.description}
             </p>
           </div>
 

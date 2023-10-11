@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { CaretRightOutlined } from '@ant-design/icons';
+import React from 'react';
+import { CaretRightOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useSelector } from 'react-redux';
 
 const CourseContent = () => {
-  const currentCourse = useSelector((state) => state.course.currentCourse);
-  const [sections, setSections] = useState([]);
-  console.log(sections);
-  console.log(currentCourse);
-  useEffect(() => {
-    setSections(currentCourse.Sections);
-  }, [currentCourse]);
-
+  const sections = useSelector((state) => state.course.listSections);
   const items = sections.map((section) => {
     return {
       key: section.sectionId,
       label: section.sectionName,
       children: section.Lessons.map((lesson) => {
         return {
-          key: section.sectionId,
-          label: 'test',
+          key: lesson.lessonId,
+          label: lesson.lessonName,
+          icon: <VideoCameraOutlined />,
         };
       }),
     };
