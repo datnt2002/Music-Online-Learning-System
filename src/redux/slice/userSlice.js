@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   listAccounts: [],
+  pagination: {},
 };
 
 export const userSlice = createSlice({
@@ -17,7 +18,9 @@ export const userSlice = createSlice({
     },
     getListAccountSuccess: (state, action) => {
       state.loading = false;
-      state.listAccounts = action.payload;
+      const { data, pageSize, pageIndex, totalCount, totalPages } = action.payload;
+      state.listAccounts = data;
+      state.pagination = { pageSize, pageIndex, totalCount, totalPages };
     },
     getListAccountFail: (state) => {
       state.loading = false;

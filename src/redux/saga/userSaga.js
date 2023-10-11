@@ -27,7 +27,7 @@ function* getListAccountSaga() {
       console.log(result);
       switch (result.status) {
         case 200:
-          yield put(getListAccountSuccess(result.data));
+          yield put(getListAccountSuccess(result));
           break;
 
         default:

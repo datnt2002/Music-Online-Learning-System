@@ -6,24 +6,25 @@ import { Content } from 'antd/es/layout/layout';
 
 import { disableUserAction, getListAccountAction } from '../../../redux/slice/userSlice';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
-
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import ModalDisableAccount from '../../../components/Container/ModalContainer/ModalDisableAccount';
+import { PAGINATION } from '../../../constants';
 
 const ManageListAccount = () => {
   //state of modal
   const [open, setOpen] = useState(false);
-  const [dataOfRecord, setDataOfRecord] = useState();
-
-  const dispatch = useDispatch();
+  const [pageIndex, setPageIndex] = useState(1);
   //get list accounts from store
   const listAccounts = useSelector((state) => state.user.listAccounts);
+  const pagination = useSelector((state) => state.course.pagination);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
       getListAccountAction({
-        pageIndex: 1,
-        pageSize: 10,
+        pageIndex: pageIndex,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
     return () => {};
@@ -35,7 +36,6 @@ const ManageListAccount = () => {
   };
 
   const showModal = (record) => {
-    setDataOfRecord(record);
     setOpen(true);
   };
 
@@ -61,6 +61,8 @@ const ManageListAccount = () => {
       >
         <TableAdmin
           dataSource={listAccounts}
+          pagination={pagination}
+          setPageIndex={setPageIndex}
           actions={(record) => (
             <>
               <Button
@@ -69,33 +71,33 @@ const ManageListAccount = () => {
                 }}
                 icon={<UserDeleteOutlined />}
               />
-              {open && (
-                <Modal
-                  open={open}
-                  title="Disable User"
-                  onCancel={handleCancel}
-                  footer={[
-                    <Button key="back" onClick={handleCancel}>
-                      Return
-                    </Button>,
-                    <Button
-                      className="bg-amber-500"
-                      key="submit"
-                      type="primary"
-                      onClick={() => {
-                        handleDisableUser(dataOfRecord.id);
-                      }}
-                    >
-                      Delete this user
-                    </Button>,
-                  ]}
-                >
-                  {dataOfRecord && <ModalDisableAccount data={dataOfRecord} />}
-                </Modal>
-              )}
             </>
           )}
         />
+        {open && (
+          <Modal
+            open={open}
+            title="Disable User"
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Return
+              </Button>,
+              <Button
+                className="bg-black"
+                key="submit"
+                type="primary"
+                onClick={() => {
+                  handleDisableUser();
+                }}
+              >
+                Delete this user
+              </Button>,
+            ]}
+          >
+            <ModalDisableAccount />
+          </Modal>
+        )}
       </Content>
     </Layout>
   );
