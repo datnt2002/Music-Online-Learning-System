@@ -106,6 +106,8 @@ export const CREATE_LESSON_FORM_FIELDS = {
   LESSON_DESCRIPTION_LABEL: 'Description',
   LESSON_VIDEO: 'file',
   LESSON_VIDEO_LABEL: 'Video',
+  SECTION_ID: 'sectionId',
+  SECTION_LABEL: 'Section Name',
 };
 
 export const VALIDATE_MESSAGE = {
@@ -136,6 +138,9 @@ export const VALIDATE_MESSAGE = {
   BRIEF_DESCRIPTION_REQUIRED: 'Please input brief description!',
   PRICE_REQUIRED: 'Please input price',
   DESCRIPTION_REQUIRED: 'Please input description!',
+  SECTION_REQUIRED: 'Please choose section',
+  LESSON_REQUIRED: 'Please enter lesson name',
+  LESSON_DESCRIPTION_REQUIRED: 'Please enter lesson description',
 };
 
 export const PLACEHOLDER_FORM = {

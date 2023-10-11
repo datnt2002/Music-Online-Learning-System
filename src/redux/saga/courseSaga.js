@@ -180,7 +180,6 @@ function* getDetailPendingCourseSaga() {
       const { accessToken } = getTokenFromStorage();
       const result = yield call(getDetailPendingCourse, { courseId, accessToken });
 
-      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getDetailCourseSuccess(result.data));
@@ -397,11 +396,10 @@ function* createNewSectionSaga() {
       const {
         payload: { sectionName, courseId, navigate },
       } = yield take(createNewSectionAction);
-      console.log(sectionName, courseId);
-      const { accessToken } = getTokenFromStorage();
 
+      const { accessToken } = getTokenFromStorage();
       const result = yield call(createNewSection, { sectionName, courseId, accessToken });
-      console.log(result);
+
       switch (result.status) {
         case 200:
           yield put(createNewSectionSuccess(result.data));
@@ -439,14 +437,12 @@ function* createNewLessonSaga() {
   while (true) {
     try {
       const {
-        payload: { lessonName, courseId, file, navigate },
+        payload: { lessonName, sectionId, file, lessonDescription, navigate },
       } = yield take(createNewLessonAction);
-      console.log(lessonName, courseId);
 
       const { accessToken } = getTokenFromStorage();
+      const result = yield call(createNewLesson, { lessonName, sectionId, file, accessToken });
 
-      const result = yield call(createNewLesson, { lessonName, file, accessToken });
-      console.log(result);
       switch (result.status) {
         case 200:
           yield put(createNewLessonSuccess(result.data));
@@ -466,7 +462,7 @@ function* createNewLessonSaga() {
           });
           // .then((result) => {
           //   if (result.isConfirmed) {
-          //     navigate(LECTURER_ROUTE.CREATE_NEW_LESSON);
+          //     navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
           //   }
           // });
           break;

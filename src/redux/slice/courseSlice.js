@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   listCourse: [],
+  listSections: [],
   pagination: {},
   currentCourse: {},
   currentSection: {},
@@ -90,7 +91,9 @@ export const courseSlice = createSlice({
     },
     getDetailCourseSuccess: (state, action) => {
       state.loading = false;
+      const { Sections } = action.payload;
       state.currentCourse = action.payload;
+      state.listSections = Sections;
     },
     getDetailCourseFail: (state) => {
       state.loading = false;

@@ -128,10 +128,9 @@ export const createNewCourse = (data) => {
 };
 
 export const createNewSection = (data) => {
-  console.log(data);
   return axiosClient
     .post(
-      'sections/',
+      'sections',
       {
         sectionName: data.sectionName,
         courseId: data.courseId,
@@ -149,8 +148,7 @@ export const createNewSection = (data) => {
 export const createNewLesson = (data) => {
   const formData = new FormData();
   formData.append('lessonName', data.lessonName);
-  formData.append('grade', 1);
-  formData.append('courseId', 'ffa08870-53b9-11ee-b2b4-3fb8c5bea852');
+  formData.append('sectionId', data.sectionId);
   formData.append('file', data.file);
   console.log(data);
   return axiosClient
