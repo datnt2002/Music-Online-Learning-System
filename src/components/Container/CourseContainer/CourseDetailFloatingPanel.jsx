@@ -3,8 +3,14 @@ import React from 'react';
 import { Button } from 'antd';
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import { YoutubeOutlined, MobileOutlined, RollbackOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { USER_ROUTE } from '../../../constants';
 
 const CourseDetailFloatingPanel = ({ data }) => {
+  const navigate = useNavigate();
+  const handleBuyCourse = () => {
+    navigate(USER_ROUTE.PAYMENT);
+  };
   return (
     <div className="bg-white border-black border rounded-3xl shadow-2xl fixed top-32 right-28 w-96 ">
       <img
@@ -20,7 +26,7 @@ const CourseDetailFloatingPanel = ({ data }) => {
           <Button className="border border-black my-1" size="middle">
             Add to Cart
           </Button>
-          <Button className="border border-black my-1" size="middle">
+          <Button className="border border-black my-1" size="middle" onClick={handleBuyCourse}>
             Buy Now
           </Button>
         </div>

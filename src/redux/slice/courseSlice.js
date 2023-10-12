@@ -183,9 +183,15 @@ export const courseSlice = createSlice({
     deleteSubCategoriesFail: (state) => {
       state.loading = false;
     },
-    createPaymentAction: (state) => {},
-    createPaymentSuccess: (state) => {},
-    createPaymentFail: (state) => {},
+    createPaymentAction: (state) => {
+      state.loading = true;
+    },
+    createPaymentSuccess: (state) => {
+      state.loading = false;
+    },
+    createPaymentFail: (state) => {
+      state.loading = false;
+    },
   },
 });
 
