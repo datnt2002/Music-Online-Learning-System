@@ -15,6 +15,7 @@ export const DAY_FORMAT = {
 
 export const STORAGE = {
   COURSE: 'course',
+  COURSE_ID: 'courseId',
 };
 
 export const PAGINATION = {

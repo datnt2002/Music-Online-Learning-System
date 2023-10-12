@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import HeaderDefault from '../../Layout/User/HeaderDefault';
 import Footer from '../Footer';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
-import { PUBLIC_ROUTE } from '../../../constants';
+import { PAGINATION, PUBLIC_ROUTE } from '../../../constants';
 import getTokenFromStorage from '../../../utils/getTokenFromStorage';
+import { getListCourseAction } from '../../../redux/slice/courseSlice';
 
 const UserRoute = ({ children }) => {
   const authToken = getTokenFromStorage();
@@ -21,6 +22,15 @@ const UserRoute = ({ children }) => {
       dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
     }
   }, [navigate, authToken, dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(
+  //     getListCourseAction({
+  //       pageIndex: 1,
+  //       pageSize: PAGINATION.PAGE_SIZE,
+  //     })
+  //   );
+  // }, []);
 
   return (
     <>

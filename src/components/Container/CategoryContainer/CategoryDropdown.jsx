@@ -6,6 +6,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 import { getListCategoryAction } from '../../../redux/slice/courseSlice';
 import { Categories } from '../../../constants/mockData';
+import { PAGINATION } from '../../../constants';
 
 const CategoryDropdown = () => {
   const categories = useSelector((state) => state.course.listCategory);
@@ -18,16 +19,16 @@ const CategoryDropdown = () => {
       }).map((subCate) => {
         return {
           key: subCate.subCateId,
-          label: subCate.subCateName
-        }
-      })
+          label: subCate.subCateName,
+        };
+      }),
     };
   });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       getListCategoryAction({
-        pageSize: 10,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
   }, [dispatch]);

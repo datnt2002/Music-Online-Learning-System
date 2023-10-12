@@ -324,7 +324,6 @@ function* getDetailCourseSaga() {
 
       const result = yield call(getDetailCourse, { courseId });
 
-      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getDetailCourseSuccess(result.data));

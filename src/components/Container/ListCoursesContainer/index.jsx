@@ -5,7 +5,7 @@ import { Button, Carousel, Rate } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
-import { PUBLIC_ROUTE } from '../../../constants';
+import { PUBLIC_ROUTE, STORAGE } from '../../../constants';
 import defaultCourse from '../../../assets/imgs/default-course.png';
 
 const ListContainer = () => {
@@ -27,6 +27,7 @@ const ListContainer = () => {
 
   const handleViewDetailCourse = (courseId) => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
+    localStorage.setItem(STORAGE.COURSE_ID, courseId);
   };
 
   return (
