@@ -34,8 +34,8 @@ axiosClient.interceptors.response.use(
     // Show error
     const originalRequest = error.config;
     console.log('interceptor', error.response.data);
-    switch (error.response.data.status) {
-      case 400:
+    switch (true) {
+      case error.response.data.status === 400:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -43,7 +43,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case 401:
+      case error.response.data.status === 401:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -51,21 +51,30 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case 403 && error.response.data.errors === 'token expired':
+      case error.response.data.status === 403 && error.response.data.errors === 'token expired':
         try {
           //call api get new access token
           const result = await getAccessToken();
           //set new token to session storage
-          sessionStorage.setItem(TOKEN.ACCESS_TOKEN, result.data);
+          const authToken = { accessToken: result.data.accessToken, refreshToken: result.data.newRefreshToken };
+          sessionStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           //set new header with new token
-          originalRequest.headers['Authorization'] = `Bearer ${result.data}`;
+          originalRequest.headers['Authorization'] = `Bearer ${result.data.accessToken}`;
           //resend the original request
           axios(originalRequest);
         } catch (error) {
           console.log(error);
         }
         break;
-      case 403:
+      // case error.response.data.status === 403:
+      //   Swal.fire({
+      //     title: 'Error!',
+      //     text: error.response.data.message || API_ERROR.DEFAULT,
+      //     icon: 'error',
+      //     confirmButtonText: 'Got it!',
+      //   });
+      //   break;
+      case error.response.data.status === 404:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -73,7 +82,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case 404:
+      case error.response.data.status === 409:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,
@@ -81,15 +90,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case 409:
-        Swal.fire({
-          title: 'Error!',
-          text: error.response.data.message || API_ERROR.DEFAULT,
-          icon: 'error',
-          confirmButtonText: 'Got it!',
-        });
-        break;
-      case 500:
+      case error.response.data.status === 500:
         Swal.fire({
           title: 'Error!',
           text: error.response.data.message || API_ERROR.DEFAULT,

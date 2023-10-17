@@ -60,7 +60,8 @@ export const getCurrentUser = (data) => {
 };
 
 export const getAccessToken = () => {
-  const refreshToken = sessionStorage.getItem(TOKEN.REFRESH_TOKEN) || localStorage.getItem(TOKEN.REFRESH_TOKEN);
+  const { refreshToken } =
+    JSON.parse(sessionStorage.getItem(TOKEN.AUTH_TOKEN)) || JSON.parse(localStorage.getItem(TOKEN.AUTH_TOKEN));
   return axiosClient
     .post('users/auth/refreshtoken', { refreshToken })
     .then((res) => {

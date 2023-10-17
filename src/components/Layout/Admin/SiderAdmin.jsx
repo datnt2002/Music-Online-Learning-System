@@ -23,7 +23,7 @@ import { ADMIN_ROUTE } from '../../../constants';
 
 const SiderAdmin = () => {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const items = [
     {

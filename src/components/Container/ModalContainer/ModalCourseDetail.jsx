@@ -1,34 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Divider, Menu } from 'antd';
-import { ClockCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, CaretRightOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import courseImg from '../../../assets/imgs/default-course.png';
 import Loading from '../../Common/Loading';
-import { DAY_FORMAT } from '../../../constants';
+import { DAY_FORMAT, USER_ROUTE } from '../../../constants';
 
-function getItem(label, key, children, type) {
-  return {
-    key,
-    children,
-    label,
-    type,
-  };
-}
-const items = [
-  getItem('Navigation One', 'sub1', [
-    getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),
-    getItem('Item 2', 'g2', null, [getItem('Option 3', '3'), getItem('Option 4', '4')], 'group'),
-  ]),
-];
 const ModalCourseDetail = () => {
   const data = useSelector((state) => state.course.currentCourse);
+  const listSections = useSelector((state) => state.course.listSections);
   const loading = useSelector((state) => state.course.loading);
+
+  const navigate = useNavigate();
+
+  const items = listSections.map((section) => {
+    return {
+      key: section.sectionId,
+      label: section.sectionName,
+      children: section.Lessons.map((lesson) => {
+        return {
+          key: lesson.lessonId,
+          label: lesson.lessonName,
+          icon: <VideoCameraOutlined />,
+        };
+      }),
+    };
+  });
   const onClick = (e) => {
     console.log('click ', e);
+    navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
   };
   return (
     <>
@@ -38,14 +42,14 @@ const ModalCourseDetail = () => {
         <div className="ml-16 flex flex-1 flex-col">
           <h1 className="mr-2">Course ID: {data.courseId}</h1>
           <h1 className="mr-2">Price: ${data.price}</h1>
-          <h2 className="text-xl my-2">{data.courseName}</h2>
+          <h2 className="text-xl my-2 font-bohemian">{data.courseName}</h2>
 
           <p className="my-2">
             Created by <Link className="underline">{data.createdBy}</Link>
           </p>
 
           <p className="mr-2">
-            <ClockCircleOutlined className="align-[0.125rem]" /> Last update at
+            <ClockCircleOutlined className="align-[0.125rem]" /> <span className="mr-1">Last update at</span>
             {dayjs(data.createdAt).format(DAY_FORMAT.D_M_Y)}
           </p>
         </div>
