@@ -36,7 +36,10 @@ export const courseSlice = createSlice({
     },
     deleteCourseFromAdminSuccess: (state, action) => {
       state.loading = false;
-      state.listCourse = action.payload;
+      state.currentCourse = action.payload;
+      state.listCourse = state.listCourse.filter((course) => {
+        return course.courseId !== action.payload.courseId;
+      });
     },
     deleteCourseFromAdminFail: (state) => {
       state.loading = false;
@@ -58,6 +61,7 @@ export const courseSlice = createSlice({
     },
     approvedCoursePendingSuccess: (state, action) => {
       state.loading = false;
+      console.log(action.payload);
     },
     approvedCoursePendingFail: (state) => {
       state.loading = false;
@@ -77,8 +81,12 @@ export const courseSlice = createSlice({
     restoreDeletedCourseAction: (state) => {
       state.loading = true;
     },
-    restoreDeletedCourseSuccess: (state) => {
+    restoreDeletedCourseSuccess: (state, action) => {
       state.loading = false;
+      state.currentCourse = action.payload;
+      state.listCourse = state.listCourse.filter((course) => {
+        return course.courseId !== action.payload.courseId;
+      });
     },
     restoreDeletedCourseFail: (state) => {
       state.loading = false;

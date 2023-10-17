@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Layout, Modal, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { useNavigate } from 'react-router-dom';
 import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
@@ -23,7 +22,6 @@ const ManageListCourses = () => {
   const pagination = useSelector((state) => state.course.pagination);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
@@ -48,7 +46,6 @@ const ManageListCourses = () => {
     dispatch(
       deleteCourseFromAdminAction({
         courseId: record.courseId,
-        navigate,
       })
     );
   };

@@ -21,9 +21,8 @@ const CoursesPending = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
   const pagination = useSelector((state) => state.course.pagination);
-  console.log(listCourse);
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
@@ -52,7 +51,6 @@ const CoursesPending = () => {
     dispatch(
       approvedCoursePendingAction({
         courseId: record.courseId,
-        navigate,
       })
     );
   };

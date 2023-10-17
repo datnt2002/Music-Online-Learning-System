@@ -20,6 +20,7 @@ const DeleteCourses = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
   const pagination = useSelector((state) => state.course.pagination);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const DeleteCourses = () => {
       })
     );
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, pageIndex]);
 
   const handleShowDetailCourse = (record) => {
     dispatch(

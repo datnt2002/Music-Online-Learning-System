@@ -109,7 +109,7 @@ function* deleteCourseFromAdminSaga() {
   while (true) {
     try {
       const {
-        payload: { courseId, navigate },
+        payload: { courseId },
       } = yield take(deleteCourseFromAdminAction);
 
       const { accessToken } = getTokenFromStorage();
@@ -132,11 +132,6 @@ function* deleteCourseFromAdminSaga() {
             `,
             confirmButtonText: 'Got it',
           });
-          // .then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate(ADMIN_ROUTE.DELETE_COURSES);
-          //   }
-          // });
           break;
 
         default:
@@ -203,7 +198,7 @@ function* approvedCoursePendingSaga() {
   while (true) {
     try {
       const {
-        payload: { courseId, navigate },
+        payload: { courseId },
       } = yield take(approvedCoursePendingAction);
 
       const { accessToken } = getTokenFromStorage();
@@ -226,12 +221,6 @@ function* approvedCoursePendingSaga() {
             `,
             confirmButtonText: 'Got it',
           });
-
-          // .then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate(ADMIN_ROUTE.LIST_COURSES);
-          //   }
-          // });
           break;
 
         default:
@@ -253,7 +242,7 @@ function* getListCourseDeletedSaga() {
 
       const { accessToken } = getTokenFromStorage();
       const result = yield call(getListDeleteCourse, { pageSize, pageIndex, accessToken });
-
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getListDeletedCourseSuccess(result));
@@ -279,7 +268,7 @@ function* restoreCourseSaga() {
 
       const { accessToken } = getTokenFromStorage();
       const result = yield call(restoreDeleteCourse, { courseId, accessToken });
-
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(restoreDeletedCourseSuccess(result.data));
@@ -297,12 +286,6 @@ function* restoreCourseSaga() {
             `,
             confirmButtonText: 'Got it',
           });
-
-          // .then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate(ADMIN_ROUTE.LIST_COURSES);
-          //   }
-          // });
           break;
 
         default:
