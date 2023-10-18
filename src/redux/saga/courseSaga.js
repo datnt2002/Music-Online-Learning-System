@@ -258,7 +258,6 @@ function* getListCourseDeletedSaga() {
           yield put(getListDeletedCourseFail(result));
           break;
       }
-      break;
     } catch (error) {
       console.log(error);
     }

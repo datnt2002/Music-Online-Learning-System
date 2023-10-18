@@ -249,9 +249,24 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
-    createCategoryAction: (state) => {},
-    createCategorySuccess: (state) => {},
-    createCategoryFail: (state) => {},
+    createCategoryAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    createCategorySuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    createCategoryFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     editCategoryAction: (state) => {
       return {
         ...state,

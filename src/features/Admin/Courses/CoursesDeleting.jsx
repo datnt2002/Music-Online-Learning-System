@@ -14,8 +14,9 @@ import {
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 import { PAGINATION } from '../../../constants';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
-const DeleteCourses = () => {
+const CoursesDeleting = () => {
   const [open, setOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
@@ -53,13 +54,8 @@ const DeleteCourses = () => {
       })
     );
   };
-
   return (
-    <Layout
-      style={{
-        padding: '0 24px 24px',
-      }}
-    >
+    <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       <div className="my-5 ml-6">
         <BreadCrumbCustom />
       </div>
@@ -83,7 +79,6 @@ const DeleteCourses = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-
               <Button
                 onClick={() => {
                   handleRestoreCourse(record);
@@ -113,4 +108,4 @@ const DeleteCourses = () => {
   );
 };
 
-export default DeleteCourses;
+export default CoursesDeleting;

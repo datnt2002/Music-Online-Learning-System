@@ -30,10 +30,10 @@ import CoursesPending from '../features/Admin/Courses/CoursesPending';
 import LecturerRequests from '../features/Admin/Accounts/LecturerRequests';
 import ManageListCategories from '../features/Admin/Categories/ManageListCategories';
 import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
-import DeleteCourses from '../features/Admin/Courses/DeleteCourses';
 import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
 import LecturerRequestForm from '../features/Profile/LecturerRequestForm';
+import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -197,10 +197,10 @@ export const adminRoutes = [
     ),
   },
   {
-    path: 'delete-courses',
+    path: 'deleted-courses',
     element: (
       <AdminRoute>
-        <DeleteCourses />
+        <CoursesDeleting />
       </AdminRoute>
     ),
   },

@@ -14,6 +14,7 @@ import {
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 import { PAGINATION } from '../../../constants';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const ManageListCourses = () => {
   const [open, setOpen] = useState(false);
@@ -54,11 +55,7 @@ const ManageListCourses = () => {
     setOpen(false);
   };
   return (
-    <Layout
-      style={{
-        padding: '0 24px 24px',
-      }}
-    >
+    <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       <div className="my-5 ml-6">
         <BreadCrumbCustom />
       </div>

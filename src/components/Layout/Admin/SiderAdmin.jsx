@@ -48,7 +48,7 @@ const SiderAdmin = () => {
         },
         {
           key: ADMIN_ROUTE.DELETE_COURSES,
-          label: 'Delete Courses',
+          label: 'Deleted Courses',
           icon: <DeleteRowOutlined />,
         },
       ],
