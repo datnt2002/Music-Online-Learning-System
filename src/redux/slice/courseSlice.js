@@ -20,19 +20,31 @@ export const courseSlice = createSlice({
       return initialState;
     },
     getListCourseAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getListCourseSuccess: (state, action) => {
-      state.loading = false;
       const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
-      state.listCourse = data;
-      state.pagination = { pageIndex, pageSize, totalCount, totalPages };
+      return {
+        ...state,
+        loading: false,
+        listCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
     },
     getListCourseFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     deleteCourseFromAdminAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     deleteCourseFromAdminSuccess: (state, action) => {
       state.loading = false;
@@ -42,60 +54,96 @@ export const courseSlice = createSlice({
       });
     },
     deleteCourseFromAdminFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     getListCoursePendingAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getListCoursePendingSuccess: (state, action) => {
-      state.loading = false;
       const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
-      state.listCourse = data;
-      state.pagination = { pageIndex, pageSize, totalCount, totalPages };
+      return {
+        ...state,
+        loading: false,
+        listCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
     },
     getListCoursePendingFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     approvedCoursePendingAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     approvedCoursePendingSuccess: (state, action) => {
       state.loading = false;
       console.log(action.payload);
     },
     approvedCoursePendingFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     getListDeletedCourseAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getListDeletedCourseSuccess: (state, action) => {
-      state.loading = false;
       const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
-      state.listCourse = data;
-      state.pagination = { pageIndex, pageSize, totalCount, totalPages };
+      return {
+        ...state,
+        loading: false,
+        listCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
     },
     getListDeletedCourseFail: (state) => {
       state.loading = false;
     },
     restoreDeletedCourseAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     restoreDeletedCourseSuccess: (state, action) => {
-      state.loading = false;
-      state.currentCourse = action.payload;
-      state.listCourse = state.listCourse.filter((course) => {
-        return course.courseId !== action.payload.courseId;
-      });
+      return {
+        ...state,
+        loading: false,
+        currentCourse: action.payload,
+        listCourse: state.listCourse.filter((course) => {
+          return course.courseId !== action.payload.courseId;
+        }),
+      };
     },
     restoreDeletedCourseFail: (state) => {
       state.loading = false;
     },
     getDetailCourseAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getDetailPendingCourseAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getDetailCourseSuccess: (state, action) => {
       state.loading = false;
@@ -107,7 +155,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     createNewCourseAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     createNewCourseSuccess: (state, action) => {
       state.loading = false;
@@ -117,7 +168,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     createNewSectionAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     createNewSectionSuccess: (state, action) => {
       state.loading = false;
@@ -127,7 +181,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     createNewLessonAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     createNewLessonSuccess: (state, action) => {
       state.loading = false;
@@ -137,7 +194,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     getDetailLessonAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getDetailLessonSuccess: (state, action) => {
       state.loading = false;
@@ -147,7 +207,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     getListCategoryAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getListCategorySuccess: (state, action) => {
       state.loading = false;
@@ -163,7 +226,10 @@ export const courseSlice = createSlice({
     editCategorySuccess: (state) => {},
     editCategoryFail: (state) => {},
     getSubCategoriesAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getSubCategoriesSuccess: (state, action) => {
       state.loading = false;
@@ -173,7 +239,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     createSubCategoriesAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     createSubCategoriesSuccess: (state, action) => {
       state.loading = false;
@@ -183,7 +252,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     deleteSubCategoriesAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     deleteSubCategoriesSuccess: (state) => {
       state.loading = false;
@@ -192,7 +264,10 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
     createPaymentAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     createPaymentSuccess: (state) => {
       state.loading = false;

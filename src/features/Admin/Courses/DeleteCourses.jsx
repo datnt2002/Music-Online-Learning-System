@@ -14,6 +14,7 @@ import {
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 import { PAGINATION } from '../../../constants';
+import getTokenFromStorage from '../../../utils/getTokenFromStorage';
 
 const DeleteCourses = () => {
   const [open, setOpen] = useState(false);
@@ -24,10 +25,12 @@ const DeleteCourses = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let { accessToken } = getTokenFromStorage();
     dispatch(
       getListDeletedCourseAction({
         pageIndex: pageIndex,
         pageSize: PAGINATION.PAGE_SIZE,
+        accessToken: accessToken,
       })
     );
     return () => {};

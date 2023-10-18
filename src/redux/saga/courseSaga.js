@@ -237,10 +237,9 @@ function* getListCourseDeletedSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize, pageIndex },
+        payload: { pageSize, pageIndex, accessToken },
       } = yield take(getListDeletedCourseAction);
 
-      const { accessToken } = getTokenFromStorage();
       const result = yield call(getListDeleteCourse, { pageSize, pageIndex, accessToken });
       console.log(result);
       switch (result.status) {

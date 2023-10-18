@@ -14,7 +14,7 @@ export const userSlice = createSlice({
       return initialState;
     },
     getListAccountAction: (state) => {
-      state.loading = true;
+      return { ...state, loading: true };
     },
     getListAccountSuccess: (state, action) => {
       state.loading = false;

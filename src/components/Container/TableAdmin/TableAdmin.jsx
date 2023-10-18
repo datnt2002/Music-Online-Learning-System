@@ -4,6 +4,7 @@ import { Empty, Table } from 'antd';
 import flattenObj from '../../../utils/flattenObj';
 import dayjs from 'dayjs';
 import { DAY_FORMAT, TABLE_COLUMN } from '../../../constants';
+import formatTitleTable from '../../../utils/formatTitleTable';
 
 const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
   if (dataSource.length > 0) {
@@ -23,7 +24,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       if (column === TABLE_COLUMN.CREATED_AT || column === TABLE_COLUMN.UPDATED_AT) {
         data = {
           key: column,
-          title: column,
+          title: formatTitleTable(column),
           dataIndex: column,
           sorter: (a, b) => {
             if (a[column] > b[column]) {
@@ -45,7 +46,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       } else {
         data = {
           key: column,
-          title: column,
+          title: formatTitleTable(column),
           dataIndex: column,
           sorter: (a, b) => {
             if (a[column] > b[column]) {

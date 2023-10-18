@@ -28,7 +28,7 @@ const ManageListAccount = () => {
       })
     );
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, pageIndex]);
 
   const handleDisableUser = (id) => {
     dispatch(disableUserAction({ id }));
