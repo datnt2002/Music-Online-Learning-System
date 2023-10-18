@@ -226,8 +226,13 @@ export const getSubCategories = (data) => {
 };
 
 export const createSubCate = (data) => {
+  console.log(data);
   return axiosClient
-    .post('sub-categories', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .post(
+      'sub-categories',
+      { cateId: data.cateId, subCateName: data.subCateName },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
     .then((res) => {
       return res;
     })

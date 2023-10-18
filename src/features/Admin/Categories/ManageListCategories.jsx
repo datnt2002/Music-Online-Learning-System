@@ -10,6 +10,7 @@ import ExpandedTable from '../../../components/Container/TableAdmin/ExpandedTabl
 import { editCategoryAction, getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
 import ModalEditCategory from '../../../components/Container/ModalContainer/ModalEditCategory';
 import { PAGINATION } from '../../../constants';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const ManageListCategories = () => {
   const [open, setOpen] = useState(false);
@@ -60,11 +61,7 @@ const ManageListCategories = () => {
   };
 
   return (
-    <Layout
-      style={{
-        padding: '0 24px 24px',
-      }}
-    >
+    <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       <div className="my-5 ml-6">
         <BreadCrumbCustom />
       </div>

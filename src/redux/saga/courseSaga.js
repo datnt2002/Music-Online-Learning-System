@@ -11,6 +11,7 @@ import {
   createNewLesson,
   createNewSection,
   createPayment,
+  createSubCate,
   deleteCourseFromAdmin,
   deleteSubCate,
   getDetailCourse,
@@ -643,13 +644,14 @@ function* createSubCateSaga() {
   while (true) {
     try {
       const {
-        payload: { cateId, subCateName },
+        payload: { cateId, subCateName, navigate },
       } = yield take(createSubCategoriesAction);
-      const { accessToken } = getTokenFromStorage();
-      const result = yield call(getSubCategories, { cateId, subCateName, accessToken });
 
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(createSubCate, { cateId, subCateName, accessToken });
+      console.log(result);
       switch (result.status) {
-        case 200:
+        case 201:
           yield put(createSubCategoriesSuccess(result.data));
           Swal.fire({
             title: result.message,
@@ -664,11 +666,15 @@ function* createSubCateSaga() {
               no-repeat
             `,
             confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(ADMIN_ROUTE.LIST_CATEGORIES);
+            }
           });
           break;
 
         default:
-          yield put(createSubCategoriesFail());
+          yield put(createSubCategoriesFail(result));
           break;
       }
     } catch (error) {

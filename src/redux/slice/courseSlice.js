@@ -303,11 +303,17 @@ export const courseSlice = createSlice({
       };
     },
     createSubCategoriesSuccess: (state, action) => {
-      state.loading = false;
-      state.listSubcategories.push(action.payload);
+      return {
+        ...state,
+        loading: false,
+        listSubcategories: [...state.listSubcategories, action.payload],
+      };
     },
     createSubCategoriesFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     deleteSubCategoriesAction: (state) => {
       return {
