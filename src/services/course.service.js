@@ -216,7 +216,7 @@ export const EditCategory = (data) => {
 
 export const getSubCategories = (data) => {
   return axiosClient
-    .get(`sub-categories/${data.cateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get(`sub-categories/by-category/${data.cateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

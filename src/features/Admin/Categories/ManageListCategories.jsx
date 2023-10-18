@@ -52,7 +52,6 @@ const ManageListCategories = () => {
   };
 
   const handleGetSubCategories = (record) => {
-    console.log(record);
     dispatch(
       getSubCategoriesAction({
         cateId: record.cateId,

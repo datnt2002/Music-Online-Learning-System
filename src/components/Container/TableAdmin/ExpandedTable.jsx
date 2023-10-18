@@ -98,7 +98,7 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData, pagin
           expandedRowRender: (record) =>
             expandedData.map((data, index) => {
               return data.cateId === record.cateId ? (
-                <div key={index} className="flex justify-between mx-4">
+                <div key={index} className="flex justify-between mx-5 mb-2">
                   <p>
                     Sub Cate ID: {data.subCateId} | Sub Category Name: {data.subCateName}
                   </p>

@@ -284,11 +284,17 @@ export const courseSlice = createSlice({
       };
     },
     getSubCategoriesSuccess: (state, action) => {
-      state.loading = false;
-      state.listSubcategories.push(action.payload);
+      return {
+        ...state,
+        loading: true,
+        listSubcategories: state.listSubcategories.concat(action.payload),
+      };
     },
     getSubCategoriesFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     createSubCategoriesAction: (state) => {
       return {

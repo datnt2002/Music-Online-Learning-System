@@ -598,35 +598,39 @@ function* editCategorySaga() {
 
 const getListSubCategoriesFromStore = (state) => state.course.listSubcategories;
 
-function* getSubCateSaga() {
+function* getSubCateByCateIdSaga() {
   while (true) {
     try {
       const {
         payload: { cateId },
       } = yield take(getSubCategoriesAction);
+
       const { accessToken } = getTokenFromStorage();
       const result = yield call(getSubCategories, { cateId, accessToken });
-
+      console.log(result);
       let listSubCate = yield select(getListSubCategoriesFromStore);
 
       switch (result.status) {
         case 200:
+          //if listSubCate in the store is empty, add new data.
           if (listSubCate.length === 0) {
             yield put(getSubCategoriesSuccess(result.data));
           } else {
-            //check if in the store, the sub category hasn't been push
-            let isDuplicated = listSubCate.some((subCate) => {
-              return subCate.subCateId === result.data.subCateId;
-            });
-
-            if (!isDuplicated) {
-              yield put(getSubCategoriesSuccess(result.data));
+            // Iterate through each object in result.data
+            for (const newData of result.data) {
+              // Check if newData's subCateId is already in listSubCate
+              const isDuplicated = listSubCate.some((subCate) => {
+                return subCate.subCateId === newData.subCateId;
+              });
+              if (!isDuplicated) {
+                yield put(getSubCategoriesSuccess(newData));
+              }
             }
           }
           break;
 
         default:
-          yield put(getSubCategoriesFail());
+          yield put(getSubCategoriesFail(result));
           break;
       }
     } catch (error) {
@@ -746,7 +750,7 @@ export default function* courseSaga() {
   yield fork(getDetailLessonSaga);
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
-  yield fork(getSubCateSaga);
+  yield fork(getSubCateByCateIdSaga);
   yield fork(createSubCateSaga);
   yield fork(deleteSubCateSaga);
   yield fork(paymentSaga);
