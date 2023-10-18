@@ -9,44 +9,37 @@ import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/
 import ExpandedTable from '../../../components/Container/TableAdmin/ExpandedTable';
 import { editCategoryAction, getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
 import ModalEditCategory from '../../../components/Container/ModalContainer/ModalEditCategory';
+import { PAGINATION } from '../../../constants';
 
 const ManageListCategories = () => {
   const [open, setOpen] = useState(false);
   const [dataOfRecord, setDataOfRecord] = useState();
-
+  const [pageIndex, setPageIndex] = useState(1);
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubcategories = useSelector((state) => state.course.listSubcategories);
+  const pagination = useSelector((state) => state.course.pagination);
 
   useEffect(() => {
     dispatch(
       getListCategoryAction({
-        pageIndex: 1,
-        pageSize: 5,
+        pageIndex: pageIndex,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, pageIndex]);
 
-  const handleEditCategory = async (record) => {
-    console.log(record);
-    await dispatch(
+  const handleEditCategory = (record) => {
+    dispatch(
       editCategoryAction({
         cateId: record.cateId,
         cateName: record.cateName,
       })
     );
     setOpen(false);
-    console.log('Before dispatch:', listCategories);
-    await dispatch(
-      getListCategoryAction({
-        pageIndex: 1,
-        pageSize: 5,
-      })
-    );
-    console.log('After dispatch:', listCategories);
   };
 
   const showModal = (record) => {
@@ -86,6 +79,8 @@ const ManageListCategories = () => {
       >
         <ExpandedTable
           dataSource={listCategories}
+          pagination={pagination}
+          setPageIndex={setPageIndex}
           onClickExpand={handleGetSubCategories}
           expandedData={listSubcategories}
           actions={(record) => (
@@ -96,33 +91,33 @@ const ManageListCategories = () => {
                 }}
                 icon={<EditOutlined />}
               />
-              {open && (
-                <Modal
-                  open={open}
-                  title="Edit Category"
-                  onCancel={handleCancel}
-                  footer={[
-                    <Button key="back" onClick={handleCancel}>
-                      Return
-                    </Button>,
-                    <Button
-                      className="bg-amber-500"
-                      key="submit"
-                      type="primary"
-                      onClick={() => {
-                        form.submit();
-                      }}
-                    >
-                      Edit category
-                    </Button>,
-                  ]}
-                >
-                  {dataOfRecord && <ModalEditCategory onFinish={handleEditCategory} form={form} data={dataOfRecord} />}
-                </Modal>
-              )}
             </Space>
           )}
         />
+        {open && (
+          <Modal
+            open={open}
+            title="Edit Category"
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Return
+              </Button>,
+              <Button
+                className="bg-black"
+                key="submit"
+                type="primary"
+                onClick={() => {
+                  form.submit();
+                }}
+              >
+                Edit category
+              </Button>,
+            ]}
+          >
+            {dataOfRecord && <ModalEditCategory onFinish={handleEditCategory} form={form} data={dataOfRecord} />}
+          </Modal>
+        )}
       </Content>
     </Layout>
   );

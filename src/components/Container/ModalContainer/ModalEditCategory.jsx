@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Form, Input } from 'antd';
+
 import { EDIT_CATEGORY_FORM_FIELDS } from '../../../constants';
 
 const ModalEditCategory = ({ form, data, onFinish }) => {
-  console.log(data);
-
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);

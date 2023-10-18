@@ -7,8 +7,9 @@ import { PlusOutlined, MinusOutlined, DeleteOutlined } from '@ant-design/icons';
 import flattenObj from '../../../utils/flattenObj';
 import { DAY_FORMAT, TABLE_COLUMN } from '../../../constants';
 import { deleteSubCategoriesAction } from '../../../redux/slice/courseSlice';
+import formatTitleTable from '../../../utils/formatTitleTable';
 
-const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => {
+const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData, pagination, setPageIndex }) => {
   const dispatch = useDispatch();
   if (dataSource.length > 0) {
     //solve nested object because of join database
@@ -27,7 +28,7 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
       if (column === TABLE_COLUMN.CREATED_AT || column === TABLE_COLUMN.UPDATED_AT) {
         data = {
           key: column,
-          title: column,
+          title: formatTitleTable(column),
           dataIndex: column,
           sorter: (a, b) => {
             if (a[column] > b[column]) {
@@ -40,7 +41,7 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
           },
 
           fixed: index < 2,
-          width: 120,
+          width: 130,
           render: (text) => {
             return <span>{dayjs(text).format(DAY_FORMAT.D_M_Y)}</span>;
           },
@@ -49,7 +50,7 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
       } else {
         data = {
           key: column,
-          title: column,
+          title: formatTitleTable(column),
           dataIndex: column,
           sorter: (a, b) => {
             if (a[column] > b[column]) {
@@ -62,7 +63,7 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
           },
 
           fixed: index < 2,
-          width: 120,
+          width: 130,
         };
         return data;
       }
@@ -122,6 +123,13 @@ const ExpandedTable = ({ dataSource, actions, onClickExpand, expandedData }) => 
         dataSource={flattenData}
         onChange={onChange}
         scroll={{ x: totalColumnsWidth }}
+        pagination={{
+          pageSize: pagination.pageSize,
+          total: pagination.totalCount,
+          onChange: (page) => {
+            setPageIndex(page);
+          },
+        }}
       />
     );
   }

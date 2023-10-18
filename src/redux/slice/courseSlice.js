@@ -226,6 +226,8 @@ export const courseSlice = createSlice({
     getDetailLessonFail: (state) => {
       state.loading = false;
     },
+
+    //category
     getListCategoryAction: (state) => {
       return {
         ...state,
@@ -233,18 +235,48 @@ export const courseSlice = createSlice({
       };
     },
     getListCategorySuccess: (state, action) => {
-      state.loading = false;
-      state.listCategory = action.payload;
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        listCategory: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
     },
     getListCategoryFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     createCategoryAction: (state) => {},
     createCategorySuccess: (state) => {},
     createCategoryFail: (state) => {},
-    editCategoryAction: (state) => {},
-    editCategorySuccess: (state) => {},
-    editCategoryFail: (state) => {},
+    editCategoryAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editCategorySuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        listCategory: state.listCategory.map((category) => {
+          if (category.cateId === action.payload.cateId) {
+            return action.payload;
+          } else {
+            return category;
+          }
+        }),
+      };
+    },
+    editCategoryFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     getSubCategoriesAction: (state) => {
       return {
         ...state,

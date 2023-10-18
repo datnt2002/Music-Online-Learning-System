@@ -495,18 +495,18 @@ function* getListCategorySaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize },
+        payload: { pageIndex, pageSize },
       } = yield take(getListCategoryAction);
 
-      const result = yield call(getListCategory, { pageSize });
-      console.log(result);
+      const result = yield call(getListCategory, { pageIndex, pageSize });
+
       switch (result.status) {
         case 200:
-          yield put(getListCategorySuccess(result.data));
+          yield put(getListCategorySuccess(result));
           break;
 
         default:
-          yield put(getListCategoryFail());
+          yield put(getListCategoryFail(result));
           break;
       }
     } catch (error) {
@@ -563,6 +563,7 @@ function* editCategorySaga() {
       const {
         payload: { cateId, cateName },
       } = yield take(editCategoryAction);
+
       const { accessToken } = getTokenFromStorage();
       const result = yield call(EditCategory, { cateId, cateName, accessToken });
 
@@ -586,7 +587,7 @@ function* editCategorySaga() {
           break;
 
         default:
-          yield put(editCategoryFail());
+          yield put(editCategoryFail(result));
           break;
       }
     } catch (error) {
