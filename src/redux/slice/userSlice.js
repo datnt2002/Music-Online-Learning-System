@@ -17,22 +17,25 @@ export const userSlice = createSlice({
       return { ...state, loading: true };
     },
     getListAccountSuccess: (state, action) => {
-      state.loading = false;
       const { data, pageSize, pageIndex, totalCount, totalPages } = action.payload;
-      state.listAccounts = data;
-      state.pagination = { pageSize, pageIndex, totalCount, totalPages };
+      return {
+        ...state,
+        loading: false,
+        listAccounts: data,
+        pagination: { pageSize, pageIndex, totalCount, totalPages },
+      };
     },
     getListAccountFail: (state) => {
-      state.loading = false;
+      return { ...state, loading: false };
     },
     disableUserAction: (state) => {
-      state.loading = true;
+      return { ...state, loading: true };
     },
     disableUserSuccess: (state) => {
-      state.loading = false;
+      return { ...state, loading: false };
     },
     disableUserFail: (state) => {
-      state.loading = false;
+      return { ...state, loading: false };
     },
   },
 });
