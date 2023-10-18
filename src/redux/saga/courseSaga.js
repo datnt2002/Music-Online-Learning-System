@@ -73,6 +73,9 @@ import {
   getListDeletedCourseFail,
   getListDeletedCourseSuccess,
   getSubCategoriesAction,
+  getSubCategoriesByCategoryAction,
+  getSubCategoriesByCategoryFail,
+  getSubCategoriesByCategorySuccess,
   getSubCategoriesFail,
   getSubCategoriesSuccess,
   restoreDeletedCourseAction,
@@ -599,7 +602,7 @@ function* editCategorySaga() {
 
 const getListSubCategoriesFromStore = (state) => state.course.listSubcategories;
 
-function* getSubCateByCateIdSaga() {
+function* getSubCategoriesSaga() {
   while (true) {
     try {
       const {
@@ -632,6 +635,31 @@ function* getSubCateByCateIdSaga() {
 
         default:
           yield put(getSubCategoriesFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* getSubCategoriesByCategorySaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId },
+      } = yield take(getSubCategoriesByCategoryAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getSubCategories, { cateId, accessToken });
+      console.log(result);
+
+      switch (result.status) {
+        case 200:
+          yield put(getSubCategoriesByCategorySuccess(result.data));
+          break;
+        default:
+          yield put(getSubCategoriesByCategoryFail(result));
           break;
       }
     } catch (error) {
@@ -756,7 +784,8 @@ export default function* courseSaga() {
   yield fork(getDetailLessonSaga);
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
-  yield fork(getSubCateByCateIdSaga);
+  yield fork(getSubCategoriesSaga);
+  yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
   yield fork(deleteSubCateSaga);
   yield fork(paymentSaga);

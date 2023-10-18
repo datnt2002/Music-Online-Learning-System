@@ -286,11 +286,30 @@ export const courseSlice = createSlice({
     getSubCategoriesSuccess: (state, action) => {
       return {
         ...state,
-        loading: true,
+        loading: false,
         listSubcategories: state.listSubcategories.concat(action.payload),
       };
     },
     getSubCategoriesFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    getSubCategoriesByCategoryAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getSubCategoriesByCategorySuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        listSubcategories: action.payload,
+      };
+    },
+    getSubCategoriesByCategoryFail: (state) => {
       return {
         ...state,
         loading: false,
@@ -390,6 +409,9 @@ export const {
   getSubCategoriesAction,
   getSubCategoriesSuccess,
   getSubCategoriesFail,
+  getSubCategoriesByCategoryAction,
+  getSubCategoriesByCategorySuccess,
+  getSubCategoriesByCategoryFail,
   createSubCategoriesAction,
   createSubCategoriesSuccess,
   createSubCategoriesFail,

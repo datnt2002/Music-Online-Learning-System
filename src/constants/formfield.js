@@ -92,11 +92,14 @@ export const EDIT_CATEGORY_FORM_FIELDS = {
 };
 
 export const SUB_CATEGORY_FORM_FIELDS = {
-  SUB_CATEGORY_NAME: 'subCateName',
+  NEW_SUB_CATEGORY_NAME: 'subCateName',
+  SUB_CATEGORY_ID: 'subCateId',
   SUB_CATEGORY_NAME_LABEL: 'Sub Category Name',
+  NEW_SUB_CATEGORY_NAME_LABEL: 'New Sub Category Name',
   CATEGORY_NAME_LABEL: 'Category',
   CATEGORY_ID: 'cateId',
   SELECT_CATE_PLACEHOLDER: 'Select a category',
+  SELECT_SUB_CATE_PLACEHOLDER: 'Select a sub category',
 };
 
 export const CREATE_LESSON_FORM_FIELDS = {

@@ -4,18 +4,25 @@ import { Button, Form, Input, Layout, Select } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { SUB_CATEGORY_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
-import { createSubCategoriesAction, getListCategoryAction } from '../../../redux/slice/courseSlice';
+import { PAGINATION, SUB_CATEGORY_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
+import {
+  createSubCategoriesAction,
+  getListCategoryAction,
+  getSubCategoriesByCategoryAction,
+} from '../../../redux/slice/courseSlice';
 import Loading from '../../../components/Common/Loading';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const EditSubCate = () => {
   const listCategories = useSelector((state) => state.course.listCategory);
+  const listSubCate = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       getListCategoryAction({
-        pageSize: 10,
+        pageSize: PAGINATION.PAGE_SIZE,
       })
     );
   }, []);
@@ -28,12 +35,12 @@ const EditSubCate = () => {
       })
     );
   };
+
+  const handleChooseCategory = (value) => {
+    dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
+  };
   return (
-    <Layout
-      style={{
-        padding: '0 24px 24px',
-      }}
-    >
+    <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       {loading && <Loading />}
       <div className="my-5 ml-6">
         <BreadCrumbCustom />
@@ -46,7 +53,7 @@ const EditSubCate = () => {
           minHeight: 280,
         }}
       >
-        <div className="bg-white shadow-xl rounded-2xl p-6 ">
+        <div className="bg-white/50 rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl ml-5">Edit Sub Category</h1>
           <Form layout="horizontal" onFinish={handleCreateSubCategory}>
             <div className="flex">
@@ -61,7 +68,11 @@ const EditSubCate = () => {
                     },
                   ]}
                 >
-                  <Select placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_CATE_PLACEHOLDER} allowClear>
+                  <Select
+                    onChange={handleChooseCategory}
+                    placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_CATE_PLACEHOLDER}
+                    allowClear
+                  >
                     {listCategories.map((cate) => {
                       return (
                         <Select.Option key={cate.cateId} value={cate.cateId}>
@@ -73,7 +84,27 @@ const EditSubCate = () => {
                 </Form.Item>
                 <Form.Item
                   label={SUB_CATEGORY_FORM_FIELDS.SUB_CATEGORY_NAME_LABEL}
-                  name={SUB_CATEGORY_FORM_FIELDS.SUB_CATEGORY_NAME}
+                  name={SUB_CATEGORY_FORM_FIELDS.SUB_CATEGORY_ID}
+                  rules={[
+                    {
+                      required: true,
+                      message: VALIDATE_MESSAGE.SUB_CATEGORY_REQUIRED,
+                    },
+                  ]}
+                >
+                  <Select placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_SUB_CATE_PLACEHOLDER} allowClear>
+                    {listSubCate.map((subCate) => {
+                      return (
+                        <Select.Option key={subCate.subCateId} value={subCate.subCateId}>
+                          {subCate.subCateName}
+                        </Select.Option>
+                      );
+                    })}
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  label={SUB_CATEGORY_FORM_FIELDS.NEW_SUB_CATEGORY_NAME_LABEL}
+                  name={SUB_CATEGORY_FORM_FIELDS.NEW_SUB_CATEGORY_NAME}
                   rules={[
                     {
                       required: true,
@@ -85,7 +116,7 @@ const EditSubCate = () => {
                 </Form.Item>
 
                 <Form.Item className="flex-1">
-                  <Button type="primary" htmlType="submit" className="bg-amber-500 w-full">
+                  <Button type="primary" htmlType="submit" className="bg-black w-full">
                     Submit
                   </Button>
                 </Form.Item>
