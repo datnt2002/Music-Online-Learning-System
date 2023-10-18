@@ -13,7 +13,6 @@ import {
   getListCoursePendingAction,
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
-import { useNavigate } from 'react-router-dom';
 import { PAGINATION } from '../../../constants';
 
 const CoursesPending = () => {

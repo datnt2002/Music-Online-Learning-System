@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { STORAGE } from '../../constants';
 
 const initialState = {
   loading: false,
@@ -47,11 +48,14 @@ export const courseSlice = createSlice({
       };
     },
     deleteCourseFromAdminSuccess: (state, action) => {
-      state.loading = false;
-      state.currentCourse = action.payload;
-      state.listCourse = state.listCourse.filter((course) => {
-        return course.courseId !== action.payload.courseId;
-      });
+      const courseId = sessionStorage.getItem(STORAGE.COURSE_ID);
+      return {
+        ...state,
+        loading: false,
+        listCourse: state.listCourse.filter((course) => {
+          return course.courseId !== courseId;
+        }),
+      };
     },
     deleteCourseFromAdminFail: (state) => {
       return {
@@ -87,8 +91,14 @@ export const courseSlice = createSlice({
       };
     },
     approvedCoursePendingSuccess: (state, action) => {
-      state.loading = false;
-      console.log(action.payload);
+      const courseId = sessionStorage.getItem(STORAGE.COURSE_ID);
+      return {
+        ...state,
+        loading: false,
+        listCourse: state.listCourse.filter((course) => {
+          return course.courseId !== courseId;
+        }),
+      };
     },
     approvedCoursePendingFail: (state) => {
       return {
@@ -112,7 +122,10 @@ export const courseSlice = createSlice({
       };
     },
     getListDeletedCourseFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     restoreDeletedCourseAction: (state) => {
       return {
@@ -121,17 +134,21 @@ export const courseSlice = createSlice({
       };
     },
     restoreDeletedCourseSuccess: (state, action) => {
+      const courseId = sessionStorage.getItem(STORAGE.COURSE_ID);
       return {
         ...state,
         loading: false,
         currentCourse: action.payload,
         listCourse: state.listCourse.filter((course) => {
-          return course.courseId !== action.payload.courseId;
+          return course.courseId !== courseId;
         }),
       };
     },
     restoreDeletedCourseFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     getDetailCourseAction: (state) => {
       return {
@@ -152,7 +169,10 @@ export const courseSlice = createSlice({
       state.listSections = Sections;
     },
     getDetailCourseFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     createNewCourseAction: (state) => {
       return {

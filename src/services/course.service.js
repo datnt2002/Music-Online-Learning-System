@@ -51,7 +51,6 @@ export const approvedCourse = (data) => {
 };
 
 export const getListDeleteCourse = (data) => {
-  console.log(data);
   return axiosClient
     .get('courses/deleted', {
       params: { pageIndex: data.pageIndex, pageSize: data.pageSize },

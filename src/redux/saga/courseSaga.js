@@ -117,6 +117,7 @@ function* deleteCourseFromAdminSaga() {
 
       switch (result.status) {
         case 200:
+          sessionStorage.setItem(STORAGE.COURSE_ID, courseId);
           yield put(deleteCourseFromAdminSuccess(result.data));
           Swal.fire({
             title: result.message,
@@ -206,6 +207,7 @@ function* approvedCoursePendingSaga() {
 
       switch (result.status) {
         case 200:
+          sessionStorage.setItem(STORAGE.COURSE_ID, courseId);
           yield put(approvedCoursePendingSuccess(result.data));
           Swal.fire({
             title: result.message,
@@ -237,11 +239,12 @@ function* getListCourseDeletedSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize, pageIndex, accessToken },
+        payload: { pageSize, pageIndex },
       } = yield take(getListDeletedCourseAction);
 
+      const { accessToken } = getTokenFromStorage();
       const result = yield call(getListDeleteCourse, { pageSize, pageIndex, accessToken });
-      console.log(result);
+
       switch (result.status) {
         case 200:
           yield put(getListDeletedCourseSuccess(result));
@@ -270,7 +273,8 @@ function* restoreCourseSaga() {
       console.log(result);
       switch (result.status) {
         case 200:
-          yield put(restoreDeletedCourseSuccess(result.data));
+          sessionStorage.setItem(STORAGE.COURSE_ID, courseId);
+          yield put(restoreDeletedCourseSuccess(result));
           Swal.fire({
             title: result.message,
             width: 850,
