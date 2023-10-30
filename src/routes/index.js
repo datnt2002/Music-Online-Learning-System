@@ -136,6 +136,14 @@ export const userRoutes = [
     ),
   },
   {
+    path: 'messengers/:id',
+    element: (
+      <UserRoute>
+        <Messengers />
+      </UserRoute>
+    ),
+  },
+  {
     path: 'messengers',
     element: (
       <UserRoute>

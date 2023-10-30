@@ -4,6 +4,7 @@ import authenticationReducer from './slice/authenticationSlice';
 import rootSaga from './saga/rootSaga';
 import courseReducer from './slice/courseSlice';
 import userReducer from './slice/userSlice';
+import forumReducer from './slice/forumSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     authentication: authenticationReducer,
     course: courseReducer,
     user: userReducer,
+    forum: forumReducer,
   },
   middleware: [sagaMiddleware],
 });
