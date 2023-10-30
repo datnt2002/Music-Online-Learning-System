@@ -60,8 +60,8 @@ function* signInSaga() {
             sessionStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           }
 
-          const roles = result.data.user?.roles;
-          if (roles.length > 0 && roles[0].roleName === ROLE.ADMIN) {
+          const role = result.data.role;
+          if (role.roleName === ROLE.ADMIN) {
             navigate(ADMIN_ROUTE.DASHBOARD);
           } else {
             navigate(PUBLIC_ROUTE.DEFAULT);
@@ -77,7 +77,6 @@ function* signInSaga() {
   }
 }
 
-//signup have test
 function* signUpSaga() {
   while (true) {
     try {
@@ -215,7 +214,7 @@ function* changePasswordSaga() {
           break;
 
         default:
-          yield put(changePasswordFail())
+          yield put(changePasswordFail());
           break;
       }
     } catch (error) {

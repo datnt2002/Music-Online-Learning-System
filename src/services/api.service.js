@@ -5,7 +5,7 @@ import { API_ERROR, TOKEN } from '../constants';
 import { getAccessToken } from './auth.service';
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: 'http://localhost:5000/api/',
   // baseURL: 'http://www.eschoolhub.click/',
 });
 

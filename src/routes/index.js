@@ -35,6 +35,7 @@ import EditSubCate from '../features/Admin/Categories/EditSubCate';
 import LecturerRequestForm from '../features/Profile/LecturerRequestForm';
 import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
 import HomePosts from '../features/Forum/HomePosts';
+import Messengers from '../features/Forum/Messengers';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -131,6 +132,14 @@ export const userRoutes = [
     element: (
       <UserRoute>
         <ChoosePaymentMethod />
+      </UserRoute>
+    ),
+  },
+  {
+    path: 'messengers',
+    element: (
+      <UserRoute>
+        <Messengers />
       </UserRoute>
     ),
   },
