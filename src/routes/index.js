@@ -34,6 +34,7 @@ import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
 import LecturerRequestForm from '../features/Profile/LecturerRequestForm';
 import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
+import HomePosts from '../features/Forum/HomePosts';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -63,6 +64,14 @@ export const publicRoutes = [
     element: (
       <PublicLayout>
         <CourseDetail />
+      </PublicLayout>
+    ),
+  },
+  {
+    path: 'forums',
+    element: (
+      <PublicLayout>
+        <HomePosts />
       </PublicLayout>
     ),
   },

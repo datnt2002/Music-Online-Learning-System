@@ -34,8 +34,8 @@ const HeaderDefault = () => {
         </div>
 
         <div className="flex">
-          <Link className="mr-4" to={PUBLIC_ROUTE.ABOUT_US}>
-            About us
+          <Link className="mr-4" to={PUBLIC_ROUTE.FORUMS}>
+            Forums
           </Link>
 
           <div className="flex ml-2">{isAuthenticated ? <CombineAvatarAndCart /> : <AuthenticationButton />}</div>
