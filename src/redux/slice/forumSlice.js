@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   conversationId: null,
   messages: [],
+  content: [],
 };
 
 export const forumSlice = createSlice({
@@ -21,11 +22,15 @@ export const forumSlice = createSlice({
     },
     getConservationSuccess: (state, action) => {
       console.log(action.payload);
+      const messages = action.payload.messages;
       return {
         ...state,
         loading: false,
-        messages: action.payload.messages,
+        messages: messages,
         conversationId: action.payload.conversationId,
+        content: messages.map((msg) => {
+          return { content: msg.content, senderId: msg.senderId };
+        }),
       };
     },
     getConservationFail: (state) => {
@@ -49,6 +54,10 @@ export const forumSlice = createSlice({
     sendMessageFail: (state) => {
       return {};
     },
+    addArrivalMessage: (state, action) => {
+      console.log(action.payload);
+      state.content.push(action.payload);
+    },
   },
 });
 
@@ -60,6 +69,7 @@ export const {
   sendMessageAction,
   sendMessageSuccess,
   sendMessageFail,
+  addArrivalMessage,
 } = forumSlice.actions;
 
 export default forumSlice.reducer;

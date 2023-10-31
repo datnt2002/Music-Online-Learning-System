@@ -4,20 +4,49 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PhoneOutlined, VideoCameraOutlined, SettingFilled, SmileOutlined, SyncOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
 import TextArea from 'antd/es/input/TextArea';
-import { getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
+import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
+import { io } from 'socket.io-client';
 
 const ChatBox = ({ receiverId }) => {
-  const currentUser = useSelector((state) => state.authentication.currentUser);
-  const messages = useSelector((state) => state.forum.messages);
   const dispatch = useDispatch();
+  const socket = useRef();
+  const currentUser = useSelector((state) => state.authentication.currentUser);
+  const contents = useSelector((state) => state.forum.content);
+  console.log(contents);
+
+  useEffect(() => {
+    socket.current = io('http://localhost:5000');
+
+    socket.current.on('msg-recieve', (msg) => {
+      console.log(msg);
+      dispatch(
+        addArrivalMessage({
+          content: msg,
+          senderId: receiverId,
+        })
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.current.emit('add-user', currentUser?.user?.id);
+  }, [currentUser]);
+
   useEffect(() => {
     dispatch(getConservationAction({ receiverId }));
   }, []);
 
   const conversationId = useSelector((state) => state.forum.conversationId);
-  console.log(messages);
+
   const handleSendMessage = (values) => {
-    console.log(values);
+    console.log(currentUser?.user?.id);
+    console.log(values.mess);
+    socket.current.emit('send-msg', {
+      to: receiverId,
+      from: currentUser?.user?.id,
+      msg: values.mess,
+    });
+
     dispatch(
       sendMessageAction({
         receiverId: receiverId,
@@ -30,7 +59,7 @@ const ChatBox = ({ receiverId }) => {
   const scrollRef = useRef();
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [contents]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -42,13 +71,13 @@ const ChatBox = ({ receiverId }) => {
         </div>
       </div>
       <div className="h-96 overflow-y-scroll">
-        {messages &&
-          messages.length > 0 &&
-          messages.map((message) => {
-            const isOwn = message?.senderId === currentUser?.user?.id;
+        {contents &&
+          contents.length > 0 &&
+          contents.map((content, index) => {
+            const isOwn = content?.senderId === currentUser?.user?.id;
             return (
               <div ref={scrollRef}>
-                <TextMessage text={message.content} isOwn={isOwn} />
+                <TextMessage text={content.content} isOwn={isOwn} />
               </div>
             );
           })}
