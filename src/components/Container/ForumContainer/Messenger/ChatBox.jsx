@@ -4,21 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PhoneOutlined, VideoCameraOutlined, SettingFilled, SmileOutlined, SyncOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
 import TextArea from 'antd/es/input/TextArea';
-import { getConservationAction } from '../../../../redux/slice/forumSlice';
+import { getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
 
 const ChatBox = ({ receiverId }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
-
+  const messages = useSelector((state) => state.forum.messages);
   const dispatch = useDispatch();
   console.log(receiverId);
   useEffect(() => {
     dispatch(getConservationAction({ receiverId }));
   }, []);
 
-  const messages = useSelector((state) => state.forum.messages);
+  const conversationId = useSelector((state) => state.forum.conversationId);
   console.log(messages);
   const handleSendMessage = (values) => {
     console.log(values);
+    dispatch(
+      sendMessageAction({
+        receiverId: receiverId,
+        conversationId: conversationId,
+        content: values.mess,
+      })
+    );
   };
   return (
     <div className="flex flex-1 flex-col">
@@ -30,14 +37,16 @@ const ChatBox = ({ receiverId }) => {
         </div>
       </div>
       <div className="h-96 overflow-y-scroll">
-        {messages.map((message) => {
-          const isOwn = message?.senderId === currentUser?.user?.id;
-          return <TextMessage text={message.content} isOwn={isOwn} />;
-        })}
+        {messages &&
+          messages.length > 0 &&
+          messages.map((message) => {
+            const isOwn = message?.senderId === currentUser?.user?.id;
+            return <TextMessage text={message.content} isOwn={isOwn} />;
+          })}
       </div>
       <Divider />
       <div className="flex">
-        <Form name="basic" onFinish={handleSendMessage}>
+        <Form onFinish={handleSendMessage}>
           <Form.Item name="mess">
             <TextArea autoSize />
           </Form.Item>

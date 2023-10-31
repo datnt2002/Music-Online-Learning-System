@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
-  conservationId: null,
+  conversationId: null,
   messages: [],
 };
 
@@ -25,7 +25,7 @@ export const forumSlice = createSlice({
         ...state,
         loading: false,
         messages: action.payload.messages,
-        conservationId: action.payload.conservationId,
+        conversationId: action.payload.conversationId,
       };
     },
     getConservationFail: (state) => {
@@ -34,10 +34,32 @@ export const forumSlice = createSlice({
         loading: false,
       };
     },
+    sendMessageAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    sendMessageSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    sendMessageFail: (state) => {
+      return {};
+    },
   },
 });
 
-export const { resetForumSliceAction, getConservationAction, getConservationSuccess, getConservationFail } =
-  forumSlice.actions;
+export const {
+  resetForumSliceAction,
+  getConservationAction,
+  getConservationSuccess,
+  getConservationFail,
+  sendMessageAction,
+  sendMessageSuccess,
+  sendMessageFail,
+} = forumSlice.actions;
 
 export default forumSlice.reducer;
