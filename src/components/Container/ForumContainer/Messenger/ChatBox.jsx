@@ -1,5 +1,5 @@
 import { Avatar, Button, Divider, Form } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PhoneOutlined, VideoCameraOutlined, SettingFilled, SmileOutlined, SyncOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
@@ -10,7 +10,6 @@ const ChatBox = ({ receiverId }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const messages = useSelector((state) => state.forum.messages);
   const dispatch = useDispatch();
-  console.log(receiverId);
   useEffect(() => {
     dispatch(getConservationAction({ receiverId }));
   }, []);
@@ -27,6 +26,12 @@ const ChatBox = ({ receiverId }) => {
       })
     );
   };
+
+  const scrollRef = useRef();
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex">
@@ -41,7 +46,11 @@ const ChatBox = ({ receiverId }) => {
           messages.length > 0 &&
           messages.map((message) => {
             const isOwn = message?.senderId === currentUser?.user?.id;
-            return <TextMessage text={message.content} isOwn={isOwn} />;
+            return (
+              <div ref={scrollRef}>
+                <TextMessage text={message.content} isOwn={isOwn} />
+              </div>
+            );
           })}
       </div>
       <Divider />
