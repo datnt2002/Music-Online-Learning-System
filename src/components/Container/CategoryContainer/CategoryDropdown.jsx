@@ -4,24 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-import { getListCategoryAction } from '../../../redux/slice/courseSlice';
-import { Categories } from '../../../constants/mockData';
+import { getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
 import { PAGINATION } from '../../../constants';
 
 const CategoryDropdown = () => {
   const categories = useSelector((state) => state.course.listCategory);
+  const listSubCate = useSelector((state) => state.course.listSubcategories);
+  console.log(listSubCate);
   const items = categories.map((category) => {
     return {
       key: category.cateId,
       label: category.cateName,
-      children: Categories.filter((subCate) => {
-        return subCate.cateId === category.cateId;
-      }).map((subCate) => {
-        return {
-          key: subCate.subCateId,
-          label: subCate.subCateName,
-        };
-      }),
+      children: listSubCate
+        .filter((subCate) => {
+          return subCate.cateId === category.cateId;
+        })
+        .map((subCate) => {
+          return {
+            key: subCate.subCateId,
+            label: subCate.subCateName,
+          };
+        }),
     };
   });
   const dispatch = useDispatch();
@@ -31,16 +34,17 @@ const CategoryDropdown = () => {
         pageSize: PAGINATION.PAGE_SIZE,
       })
     );
+    dispatch(getSubCategoriesAction({}));
   }, [dispatch]);
 
-  const handleChooseCategory = ({ key }) => {
+  const handleChooseSubCategory = ({ key }) => {
     console.log(`Click on item ${key}`);
   };
   return (
     <Dropdown
       menu={{
         items,
-        onClick: handleChooseCategory,
+        onClick: handleChooseSubCategory,
       }}
       className="cursor-pointer"
     >

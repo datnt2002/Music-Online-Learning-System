@@ -24,10 +24,10 @@ const AvatarDropdown = () => {
       label: (
         <Link to={USER_ROUTE.USER_PROFILE}>
           <Space className="flex">
-            <Avatar size={43} src={currentUser.avatar || defaultAvatar} alt="Avatar" />
+            <Avatar size={43} src={currentUser?.avatar || defaultAvatar} alt="Avatar" />
             <div className="flex flex-col">
-              <p>{currentUser.username}</p>
-              <p>{currentUser.email}</p>
+              <p>{currentUser?.username}</p>
+              <p>{currentUser?.email}</p>
             </div>
           </Space>
         </Link>

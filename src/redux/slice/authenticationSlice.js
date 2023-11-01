@@ -80,19 +80,32 @@ export const authenticationSlice = createSlice({
     },
     //
     getCurrentUserAction: (state) => {
-      state.loading = true;
-      state.currentUser = {};
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getCurrentUserSuccess: (state, action) => {
-      state.loading = false;
-      state.isLoggedIn = true;
-      state.currentUser = action.payload;
+      const { user, role } = action.payload;
+      return {
+        ...state,
+        isLoggedIn: true,
+        loading: false,
+        currentUser: user,
+        currentUserRole: role,
+      };
     },
     getCurrentUserFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     changePasswordAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     changePasswordSuccess: (state) => {
       state.loading = false;

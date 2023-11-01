@@ -14,6 +14,7 @@ import {
   createSubCate,
   deleteCourseFromAdmin,
   deleteSubCate,
+  getAllSubCategories,
   getDetailCourse,
   getDetailPendingCourse,
   getLessonDetail,
@@ -599,37 +600,19 @@ function* editCategorySaga() {
   }
 }
 
-const getListSubCategoriesFromStore = (state) => state.course.listSubcategories;
+// const getListSubCategoriesFromStore = (state) => state.course.listSubcategories;
 
-function* getSubCategoriesSaga() {
+function* getAllSubCategoriesSaga() {
   while (true) {
     try {
-      const {
-        payload: { cateId },
-      } = yield take(getSubCategoriesAction);
-
-      const { accessToken } = getTokenFromStorage();
-      const result = yield call(getSubCategories, { cateId, accessToken });
+      yield take(getSubCategoriesAction);
+      const result = yield call(getAllSubCategories, {});
       console.log(result);
-      let listSubCate = yield select(getListSubCategoriesFromStore);
 
       switch (result.status) {
         case 200:
-          //if listSubCate in the store is empty, add new data.
-          if (listSubCate.length === 0) {
-            yield put(getSubCategoriesSuccess(result.data));
-          } else {
-            // Iterate through each object in result.data
-            for (const newData of result.data) {
-              // Check if newData's subCateId is already in listSubCate
-              const isDuplicated = listSubCate.some((subCate) => {
-                return subCate.subCateId === newData.subCateId;
-              });
-              if (!isDuplicated) {
-                yield put(getSubCategoriesSuccess(newData));
-              }
-            }
-          }
+          yield put(getSubCategoriesSuccess(result.data));
+
           break;
 
         default:
@@ -642,30 +625,30 @@ function* getSubCategoriesSaga() {
   }
 }
 
-function* getSubCategoriesByCategorySaga() {
-  while (true) {
-    try {
-      const {
-        payload: { cateId },
-      } = yield take(getSubCategoriesByCategoryAction);
+// function* getSubCategoriesByCategorySaga() {
+//   while (true) {
+//     try {
+//       const {
+//         payload: { cateId },
+//       } = yield take(getSubCategoriesByCategoryAction);
 
-      const { accessToken } = getTokenFromStorage();
-      const result = yield call(getSubCategories, { cateId, accessToken });
-      console.log(result);
+//       const { accessToken } = getTokenFromStorage();
+//       const result = yield call(getSubCategories, { cateId, accessToken });
+//       console.log(result);
 
-      switch (result.status) {
-        case 200:
-          yield put(getSubCategoriesByCategorySuccess(result.data));
-          break;
-        default:
-          yield put(getSubCategoriesByCategoryFail(result));
-          break;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
+//       switch (result.status) {
+//         case 200:
+//           yield put(getSubCategoriesByCategorySuccess(result.data));
+//           break;
+//         default:
+//           yield put(getSubCategoriesByCategoryFail(result));
+//           break;
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// }
 
 function* createSubCateSaga() {
   while (true) {
@@ -782,8 +765,8 @@ export default function* courseSaga() {
   yield fork(getDetailLessonSaga);
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
-  yield fork(getSubCategoriesSaga);
-  yield fork(getSubCategoriesByCategorySaga);
+  yield fork(getAllSubCategoriesSaga);
+  // yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
   yield fork(deleteSubCateSaga);
   yield fork(paymentSaga);

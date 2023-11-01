@@ -214,6 +214,17 @@ export const EditCategory = (data) => {
     });
 };
 
+export const getAllSubCategories = (data) => {
+  return axiosClient
+    .get('sub-categories')
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getSubCategories = (data) => {
   return axiosClient
     .get(`sub-categories/by-category/${data.cateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
