@@ -7,6 +7,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import { DAY_FORMAT } from '../../../constants';
+import formatPrice from '../../../utils/formatPrice';
 
 const ListFeatureCourses = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,9 @@ const ListFeatureCourses = () => {
                     <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
                   </div>
                 </div>
-                <h1 className="text-xl font-semibold leading-snug text-blue-gray-900 antialiased">${course.price}</h1>
+                <h1 className="text-xl font-semibold leading-snug text-blue-gray-900 antialiased">
+                  ${formatPrice(course.price)}
+                </h1>
               </div>
             </div>
           );

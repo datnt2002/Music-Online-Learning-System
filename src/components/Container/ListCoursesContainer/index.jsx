@@ -7,6 +7,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import { PUBLIC_ROUTE, STORAGE } from '../../../constants';
 import defaultCourse from '../../../assets/imgs/default-course.png';
+import formatPrice from '../../../utils/formatPrice';
 
 const ListContainer = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,9 @@ const ListContainer = () => {
                     <p className="font-sans text-sm font-light leading-relaxed truncate"> 4.5</p>
                     <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
                   </div>
-                  <p className="font-sans text-base font-medium leading-relaxed truncate">${course.price}</p>
+                  <p className="font-sans text-base font-medium leading-relaxed truncate">
+                    ${formatPrice(course.price)}
+                  </p>
                 </div>
               </div>
             </div>

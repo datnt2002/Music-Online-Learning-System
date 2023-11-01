@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { Button } from 'antd';
-import defaultCourse from '../../../assets/imgs/default-course.png';
-import { YoutubeOutlined, MobileOutlined, RollbackOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'antd';
+import { YoutubeOutlined, MobileOutlined, RollbackOutlined } from '@ant-design/icons';
+
+import defaultCourse from '../../../assets/imgs/default-course.png';
 import { USER_ROUTE } from '../../../constants';
+import formatPrice from '../../../utils/formatPrice';
 
 const CourseDetailFloatingPanel = ({ data }) => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const CourseDetailFloatingPanel = ({ data }) => {
 
       <div className="flex flex-col p-8">
         <div className="flex flex-col flex-1">
-          <h1 className="text-2xl font-medium">${data.price}</h1>
+          <h1 className="text-2xl font-medium">${formatPrice(data.price)}</h1>
 
           <Button className="border border-black my-1" size="middle">
             Add to Cart
