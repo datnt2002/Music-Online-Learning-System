@@ -6,6 +6,7 @@ import Signin from './features/Authentication/Signin';
 import Signup from './features/Authentication/Signup';
 import { NotFound } from './components/Common';
 import VerifySuccess from './components/Common/VerifySuccess';
+import VerifyFail from './components/Common/VerifyFail';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/verify-success" element={<VerifySuccess />} />
+        <Route path="/verify-fail" element={<VerifyFail />} />
         <Route path="*" element={<NotFound />} />
 
         {publicRoutes.map(({ path, element }, index) => {

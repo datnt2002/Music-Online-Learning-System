@@ -2,7 +2,6 @@ import { TOKEN } from '../constants';
 import axiosClient from './api.service';
 
 export const signIn = (data) => {
-  console.log(data);
   return axiosClient
     .post('users/auth/login', data)
     .then((res) => {
@@ -28,7 +27,6 @@ export const forgotPassword = (data) => {
   return axiosClient
     .post('users/forgotpassword', data)
     .then((res) => {
-      console.log(res);
       return res;
     })
     .catch((error) => {
