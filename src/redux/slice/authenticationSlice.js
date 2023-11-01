@@ -17,6 +17,7 @@ export const authenticationSlice = createSlice({
       localStorage.removeItem(TOKEN.AUTH_TOKEN);
       return initialState;
     },
+    //sign in
     signInAction: (state) => {
       return {
         ...state,
@@ -39,6 +40,7 @@ export const authenticationSlice = createSlice({
         loading: false,
       };
     },
+    //sign up
     signupAction: (state) => {
       return {
         ...state,
@@ -57,15 +59,26 @@ export const authenticationSlice = createSlice({
         loading: false,
       };
     },
+    //forgot pass
     forgotPasswordAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     forgotPasswordSuccess: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     forgotPasswordFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
+    //
     getCurrentUserAction: (state) => {
       state.loading = true;
       state.currentUser = {};

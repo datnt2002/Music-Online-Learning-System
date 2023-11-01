@@ -127,10 +127,10 @@ function* forgotPasswordSaga() {
       } = yield take(forgotPasswordAction);
 
       const result = yield call(forgotPassword, { username, email });
-      console.log(result);
+
       switch (result.status) {
         case 200:
-          yield put(forgotPasswordSuccess());
+          yield put(forgotPasswordSuccess(result));
           Swal.fire({
             title: result.message,
             width: 850,
@@ -152,7 +152,7 @@ function* forgotPasswordSaga() {
           break;
 
         default:
-          yield put(forgotPasswordFail());
+          yield put(forgotPasswordFail(result));
           break;
       }
     } catch (error) {
