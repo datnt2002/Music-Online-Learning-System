@@ -46,14 +46,13 @@ function* signInSaga() {
       //the result is response from api
       //put to store
       const result = yield call(signIn, { username, password });
-      console.log(result);
       switch (result.status) {
         case 200:
           yield put(signInSuccess(result.data));
-          console.log(result.data);
           //store in session for login once
           const authToken = { accessToken: result.data.accessToken, refreshToken: result.data.refreshToken };
 
+          //if user checked remember me, token will store at local storage
           if (remember) {
             localStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           } else {
@@ -86,7 +85,6 @@ function* signUpSaga() {
       } = yield take(signupAction);
       //call api signup
       const result = yield call(signUp, { username, password, email, firstName, lastName, phoneNumber });
-      console.log(result);
 
       switch (result.status) {
         case 200:

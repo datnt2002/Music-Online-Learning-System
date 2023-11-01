@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   currentUser: {},
   loading: false,
+  currentUserRole: {},
 };
 
 export const authenticationSlice = createSlice({
@@ -17,25 +18,44 @@ export const authenticationSlice = createSlice({
       return initialState;
     },
     signInAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     signInSuccess: (state, action) => {
-      state.isLoggedIn = true;
-      state.loading = false;
-      const { user } = action.payload;
-      state.currentUser = user;
+      const { user, role } = action.payload;
+      return {
+        ...state,
+        isLoggedIn: true,
+        loading: false,
+        currentUser: user,
+        currentUserRole: role,
+      };
     },
     signInFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     signupAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     signupSuccess: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     signupFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     forgotPasswordAction: (state) => {
       state.loading = true;

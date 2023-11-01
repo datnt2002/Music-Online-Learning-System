@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { PUBLIC_ROUTE } from '../../constants';
 import bgNotFound from '../../assets/imgs/404bg.jpg';
-import verifySucess from '../../assets/imgs/verifysuccess.webp';
+import verifySuccess from '../../assets/imgs/verifysuccess.webp';
 
 const VerifySuccess = () => {
   return (
@@ -27,7 +27,7 @@ const VerifySuccess = () => {
           </Link>
         </div>
         <div className="max-w-lg">
-          <img src={verifySucess} alt="" />
+          <img src={verifySuccess} alt="" />
         </div>
       </div>
     </div>

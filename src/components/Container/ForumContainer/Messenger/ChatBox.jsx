@@ -1,7 +1,7 @@
 import { Avatar, Button, Divider, Form } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PhoneOutlined, VideoCameraOutlined, SettingFilled, SmileOutlined, SyncOutlined } from '@ant-design/icons';
+import { PhoneOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
 import TextArea from 'antd/es/input/TextArea';
 import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
@@ -12,13 +12,11 @@ const ChatBox = ({ receiverId }) => {
   const socket = useRef();
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const contents = useSelector((state) => state.forum.content);
-  console.log(contents);
 
   useEffect(() => {
     socket.current = io('http://localhost:5000');
 
     socket.current.on('msg-recieve', (msg) => {
-      console.log(msg);
       dispatch(
         addArrivalMessage({
           content: msg,
@@ -26,6 +24,11 @@ const ChatBox = ({ receiverId }) => {
         })
       );
     });
+
+    return () => {
+      // Clean up socket when the component unmounts
+      socket.current.disconnect();
+    };
   }, []);
 
   useEffect(() => {
