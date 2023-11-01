@@ -23,7 +23,7 @@ const CourseDetailFloatingPanel = ({ data }) => {
 
       <div className="flex flex-col p-8">
         <div className="flex flex-col flex-1">
-          <h1 className="text-2xl font-medium">${formatPrice(data.price)}</h1>
+          <h1 className="text-2xl font-medium">${data.price && formatPrice(data.price)}</h1>
 
           <Button className="border border-black my-1" size="middle">
             Add to Cart

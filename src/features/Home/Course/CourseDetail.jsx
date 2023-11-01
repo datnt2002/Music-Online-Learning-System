@@ -105,9 +105,9 @@ const CourseDetail = () => {
           <div>
             <h2 className="text-xl mb-4 font-medium">Students also bought</h2>
             <div className="">
-              {listCourse.map((course) => {
+              {/* {listCourse.map((course) => {
                 return <CourseHorizontalCard courseData={course} />;
-              })}
+              })} */}
             </div>
           </div>
 

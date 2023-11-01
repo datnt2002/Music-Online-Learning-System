@@ -6,11 +6,16 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import defaultCourse from '../../../assets/imgs/default-course.png';
-import { DAY_FORMAT } from '../../../constants';
+import { DAY_FORMAT, PUBLIC_ROUTE, STORAGE } from '../../../constants';
 import formatPrice from '../../../utils/formatPrice';
+import { useNavigate } from 'react-router-dom';
 
 const ListFeatureCourses = () => {
+  const listCourse = useSelector((state) => state.course.listCourse);
   const dispatch = useDispatch();
+  const ref = useRef();
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(
       getListCourseAction({
@@ -20,8 +25,10 @@ const ListFeatureCourses = () => {
     );
   }, [dispatch]);
 
-  const listCourse = useSelector((state) => state.course.listCourse);
-  const ref = useRef();
+  const handleViewDetail = (courseId) => {
+    navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
+    localStorage.setItem(STORAGE.COURSE_ID, courseId);
+  };
 
   return (
     <div className="relative">
@@ -35,7 +42,13 @@ const ListFeatureCourses = () => {
       <Carousel ref={ref} rows={1} slidesPerRow={1} dots={false} draggable infinite={true}>
         {listCourse.map((course) => {
           return (
-            <div className="!flex p-6" key={course.courseId}>
+            <div
+              className="!flex p-6 cursor-pointer"
+              key={course.courseId}
+              onClick={() => {
+                handleViewDetail(course.courseId);
+              }}
+            >
               <div className="mr-6 flex flex-1">
                 <img
                   src={course.courseImg || defaultCourse}
@@ -69,7 +82,7 @@ const ListFeatureCourses = () => {
                   </div>
                 </div>
                 <h1 className="text-xl font-semibold leading-snug text-blue-gray-900 antialiased">
-                  ${formatPrice(course.price)}
+                  ${course.price && formatPrice(course.price)}
                 </h1>
               </div>
             </div>

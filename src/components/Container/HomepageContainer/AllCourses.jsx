@@ -3,12 +3,11 @@ import { useSelector } from 'react-redux';
 import { Menu, Pagination } from 'antd';
 
 import CourseHorizontalCard from '../CardTemplate/CourseHorizontalCard';
-import { Categories } from '../../../constants/mockData';
 
 const AllCourses = () => {
   const listCategories = useSelector((state) => state.course.listCategory);
   const listCourses = useSelector((state) => state.course.listCourse);
-
+  const listSubCate = useSelector((state) => state.course.listSubcategories);
   const handleFilterBySubCate = ({ key }) => {
     console.log('click ', key);
   };
@@ -17,14 +16,16 @@ const AllCourses = () => {
     return {
       key: cate.cateId,
       label: cate.cateName,
-      children: Categories.filter((subCate) => {
-        return subCate.cateId === cate.cateId;
-      }).map((subCate) => {
-        return {
-          key: subCate.subCateId,
-          label: subCate.subCateName,
-        };
-      }),
+      children: listSubCate
+        .filter((subCate) => {
+          return subCate.cateId === cate.cateId;
+        })
+        .map((subCate) => {
+          return {
+            key: subCate.subCateId,
+            label: subCate.subCateName,
+          };
+        }),
     };
   });
 

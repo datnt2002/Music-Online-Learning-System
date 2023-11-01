@@ -1,14 +1,22 @@
 import React from 'react';
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import dayjs from 'dayjs';
-import { DAY_FORMAT } from '../../../constants';
+import { DAY_FORMAT, PUBLIC_ROUTE, STORAGE } from '../../../constants';
 import { Rate } from 'antd';
+import formatPrice from '../../../utils/formatPrice';
+import { useNavigate } from 'react-router-dom';
 
 const CourseHorizontalCard = ({ courseData }) => {
+  const navigate = useNavigate();
+  const handleViewDetail = () => {
+    navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseData.courseId}`);
+    localStorage.setItem(STORAGE.COURSE_ID, courseData.courseId);
+  };
+
   return (
-    <div className="flex p-6 border border-black rounded-2xl ml-4">
+    <div className="flex p-6 border border-black rounded-2xl ml-4 cursor-pointer" onClick={handleViewDetail}>
       <div className="mr-6 flex basis-1/3">
-        <img src={courseData.courseImg || defaultCourse} className="aspect-video" alt="" />
+        <img src={courseData?.courseImg || defaultCourse} className="aspect-video" alt="" />
       </div>
 
       <div className="flex flex-col flex-1 justify-between">
@@ -29,7 +37,9 @@ const CourseHorizontalCard = ({ courseData }) => {
             <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
           </div>
         </div>
-        <h1 className="text-base font-semibold leading-snug text-blue-gray-900 antialiased">${courseData.price}</h1>
+        <h1 className="text-base font-semibold leading-snug text-blue-gray-900 antialiased">
+          ${courseData.price && formatPrice(courseData.price)}
+        </h1>
       </div>
     </div>
   );
