@@ -8,7 +8,12 @@ import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
-import { createNewCourseAction, getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
+import {
+  createNewCourseAction,
+  getListCategoryAction,
+  getSubCategoriesAction,
+  getSubCategoriesByCategoryAction,
+} from '../../../redux/slice/courseSlice';
 import { CREATE_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
@@ -71,7 +76,7 @@ const CreateCourse = () => {
   };
 
   const handleChooseCategory = (value) => {
-    dispatch(getSubCategoriesAction({ cateId: value }));
+    dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
   };
   return (
     <Content>

@@ -311,25 +311,25 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
-    // getSubCategoriesByCategoryAction: (state) => {
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //   };
-    // },
-    // getSubCategoriesByCategorySuccess: (state, action) => {
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     listSubcategories: state.listSubcategories.concat(action.payload),
-    //   };
-    // },
-    // getSubCategoriesByCategoryFail: (state) => {
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //   };
-    // },
+    getSubCategoriesByCategoryAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getSubCategoriesByCategorySuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        listSubcategories: action.payload,
+      };
+    },
+    getSubCategoriesByCategoryFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
 
     createSubCategoriesAction: (state) => {
       return {

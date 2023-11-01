@@ -23,6 +23,7 @@ import {
   getListDeleteCourse,
   getListPendingCourse,
   getSubCategories,
+  getSubCategoriesByCategory,
   restoreDeleteCourse,
 } from '../../services/course.service';
 import {
@@ -625,30 +626,30 @@ function* getAllSubCategoriesSaga() {
   }
 }
 
-// function* getSubCategoriesByCategorySaga() {
-//   while (true) {
-//     try {
-//       const {
-//         payload: { cateId },
-//       } = yield take(getSubCategoriesByCategoryAction);
+function* getSubCategoriesByCategorySaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId },
+      } = yield take(getSubCategoriesByCategoryAction);
 
-//       const { accessToken } = getTokenFromStorage();
-//       const result = yield call(getSubCategories, { cateId, accessToken });
-//       console.log(result);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getSubCategoriesByCategory, { cateId, accessToken });
+      console.log(result);
 
-//       switch (result.status) {
-//         case 200:
-//           yield put(getSubCategoriesByCategorySuccess(result.data));
-//           break;
-//         default:
-//           yield put(getSubCategoriesByCategoryFail(result));
-//           break;
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// }
+      switch (result.status) {
+        case 200:
+          yield put(getSubCategoriesByCategorySuccess(result.data));
+          break;
+        default:
+          yield put(getSubCategoriesByCategoryFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 function* createSubCateSaga() {
   while (true) {
@@ -766,7 +767,7 @@ export default function* courseSaga() {
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
   yield fork(getAllSubCategoriesSaga);
-  // yield fork(getSubCategoriesByCategorySaga);
+  yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
   yield fork(deleteSubCateSaga);
   yield fork(paymentSaga);

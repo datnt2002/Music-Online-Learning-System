@@ -225,7 +225,7 @@ export const getAllSubCategories = (data) => {
     });
 };
 
-export const getSubCategories = (data) => {
+export const getSubCategoriesByCategory = (data) => {
   return axiosClient
     .get(`sub-categories/by-category/${data.cateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {

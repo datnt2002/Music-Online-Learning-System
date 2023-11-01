@@ -11,6 +11,7 @@ const ChatBox = ({ receiverId }) => {
   const dispatch = useDispatch();
   const socket = useRef();
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  console.log(currentUser);
   const contents = useSelector((state) => state.forum.content);
 
   useEffect(() => {
@@ -25,14 +26,14 @@ const ChatBox = ({ receiverId }) => {
       );
     });
 
-    return () => {
-      // Clean up socket when the component unmounts
-      socket.current.disconnect();
-    };
+    // return () => {
+    //   // Clean up socket when the component unmounts
+    //   socket.current.disconnect();
+    // };
   }, []);
 
   useEffect(() => {
-    socket.current.emit('add-user', currentUser?.user?.id);
+    socket.current.emit('add-user', currentUser?.id);
   }, [currentUser]);
 
   useEffect(() => {
@@ -42,11 +43,11 @@ const ChatBox = ({ receiverId }) => {
   const conversationId = useSelector((state) => state.forum.conversationId);
 
   const handleSendMessage = (values) => {
-    console.log(currentUser?.user?.id);
+    console.log(currentUser?.id);
     console.log(values.mess);
     socket.current.emit('send-msg', {
       to: receiverId,
-      from: currentUser?.user?.id,
+      from: currentUser?.id,
       msg: values.mess,
     });
 
@@ -77,7 +78,7 @@ const ChatBox = ({ receiverId }) => {
         {contents &&
           contents.length > 0 &&
           contents.map((content, index) => {
-            const isOwn = content?.senderId === currentUser?.user?.id;
+            const isOwn = content?.senderId === currentUser?.id;
             return (
               <div ref={scrollRef}>
                 <TextMessage text={content.content} isOwn={isOwn} />
