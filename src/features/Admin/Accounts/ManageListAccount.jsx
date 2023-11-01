@@ -9,6 +9,7 @@ import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import ModalDisableAccount from '../../../components/Container/ModalContainer/ModalDisableAccount';
 import { PAGINATION } from '../../../constants';
+import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const ManageListAccount = () => {
   //state of modal
@@ -44,11 +45,7 @@ const ManageListAccount = () => {
   };
 
   return (
-    <Layout
-      style={{
-        padding: '0 24px 24px',
-      }}
-    >
+    <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       <div className="my-5 ml-6">
         <BreadCrumbCustom />
       </div>

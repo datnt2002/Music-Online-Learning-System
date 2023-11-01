@@ -673,10 +673,9 @@ function* createSubCateSaga() {
       const {
         payload: { cateId, subCateName, navigate },
       } = yield take(createSubCategoriesAction);
-
       const { accessToken } = getTokenFromStorage();
       const result = yield call(createSubCate, { cateId, subCateName, accessToken });
-      console.log(result);
+
       switch (result.status) {
         case 201:
           yield put(createSubCategoriesSuccess(result.data));

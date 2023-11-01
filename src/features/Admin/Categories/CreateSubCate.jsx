@@ -74,7 +74,7 @@ const CreateSubCate = () => {
                 </Form.Item>
                 <Form.Item
                   label={SUB_CATEGORY_FORM_FIELDS.SUB_CATEGORY_NAME_LABEL}
-                  name={SUB_CATEGORY_FORM_FIELDS.SUB_CATEGORY_NAME}
+                  name={SUB_CATEGORY_FORM_FIELDS.NEW_SUB_CATEGORY_NAME}
                   rules={[
                     {
                       required: true,
