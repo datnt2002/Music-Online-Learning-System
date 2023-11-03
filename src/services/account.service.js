@@ -16,9 +16,7 @@ export const getListUser = (data) => {
 
 export const getUserById = (data) => {
   return axiosClient
-    .get(`users/${data.userId}`, {
-      headers: { Authorization: `Bearer ${data.accessToken}` },
-    })
+    .get(`users/${data.userId}`)
     .then((res) => {
       return res;
     })

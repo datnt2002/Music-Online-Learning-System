@@ -50,10 +50,13 @@ export const courseSlice = createSlice({
       };
     },
     getDetailCourseSuccess: (state, action) => {
-      state.loading = false;
-      const { Sections } = action.payload;
-      state.currentCourse = action.payload;
-      state.listSections = Sections;
+      const { Sections } = action.payload.course;
+      return {
+        ...state,
+        loading: false,
+        currentCourse: action.payload,
+        listSections: Sections,
+      };
     },
     getDetailCourseFail: (state) => {
       return {

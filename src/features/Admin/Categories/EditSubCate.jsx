@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Input, Layout, Select } from 'antd';
 import { Content } from 'antd/es/layout/layout';
@@ -8,14 +8,13 @@ import { PAGINATION, SUB_CATEGORY_FORM_FIELDS, VALIDATE_MESSAGE } from '../../..
 import {
   editSubCategoriesAction,
   getListCategoryAction,
-  getSubCategoriesByCategoryAction,
+  getSubCategoriesAction,
 } from '../../../redux/slice/courseSlice';
 import Loading from '../../../components/Common/Loading';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import { useNavigate } from 'react-router-dom';
 
 const EditSubCate = () => {
-  const [subCategoryKey, setSubCategoryKey] = useState(0);
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
@@ -29,10 +28,14 @@ const EditSubCate = () => {
         pageSize: PAGINATION.PAGE_SIZE,
       })
     );
+    dispatch(
+      getSubCategoriesAction({
+        pageSize: PAGINATION.PAGE_SIZE,
+      })
+    );
   }, []);
 
   const handleEditSubCategory = (values) => {
-    console.log(values);
     dispatch(
       editSubCategoriesAction({
         subCateId: values.subCateId,
@@ -43,13 +46,9 @@ const EditSubCate = () => {
     );
   };
 
-  const handleChooseCategory = (value) => {
-    dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
-  };
-
   const formLayout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
   };
 
   return (
@@ -81,11 +80,7 @@ const EditSubCate = () => {
                     },
                   ]}
                 >
-                  <Select
-                    onChange={handleChooseCategory}
-                    placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_CATE_PLACEHOLDER}
-                    allowClear
-                  >
+                  <Select placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_CATE_PLACEHOLDER} allowClear>
                     {listCategories.map((cate) => {
                       return (
                         <Select.Option key={cate.cateId} value={cate.cateId}>

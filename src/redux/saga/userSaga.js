@@ -51,9 +51,7 @@ function* getUserByIdSaga() {
         payload: { userId },
       } = yield take(getUserByIdAction);
 
-      const { accessToken } = getTokenFromStorage();
-
-      const result = yield call(getUserById, { userId, accessToken });
+      const result = yield call(getUserById, { userId });
       console.log(result);
       switch (result.status) {
         case 200:

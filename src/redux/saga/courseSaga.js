@@ -133,7 +133,6 @@ function* getDetailCourseSaga() {
 
         default:
           yield put(getDetailCourseFail());
-
           break;
       }
     } catch (error) {

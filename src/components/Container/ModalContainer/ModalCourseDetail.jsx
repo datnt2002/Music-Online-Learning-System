@@ -9,52 +9,53 @@ import dayjs from 'dayjs';
 import courseImg from '../../../assets/imgs/default-course.png';
 import Loading from '../../Common/Loading';
 import { DAY_FORMAT, USER_ROUTE } from '../../../constants';
+import formatPrice from '../../../utils/formatPrice';
 
 const ModalCourseDetail = () => {
   const data = useSelector((state) => state.course.currentCourse);
   const listSections = useSelector((state) => state.course.listSections);
   const loading = useSelector((state) => state.course.loading);
-  console.log(data);
+
   const navigate = useNavigate();
 
-  // const items = listSections.map((section) => {
-  //   return {
-  //     key: section.sectionId,
-  //     label: section.sectionName,
-  //     children: section.Lessons.map((lesson) => {
-  //       return {
-  //         key: lesson.lessonId,
-  //         label: lesson.lessonName,
-  //         icon: <VideoCameraOutlined />,
-  //       };
-  //     }),
-  //   };
-  // });
-  // const onClick = (e) => {
-  //   console.log('click ', e);
-  //   navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
-  // };
+  const items = listSections.map((section) => {
+    return {
+      key: section?.sectionId,
+      label: section?.sectionName,
+      children: section?.Lessons.map((lesson) => {
+        return {
+          key: lesson?.lessonId,
+          label: lesson?.lessonName,
+          icon: <VideoCameraOutlined />,
+        };
+      }),
+    };
+  });
+  const onClick = (e) => {
+    console.log('click ', e);
+    navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
+  };
   return (
     <>
       {loading && <Loading />}
       <Divider className="bg-black" />
       <div className="flex bg-white text-black py-14 mx-auto h-72">
         <div className="ml-16 flex flex-1 flex-col">
-          <h1 className="mr-2">Course ID: {data?.courseId}</h1>
-          <h1 className="mr-2">Price: ${data?.price}</h1>
-          <h2 className="text-xl my-2 font-bohemian">{data.courseName}</h2>
+          <h1 className="mr-2">Course ID: {data?.course.courseId}</h1>
+          <h1 className="mr-2">Price: ${formatPrice(data?.course.price)}</h1>
+          <h2 className="text-xl my-2 font-bohemian">{data.course.courseName}</h2>
 
           <p className="my-2">
-            Created by <Link className="underline">{data.createdBy}</Link>
+            Created by <Link className="underline">{data.course.createdBy}</Link>
           </p>
 
           <p className="mr-2">
             <ClockCircleOutlined className="align-[0.125rem]" /> <span className="mr-1">Last update at</span>
-            {dayjs(data.createdAt).format(DAY_FORMAT.D_M_Y)}
+            {dayjs(data.course.createdAt).format(DAY_FORMAT.D_M_Y)}
           </p>
         </div>
         <div className="flex flex-1 mr-16">
-          <img src={data.courseImg || courseImg} alt="" className="" />
+          <img src={data.course.courseImg || courseImg} alt="" className="" />
         </div>
       </div>
       <Divider className="bg-black my-0" />
@@ -65,21 +66,21 @@ const ModalCourseDetail = () => {
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Course Content</h2>
             <div className="flex">
-              <p>31 sections</p>
+              <p>{data?.sectionCount} sections</p>
               <p>
-                <CaretRightOutlined className="align-[0.125rem]" /> 411 lectures
+                <CaretRightOutlined className="align-[0.1rem]" /> {data?.lessonCount} lectures
               </p>
               <p>
-                <CaretRightOutlined className="align-[0.125rem]" /> 67h 10m total length
+                <CaretRightOutlined className="align-[0.1rem]" /> 67h 10m total length
               </p>
             </div>
-            {/* <Menu onClick={onClick} mode="inline" items={items} /> */}
+            <Menu onClick={onClick} mode="inline" items={items} />
           </div>
 
           {/* description */}
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Description</h2>
-            <p>{data.description}</p>
+            <p>{data.course.description}</p>
           </div>
         </div>
       </div>
