@@ -8,8 +8,13 @@ const ModalEditCategory = ({ form, data, onFinish }) => {
     form.setFieldsValue(data);
   }, [data, form]);
 
+  const formLayout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 19 },
+  };
+
   return (
-    <Form form={form} layout="horizontal" onFinish={onFinish}>
+    <Form form={form} layout="horizontal" onFinish={onFinish} {...formLayout}>
       <div className="flex">
         <div className="flex flex-col flex-1 p-5">
           <Form.Item name={EDIT_CATEGORY_FORM_FIELDS.CATE_ID} label={EDIT_CATEGORY_FORM_FIELDS.CATE_ID_LABEL}>

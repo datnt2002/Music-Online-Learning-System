@@ -7,7 +7,7 @@ import { DAY_FORMAT } from '../../../constants';
 
 const ModalDisableAccount = () => {
   const data = useSelector((state) => state.user.accountProfile);
-  console.log(data);
+
   return (
     <div key={data?.id}>
       <p className="text-center py-10 font-medium">Are you sure to delete account ${data.id}</p>
@@ -20,7 +20,6 @@ const ModalDisableAccount = () => {
             Full Name: {data?.firstName} {data?.lastName}
           </p>
           <p>Username: {data?.username}</p>
-          <p>Role: User</p>
           <p>Member since: {dayjs(data?.createdAt).format(DAY_FORMAT.D_M_Y)}</p>
         </div>
       </div>

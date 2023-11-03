@@ -46,6 +46,11 @@ const EditProfile = () => {
     setIsModalEditAvatarOpen(false);
   };
 
+  const formLayout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+  };
+
   return (
     <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
       {loading && <Loading />}
@@ -56,6 +61,7 @@ const EditProfile = () => {
       </div>
       <div className="pb-4">
         <Form
+          {...formLayout}
           form={form}
           onFinish={handleEditProfile}
           className="bg-white border shadow-2xl rounded-3xl my-6 mx-44 flex flex-1"
@@ -112,6 +118,8 @@ const EditProfile = () => {
                 label={PROFILE_FORM_FIELDS.PASSWORD_LABEL}
                 name={PROFILE_FORM_FIELDS.PASSWORD}
                 className="flex-1 mr-2"
+                labelCol={{ span: 6, offset: 2 }}
+                wrapperCol={{ span: 16 }}
               >
                 <Input.Password disabled />
               </Form.Item>
@@ -195,7 +203,7 @@ const EditProfile = () => {
               <TextArea rows={4} />
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item wrapperCol={{ span: 18, offset: 6 }}>
               <Button type="primary" htmlType="submit" className="bg-black w-full">
                 Submit
               </Button>
