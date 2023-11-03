@@ -105,3 +105,17 @@ export const editProfile = (data) => {
       return err;
     });
 };
+
+export const requestLecturer = (data) => {
+  const body = {
+    roleId: 3,
+  };
+  return axiosClient
+    .post('users/request-change-role', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

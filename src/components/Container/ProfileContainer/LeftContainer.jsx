@@ -19,6 +19,7 @@ import defaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
 const LeftContainer = () => {
   const userProfile = useSelector((state) => state.authentication.currentUser);
   const role = useSelector((state) => state.authentication.currentUserRole);
+  console.log(role);
   const navigate = useNavigate();
 
   const handleNavigateLecturer = () => {

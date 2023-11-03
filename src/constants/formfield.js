@@ -51,6 +51,11 @@ export const CHANGE_PASSWORD_FORM_FIELDS = {
   CONFIRM_PASSWORD_LABEL: 'Confirm Password',
 };
 
+export const LECTURER_REQUEST_FORM_FIELDS = {
+  INTRODUCTION: 'introduction',
+  INTRODUCTION_LABEL: 'Introduction',
+};
+
 export const CREATE_COURSE_FORM_FIELDS = {
   COURSE_NAME: 'courseName',
   COURSE_NAME_LABEL: 'Course Name',

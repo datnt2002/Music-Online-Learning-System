@@ -7,6 +7,7 @@ import {
   editProfile,
   forgotPassword,
   getCurrentUser,
+  requestLecturer,
   signIn,
   signUp,
   uploadAvatar,
@@ -24,6 +25,9 @@ import {
   getCurrentUserAction,
   getCurrentUserFail,
   getCurrentUserSuccess,
+  requestLecturerAction,
+  requestLecturerFail,
+  requestLecturerSuccess,
   signInAction,
   signInFail,
   signInSuccess,
@@ -318,6 +322,48 @@ function* upLoadAvatarSaga() {
   }
 }
 
+function* requestLecturerSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { navigate },
+      } = yield take(requestLecturerAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(requestLecturer, { accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(requestLecturerSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(USER_ROUTE.USER_PROFILE);
+            }
+          });
+          break;
+
+        default:
+          yield put(requestLecturerFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 export default function* authenticationSaga() {
   yield fork(signInSaga);
   yield fork(signUpSaga);
@@ -326,4 +372,5 @@ export default function* authenticationSaga() {
   yield fork(editProfileSaga);
   yield fork(changePasswordSaga);
   yield fork(upLoadAvatarSaga);
+  yield fork(requestLecturerSaga);
 }

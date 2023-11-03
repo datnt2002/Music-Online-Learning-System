@@ -32,10 +32,10 @@ import ManageListCategories from '../features/Admin/Categories/ManageListCategor
 import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
-import LecturerRequestForm from '../features/Profile/LecturerRequestForm';
 import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
 import HomePosts from '../features/Forum/HomePosts';
 import Messengers from '../features/Forum/Messengers';
+import RequestLecturerForm from '../features/Profile/RequestLecturerForm';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -123,7 +123,7 @@ export const userRoutes = [
     path: 'lecturer-request-form',
     element: (
       <UserRoute>
-        <LecturerRequestForm />
+        <RequestLecturerForm />
       </UserRoute>
     ),
   },

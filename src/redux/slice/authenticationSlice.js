@@ -157,6 +157,26 @@ export const authenticationSlice = createSlice({
         loading: false,
       };
     },
+
+    //request role
+    requestLecturerAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    requestLecturerSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    requestLecturerFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
   },
 });
 
@@ -183,6 +203,9 @@ export const {
   uploadAvatarAction,
   uploadAvatarSuccess,
   uploadAvatarFail,
+  requestLecturerAction,
+  requestLecturerSuccess,
+  requestLecturerFail,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;
