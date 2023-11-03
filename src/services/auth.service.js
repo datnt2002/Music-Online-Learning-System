@@ -46,7 +46,6 @@ export const changePassword = (data) => {
 };
 
 export const getCurrentUser = (data) => {
-  console.log(data);
   return axiosClient
     .get('users/profile', { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
@@ -75,6 +74,30 @@ export const uploadAvatar = (data) => {
   formData.append('file', data.fileImage);
   return axiosClient
     .patch('users/uploadAvatar', formData, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const editProfile = (data) => {
+  const body = {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    phoneNumber: data.phoneNumber,
+    address: data.address,
+    nation: data.nation,
+    gender: data.gender,
+    dob: data.dob,
+    facebook: data.facebook,
+    instagram: data.instagram,
+    bio: data.bio,
+  };
+  return axiosClient
+    .patch('users', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Avatar, Badge, Button, DatePicker, Form, Input, Select, Modal, Divider } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -12,6 +12,7 @@ import ModalEditAvatar from '../../components/Container/ModalContainer/ModalEdit
 import defaultAvatar from '../../assets/imgs/defaultAvatar.webp';
 import Loading from '../../components/Common/Loading';
 import repeatBg from '../../assets/imgs/repeatbg.jpg';
+import { editProfileAction } from '../../redux/slice/authenticationSlice';
 
 const EditProfile = () => {
   const [isModalChangePasswordOpen, setIsModalChangePasswordOpen] = useState(false);
@@ -19,12 +20,29 @@ const EditProfile = () => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const loading = useSelector((state) => state.authentication.loading);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     form.setFieldsValue(currentUser);
   }, [currentUser, form]);
 
   const handleEditProfile = (values) => {
     console.log('form', values);
+    dispatch(
+      editProfileAction({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phoneNumber: values.phoneNumber,
+        address: values.address,
+        nation: values.nation,
+        gender: values.gender,
+        dob: values.dob,
+        facebook: values.facebook,
+        instagram: values.instagram,
+        bio: values.bio,
+      })
+    );
   };
   const showModalChangePassword = () => {
     setIsModalChangePasswordOpen(true);
@@ -184,9 +202,6 @@ const EditProfile = () => {
                 </Select.Option>
                 <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE_VALUE}>
                   {PROFILE_FORM_FIELDS.GENDER_FEMALE}
-                </Select.Option>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_OTHER_VALUE}>
-                  {PROFILE_FORM_FIELDS.GENDER_OTHER}
                 </Select.Option>
               </Select>
             </Form.Item>

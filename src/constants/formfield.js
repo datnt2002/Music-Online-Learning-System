@@ -30,8 +30,6 @@ export const PROFILE_FORM_FIELDS = {
   GENDER_MALE_VALUE: 'male',
   GENDER_FEMALE: 'Female',
   GENDER_FEMALE_VALUE: 'female',
-  GENDER_OTHER: 'Other',
-  GENDER_OTHER_VALUE: 'other',
   DOB: 'dob',
   DOB_LABEL: 'Date Of Birth',
   FACEBOOK: 'facebook',

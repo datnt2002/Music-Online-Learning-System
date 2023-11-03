@@ -78,7 +78,7 @@ export const authenticationSlice = createSlice({
         loading: false,
       };
     },
-    //
+    //get current user
     getCurrentUserAction: (state) => {
       return {
         ...state,
@@ -101,6 +101,26 @@ export const authenticationSlice = createSlice({
         loading: false,
       };
     },
+
+    //edit profile
+    editProfileAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editProfileSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    editProfileFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     changePasswordAction: (state) => {
       return {
         ...state,
@@ -108,19 +128,34 @@ export const authenticationSlice = createSlice({
       };
     },
     changePasswordSuccess: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     changePasswordFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     uploadAvatarAction: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     uploadAvatarSuccess: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     uploadAvatarFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
   },
 });
@@ -139,6 +174,9 @@ export const {
   getCurrentUserAction,
   getCurrentUserSuccess,
   getCurrentUserFail,
+  editProfileAction,
+  editProfileSuccess,
+  editProfileFail,
   changePasswordAction,
   changePasswordSuccess,
   changePasswordFail,

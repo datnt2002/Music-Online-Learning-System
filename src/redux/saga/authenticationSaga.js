@@ -4,6 +4,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 import {
   changePassword,
+  editProfile,
   forgotPassword,
   getCurrentUser,
   signIn,
@@ -14,6 +15,9 @@ import {
   changePasswordAction,
   changePasswordFail,
   changePasswordSuccess,
+  editProfileAction,
+  editProfileFail,
+  editProfileSuccess,
   forgotPasswordAction,
   forgotPasswordFail,
   forgotPasswordSuccess,
@@ -182,6 +186,57 @@ function* getCurrentUserSaga() {
   }
 }
 
+function* editProfileSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { firstName, lastName, email, phoneNumber, address, nation, gender, dob, facebook, instagram, bio },
+      } = yield take(editProfileAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(editProfile, {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        address,
+        nation,
+        gender,
+        dob,
+        facebook,
+        instagram,
+        bio,
+        accessToken,
+      });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          yield put(editProfileSuccess(result));
+          break;
+
+        default:
+          yield put(editProfileFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* changePasswordSaga() {
   while (true) {
     try {
@@ -189,7 +244,6 @@ function* changePasswordSaga() {
         payload: { oldPassword, newPassword },
       } = yield take(changePasswordAction);
       const { accessToken } = getTokenFromStorage();
-      console.log(accessToken);
       const result = yield call(changePassword, { oldPassword, newPassword, accessToken });
       console.log(result);
       switch (result.status) {
@@ -269,6 +323,7 @@ export default function* authenticationSaga() {
   yield fork(signUpSaga);
   yield fork(forgotPasswordSaga);
   yield fork(getCurrentUserSaga);
+  yield fork(editProfileSaga);
   yield fork(changePasswordSaga);
   yield fork(upLoadAvatarSaga);
 }
