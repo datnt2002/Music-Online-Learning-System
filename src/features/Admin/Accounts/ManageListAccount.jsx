@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UserDeleteOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
-import { disableUserAction, getListAccountAction } from '../../../redux/slice/userSlice';
+import { disableUserAction, getListAccountAction, getUserByIdAction } from '../../../redux/slice/userSlice';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import ModalDisableAccount from '../../../components/Container/ModalContainer/ModalDisableAccount';
@@ -15,6 +15,7 @@ const ManageListAccount = () => {
   //state of modal
   const [open, setOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
+  const [accountId, setAccountId] = useState();
   //get list accounts from store
   const listAccounts = useSelector((state) => state.user.listAccounts);
   const pagination = useSelector((state) => state.course.pagination);
@@ -32,11 +33,17 @@ const ManageListAccount = () => {
   }, [dispatch, pageIndex]);
 
   const handleDisableUser = (id) => {
-    dispatch(disableUserAction({ id }));
+    dispatch(disableUserAction({ userId: id }));
     setOpen(false);
   };
 
   const showModal = (record) => {
+    setAccountId(record?.id);
+    dispatch(
+      getUserByIdAction({
+        userId: record?.id,
+      })
+    );
     setOpen(true);
   };
 
@@ -85,7 +92,7 @@ const ManageListAccount = () => {
                 key="submit"
                 type="primary"
                 onClick={() => {
-                  handleDisableUser();
+                  handleDisableUser(accountId);
                 }}
               >
                 Delete this user

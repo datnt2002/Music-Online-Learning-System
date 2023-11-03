@@ -4,12 +4,14 @@ const initialState = {
   loading: false,
   listAccounts: [],
   pagination: {},
+  accountProfile: {},
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    // Action for resetting the user state to initial values
     resetUserSliceAction: () => {
       return initialState;
     },
@@ -26,6 +28,15 @@ export const userSlice = createSlice({
       };
     },
     getListAccountFail: (state) => {
+      return { ...state, loading: false };
+    },
+    getUserByIdAction: (state) => {
+      return { ...state, loading: true };
+    },
+    getUserByIdSuccess: (state, action) => {
+      return { ...state, loading: false, accountProfile: action.payload };
+    },
+    getUserByIdFail: (state) => {
       return { ...state, loading: false };
     },
     disableUserAction: (state) => {
@@ -45,6 +56,9 @@ export const {
   getListAccountAction,
   getListAccountSuccess,
   getListAccountFail,
+  getUserByIdAction,
+  getUserByIdSuccess,
+  getUserByIdFail,
   disableUserAction,
   disableUserSuccess,
   disableUserFail,

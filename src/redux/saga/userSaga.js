@@ -10,9 +10,13 @@ import {
   getListAccountAction,
   getListAccountFail,
   getListAccountSuccess,
+  getUserByIdAction,
+  getUserByIdFail,
+  getUserByIdSuccess,
 } from '../slice/userSlice';
-import { disableUser, getListUser } from '../../services/account.service';
+import { disableUser, getListUser, getUserById } from '../../services/account.service';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
+import { PAGINATION } from '../../constants';
 
 function* getListAccountSaga() {
   while (true) {
@@ -29,9 +33,33 @@ function* getListAccountSaga() {
         case 200:
           yield put(getListAccountSuccess(result));
           break;
-
         default:
           yield put(getListAccountFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* getUserByIdSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { userId },
+      } = yield take(getUserByIdAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getUserById, { userId, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getUserByIdSuccess(result.data));
+          break;
+        default:
+          yield put(getUserByIdFail(result));
           break;
       }
     } catch (error) {
@@ -44,12 +72,12 @@ function* disableUserSaga() {
   while (true) {
     try {
       const {
-        payload: { id },
+        payload: { userId },
       } = yield take(disableUserAction);
 
       const { accessToken } = getTokenFromStorage();
 
-      const result = yield call(disableUser, { id, accessToken });
+      const result = yield call(disableUser, { userId, accessToken });
 
       switch (result.status) {
         case 200:
@@ -68,6 +96,7 @@ function* disableUserSaga() {
             confirmButtonText: 'Got it',
           });
           yield put(disableUserSuccess(result));
+          yield put(getListAccountAction({ pageIndex: 1, pageSize: PAGINATION.PAGE_SIZE }));
           break;
 
         default:
@@ -82,5 +111,6 @@ function* disableUserSaga() {
 
 export default function* userSaga() {
   yield fork(getListAccountSaga);
+  yield fork(getUserByIdSaga);
   yield fork(disableUserSaga);
 }

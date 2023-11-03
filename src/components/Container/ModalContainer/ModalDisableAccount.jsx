@@ -2,11 +2,14 @@ import { Avatar } from 'antd';
 import React from 'react';
 import dayjs from 'dayjs';
 import defaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
+import { useSelector } from 'react-redux';
+import { DAY_FORMAT } from '../../../constants';
 
-const ModalDisableAccount = ({ data }) => {
+const ModalDisableAccount = () => {
+  const data = useSelector((state) => state.user.accountProfile);
   console.log(data);
   return (
-    <div key={data.id}>
+    <div key={data?.id}>
       <p className="text-center py-10 font-medium">Are you sure to delete account ${data.id}</p>
       <div className="flex">
         <div className="flex flex-1 items-center justify-center">
@@ -14,11 +17,11 @@ const ModalDisableAccount = ({ data }) => {
         </div>
         <div className="flex flex-1 flex-col">
           <p>
-            Full Name: {data.firstName} {data.lastName}
+            Full Name: {data?.firstName} {data?.lastName}
           </p>
-          <p>Username: {data.username}</p>
+          <p>Username: {data?.username}</p>
           <p>Role: User</p>
-          <p>Member since: {dayjs(data.createdAt).format('DD/MM/YYYY')}</p>
+          <p>Member since: {dayjs(data?.createdAt).format(DAY_FORMAT.D_M_Y)}</p>
         </div>
       </div>
     </div>
