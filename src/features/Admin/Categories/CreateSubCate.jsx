@@ -33,6 +33,12 @@ const CreateSubCate = () => {
       })
     );
   };
+
+  const formLayout = {
+    labelCol: { span: 4 },
+    wrapperCol: { span: 20 },
+  };
+
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       {loading && <Loading />}
@@ -49,7 +55,7 @@ const CreateSubCate = () => {
       >
         <div className="bg-white/80 rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl ml-5">Create New Sub Category</h1>
-          <Form layout="horizontal" onFinish={handleCreateSubCategory}>
+          <Form layout="horizontal" onFinish={handleCreateSubCategory} {...formLayout}>
             <div className="flex">
               <div className="flex flex-col flex-1 p-5">
                 <Form.Item
@@ -85,7 +91,7 @@ const CreateSubCate = () => {
                   <Input />
                 </Form.Item>
 
-                <Form.Item className="flex-1">
+                <Form.Item wrapperCol={{ span: 20, offset: 4 }}>
                   <Button type="primary" htmlType="submit" className="bg-black w-full">
                     Submit
                   </Button>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Avatar, Dropdown, Space } from 'antd';
 
 import { logoutAction } from '../../../redux/slice/authenticationSlice';
-import { PUBLIC_ROUTE } from '../../../constants';
+import { PUBLIC_ROUTE, USER_ROUTE } from '../../../constants';
 import adminAvatar from '../../../assets/imgs/adminAvatar.png';
 import { resetUserSliceAction } from '../../../redux/slice/userSlice';
 import { resetCourseSliceAction } from '../../../redux/slice/courseSlice';
@@ -42,7 +42,7 @@ const AvatarAdmin = () => {
 
     {
       key: '2',
-      label: <Link>Messages</Link>,
+      label: <Link to={USER_ROUTE.MESSAGES}>Messages</Link>,
     },
     {
       type: 'divider',

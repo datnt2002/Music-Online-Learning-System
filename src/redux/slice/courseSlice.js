@@ -363,6 +363,24 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    editSubCategoriesAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editSubCategoriesSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    editSubCategoriesFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     //payment
     createPaymentAction: (state) => {
       return {
@@ -434,6 +452,9 @@ export const {
   createSubCategoriesAction,
   createSubCategoriesSuccess,
   createSubCategoriesFail,
+  editSubCategoriesAction,
+  editSubCategoriesSuccess,
+  editSubCategoriesFail,
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,

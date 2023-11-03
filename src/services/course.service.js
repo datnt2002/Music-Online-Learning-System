@@ -263,9 +263,13 @@ export const createSubCate = (data) => {
     });
 };
 
-export const deleteSubCate = (data) => {
+export const editSubCate = (data) => {
   return axiosClient
-    .delete(`sub-categories/${data.subCateId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .put(
+      `sub-categories/${data.subCateId}`,
+      { subCateName: data.subCateName, cateId: data.cateId },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
     .then((res) => {
       return res;
     })

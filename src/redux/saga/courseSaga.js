@@ -14,6 +14,7 @@ import {
   createSubCate,
   deleteCourseFromAdmin,
   deleteSubCate,
+  editSubCate,
   getAllSubCategories,
   getDetailCourse,
   getDetailDeletedCourse,
@@ -53,6 +54,9 @@ import {
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
+  editSubCategoriesAction,
+  editSubCategoriesFail,
+  editSubCategoriesSuccess,
   getDetailCourseAction,
   getDetailCourseFail,
   getDetailCourseSuccess,
@@ -717,6 +721,47 @@ function* createSubCateSaga() {
     }
   }
 }
+function* editSubCateSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId, subCateName, subCateId, navigate },
+      } = yield take(editSubCategoriesAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(editSubCate, { cateId, subCateName, subCateId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(editSubCategoriesSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(ADMIN_ROUTE.LIST_CATEGORIES);
+            }
+          });
+          break;
+
+        default:
+          yield put(editSubCategoriesFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 // Saga for initiating a payment
 function* paymentSaga() {
   while (true) {
@@ -765,4 +810,5 @@ export default function* courseSaga() {
   yield fork(getAllSubCategoriesSaga);
   yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
+  yield fork(editSubCateSaga);
 }

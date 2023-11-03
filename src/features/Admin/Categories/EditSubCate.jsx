@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Input, Layout, Select } from 'antd';
 import { Content } from 'antd/es/layout/layout';
@@ -6,19 +6,23 @@ import { Content } from 'antd/es/layout/layout';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PAGINATION, SUB_CATEGORY_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
 import {
-  createSubCategoriesAction,
+  editSubCategoriesAction,
   getListCategoryAction,
   getSubCategoriesByCategoryAction,
 } from '../../../redux/slice/courseSlice';
 import Loading from '../../../components/Common/Loading';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const EditSubCate = () => {
+  const [subCategoryKey, setSubCategoryKey] = useState(0);
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(
       getListCategoryAction({
@@ -27,11 +31,14 @@ const EditSubCate = () => {
     );
   }, []);
 
-  const handleCreateSubCategory = (values) => {
+  const handleEditSubCategory = (values) => {
+    console.log(values);
     dispatch(
-      createSubCategoriesAction({
+      editSubCategoriesAction({
+        subCateId: values.subCateId,
         cateId: values.cateId,
         subCateName: values.subCateName,
+        navigate,
       })
     );
   };
@@ -39,6 +46,12 @@ const EditSubCate = () => {
   const handleChooseCategory = (value) => {
     dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
   };
+
+  const formLayout = {
+    labelCol: { span: 4 },
+    wrapperCol: { span: 20 },
+  };
+
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       {loading && <Loading />}
@@ -55,7 +68,7 @@ const EditSubCate = () => {
       >
         <div className="bg-white/50 rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl ml-5">Edit Sub Category</h1>
-          <Form layout="horizontal" onFinish={handleCreateSubCategory}>
+          <Form layout="horizontal" onFinish={handleEditSubCategory} {...formLayout}>
             <div className="flex">
               <div className="flex flex-col flex-1 p-5">
                 <Form.Item
@@ -115,7 +128,7 @@ const EditSubCate = () => {
                   <Input />
                 </Form.Item>
 
-                <Form.Item className="flex-1">
+                <Form.Item wrapperCol={{ span: 20, offset: 4 }}>
                   <Button type="primary" htmlType="submit" className="bg-black w-full">
                     Submit
                   </Button>
