@@ -13,12 +13,13 @@ import { PAGINATION } from '../../../constants';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const ManageListCategories = () => {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const [dataOfRecord, setDataOfRecord] = useState();
   const [pageIndex, setPageIndex] = useState(1);
   const [form] = Form.useForm();
 
-  const dispatch = useDispatch();
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubcategories = useSelector((state) => state.course.listSubcategories);
   const pagination = useSelector((state) => state.course.pagination);

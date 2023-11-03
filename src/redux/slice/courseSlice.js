@@ -17,9 +17,11 @@ export const courseSlice = createSlice({
   name: 'course',
   initialState,
   reducers: {
+    //reset store action
     resetCourseSliceAction: () => {
       return initialState;
     },
+    //list approved course slice
     getListCourseAction: (state) => {
       return {
         ...state,
@@ -36,6 +38,24 @@ export const courseSlice = createSlice({
       };
     },
     getListCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    getDetailCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getDetailCourseSuccess: (state, action) => {
+      state.loading = false;
+      const { Sections } = action.payload;
+      state.currentCourse = action.payload;
+      state.listSections = Sections;
+    },
+    getDetailCourseFail: (state) => {
       return {
         ...state,
         loading: false,
@@ -63,6 +83,7 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    //list pending course slice
     getListCoursePendingAction: (state) => {
       return {
         ...state,
@@ -106,6 +127,13 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    getDetailPendingCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    //list deleted course slice
     getListDeletedCourseAction: (state) => {
       return {
         ...state,
@@ -150,36 +178,13 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
-    getDetailCourseAction: (state) => {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    getDetailPendingCourseAction: (state) => {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
     getDetailDeletedCourseAction: (state) => {
       return {
         ...state,
         loading: true,
       };
     },
-    getDetailCourseSuccess: (state, action) => {
-      state.loading = false;
-      const { Sections } = action.payload;
-      state.currentCourse = action.payload;
-      state.listSections = Sections;
-    },
-    getDetailCourseFail: (state) => {
-      return {
-        ...state,
-        loading: false,
-      };
-    },
+    //create course
     createNewCourseAction: (state) => {
       return {
         ...state,
@@ -193,6 +198,7 @@ export const courseSlice = createSlice({
     createNewCourseFail: (state) => {
       state.loading = false;
     },
+    //create section
     createNewSectionAction: (state) => {
       return {
         ...state,
@@ -206,6 +212,7 @@ export const courseSlice = createSlice({
     createNewSectionFail: (state) => {
       state.loading = false;
     },
+    //create lesson
     createNewLessonAction: (state) => {
       return {
         ...state,
@@ -298,6 +305,7 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    //subcategory
     getSubCategoriesAction: (state) => {
       return {
         ...state,
@@ -336,7 +344,6 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
-
     createSubCategoriesAction: (state) => {
       return {
         ...state,
@@ -356,18 +363,7 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
-    deleteSubCategoriesAction: (state) => {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    deleteSubCategoriesSuccess: (state) => {
-      state.loading = false;
-    },
-    deleteSubCategoriesFail: (state) => {
-      state.loading = false;
-    },
+    //payment
     createPaymentAction: (state) => {
       return {
         ...state,
@@ -438,9 +434,6 @@ export const {
   createSubCategoriesAction,
   createSubCategoriesSuccess,
   createSubCategoriesFail,
-  deleteSubCategoriesAction,
-  deleteSubCategoriesSuccess,
-  deleteSubCategoriesFail,
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,

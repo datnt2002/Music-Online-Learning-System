@@ -18,12 +18,13 @@ import { disableUser, getListUser, getUserById } from '../../services/account.se
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 import { PAGINATION } from '../../constants';
 
+// Saga for retrieving the list of accounts
 function* getListAccountSaga() {
   while (true) {
     try {
       const {
         payload: { pageSize, pageIndex },
-      } = yield take(getListAccountAction);
+      } = yield take(getListAccountAction); // Listens for the action
 
       const { accessToken } = getTokenFromStorage();
 
@@ -31,10 +32,10 @@ function* getListAccountSaga() {
       console.log(result);
       switch (result.status) {
         case 200:
-          yield put(getListAccountSuccess(result));
+          yield put(getListAccountSuccess(result)); // Dispatches success action
           break;
         default:
-          yield put(getListAccountFail(result));
+          yield put(getListAccountFail(result)); // Dispatches failure action
           break;
       }
     } catch (error) {
@@ -42,7 +43,7 @@ function* getListAccountSaga() {
     }
   }
 }
-
+// Saga for getting user details by ID
 function* getUserByIdSaga() {
   while (true) {
     try {
@@ -67,7 +68,7 @@ function* getUserByIdSaga() {
     }
   }
 }
-
+// Saga for disabling a user account
 function* disableUserSaga() {
   while (true) {
     try {

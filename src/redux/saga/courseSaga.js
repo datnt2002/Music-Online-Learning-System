@@ -50,9 +50,6 @@ import {
   deleteCourseFromAdminAction,
   deleteCourseFromAdminFail,
   deleteCourseFromAdminSuccess,
-  deleteSubCategoriesAction,
-  deleteSubCategoriesFail,
-  deleteSubCategoriesSuccess,
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
@@ -720,44 +717,6 @@ function* createSubCateSaga() {
     }
   }
 }
-// Saga for deleting a subcategory
-function* deleteSubCateSaga() {
-  while (true) {
-    try {
-      const {
-        payload: { subCateId },
-      } = yield take(deleteSubCategoriesAction);
-      const { accessToken } = getTokenFromStorage();
-      const result = yield call(deleteSubCate, { subCateId, accessToken });
-
-      switch (result.status) {
-        case 200:
-          yield put(deleteSubCategoriesSuccess(result.data));
-          Swal.fire({
-            title: result.message,
-            width: 850,
-            padding: '3em',
-            color: '#716add',
-            background: `#fff `,
-            backdrop: `
-              rgba(0,0,123,0.4)
-              url(${backdropSweetAlert})
-              left top
-              no-repeat
-            `,
-            confirmButtonText: 'Got it',
-          });
-          break;
-
-        default:
-          yield put(deleteSubCategoriesFail());
-          break;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
 // Saga for initiating a payment
 function* paymentSaga() {
   while (true) {
@@ -806,5 +765,4 @@ export default function* courseSaga() {
   yield fork(getAllSubCategoriesSaga);
   yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
-  yield fork(deleteSubCateSaga);
 }

@@ -20,4 +20,5 @@ export const STORAGE = {
 
 export const PAGINATION = {
   PAGE_SIZE: 10,
+  PAGE_INDEX: 1,
 };
