@@ -8,7 +8,7 @@ import { EyeOutlined, RetweetOutlined } from '@ant-design/icons';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import {
-  getDetailCourseAction,
+  getDetailDeletedCourseAction,
   getListDeletedCourseAction,
   restoreDeletedCourseAction,
 } from '../../../redux/slice/courseSlice';
@@ -36,7 +36,7 @@ const CoursesDeleting = () => {
 
   const handleShowDetailCourse = (record) => {
     dispatch(
-      getDetailCourseAction({
+      getDetailDeletedCourseAction({
         courseId: record.courseId,
       })
     );

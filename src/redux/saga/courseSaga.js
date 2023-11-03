@@ -1,4 +1,4 @@
-import { fork, call, take, put, select } from 'redux-saga/effects';
+import { fork, call, take, put } from 'redux-saga/effects';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
@@ -16,6 +16,7 @@ import {
   deleteSubCate,
   getAllSubCategories,
   getDetailCourse,
+  getDetailDeletedCourse,
   getDetailPendingCourse,
   getLessonDetail,
   getListCategory,
@@ -58,6 +59,7 @@ import {
   getDetailCourseAction,
   getDetailCourseFail,
   getDetailCourseSuccess,
+  getDetailDeletedCourseAction,
   getDetailLessonAction,
   getDetailLessonFail,
   getDetailLessonSuccess,
@@ -87,20 +89,23 @@ import {
 import { ADMIN_ROUTE, LECTURER_ROUTE, STORAGE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
+// Saga for retrieving the list of approved courses
 function* getListCourseSaga() {
   while (true) {
     try {
+      //get payload from jsx
       const {
         payload: { pageSize, pageIndex },
       } = yield take(getListCourseAction);
 
+      //call get list course api
       const result = yield call(getListCourses, { pageSize, pageIndex });
 
       switch (result.status) {
+        // if status is 200 ok, take the result to the store.
         case 200:
           yield put(getListCourseSuccess(result));
           break;
-
         default:
           yield put(getListCourseFail(result));
           break;
@@ -110,7 +115,32 @@ function* getListCourseSaga() {
     }
   }
 }
+// Saga for retrieving details of an approved course
+function* getDetailCourseSaga() {
+  while (true) {
+    try {
+      //get course id from jsx
+      const {
+        payload: { courseId },
+      } = yield take(getDetailCourseAction);
+      const result = yield call(getDetailCourse, { courseId });
 
+      switch (result.status) {
+        case 200:
+          yield put(getDetailCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailCourseFail());
+
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for deleting an approved course from the admin
 function* deleteCourseFromAdminSaga() {
   while (true) {
     try {
@@ -150,7 +180,7 @@ function* deleteCourseFromAdminSaga() {
     }
   }
 }
-
+// Saga for retrieving the list of pending courses
 function* getListCoursePendingSaga() {
   while (true) {
     try {
@@ -175,7 +205,7 @@ function* getListCoursePendingSaga() {
     }
   }
 }
-
+// Saga for retrieving details of a pending course
 function* getDetailPendingCourseSaga() {
   while (true) {
     try {
@@ -200,7 +230,7 @@ function* getDetailPendingCourseSaga() {
     }
   }
 }
-
+// Saga for approving a pending course
 function* approvedCoursePendingSaga() {
   while (true) {
     try {
@@ -240,7 +270,7 @@ function* approvedCoursePendingSaga() {
     }
   }
 }
-
+// Saga for retrieving the list of deleted courses
 function* getListCourseDeletedSaga() {
   while (true) {
     try {
@@ -265,7 +295,32 @@ function* getListCourseDeletedSaga() {
     }
   }
 }
+// Saga for retrieving details of a deleted course
+function* getDetailDeletedCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId },
+      } = yield take(getDetailDeletedCourseAction);
 
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getDetailDeletedCourse, { courseId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(getDetailCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for restoring a deleted course
 function* restoreCourseSaga() {
   while (true) {
     try {
@@ -305,32 +360,7 @@ function* restoreCourseSaga() {
     }
   }
 }
-
-function* getDetailCourseSaga() {
-  while (true) {
-    try {
-      const {
-        payload: { courseId },
-      } = yield take(getDetailCourseAction);
-
-      const result = yield call(getDetailCourse, { courseId });
-
-      switch (result.status) {
-        case 200:
-          yield put(getDetailCourseSuccess(result.data));
-          break;
-
-        default:
-          yield put(getDetailCourseFail());
-
-          break;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-
+// Saga for creating a new course
 function* createNewCourseSaga() {
   while (true) {
     try {
@@ -383,7 +413,7 @@ function* createNewCourseSaga() {
     }
   }
 }
-
+// Saga for creating a new section
 function* createNewSectionSaga() {
   while (true) {
     try {
@@ -426,7 +456,7 @@ function* createNewSectionSaga() {
     }
   }
 }
-
+// Saga for creating a new lesson
 function* createNewLessonSaga() {
   while (true) {
     try {
@@ -470,7 +500,7 @@ function* createNewLessonSaga() {
     }
   }
 }
-
+// Saga for retrieving details of a lesson
 function* getDetailLessonSaga() {
   while (true) {
     try {
@@ -495,7 +525,7 @@ function* getDetailLessonSaga() {
     }
   }
 }
-
+// Saga for retrieving the list of categories
 function* getListCategorySaga() {
   while (true) {
     try {
@@ -519,7 +549,7 @@ function* getListCategorySaga() {
     }
   }
 }
-
+// Saga for creating a new category
 function* createCategorySaga() {
   while (true) {
     try {
@@ -561,7 +591,7 @@ function* createCategorySaga() {
     }
   }
 }
-
+// Saga for editing a category
 function* editCategorySaga() {
   while (true) {
     try {
@@ -600,9 +630,7 @@ function* editCategorySaga() {
     }
   }
 }
-
-// const getListSubCategoriesFromStore = (state) => state.course.listSubcategories;
-
+// Saga for retrieving all subcategories
 function* getAllSubCategoriesSaga() {
   while (true) {
     try {
@@ -625,7 +653,7 @@ function* getAllSubCategoriesSaga() {
     }
   }
 }
-
+// Saga for retrieving subcategories by category
 function* getSubCategoriesByCategorySaga() {
   while (true) {
     try {
@@ -650,7 +678,7 @@ function* getSubCategoriesByCategorySaga() {
     }
   }
 }
-
+// Saga for creating a new subcategory
 function* createSubCateSaga() {
   while (true) {
     try {
@@ -692,7 +720,7 @@ function* createSubCateSaga() {
     }
   }
 }
-
+// Saga for deleting a subcategory
 function* deleteSubCateSaga() {
   while (true) {
     try {
@@ -730,7 +758,7 @@ function* deleteSubCateSaga() {
     }
   }
 }
-
+// Saga for initiating a payment
 function* paymentSaga() {
   while (true) {
     try {
@@ -751,24 +779,32 @@ function* paymentSaga() {
 }
 
 export default function* courseSaga() {
+  // approved course
   yield fork(getListCourseSaga);
+  yield fork(getDetailCourseSaga);
   yield fork(deleteCourseFromAdminSaga);
-  yield fork(getListCourseDeletedSaga);
-  yield fork(restoreCourseSaga);
+  //pending course
   yield fork(getListCoursePendingSaga);
   yield fork(getDetailPendingCourseSaga);
   yield fork(approvedCoursePendingSaga);
+  //deleted course
+  yield fork(getListCourseDeletedSaga);
+  yield fork(getDetailDeletedCourseSaga);
+  yield fork(restoreCourseSaga);
+  //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);
-  yield fork(getListCategorySaga);
   yield fork(createNewLessonSaga);
-  yield fork(getDetailCourseSaga);
+  // course
   yield fork(getDetailLessonSaga);
+  yield fork(paymentSaga);
+  // category
+  yield fork(getListCategorySaga);
   yield fork(createCategorySaga);
   yield fork(editCategorySaga);
+  //subcategory
   yield fork(getAllSubCategoriesSaga);
   yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
   yield fork(deleteSubCateSaga);
-  yield fork(paymentSaga);
 }

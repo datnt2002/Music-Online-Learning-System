@@ -162,6 +162,12 @@ export const courseSlice = createSlice({
         loading: true,
       };
     },
+    getDetailDeletedCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
     getDetailCourseSuccess: (state, action) => {
       state.loading = false;
       const { Sections } = action.payload;
@@ -399,6 +405,7 @@ export const {
   restoreDeletedCourseFail,
   getDetailCourseAction,
   getDetailPendingCourseAction,
+  getDetailDeletedCourseAction,
   getDetailCourseSuccess,
   getDetailCourseFail,
   getDetailLessonAction,

@@ -14,34 +14,34 @@ const ModalCourseDetail = () => {
   const data = useSelector((state) => state.course.currentCourse);
   const listSections = useSelector((state) => state.course.listSections);
   const loading = useSelector((state) => state.course.loading);
-
+  console.log(data);
   const navigate = useNavigate();
 
-  const items = listSections.map((section) => {
-    return {
-      key: section.sectionId,
-      label: section.sectionName,
-      children: section.Lessons.map((lesson) => {
-        return {
-          key: lesson.lessonId,
-          label: lesson.lessonName,
-          icon: <VideoCameraOutlined />,
-        };
-      }),
-    };
-  });
-  const onClick = (e) => {
-    console.log('click ', e);
-    navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
-  };
+  // const items = listSections.map((section) => {
+  //   return {
+  //     key: section.sectionId,
+  //     label: section.sectionName,
+  //     children: section.Lessons.map((lesson) => {
+  //       return {
+  //         key: lesson.lessonId,
+  //         label: lesson.lessonName,
+  //         icon: <VideoCameraOutlined />,
+  //       };
+  //     }),
+  //   };
+  // });
+  // const onClick = (e) => {
+  //   console.log('click ', e);
+  //   navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
+  // };
   return (
     <>
       {loading && <Loading />}
       <Divider className="bg-black" />
       <div className="flex bg-white text-black py-14 mx-auto h-72">
         <div className="ml-16 flex flex-1 flex-col">
-          <h1 className="mr-2">Course ID: {data.courseId}</h1>
-          <h1 className="mr-2">Price: ${data.price}</h1>
+          <h1 className="mr-2">Course ID: {data?.courseId}</h1>
+          <h1 className="mr-2">Price: ${data?.price}</h1>
           <h2 className="text-xl my-2 font-bohemian">{data.courseName}</h2>
 
           <p className="my-2">
@@ -73,7 +73,7 @@ const ModalCourseDetail = () => {
                 <CaretRightOutlined className="align-[0.125rem]" /> 67h 10m total length
               </p>
             </div>
-            <Menu onClick={onClick} mode="inline" items={items} />
+            {/* <Menu onClick={onClick} mode="inline" items={items} /> */}
           </div>
 
           {/* description */}

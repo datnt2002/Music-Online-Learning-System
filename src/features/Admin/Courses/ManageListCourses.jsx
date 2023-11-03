@@ -37,7 +37,7 @@ const ManageListCourses = () => {
   const handleShowDetailCourse = (record) => {
     dispatch(
       getDetailCourseAction({
-        courseId: record.courseId,
+        courseId: record?.courseId,
       })
     );
     setOpen(true);

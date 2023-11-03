@@ -103,6 +103,17 @@ export const getDetailPendingCourse = (data) => {
     });
 };
 
+export const getDetailDeletedCourse = (data) => {
+  return axiosClient
+    .get(`courses/deleted/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const createNewCourse = (data) => {
   const formData = new FormData();
   formData.append('courseName', data.courseName);
