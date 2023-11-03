@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { Button, Form, Input, Layout, Select } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
@@ -12,12 +14,14 @@ import {
 } from '../../../redux/slice/courseSlice';
 import Loading from '../../../components/Common/Loading';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
-import { useNavigate } from 'react-router-dom';
 
 const EditSubCate = () => {
+  const [selectedSubCate, setSelectedSubCate] = useState();
+
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +50,14 @@ const EditSubCate = () => {
     );
   };
 
+  const handleOnSelect = (value) => {
+    const subCate = listSubCate.find((subCate) => subCate.subCateId === value);
+    setSelectedSubCate(subCate.subCateName);
+    form.setFieldsValue({
+      [SUB_CATEGORY_FORM_FIELDS.NEW_SUB_CATEGORY_NAME]: subCate ? subCate.subCateName : '',
+    });
+  };
+
   const formLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 18 },
@@ -67,7 +79,7 @@ const EditSubCate = () => {
       >
         <div className="bg-white/50 rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl ml-5">Edit Sub Category</h1>
-          <Form layout="horizontal" onFinish={handleEditSubCategory} {...formLayout}>
+          <Form form={form} layout="horizontal" onFinish={handleEditSubCategory} {...formLayout}>
             <div className="flex">
               <div className="flex flex-col flex-1 p-5">
                 <Form.Item
@@ -100,7 +112,11 @@ const EditSubCate = () => {
                     },
                   ]}
                 >
-                  <Select placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_SUB_CATE_PLACEHOLDER} allowClear>
+                  <Select
+                    onSelect={handleOnSelect}
+                    placeholder={SUB_CATEGORY_FORM_FIELDS.SELECT_SUB_CATE_PLACEHOLDER}
+                    allowClear
+                  >
                     {listSubCate.map((subCate) => {
                       return (
                         <Select.Option key={subCate.subCateId} value={subCate.subCateId}>
@@ -120,10 +136,10 @@ const EditSubCate = () => {
                     },
                   ]}
                 >
-                  <Input />
+                  <Input value={selectedSubCate} onChange={(e) => setSelectedSubCate(e.target.value)} />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ span: 20, offset: 4 }}>
+                <Form.Item wrapperCol={{ span: 20, offset: 6 }}>
                   <Button type="primary" htmlType="submit" className="bg-black w-full">
                     Submit
                   </Button>
