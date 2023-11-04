@@ -147,6 +147,7 @@ export const VALIDATE_MESSAGE = {
   SECTION_REQUIRED: 'Please choose section',
   LESSON_REQUIRED: 'Please enter lesson name',
   LESSON_DESCRIPTION_REQUIRED: 'Please enter lesson description',
+  REQUIRED: 'Please input this field.',
 };
 
 export const PLACEHOLDER_FORM = {

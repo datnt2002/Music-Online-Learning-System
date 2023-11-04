@@ -78,6 +78,11 @@ const CreateCourse = () => {
   const handleChooseCategory = (value) => {
     dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
   };
+
+  const formLayout = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 19 },
+  };
   return (
     <Content>
       {loading && <Loading />}
@@ -93,7 +98,7 @@ const CreateCourse = () => {
         {/* form */}
         <div className="bg-white border border-black rounded-2xl p-6 ">
           <h1 className="font-semibold text-2xl">Create New Course</h1>
-          <Form layout="horizontal" onFinish={onFinish}>
+          <Form layout="horizontal" onFinish={onFinish} {...formLayout}>
             <div className="flex">
               <div className="flex flex-col basis-3/5 p-5">
                 <Form.Item
@@ -191,7 +196,7 @@ const CreateCourse = () => {
                   placeholder="Requirement"
                   nameFormList={CREATE_COURSE_FORM_FIELDS.REQUIREMENT}
                 />
-                <Form.Item className="flex-1 mx-5">
+                <Form.Item className="flex-1 mx-5" wrapperCol={{ span: 24 }}>
                   <Button type="primary" htmlType="submit" className="bg-black w-full">
                     Submit
                   </Button>
