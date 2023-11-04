@@ -30,8 +30,8 @@ const AvatarAdmin = () => {
         <Space className="flex">
           <Avatar size={43} src={adminAvatar} alt="Avatar" />
           <div className="flex flex-col">
-            <p>{currentUser.username}</p>
-            <p>{currentUser.email}</p>
+            <p>{currentUser?.username}</p>
+            <p>{currentUser?.email}</p>
           </div>
         </Space>
       ),

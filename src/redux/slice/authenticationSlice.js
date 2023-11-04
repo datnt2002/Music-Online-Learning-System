@@ -25,7 +25,8 @@ export const authenticationSlice = createSlice({
       };
     },
     signInSuccess: (state, action) => {
-      const { user, role } = action.payload;
+      const { user } = action.payload;
+      const role = user?.user_roles[0].role;
       return {
         ...state,
         isLoggedIn: true,
@@ -86,7 +87,8 @@ export const authenticationSlice = createSlice({
       };
     },
     getCurrentUserSuccess: (state, action) => {
-      const { user, role } = action.payload;
+      const user = action.payload;
+      const role = user?.user_roles[0].role;
       return {
         ...state,
         isLoggedIn: true,

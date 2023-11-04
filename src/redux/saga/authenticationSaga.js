@@ -54,6 +54,7 @@ function* signInSaga() {
       //the result is response from api
       //put to store
       const result = yield call(signIn, { username, password });
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(signInSuccess(result.data));
@@ -67,7 +68,7 @@ function* signInSaga() {
             sessionStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           }
 
-          const role = result.data.role;
+          const role = result.data?.user?.user_roles[0].role;
           if (role.roleName === ROLE.ADMIN) {
             navigate(ADMIN_ROUTE.DASHBOARD);
           } else {
@@ -176,6 +177,7 @@ function* getCurrentUserSaga() {
         payload: { accessToken },
       } = yield take(getCurrentUserAction);
       const result = yield call(getCurrentUser, { accessToken });
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getCurrentUserSuccess(result.data));
