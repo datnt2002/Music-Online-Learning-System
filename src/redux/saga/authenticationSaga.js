@@ -328,12 +328,12 @@ function* requestLecturerSaga() {
   while (true) {
     try {
       const {
-        payload: { navigate },
+        payload: { introduction, navigate },
       } = yield take(requestLecturerAction);
 
       const { accessToken } = getTokenFromStorage();
 
-      const result = yield call(requestLecturer, { accessToken });
+      const result = yield call(requestLecturer, { introduction, accessToken });
       switch (result.status) {
         case 200:
           yield put(requestLecturerSuccess(result));

@@ -15,7 +15,7 @@ const ModalCourseDetail = () => {
   const data = useSelector((state) => state.course.currentCourse);
   const listSections = useSelector((state) => state.course.listSections);
   const loading = useSelector((state) => state.course.loading);
-
+  console.log(data);
   const navigate = useNavigate();
 
   const items = listSections.map((section) => {
@@ -41,21 +41,21 @@ const ModalCourseDetail = () => {
       <Divider className="bg-black" />
       <div className="flex bg-white text-black py-14 mx-auto h-72">
         <div className="ml-16 flex flex-1 flex-col">
-          <h1 className="mr-2">Course ID: {data?.course.courseId}</h1>
-          <h1 className="mr-2">Price: ${formatPrice(data?.course.price)}</h1>
-          <h2 className="text-xl my-2 font-bohemian">{data.course.courseName}</h2>
+          <h1 className="mr-2">Course ID: {data?.course?.courseId}</h1>
+          <h1 className="mr-2">Price: ${data.course?.price && formatPrice(data.course.price)}</h1>
+          <h2 className="text-xl my-2 font-bohemian">{data.course?.courseName}</h2>
 
           <p className="my-2">
-            Created by <Link className="underline">{data.course.createdBy}</Link>
+            Created by <Link className="underline">{data?.course?.createdBy}</Link>
           </p>
 
           <p className="mr-2">
             <ClockCircleOutlined className="align-[0.125rem]" /> <span className="mr-1">Last update at</span>
-            {dayjs(data.course.createdAt).format(DAY_FORMAT.D_M_Y)}
+            {dayjs(data.course?.createdAt).format(DAY_FORMAT.D_M_Y)}
           </p>
         </div>
         <div className="flex flex-1 mr-16">
-          <img src={data.course.courseImg || courseImg} alt="" className="" />
+          <img src={data.course?.courseImg || courseImg} alt="" className="" />
         </div>
       </div>
       <Divider className="bg-black my-0" />
@@ -70,9 +70,6 @@ const ModalCourseDetail = () => {
               <p>
                 <CaretRightOutlined className="align-[0.1rem]" /> {data?.lessonCount} lectures
               </p>
-              <p>
-                <CaretRightOutlined className="align-[0.1rem]" /> 67h 10m total length
-              </p>
             </div>
             <Menu onClick={onClick} mode="inline" items={items} />
           </div>
@@ -80,7 +77,7 @@ const ModalCourseDetail = () => {
           {/* description */}
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Description</h2>
-            <p>{data.course.description}</p>
+            <p>{data.course?.description}</p>
           </div>
         </div>
       </div>

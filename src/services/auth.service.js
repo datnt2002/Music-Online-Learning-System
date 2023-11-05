@@ -108,6 +108,7 @@ export const editProfile = (data) => {
 
 export const requestLecturer = (data) => {
   const body = {
+    introduction: data.introduction,
     roleId: 3,
   };
   return axiosClient

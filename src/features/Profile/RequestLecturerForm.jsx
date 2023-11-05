@@ -5,19 +5,24 @@ import { Button, Form, Divider } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 import BreadCrumbCustom from '../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { LECTURER_REQUEST_FORM_FIELDS } from '../../constants';
+import { LECTURER_REQUEST_FORM_FIELDS, VALIDATE_MESSAGE } from '../../constants';
 import Loading from '../../components/Common/Loading';
 import repeatBg from '../../assets/imgs/repeatbg.jpg';
 import { useNavigate } from 'react-router-dom';
+import { requestLecturerAction } from '../../redux/slice/authenticationSlice';
 
 const RequestLecturerForm = () => {
   const loading = useSelector((state) => state.authentication.loading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmitRequest = (values) => {
-    dispatch({
-      navigate,
-    });
+    console.log(values);
+    dispatch(
+      requestLecturerAction({
+        introduction: values.introduction,
+        navigate,
+      })
+    );
   };
 
   const formLayout = {
@@ -42,6 +47,16 @@ const RequestLecturerForm = () => {
             <Form.Item
               label={LECTURER_REQUEST_FORM_FIELDS.INTRODUCTION_LABEL}
               name={LECTURER_REQUEST_FORM_FIELDS.INTRODUCTION}
+              rules={[
+                {
+                  required: true,
+                  message: VALIDATE_MESSAGE.REQUIRED,
+                },
+                {
+                  min: 50,
+                  message: VALIDATE_MESSAGE.INTRODUCTION_MIN,
+                },
+              ]}
             >
               <TextArea rows={4} />
             </Form.Item>
