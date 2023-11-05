@@ -23,10 +23,12 @@ const LeftContainer = () => {
   const navigate = useNavigate();
 
   const handleNavigateLecturer = () => {
-    if (role.roleName === ROLE.LECTURER) {
-      navigate(LECTURER_ROUTE.DASHBOARD);
-    } else {
-      navigate(USER_ROUTE.LECTURER_REQUEST_FORM);
+    if (role.length > 1) {
+      if (role[1].role.roleName === ROLE.LECTURER) {
+        navigate(LECTURER_ROUTE.DASHBOARD);
+      } else {
+        navigate(USER_ROUTE.LECTURER_REQUEST_FORM);
+      }
     }
   };
 
