@@ -43,7 +43,7 @@ const ListContainer = () => {
       <Carousel ref={ref} rows={1} slidesPerRow={5} dots={false} draggable infinite={true}>
         {listCourse.map((course) => {
           return (
-            <div key={course.courseId} className="my-3 mr-3">
+            <div key={course.courseId} className="my-3">
               <div
                 onClick={() => handleViewDetailCourse(course.courseId)}
                 className="relative flex w-[14rem] h-80 flex-col border border-black rounded-lg hover:scale-105"

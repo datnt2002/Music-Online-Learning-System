@@ -7,6 +7,7 @@ import { USER_ROUTE } from '../../../constants';
 
 const CourseContent = () => {
   const sections = useSelector((state) => state.course.listSections);
+  const currentCourse = useSelector((state) => state.course.currentCourse);
   const navigate = useNavigate();
 
   const items = sections.map((section) => {
@@ -32,12 +33,9 @@ const CourseContent = () => {
       <h2 className="text-xl mb-4 font-medium">Course Content</h2>
       <div className="flex justify-between">
         <div className="flex">
-          <p>31 sections</p>
+          <p>{currentCourse.sectionCount} sections</p>
           <p>
-            <CaretRightOutlined className="align-[0.125rem]" /> 411 lectures
-          </p>
-          <p>
-            <CaretRightOutlined className="align-[0.125rem]" /> 67h 10m total length
+            <CaretRightOutlined className="align-[0.125rem]" /> {currentCourse.lessonCount} lectures
           </p>
         </div>
       </div>

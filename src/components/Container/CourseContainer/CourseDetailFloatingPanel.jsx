@@ -7,9 +7,11 @@ import { YoutubeOutlined, MobileOutlined, RollbackOutlined } from '@ant-design/i
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import { USER_ROUTE } from '../../../constants';
 import formatPrice from '../../../utils/formatPrice';
+import { useSelector } from 'react-redux';
 
-const CourseDetailFloatingPanel = ({ data }) => {
+const CourseDetailFloatingPanel = () => {
   const navigate = useNavigate();
+  const currentCourse = useSelector((state) => state.course.currentCourse);
   const handleBuyCourse = () => {
     navigate(USER_ROUTE.PAYMENT);
   };
@@ -17,13 +19,15 @@ const CourseDetailFloatingPanel = ({ data }) => {
     <div className="bg-white border-black border rounded-3xl shadow-2xl fixed top-32 right-28 w-96 ">
       <img
         className="aspect-video rounded-2xl mx-auto -mt-6 shadow-xl w-11/12 border border-black"
-        src={data.courseImg || defaultCourse}
+        src={currentCourse?.course?.courseImg || defaultCourse}
         alt="courseImage"
       />
 
       <div className="flex flex-col p-8">
         <div className="flex flex-col flex-1">
-          <h1 className="text-2xl font-medium">${data.price && formatPrice(data.price)}</h1>
+          <h1 className="text-2xl font-medium">
+            ${currentCourse?.course?.price && formatPrice(currentCourse?.course?.price)}
+          </h1>
 
           <Button className="border border-black my-1" size="middle">
             Add to Cart

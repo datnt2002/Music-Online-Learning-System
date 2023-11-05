@@ -25,7 +25,7 @@ const CourseDetail = () => {
   });
   const currentCourse = useSelector((state) => state.course.currentCourse);
   const listCourse = useSelector((state) => state.course.listCourse);
-
+  console.log(currentCourse);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -52,11 +52,8 @@ const CourseDetail = () => {
           </div>
 
           <div className="ml-16 max-w-2xl">
-            <h1 className="text-3xl my-2 font-bohemian">{currentCourse.courseName}</h1>
-            <h2 className="text-xl my-2">
-              Master modern React from beginner to advanced! Context API, React Query, Redux Toolkit, Tailwind, advanced
-              patterns
-            </h2>
+            <h1 className="text-3xl my-2 font-bohemian">{currentCourse?.course?.courseName}</h1>
+            <h2 className="text-xl my-2">{currentCourse?.course?.brief}</h2>
             <div className="flex my-2">
               <p className="bg-yellow-300 text-sm text-black py-1 px-2 mr-2">Best seller</p>
               <p className="align-middle mx-2 leading-1">4.5</p>
@@ -73,14 +70,14 @@ const CourseDetail = () => {
             </p>
 
             <p className="mr-2">
-              <ClockCircleOutlined className="align-[0.125rem]" /> Last update at {currentCourse.updatedAt}
+              <ClockCircleOutlined className="align-[0.125rem]" /> Last update at {currentCourse?.course?.updatedAt}
             </p>
           </div>
         </div>
         <Divider className="bg-black mt-10 mb-0" />
       </div>
 
-      <CourseDetailFloatingPanel data={currentCourse} />
+      <CourseDetailFloatingPanel />
 
       {/* What you learn */}
       <div className="mx-auto max-w-7xl">
@@ -94,7 +91,7 @@ const CourseDetail = () => {
           {/* description */}
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Description</h2>
-            <p>{currentCourse.description}</p>
+            <p>{currentCourse?.course?.description}</p>
           </div>
 
           <div>
