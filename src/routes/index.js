@@ -180,7 +180,7 @@ export const authorRoutes = [
     ),
   },
   {
-    path: 'create-section',
+    path: 'create-section/:id',
     element: (
       <AuthorRoute>
         <CreateSection />

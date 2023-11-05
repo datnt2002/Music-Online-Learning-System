@@ -402,9 +402,9 @@ function* createNewCourseSaga() {
               no-repeat
             `,
             confirmButtonText: 'Got it',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate(LECTURER_ROUTE.CREATE_NEW_SECTION);
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.CREATE_NEW_SECTION + `/${result?.data?.courseId}`);
             }
           });
           break;
@@ -423,11 +423,16 @@ function* createNewSectionSaga() {
   while (true) {
     try {
       const {
-        payload: { sectionName, courseId, navigate },
+        payload: { sections, courseId, navigate },
       } = yield take(createNewSectionAction);
+      console.log(courseId);
 
+      const sectionArrayData = sections.map((section) => {
+        return { sectionName: section };
+      });
+      console.log(sectionArrayData);
       const { accessToken } = getTokenFromStorage();
-      const result = yield call(createNewSection, { sectionName, courseId, accessToken });
+      const result = yield call(createNewSection, { sectionArrayData, courseId, accessToken });
 
       switch (result.status) {
         case 200:

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, Form } from 'antd';
 import { Content } from 'antd/es/layout/layout';
@@ -10,7 +10,11 @@ import StepsCustom from '../../../components/Container/StepsContainer/StepsCusto
 import CourseInfoCard from '../../../components/Container/CardTemplate/CourseInfoCard';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { CREATE_SECTION_FORM_FIELDS, STORAGE } from '../../../constants';
-import { createNewSectionAction } from '../../../redux/slice/courseSlice';
+import {
+  createNewSectionAction,
+  getDetailCourseAction,
+  getDetailPendingCourseAction,
+} from '../../../redux/slice/courseSlice';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import Loading from '../../../components/Common/Loading';
 
@@ -19,14 +23,26 @@ const CreateSection = () => {
   const loading = useSelector((state) => state.course.loading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+  const pathNameArray = pathname.split('/').filter((item) => {
+    return item;
+  });
 
+  useEffect(() => {
+    dispatch(
+      getDetailPendingCourseAction({
+        courseId: pathNameArray[3],
+      })
+    );
+  }, []);
   const handleSubmitSection = (values) => {
     console.log('Received values of form:', values);
-
+    console.log(pathNameArray[2]);
     dispatch(
       createNewSectionAction({
-        sectionName: values.sectionName[0].items,
-        courseId: currentCourse.courseId,
+        sections: values.sectionName,
+        courseId: pathNameArray[2],
         navigate,
       })
     );

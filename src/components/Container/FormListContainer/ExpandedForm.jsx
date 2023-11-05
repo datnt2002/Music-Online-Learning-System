@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { VALIDATE_MESSAGE } from '../../../constants';
@@ -25,7 +25,7 @@ const ExpandedForm = ({ title, nameFormList, placeholder }) => {
         span: 24,
       },
       sm: {
-        span: 17,
+        span: 18,
       },
     },
   };
