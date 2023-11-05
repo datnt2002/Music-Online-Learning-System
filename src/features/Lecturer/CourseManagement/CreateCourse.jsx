@@ -11,7 +11,6 @@ import { Content } from 'antd/es/layout/layout';
 import {
   createNewCourseAction,
   getListCategoryAction,
-  getSubCategoriesAction,
   getSubCategoriesByCategoryAction,
 } from '../../../redux/slice/courseSlice';
 import { CREATE_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
@@ -36,10 +35,13 @@ const CreateCourse = () => {
       createNewCourseAction({
         courseName: values.courseName,
         description: values.description,
+        brief: values.brief_description,
         price: values.price,
         isFree: values.price > 0 ? false : true,
         subCateId: values.subcategory,
         file: file,
+        knowledge: values.knowledge,
+        requirement: values.requirement,
         navigate,
       })
     );
@@ -96,7 +98,7 @@ const CreateCourse = () => {
         <StepsCustom step={0} />
 
         {/* form */}
-        <div className="bg-white border border-black rounded-2xl p-6 ">
+        <div className="bg-white rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl">Create New Course</h1>
           <Form layout="horizontal" onFinish={onFinish} {...formLayout}>
             <div className="flex">
@@ -106,14 +108,14 @@ const CreateCourse = () => {
                   name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.COURSE_NAME_REQUIRED }]}
                 >
-                  <Input className="border border-black rounded-md" />
+                  <Input className="rounded-md" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.CATEGORY}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.CATEGORY_REQUIRED }]}
                 >
-                  <Select onChange={handleChooseCategory} className="border border-black rounded-md">
+                  <Select onChange={handleChooseCategory} className="rounded-md">
                     {listCategories.map((category) => {
                       return (
                         <Select.Option key={category.cateId} value={category.cateId}>
@@ -128,7 +130,7 @@ const CreateCourse = () => {
                   name={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.SUB_CATEGORY_REQUIRED }]}
                 >
-                  <Select className="border border-black rounded-md">
+                  <Select className="rounded-md">
                     {listSubCategories.map((subCate) => {
                       return (
                         <Select.Option key={subCate.subCateId} value={subCate.subCateId}>
@@ -143,21 +145,21 @@ const CreateCourse = () => {
                   name={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.BRIEF_DESCRIPTION_REQUIRED }]}
                 >
-                  <Input className="border border-black rounded-md" />
+                  <Input className="rounded-md" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.PRICE_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.PRICE}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.PRICE_REQUIRED }]}
                 >
-                  <InputNumber className="w-full border border-black rounded-md" />
+                  <InputNumber className="w-full rounded-md" />
                 </Form.Item>
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.DESCRIPTION_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.DESCRIPTION}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.DESCRIPTION_REQUIRED }]}
                 >
-                  <TextArea rows={4} className="border border-black rounded-md" />
+                  <TextArea rows={4} className="rounded-md" />
                 </Form.Item>
 
                 <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL}>
@@ -168,7 +170,6 @@ const CreateCourse = () => {
                         name="files"
                         maxCount={1}
                         customRequest={(info) => {
-                          console.log(info);
                           setFile(info.file);
                         }}
                         beforeUpload={beforeUpload}
@@ -188,11 +189,11 @@ const CreateCourse = () => {
               <div className="flex flex-1 flex-col">
                 <ExpandedForm
                   title="Knowledge"
-                  placeholder="What you will learn"
+                  placeholder="Knowledge"
                   nameFormList={CREATE_COURSE_FORM_FIELDS.WHAT_WILL_LEARN}
                 />
                 <ExpandedForm
-                  title="Requirements"
+                  title="Requirement"
                   placeholder="Requirement"
                   nameFormList={CREATE_COURSE_FORM_FIELDS.REQUIREMENT}
                 />

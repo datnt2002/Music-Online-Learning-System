@@ -69,7 +69,7 @@ export const CREATE_COURSE_FORM_FIELDS = {
   PRICE_LABEL: 'Price',
   DESCRIPTION: 'description',
   DESCRIPTION_LABEL: 'Description',
-  WHAT_WILL_LEARN: 'what_will_learn',
+  WHAT_WILL_LEARN: 'knowledge',
   WHAT_WILL_LEARN_LABEL: 'What Will Learn',
   REQUIREMENT: 'requirement',
   COURSE_IMAGE_LABEL: 'Course Image',

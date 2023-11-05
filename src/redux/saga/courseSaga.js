@@ -365,21 +365,26 @@ function* createNewCourseSaga() {
   while (true) {
     try {
       const {
-        payload: { courseName, price, isFree, subCateId, description, file, navigate },
+        payload: { courseName, brief, price, isFree, subCateId, description, file, knowledge, requirement, navigate },
       } = yield take(createNewCourseAction);
 
+      const knowledgeString = knowledge.toString();
+      const requirementString = requirement.toString();
       const { accessToken } = getTokenFromStorage();
 
       const result = yield call(createNewCourse, {
         courseName,
+        brief,
         price,
         isFree,
         subCateId,
         description,
         file,
         accessToken,
+        knowledgeString,
+        requirementString,
       });
-
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(createNewCourseSuccess(result.data));
