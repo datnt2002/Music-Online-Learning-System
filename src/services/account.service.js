@@ -40,7 +40,10 @@ export const disableUser = (data) => {
 export const getListRoleRequest = (data) => {
   console.log(data);
   return axiosClient
-    .get('users/request-change-role', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get('users/request-change-role', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
     .then((res) => {
       return res;
     })
@@ -55,7 +58,9 @@ export const approvedRoleRequest = (data) => {
     .patch(
       `users/request-change-role/${data.requestId}`,
       {},
-      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+      {
+        headers: { Authorization: `Bearer ${data.accessToken}` },
+      }
     )
     .then((res) => {
       return res;
