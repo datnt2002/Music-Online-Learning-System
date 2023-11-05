@@ -12,9 +12,7 @@ import { useSelector } from 'react-redux';
 const CourseDetailFloatingPanel = () => {
   const navigate = useNavigate();
   const currentCourse = useSelector((state) => state.course.currentCourse);
-  const handleBuyCourse = () => {
-    navigate(USER_ROUTE.PAYMENT);
-  };
+  const handleBuyCourse = () => {};
   return (
     <div className="bg-white border-black border rounded-3xl shadow-2xl fixed top-32 right-28 w-96 ">
       <img

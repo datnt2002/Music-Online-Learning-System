@@ -16,6 +16,7 @@ export const USER_ROUTE = {
   PAYMENT: '/user/payment-method',
   LECTURER_REQUEST_FORM: '/user/lecturer-request-form',
   MESSAGES: '/user/messengers',
+  PURCHASE_ECOIN: '/user/purchase-eCoin',
 };
 export const LECTURER_ROUTE = {
   DASHBOARD: '/lecturer',

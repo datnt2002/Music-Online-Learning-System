@@ -13,7 +13,6 @@ import Homepage from '../features/Home/Homepage';
 import Profile from '../features/Profile/Profile';
 import EditProfile from '../features/Profile/EditProfile';
 import Cart from '../features/Home/Cart';
-import Wishlist from '../features/Home/Wishlist';
 import LessonDetail from '../features/Home/Course/LessonDetail';
 import CourseDetail from '../features/Home/Course/CourseDetail';
 
@@ -36,6 +35,7 @@ import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
 import HomePosts from '../features/Forum/HomePosts';
 import Messengers from '../features/Forum/Messengers';
 import RequestLecturerForm from '../features/Profile/RequestLecturerForm';
+import PurchaseECoin from '../features/Home/Payment/PurchaseECoin';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -104,14 +104,6 @@ export const userRoutes = [
     ),
   },
   {
-    path: 'my-wishlist',
-    element: (
-      <UserRoute>
-        <Wishlist />
-      </UserRoute>
-    ),
-  },
-  {
     path: 'lesson-detail/:id',
     element: (
       <UserRoute>
@@ -132,6 +124,14 @@ export const userRoutes = [
     element: (
       <UserRoute>
         <ChoosePaymentMethod />
+      </UserRoute>
+    ),
+  },
+  {
+    path: 'purchase-eCoin',
+    element: (
+      <UserRoute>
+        <PurchaseECoin />
       </UserRoute>
     ),
   },

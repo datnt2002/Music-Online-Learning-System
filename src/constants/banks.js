@@ -48,3 +48,30 @@ export const banks = [
     img: require('../assets/imgs/bank/HSBC-Logo.png'),
   },
 ];
+
+export const amount = [
+  {
+    name: '10,000',
+  },
+  {
+    name: '20,000',
+  },
+  {
+    name: '50,000',
+  },
+  {
+    name: '100,000',
+  },
+  {
+    name: '200,000',
+  },
+  {
+    name: '300,000',
+  },
+  {
+    name: '500,000',
+  },
+  {
+    name: '1,000,000',
+  },
+];

@@ -45,10 +45,6 @@ const AvatarDropdown = () => {
       label: <Link to={USER_ROUTE.USER_CART}>My Cart</Link>,
     },
     {
-      key: '4',
-      label: <Link to={USER_ROUTE.USER_WISHLIST}>Wishlist</Link>,
-    },
-    {
       type: 'divider',
     },
     {
@@ -60,7 +56,7 @@ const AvatarDropdown = () => {
     },
     {
       key: '6',
-      label: <Link>Payment methods</Link>,
+      label: <Link to={USER_ROUTE.PAYMENT}>Charge E-coin</Link>,
     },
     {
       key: '7',
