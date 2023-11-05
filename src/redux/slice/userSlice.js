@@ -5,6 +5,7 @@ const initialState = {
   listAccounts: [],
   pagination: {},
   accountProfile: {},
+  listRequests: [],
 };
 
 export const userSlice = createSlice({
@@ -48,6 +49,31 @@ export const userSlice = createSlice({
     disableUserFail: (state) => {
       return { ...state, loading: false };
     },
+    getListRoleRequestAction: (state) => {
+      return { ...state, loading: true };
+    },
+    getListRoleRequestSuccess: (state, action) => {
+      const { requests, pageSize, pageIndex, totalCount, totalPages } = action.payload;
+      console.log(requests, pageSize, pageIndex, totalCount, totalPages);
+      return {
+        ...state,
+        loading: false,
+        pagination: { pageSize, pageIndex, totalCount, totalPages },
+        listRequests: requests,
+      };
+    },
+    getListRoleRequestFail: (state) => {
+      return { ...state, loading: false };
+    },
+    approvedRequestRoleAction: (state) => {
+      return { ...state, loading: true };
+    },
+    approvedRequestRoleSuccess: (state) => {
+      return { ...state, loading: false };
+    },
+    approvedRequestRoleFail: (state) => {
+      return { ...state, loading: false };
+    },
   },
 });
 
@@ -62,6 +88,12 @@ export const {
   disableUserAction,
   disableUserSuccess,
   disableUserFail,
+  getListRoleRequestAction,
+  getListRoleRequestSuccess,
+  getListRoleRequestFail,
+  approvedRequestRoleAction,
+  approvedRequestRoleSuccess,
+  approvedRequestRoleFail,
 } = userSlice.actions;
 
 export default userSlice.reducer;

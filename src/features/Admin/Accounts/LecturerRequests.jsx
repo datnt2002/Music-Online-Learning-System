@@ -7,29 +7,47 @@ import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PAGINATION } from '../../../constants';
+import { approvedRequestRoleAction, getListRoleRequestAction } from '../../../redux/slice/userSlice';
 
 const LecturerRequests = () => {
   //state of modal
   const [open, setOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
+  const [dataOfRecord, setDataOfRecord] = useState();
   //get list accounts from store
-  const listAccounts = [];
+  const listRequests = useSelector((state) => state.user.listRequests);
   // useSelector((state) => state.user.listAccounts);
-  const pagination = useSelector((state) => state.course.pagination);
-
+  const pagination = useSelector((state) => state.user.pagination);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(
+      getListRoleRequestAction({
+        pageIndex: pageIndex,
+        pageSize: 1,
+      })
+    );
     return () => {};
   }, [dispatch, pageIndex]);
-
   const showModal = (record) => {
+    setDataOfRecord(record);
     setOpen(true);
   };
 
   const handleCancel = () => {
     setOpen(false);
   };
+
+  const handleAcceptRequest = () => {
+    dispatch(
+      approvedRequestRoleAction({
+        requestId: dataOfRecord.id,
+      })
+    );
+    setOpen(false);
+  };
+
+  const handleRejectRequest = () => {};
 
   return (
     <Layout
@@ -48,7 +66,7 @@ const LecturerRequests = () => {
         }}
       >
         <TableAdmin
-          dataSource={listAccounts}
+          dataSource={listRequests}
           pagination={pagination}
           setPageIndex={setPageIndex}
           actions={(record) => (
@@ -71,11 +89,16 @@ const LecturerRequests = () => {
               <Button key="back" onClick={handleCancel}>
                 Return
               </Button>,
-              <Button className="bg-black" key="submit" type="primary" onClick={() => {}}>
+              <Button key="reject" onClick={handleRejectRequest}>
+                Reject
+              </Button>,
+              <Button className="bg-black" key="submit" type="primary" onClick={handleAcceptRequest}>
                 Accept
               </Button>,
             ]}
-          ></Modal>
+          >
+            <p>Accept request of user {dataOfRecord?.userId}</p>
+          </Modal>
         )}
       </Content>
     </Layout>

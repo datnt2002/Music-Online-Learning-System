@@ -4,17 +4,29 @@ import 'sweetalert2/src/sweetalert2.scss';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 import {
+  approvedRequestRoleAction,
+  approvedRequestRoleFail,
+  approvedRequestRoleSuccess,
   disableUserAction,
   disableUserFail,
   disableUserSuccess,
   getListAccountAction,
   getListAccountFail,
   getListAccountSuccess,
+  getListRoleRequestAction,
+  getListRoleRequestFail,
+  getListRoleRequestSuccess,
   getUserByIdAction,
   getUserByIdFail,
   getUserByIdSuccess,
 } from '../slice/userSlice';
-import { disableUser, getListUser, getUserById } from '../../services/account.service';
+import {
+  approvedRoleRequest,
+  disableUser,
+  getListRoleRequest,
+  getListUser,
+  getUserById,
+} from '../../services/account.service';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 import { PAGINATION } from '../../constants';
 
@@ -108,8 +120,75 @@ function* disableUserSaga() {
   }
 }
 
+function* getListChangeRoleSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { pageIndex, pageSize },
+      } = yield take(getListRoleRequestAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getListRoleRequest, { pageIndex, pageSize, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getListRoleRequestSuccess(result.data));
+          break;
+        default:
+          yield put(getListRoleRequestFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* approveRequestRoleSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { requestId },
+      } = yield take(approvedRequestRoleAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(approvedRoleRequest, { requestId, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(approvedRequestRoleSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          yield put(getListRoleRequestAction({ pageIndex: 1, pageSize: PAGINATION.PAGE_SIZE }));
+          break;
+        default:
+          yield put(approvedRequestRoleFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* userSaga() {
   yield fork(getListAccountSaga);
   yield fork(getUserByIdSaga);
   yield fork(disableUserSaga);
+  yield fork(getListChangeRoleSaga);
+  yield fork(approveRequestRoleSaga);
 }

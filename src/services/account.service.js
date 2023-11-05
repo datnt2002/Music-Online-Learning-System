@@ -36,3 +36,31 @@ export const disableUser = (data) => {
       return err;
     });
 };
+
+export const getListRoleRequest = (data) => {
+  console.log(data);
+  return axiosClient
+    .get('users/request-change-role', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const approvedRoleRequest = (data) => {
+  console.log(data);
+  return axiosClient
+    .patch(
+      `users/request-change-role/${data.requestId}`,
+      {},
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
