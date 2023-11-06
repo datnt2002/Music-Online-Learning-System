@@ -54,8 +54,8 @@ const CourseDetail = () => {
           <div className="ml-16 max-w-2xl">
             <h1 className="text-3xl my-2 font-bohemian">{currentCourse?.course?.courseName}</h1>
             <h2 className="text-xl my-2">{currentCourse?.course?.brief}</h2>
-            <div className="flex my-2">
-              <p className="bg-yellow-300 text-sm text-black py-1 px-2 mr-2">Best seller</p>
+            <div className="flex my-2 flex-wrap">
+              <p className="bg-yellow-300 text-sm text-black py-1 px-2 mr-2 lg:mb-0">Best seller</p>
               <p className="align-middle mx-2 leading-1">4.5</p>
               <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
               <p className="align-middle mx-2 leading-1">
