@@ -27,7 +27,7 @@ const AvatarDropdown = () => {
             <Avatar size={43} src={currentUser?.avatar || defaultAvatar} alt="Avatar" />
             <div className="flex flex-col">
               <p>{currentUser?.username}</p>
-              <p>{currentUser?.email}</p>
+              <p>{currentUser?.eCoin} eCoin</p>
             </div>
           </Space>
         </Link>

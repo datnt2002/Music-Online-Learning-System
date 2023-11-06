@@ -81,7 +81,7 @@ const CourseDetail = () => {
 
       {/* What you learn */}
       <div className="mx-auto max-w-7xl">
-        <div className="ml-16 max-w-2xl">
+        <div className="mx-auto w-5/6 lg:ml-16 lg:max-w-2xl">
           <WhatLearnDetail />
 
           <CourseContent />
