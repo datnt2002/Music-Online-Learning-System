@@ -17,18 +17,14 @@ const HeaderDefault = () => {
 
   return (
     <Layout>
-      <Header className="flex justify-between bg-white h-16">
-        <div className="flex">
-          <div className="flex flex-1">
-            <Searchbox />
-          </div>
-          <div className="flex">
-            <CategoryDropdown />
-          </div>
+      <Header className="flex justify-between bg-white h-16 ">
+        <div className="flex w-full items-center lg:w-auto">
+          <Searchbox />
+          <CategoryDropdown />
         </div>
 
         <div className="flex w-28 items-center -ml-4">
-          <Link className="text-[#F5F5F5] text-xl" to={PUBLIC_ROUTE.DEFAULT}>
+          <Link className="" to={PUBLIC_ROUTE.DEFAULT}>
             <img src={logo} alt="logo" />
           </Link>
         </div>

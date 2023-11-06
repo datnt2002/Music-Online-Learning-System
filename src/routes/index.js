@@ -36,6 +36,7 @@ import HomePosts from '../features/Forum/HomePosts';
 import Messengers from '../features/Forum/Messengers';
 import RequestLecturerForm from '../features/Profile/RequestLecturerForm';
 import PurchaseECoin from '../features/Home/Payment/PurchaseECoin';
+import PublicProfile from '../features/Profile/PublicProfile';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -73,6 +74,14 @@ export const publicRoutes = [
     element: (
       <PublicLayout>
         <HomePosts />
+      </PublicLayout>
+    ),
+  },
+  {
+    path: 'profile/:id',
+    element: (
+      <PublicLayout>
+        <PublicProfile />
       </PublicLayout>
     ),
   },

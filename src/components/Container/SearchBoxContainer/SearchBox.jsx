@@ -8,7 +8,7 @@ const Searchbox = () => {
     console.log('Success:', values);
   };
   return (
-    <Form onFinish={handleSearch} className="w-full h-full mr-5">
+    <Form onFinish={handleSearch} className="w-full mr-5">
       <Form.Item name={FORM_FIELDS.SEARCH}>
         <Input prefix={<SearchOutlined />} className="rounded-full top-4 border-black" />
       </Form.Item>
