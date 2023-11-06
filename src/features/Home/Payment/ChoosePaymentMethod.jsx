@@ -15,8 +15,11 @@ const ChoosePaymentMethod = () => {
   return (
     <>
       <Divider className="bg-black mt-0" />
-      <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }} className="h-screen">
-        <div className="w-2/5 my-10 mx-auto border border-black rounded-2xl overflow-hidden">
+      <div
+        style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}
+        className="min-h-screen py-8 md:py-12"
+      >
+        <div className="w-full sm:w-2/3 lg:w-1/2 my-10 mx-auto border border-black rounded-2xl overflow-hidden">
           <div>
             <img src={VNPAYLogo} alt="" className="w-40 pt-5 px-5" />
             <Divider className="mb-0 bg-black" />
@@ -27,13 +30,12 @@ const ChoosePaymentMethod = () => {
                 <div className="flex justify-between hover:shadow-md bg-white p-8 align-middle cursor-pointer border border-black">
                   <img src={VNPAYLogo} alt="" className="w-24 " />
                   <h1>VNPAY scanner app</h1>
-                  {/* <img src="" alt="" /> */}
                 </div>
                 <div className="bg-white p-8 align-middle hover:shadow-md border border-black">
                   <h1>Domestic card and bank account</h1>
                   <div>
                     <Divider className="bg-black" />
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {banks.map((bank, index) => {
                         return (
                           <Button
