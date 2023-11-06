@@ -1,14 +1,23 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { YoutubeOutlined, MobileOutlined, RollbackOutlined } from '@ant-design/icons';
 
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import formatPrice from '../../../utils/formatPrice';
+import { buyCourseByECoinAction } from '../../../redux/slice/courseSlice';
 
 const CourseDetailFloatingPanel = () => {
   const currentCourse = useSelector((state) => state.course.currentCourse);
-  const handleBuyCourse = () => {};
+  console.log(currentCourse);
+  const dispatch = useDispatch();
+  const handleBuyCourse = () => {
+    dispatch(
+      buyCourseByECoinAction({
+        courseIdArray: [{ courseId: currentCourse?.course?.courseId }],
+      })
+    );
+  };
   return (
     <div className="bg-white border-black border w-5/6 rounded-3xl mx-auto mb-6 shadow-2xl lg:fixed top-24 right-2/100  lg:top-32 lg:right-28 lg:w-96">
       <img

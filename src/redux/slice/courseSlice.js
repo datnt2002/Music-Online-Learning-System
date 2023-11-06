@@ -397,6 +397,24 @@ export const courseSlice = createSlice({
     createPaymentFail: (state) => {
       state.loading = false;
     },
+    buyCourseByECoinAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    buyCourseByECoinSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    buyCourseByECoinFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
   },
 });
 
@@ -461,6 +479,9 @@ export const {
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,
+  buyCourseByECoinAction,
+  buyCourseByECoinSuccess,
+  buyCourseByECoinFail,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

@@ -6,6 +6,7 @@ import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import {
   EditCategory,
   approvedCourse,
+  buyCourseByECoin,
   createNewCategory,
   createNewCourse,
   createNewLesson,
@@ -32,6 +33,9 @@ import {
   approvedCoursePendingAction,
   approvedCoursePendingFail,
   approvedCoursePendingSuccess,
+  buyCourseByECoinAction,
+  buyCourseByECoinFail,
+  buyCourseByECoinSuccess,
   createCategoryAction,
   createCategoryFail,
   createCategorySuccess,
@@ -791,6 +795,33 @@ function* paymentSaga() {
   }
 }
 
+// Saga for buying new course
+function* buyCourseByECoinSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseIdArray },
+      } = yield take(buyCourseByECoinAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(buyCourseByECoin, { courseIdArray, accessToken });
+      console.log(result);
+      switch (result.data) {
+        case 200:
+          yield put(buyCourseByECoinSuccess(result));
+          break;
+
+        default:
+          yield put(buyCourseByECoinFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* courseSaga() {
   // approved course
   yield fork(getListCourseSaga);
@@ -811,6 +842,7 @@ export default function* courseSaga() {
   // course
   yield fork(getDetailLessonSaga);
   yield fork(paymentSaga);
+  yield fork(buyCourseByECoinSaga);
   // category
   yield fork(getListCategorySaga);
   yield fork(createCategorySaga);

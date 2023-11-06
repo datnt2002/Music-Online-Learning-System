@@ -223,7 +223,7 @@ export const EditCategory = (data) => {
     });
 };
 
-export const getAllSubCategories = (data) => {
+export const getAllSubCategories = () => {
   return axiosClient
     .get('sub-categories')
     .then((res) => {
@@ -284,6 +284,18 @@ export const createPayment = (data) => {
       { language: 'vn', bankCode: data.bankCode, amount: data.amount },
       { headers: { Authorization: `Bearer ${data.accessToken}` } }
     )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const buyCourseByECoin = (data) => {
+  const body = [];
+  return axiosClient
+    .post('buy-courses', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
