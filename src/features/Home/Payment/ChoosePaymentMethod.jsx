@@ -10,7 +10,7 @@ import { USER_ROUTE } from '../../../constants';
 const ChoosePaymentMethod = () => {
   const navigate = useNavigate();
   const handleChoosePaymentMethod = (bankCode) => {
-    navigate(USER_ROUTE.PURCHASE_ECOIN);
+    navigate(USER_ROUTE.PURCHASE_ECOIN + `/${bankCode}`);
   };
   return (
     <>

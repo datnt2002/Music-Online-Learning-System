@@ -128,7 +128,7 @@ export const userRoutes = [
     ),
   },
   {
-    path: 'purchase-eCoin',
+    path: 'purchase-eCoin/:bankCode',
     element: (
       <UserRoute>
         <PurchaseECoin />
