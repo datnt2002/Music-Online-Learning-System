@@ -19,7 +19,7 @@ export const PROFILE_FORM_FIELDS = {
   EMAIL: 'email',
   EMAIL_LABEL: 'Email',
   PHONE_NUMBER: 'phoneNumber',
-  PHONE_NUMBER_LABEL: 'Phone Number',
+  PHONE_NUMBER_LABEL: 'Phone No',
   ADDRESS: 'address',
   ADDRESS_LABEL: 'Address',
   NATION: 'nation',

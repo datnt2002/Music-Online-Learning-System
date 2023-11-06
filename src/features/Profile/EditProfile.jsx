@@ -65,26 +65,40 @@ const EditProfile = () => {
   };
 
   const formLayout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 },
+    labelCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 6,
+      },
+    },
+    wrapperCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 18,
+      },
+    },
   };
 
   return (
     <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
       {loading && <Loading />}
       <Divider className="bg-black mb-0 mt-3" />
-      <div className="pt-6 ml-44">
+      <div className="pt-6 md:ml-44 ml-4">
         <BreadCrumbCustom />
         <h1 className="text-2xl font-semibold mt-2">Edit Your Profile</h1>
       </div>
-      <div className="pb-4">
+      <div className="pb-4 md:flex md:justify-center">
         <Form
           {...formLayout}
           form={form}
           onFinish={handleEditProfile}
-          className="bg-white border shadow-2xl rounded-3xl my-6 mx-44 flex flex-1"
+          className="bg-white border shadow-2xl rounded-3xl my-6 mx-4 md:mx-44 flex flex-col md:flex-row flex-1"
         >
-          <div className="flex flex-1 flex-col py-5 pl-14 pr-7">
+          <div className="flex flex-col md:w-1/2 p-4">
             <Form.Item className="text-center py-6 ">
               <Badge
                 color="#faad14"
@@ -131,18 +145,21 @@ const EditProfile = () => {
               <Input />
             </Form.Item>
 
-            <div className="flex">
-              <Form.Item
-                label={PROFILE_FORM_FIELDS.PASSWORD_LABEL}
-                name={PROFILE_FORM_FIELDS.PASSWORD}
-                className="flex-1 mr-2"
-                labelCol={{ span: 6, offset: 2 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Input.Password disabled />
-              </Form.Item>
-              <Button onClick={showModalChangePassword}>Change Password</Button>
-            </div>
+            <Form.Item
+              label={PROFILE_FORM_FIELDS.PASSWORD_LABEL}
+              name={PROFILE_FORM_FIELDS.PASSWORD}
+              className="flex-1"
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 18 }}
+            >
+              <Input.Password disabled />
+            </Form.Item>
+            <Form.Item wrapperCol={{ span: 24 }}>
+              <Button onClick={showModalChangePassword} block>
+                Change Password
+              </Button>
+            </Form.Item>
+
             <Form.Item
               rules={[
                 {
@@ -194,7 +211,7 @@ const EditProfile = () => {
               <Input />
             </Form.Item>
           </div>
-          <div className="flex flex-1 flex-col py-8 pl-7 pr-14">
+          <div className="flex flex-col md:w-1/2 p-4">
             <Form.Item label={PROFILE_FORM_FIELDS.GENDER_LABEL} name={PROFILE_FORM_FIELDS.GENDER}>
               <Select>
                 <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE_VALUE}>
