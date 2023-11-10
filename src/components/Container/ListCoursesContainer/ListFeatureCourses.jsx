@@ -42,7 +42,7 @@ const ListFeatureCourses = () => {
         {listCourse.map((course) => {
           return (
             <div
-              className="!flex p-6 cursor-pointer"
+              className="flex flex-col lg:!flex lg:flex-row p-6 cursor-pointer"
               key={course.courseId}
               onClick={() => {
                 handleViewDetail(course.courseId);
@@ -70,9 +70,7 @@ const ListFeatureCourses = () => {
                     <h1 className="mr-4 font-sans text-sm font-light leading-relaxed">
                       Updated {dayjs(course.updatedAt).format(DAY_FORMAT.D_M_Y)}
                     </h1>
-                    <h1 className='font-sans text-sm font-light leading-relaxed"'>
-                      7 hours total . 45 lecturers . All levels
-                    </h1>
+                    <h1 className='font-sans text-sm font-light leading-relaxed"'>45 lecturers</h1>
                   </div>
 
                   <div className="flex">

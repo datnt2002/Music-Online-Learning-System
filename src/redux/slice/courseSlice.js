@@ -21,6 +21,27 @@ export const courseSlice = createSlice({
     resetCourseSliceAction: () => {
       return initialState;
     },
+    getListFeatureCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getListFeatureCourseSuccess: (state, action) => {
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        listCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
+    },
+    getListFeatureCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     //list approved course slice
     getListCourseAction: (state) => {
       return {
@@ -420,6 +441,9 @@ export const courseSlice = createSlice({
 
 export const {
   resetCourseSliceAction,
+  getListFeatureCourseAction,
+  getListFeatureCourseSuccess,
+  getListFeatureCourseFail,
   getListCourseAction,
   getListCourseSuccess,
   getListCourseFail,

@@ -12,6 +12,19 @@ export const getListCourses = (data) => {
     });
 };
 
+//not done
+export const getListFeaturesCourses = (data) => {
+  console.log(data);
+  return axiosClient
+    .get('courses', { params: { pageIndex: data.pageIndex, pageSize: data.pageSize } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const deleteCourseFromAdmin = (data) => {
   return axiosClient
     .delete(`courses/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
