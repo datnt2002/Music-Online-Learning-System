@@ -19,12 +19,12 @@ import defaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
 const LeftContainer = () => {
   const userProfile = useSelector((state) => state.authentication.currentUser);
   const role = useSelector((state) => state.authentication.currentUserRole);
-  console.log(role);
+
   const navigate = useNavigate();
 
   const handleNavigateLecturer = () => {
     if (role.length > 1) {
-      if (role[1].role.roleName === ROLE.LECTURER) {
+      if (role[1]?.roleId === ROLE.LECTURER) {
         navigate(LECTURER_ROUTE.DASHBOARD);
       } else {
         navigate(USER_ROUTE.LECTURER_REQUEST_FORM);
@@ -39,9 +39,8 @@ const LeftContainer = () => {
         <Avatar size={110} icon={<AntDesignOutlined />} src={userProfile?.avatar || defaultAvatar} className="mb-2" />
 
         <h1 className="text-2xl font-semibold">{userProfile?.firstName + ' ' + userProfile?.lastName}</h1>
-        <p className="italic">{userProfile?.bio}</p>
         <p className="my-3">
-          <EnvironmentOutlined className="align-[0.125rem]" /> Ha Noi, Viet Nam
+          <EnvironmentOutlined className="align-[0.125rem]" /> {userProfile?.nation}
         </p>
 
         <Link to={USER_ROUTE.USER_EDIT_PROFILE}>
@@ -95,7 +94,7 @@ const LeftContainer = () => {
       <div className="w-full my-4">
         <h1 className="font-semibold text-lg">On the web</h1>
 
-        <Link>
+        <Link to={userProfile?.facebook}>
           <Button
             type="primary"
             className="rounded-full w-full bg-black text-white font-bold text-base py-2 h-fit my-4"
@@ -105,7 +104,7 @@ const LeftContainer = () => {
           </Button>
         </Link>
 
-        <Link>
+        <Link to={userProfile?.instagram}>
           <Button
             type="primary"
             className="rounded-full w-full bg-black text-white font-bold text-base py-2 h-fit"
@@ -119,10 +118,10 @@ const LeftContainer = () => {
       {/* About me */}
       <div className="max-w-[350px]">
         <h1 className="font-semibold text-lg">About me</h1>
-        <p>{userProfile.bio}</p>
+        <p>{userProfile?.bio}</p>
       </div>
 
-      <p className="my-3 font-medium">MEMBER SINCE: {dayjs(userProfile.createdAt).format(DAY_FORMAT.D_M_Y)}</p>
+      <p className="my-3 font-medium">MEMBER SINCE: {dayjs(userProfile?.createdAt).format(DAY_FORMAT.D_M_Y)}</p>
     </div>
   );
 };
