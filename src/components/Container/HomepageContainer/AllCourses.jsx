@@ -1,13 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Menu, Pagination } from 'antd';
 
 import CourseHorizontalCard from '../CardTemplate/CourseHorizontalCard';
+import { getListCourseAction } from '../../../redux/slice/courseSlice';
 
 const AllCourses = () => {
   const listCategories = useSelector((state) => state.course.listCategory);
   const listCourses = useSelector((state) => state.course.listCourse);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
+  const pagination = useSelector((state) => state.course.pagination);
+  console.log(pagination);
+
+  const [pageIndex, setPageIndex] = useState(1);
+  const dispatch = useDispatch();
   const handleFilterBySubCate = ({ key }) => {
     console.log('click ', key);
   };
@@ -29,6 +35,15 @@ const AllCourses = () => {
     };
   });
 
+  useEffect(() => {
+    dispatch(
+      getListCourseAction({
+        pageIndex: pageIndex,
+        pageSize: 5,
+      })
+    );
+  }, []);
+
   return (
     <div>
       <div className="flex py-4 pr-4 my-4">
@@ -44,7 +59,16 @@ const AllCourses = () => {
             return <CourseHorizontalCard courseData={course} />;
           })}
 
-          <Pagination defaultCurrent={6} total={500} className="text-center" />
+          <Pagination
+            defaultCurrent={1}
+            current={pageIndex}
+            pageSize={5}
+            total={pagination.totalCount}
+            className="text-center"
+            onChange={(page) => {
+              setPageIndex(page);
+            }}
+          />
         </div>
       </div>
     </div>

@@ -16,14 +16,14 @@ const ListFeatureCourses = () => {
   const ref = useRef();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(
-      getListCourseAction({
-        pageIndex: 1,
-        pageSize: 20,
-      })
-    );
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getListCourseAction({
+  //       pageIndex: 1,
+  //       pageSize: 20,
+  //     })
+  //   );
+  // }, [dispatch]);
 
   const handleViewDetail = (courseId) => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);

@@ -13,14 +13,14 @@ const ListContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(
-      getListCourseAction({
-        pageIndex: 1,
-        pageSize: 20,
-      })
-    );
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getListCourseAction({
+  //       pageIndex: 1,
+  //       pageSize: 20,
+  //     })
+  //   );
+  // }, [dispatch]);
 
   const listCourse = useSelector((state) => state.course.listCourse);
 

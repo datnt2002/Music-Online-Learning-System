@@ -10,7 +10,7 @@ import { PAGINATION } from '../../../constants';
 const CategoryDropdown = () => {
   const categories = useSelector((state) => state.course.listCategory);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
-  console.log(listSubCate);
+
   const items = categories.map((category) => {
     return {
       key: category.cateId,
@@ -40,6 +40,7 @@ const CategoryDropdown = () => {
   const handleChooseSubCategory = ({ key }) => {
     console.log(`Click on item ${key}`);
   };
+
   return (
     <Dropdown
       menu={{
