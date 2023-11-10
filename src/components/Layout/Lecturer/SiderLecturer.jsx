@@ -15,7 +15,7 @@ import { LECTURER_ROUTE } from '../../../constants';
 
 const SiderLecturer = () => {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const items = [
     {
       key: LECTURER_ROUTE.DASHBOARD,
