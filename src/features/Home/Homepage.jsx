@@ -16,7 +16,7 @@ const Homepage = () => {
     <div>
       {/* sub nav */}
       <div style={{ backgroundImage: `url(${introBg})` }} className="bg-cover">
-        <div className="h-16 mt-4 mx-11">
+        <div className="h-auto my-4 mx-11 md:h-16 md:mb-0">
           <SubNavCategory />
         </div>
         <Divider className="mt-0 bg-black" />
