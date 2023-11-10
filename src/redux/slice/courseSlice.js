@@ -71,7 +71,7 @@ export const courseSlice = createSlice({
       };
     },
     getDetailCourseSuccess: (state, action) => {
-      const { Sections } = action.payload.course;
+      const { Sections } = action.payload?.course;
       return {
         ...state,
         loading: false,

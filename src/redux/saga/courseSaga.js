@@ -14,7 +14,6 @@ import {
   createPayment,
   createSubCate,
   deleteCourseFromAdmin,
-  deleteSubCate,
   editSubCate,
   getAllSubCategories,
   getDetailCourse,
@@ -25,7 +24,6 @@ import {
   getListCourses,
   getListDeleteCourse,
   getListPendingCourse,
-  getSubCategories,
   getSubCategoriesByCategory,
   restoreDeleteCourse,
 } from '../../services/course.service';

@@ -21,7 +21,7 @@ const HeaderLecturer = () => {
           <Link className="mr-3" to={PUBLIC_ROUTE.DEFAULT}>
             Home
           </Link>
-          <div className="">
+          <div>
             <AvatarDropdown />
           </div>
         </div>

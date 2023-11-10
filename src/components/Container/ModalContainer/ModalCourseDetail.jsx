@@ -39,11 +39,11 @@ const ModalCourseDetail = () => {
     <>
       {loading && <Loading />}
       <Divider className="bg-black" />
-      <div className="flex bg-white text-black py-14 mx-auto h-72">
-        <div className="ml-16 flex flex-1 flex-col">
+      <div className="flex flex-col md:flex-row bg-white text-black py-14 mx-auto h-auto">
+        <div className="ml-2 mb-2 md:ml-16 md:mb-0 flex flex-1 flex-col">
           <h1 className="mr-2">Course ID: {data?.course?.courseId}</h1>
-          <h1 className="mr-2">Price: ${data.course?.price && formatPrice(data.course.price)}</h1>
-          <h2 className="text-xl my-2 font-bohemian">{data.course?.courseName}</h2>
+          <h1 className="mr-2">Price: ${data?.course?.price && formatPrice(data?.course?.price)}</h1>
+          <h2 className="text-xl my-2 font-bohemian">{data?.course?.courseName}</h2>
 
           <p className="my-2">
             Created by <Link className="underline">{data?.course?.createdBy}</Link>
@@ -51,11 +51,11 @@ const ModalCourseDetail = () => {
 
           <p className="mr-2">
             <ClockCircleOutlined className="align-[0.125rem]" /> <span className="mr-1">Last update at</span>
-            {dayjs(data.course?.createdAt).format(DAY_FORMAT.D_M_Y)}
+            {dayjs(data?.course?.createdAt).format(DAY_FORMAT.D_M_Y)}
           </p>
         </div>
-        <div className="flex flex-1 mr-16">
-          <img src={data.course?.courseImg || courseImg} alt="" className="" />
+        <div className="flex flex-1 mx-auto md:mr-16">
+          <img src={data?.course?.courseImg || courseImg} alt="" className="aspect-video" />
         </div>
       </div>
       <Divider className="bg-black my-0" />
@@ -77,7 +77,7 @@ const ModalCourseDetail = () => {
           {/* description */}
           <div className="my-6">
             <h2 className="text-xl mb-4 font-medium">Description</h2>
-            <p>{data.course?.description}</p>
+            <p>{data?.course?.description}</p>
           </div>
         </div>
       </div>

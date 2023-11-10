@@ -68,8 +68,8 @@ function* signInSaga() {
             sessionStorage.setItem(TOKEN.AUTH_TOKEN, JSON.stringify(authToken));
           }
 
-          const role = result.data?.user?.user_roles[0].role;
-          if (role.roleName === ROLE.ADMIN) {
+          const role = result.data?.user?.user_roles[0]?.roleId;
+          if (role === ROLE.ADMIN) {
             navigate(ADMIN_ROUTE.DASHBOARD);
           } else {
             navigate(PUBLIC_ROUTE.DEFAULT);
