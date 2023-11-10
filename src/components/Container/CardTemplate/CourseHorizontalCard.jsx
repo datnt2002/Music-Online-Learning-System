@@ -14,8 +14,11 @@ const CourseHorizontalCard = ({ courseData }) => {
   };
 
   return (
-    <div className="flex p-6 border border-black rounded-2xl ml-4 cursor-pointer" onClick={handleViewDetail}>
-      <div className="mr-6 flex basis-1/3">
+    <div
+      className="flex flex-col p-6 border border-black rounded-2xl lg:flex-row lg:ml-4 cursor-pointer"
+      onClick={handleViewDetail}
+    >
+      <div className="lg:mr-6 lg:mb-0 mb-2 flex justify-center basis-1/3">
         <img src={courseData?.courseImg || defaultCourse} className="aspect-video" alt="" />
       </div>
 
@@ -29,7 +32,7 @@ const CourseHorizontalCard = ({ courseData }) => {
             <h1 className="mr-4 font-sans text-sm font-light leading-relaxed">
               Updated {dayjs(courseData.updatedAt).format(DAY_FORMAT.D_M_Y)}
             </h1>
-            <h1 className='font-sans text-sm font-light leading-relaxed"'>7 hours total . 45 lecturers . All levels</h1>
+            <h1 className='font-sans text-sm font-light leading-relaxed"'>45 lecturers</h1>
           </div>
 
           <div className="flex">

@@ -47,11 +47,11 @@ const AllCourses = () => {
   return (
     <div>
       <div className="flex py-4 pr-4 my-4">
-        <p className="flex flex-1 justify-end items-center">2000 courses</p>
+        <p className="flex flex-1 justify-end items-center">{pagination?.totalCount} courses</p>
       </div>
 
-      <div className="flex">
-        <div className="flex flex-col basis-1/4 mr-4">
+      <div className="flex flex-col lg:flex lg:flex-row">
+        <div className="flex flex-col basis-1/4 mb-2 lg:mr-4 lg:mb-0">
           <Menu onClick={handleFilterBySubCate} mode="inline" items={items} className="rounded-2xl bg-white/50" />
         </div>
         <div className="flex flex-1 flex-col gap-3">
@@ -63,7 +63,7 @@ const AllCourses = () => {
             defaultCurrent={1}
             current={pageIndex}
             pageSize={5}
-            total={pagination.totalCount}
+            total={pagination?.totalCount}
             className="text-center"
             onChange={(page) => {
               setPageIndex(page);
