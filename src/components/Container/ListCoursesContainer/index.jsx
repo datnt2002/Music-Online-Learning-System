@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Carousel, Rate } from 'antd';
@@ -10,26 +10,59 @@ import defaultCourse from '../../../assets/imgs/default-course.png';
 import formatPrice from '../../../utils/formatPrice';
 
 const ListContainer = () => {
+  const listCourse = useSelector((state) => state.course.listCourse);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   dispatch(
-  //     getListCourseAction({
-  //       pageIndex: 1,
-  //       pageSize: 20,
-  //     })
-  //   );
-  // }, [dispatch]);
-
-  const listCourse = useSelector((state) => state.course.listCourse);
-
   const ref = useRef();
 
+  //dispatch action get 20 courses for list courses started
+  useEffect(() => {
+    dispatch(
+      getListCourseAction({
+        pageIndex: 1,
+        pageSize: 20,
+      })
+    );
+  }, [dispatch]);
+
+  //go to detail course
   const handleViewDetailCourse = (courseId) => {
     navigate(`${PUBLIC_ROUTE.COURSE_DETAIL}/${courseId}`);
     localStorage.setItem(STORAGE.COURSE_ID, courseId);
   };
+
+  // Number of slides to show for different screen sizes
+  const [slidesToShow, setSlidesToShow] = useState(3);
+
+  useEffect(() => {
+    //responsive carousel
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      switch (true) {
+        case screenWidth < 640:
+          setSlidesToShow(1);
+          break;
+        case screenWidth >= 640 && screenWidth < 768:
+          setSlidesToShow(2);
+          break;
+        case screenWidth >= 768 && screenWidth <= 1024:
+          setSlidesToShow(3);
+          break;
+        case screenWidth > 1300:
+          setSlidesToShow(5);
+          break;
+        default:
+          setSlidesToShow(4);
+          break;
+      }
+    };
+    // Set initial state
+    handleResize();
+    // Attach the event listener
+    window.addEventListener('resize', handleResize);
+    // Detach the event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="relative">
@@ -40,7 +73,7 @@ const ListContainer = () => {
           ref.current.prev();
         }}
       />
-      <Carousel ref={ref} rows={1} slidesPerRow={5} dots={false} draggable infinite={true}>
+      <Carousel ref={ref} rows={1} slidesPerRow={slidesToShow} dots={false} draggable infinite={true}>
         {listCourse.map((course) => {
           return (
             <div key={course.courseId} className="my-3">

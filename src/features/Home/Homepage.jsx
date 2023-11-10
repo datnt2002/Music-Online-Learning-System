@@ -29,7 +29,7 @@ const Homepage = () => {
         <Divider className=" bg-black mt-0" />
       </div>
       <div style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }} className=" bg-repeat-y">
-        <div className="mx-32 mt-14">
+        <div className="md:mx-32 mx-8 mt-14">
           <div className="my-16">
             <h1 className="text-2xl font-semibold mb-10 text-center">Courses to get you started</h1>
             <ListContainer />

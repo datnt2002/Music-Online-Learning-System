@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import { Button, Carousel, Rate } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import { DAY_FORMAT, PUBLIC_ROUTE, STORAGE } from '../../../constants';
 import formatPrice from '../../../utils/formatPrice';
