@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Content } from 'antd/es/layout/layout';
 import { Button, Modal, Space } from 'antd';
-import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import { PAGINATION } from '../../../constants';
-import { getDetailDraftCourseAction, getListDraftCourseAction } from '../../../redux/slice/courseSlice';
+import {
+  getDetailDraftCourseAction,
+  getListDraftCourseAction,
+  publishDraftCourseAction,
+} from '../../../redux/slice/courseSlice';
+import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 
 const LecturerCourse = () => {
   const [open, setOpen] = useState(false);
@@ -27,7 +32,7 @@ const LecturerCourse = () => {
     return () => {};
   }, [dispatch, pageIndex]);
 
-  const handleShowDetailDraftCourse = (record) => {
+  const handleEditDraftCourse = (record) => {
     console.log(record);
     dispatch(
       getDetailDraftCourseAction({
@@ -35,6 +40,14 @@ const LecturerCourse = () => {
       })
     );
     setOpen(true);
+  };
+  const handlePublishCourse = (record) => {
+    console.log(record);
+    dispatch(
+      publishDraftCourseAction({
+        courseId: record?.courseId,
+      })
+    );
   };
 
   // const handleDeleteCourse = (record) => {
@@ -65,9 +78,15 @@ const LecturerCourse = () => {
           <Space>
             <Button
               onClick={() => {
-                handleShowDetailDraftCourse(record);
+                handleEditDraftCourse(record);
               }}
-              icon={<EyeOutlined />}
+              icon={<EditOutlined />}
+            />
+            <Button
+              onClick={() => {
+                handlePublishCourse(record);
+              }}
+              icon={<UploadOutlined />}
             />
             <Button
               onClick={() => {
@@ -89,7 +108,9 @@ const LecturerCourse = () => {
               Return
             </Button>,
           ]}
-        ></Modal>
+        >
+          <ModalCourseDetail />
+        </Modal>
       )}
     </Content>
   );

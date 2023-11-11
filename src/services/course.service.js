@@ -149,10 +149,20 @@ export const getListDraftCourse = (data) => {
       return err;
     });
 };
-
 export const getDraftCourseDetail = (data) => {
   return axiosClient
     .get(`courses/draft/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+export const publishDraftCourse = (data) => {
+  console.log(data);
+  return axiosClient
+    .patch(`courses/draft/${data.courseId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

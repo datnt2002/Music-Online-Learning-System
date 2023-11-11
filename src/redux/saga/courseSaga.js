@@ -27,6 +27,7 @@ import {
   getListDraftCourse,
   getListPendingCourse,
   getSubCategoriesByCategory,
+  publishDraftCourse,
   restoreDeleteCourse,
 } from '../../services/course.service';
 import {
@@ -93,6 +94,9 @@ import {
   getSubCategoriesByCategorySuccess,
   getSubCategoriesFail,
   getSubCategoriesSuccess,
+  publishDraftCourseAction,
+  publishDraftCourseFail,
+  publishDraftCourseSuccess,
   restoreDeletedCourseAction,
   restoreDeletedCourseFail,
   restoreDeletedCourseSuccess,
@@ -411,6 +415,44 @@ function* getDetailDraftCourseSaga() {
 
         default:
           yield put(getDetailDraftCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for publish a draft course
+function* publishDraftCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId },
+      } = yield take(publishDraftCourseAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(publishDraftCourse, { courseId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(publishDraftCourseSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(publishDraftCourseFail(result));
           break;
       }
     } catch (error) {
@@ -886,6 +928,7 @@ export default function* courseSaga() {
   //draft course
   yield fork(getListDraftCourseSaga);
   yield fork(getDetailDraftCourseSaga);
+  yield fork(publishDraftCourseSaga);
   //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);

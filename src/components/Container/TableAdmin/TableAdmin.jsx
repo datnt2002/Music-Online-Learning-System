@@ -67,7 +67,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
     columns.push({
       title: 'Actions',
       fixed: 'right',
-      width: 100,
+      width: 120,
       align: 'center',
       render: (record) => {
         return actions(record);

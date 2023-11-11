@@ -252,6 +252,24 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    publishDraftCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    publishDraftCourseSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    publishDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     //create course
     createNewCourseAction: (state) => {
       return {
@@ -524,6 +542,9 @@ export const {
   getDetailDraftCourseAction,
   getDetailDraftCourseSuccess,
   getDetailDraftCourseFail,
+  publishDraftCourseAction,
+  publishDraftCourseSuccess,
+  publishDraftCourseFail,
   //create course
   createNewCourseAction,
   createNewCourseSuccess,
