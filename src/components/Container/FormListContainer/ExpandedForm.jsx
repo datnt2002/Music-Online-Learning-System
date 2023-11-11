@@ -7,8 +7,13 @@ import { VALIDATE_MESSAGE } from '../../../constants';
 const ExpandedForm = ({ title, nameFormList, placeholder }) => {
   const formItemLayoutWithOutLabel = {
     wrapperCol: {
-      span: 24,
-      offset: 6,
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 24,
+        offset: 6,
+      },
     },
   };
   const formItemLayout = {

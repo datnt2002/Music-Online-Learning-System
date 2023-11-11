@@ -101,8 +101,8 @@ const CreateCourse = () => {
         <div className="bg-white rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl">Create New Course</h1>
           <Form layout="horizontal" onFinish={onFinish} {...formLayout} labelWrap>
-            <div className="flex">
-              <div className="flex flex-col basis-3/5 p-5">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-3/5 p-5">
                 <Form.Item
                   label={CREATE_COURSE_FORM_FIELDS.COURSE_NAME_LABEL}
                   name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}
@@ -186,7 +186,7 @@ const CreateCourse = () => {
               </div>
 
               {/* what will learn block */}
-              <div className="flex flex-1 flex-col">
+              <div className="flex flex-1 flex-col md:w-2/5 mt-4 md:mt-0">
                 <ExpandedForm
                   title="Knowledge"
                   placeholder="Knowledge"
