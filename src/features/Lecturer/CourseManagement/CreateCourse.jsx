@@ -100,7 +100,7 @@ const CreateCourse = () => {
         {/* form */}
         <div className="bg-white rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl">Create New Course</h1>
-          <Form layout="horizontal" onFinish={onFinish} {...formLayout}>
+          <Form layout="horizontal" onFinish={onFinish} {...formLayout} labelWrap>
             <div className="flex">
               <div className="flex flex-col basis-3/5 p-5">
                 <Form.Item

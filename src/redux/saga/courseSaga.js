@@ -373,7 +373,7 @@ function* getDetailDraftCourseSaga() {
       const {
         payload: { courseId },
       } = yield take(getDetailDraftCourseAction);
-
+      sessionStorage.setItem(STORAGE.COURSE_ID, courseId);
       const { accessToken } = getTokenFromStorage();
       const result = yield call(getDraftCourseDetail, { courseId, accessToken });
 
@@ -456,14 +456,9 @@ function* createNewSectionSaga() {
       const {
         payload: { sections, courseId, navigate },
       } = yield take(createNewSectionAction);
-      console.log(courseId);
 
-      const sectionArrayData = sections.map((section) => {
-        return { sectionName: section };
-      });
-      console.log(sectionArrayData);
       const { accessToken } = getTokenFromStorage();
-      const result = yield call(createNewSection, { sectionArrayData, courseId, accessToken });
+      const result = yield call(createNewSection, { sections, courseId, accessToken });
 
       switch (result.status) {
         case 200:

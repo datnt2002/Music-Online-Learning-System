@@ -154,8 +154,7 @@ export const createNewCourse = (data) => {
 };
 
 export const createNewSection = (data) => {
-  const body = data.sectionArrayData;
-  console.log(body);
+  const body = data.sections;
   return axiosClient
     .post(`sections/${data.courseId}`, body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {

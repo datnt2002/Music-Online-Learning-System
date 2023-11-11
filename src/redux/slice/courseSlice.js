@@ -293,10 +293,12 @@ export const courseSlice = createSlice({
       };
     },
     getDetailDraftCourseSuccess: (state, action) => {
+      const { Sections } = action.payload;
       return {
         ...state,
         loading: false,
         currentCourse: action.payload,
+        listSections: Sections
       };
     },
     getDetailDraftCourseFail: (state) => {

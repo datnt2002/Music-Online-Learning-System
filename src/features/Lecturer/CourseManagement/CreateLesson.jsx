@@ -9,24 +9,25 @@ import { Content } from 'antd/es/layout/layout';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { CREATE_LESSON_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants/formfield';
-import { createNewLessonAction, getDetailPendingCourseAction } from '../../../redux/slice/courseSlice';
+import { createNewLessonAction, getDetailDraftCourseAction } from '../../../redux/slice/courseSlice';
 import { STORAGE } from '../../../constants';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import Loading from '../../../components/Common/Loading';
 
 const CreateLesson = () => {
+  const loading = useSelector((state) => state.course.loading);
+  const listSections = useSelector((state) => state.course.listSections);
   const [file, setFile] = useState();
   const [form] = Form.useForm();
   const { courseId } = JSON.parse(sessionStorage.getItem(STORAGE.COURSE));
-  const loading = useSelector((state) => state.course.loading);
-  const listSections = useSelector((state) => state.course.listSections);
+  console.log(courseId, listSections);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
-      getDetailPendingCourseAction({
+      getDetailDraftCourseAction({
         courseId,
       })
     );
@@ -63,7 +64,7 @@ const CreateLesson = () => {
               name={CREATE_LESSON_FORM_FIELDS.SECTION_ID}
               rules={[{ required: true, message: VALIDATE_MESSAGE.SECTION_REQUIRED }]}
             >
-              <Select className="border border-black rounded-md">
+              <Select className="border rounded-md">
                 {listSections.map((section) => {
                   return (
                     <Select.Option key={section.sectionId} value={section.sectionId}>
@@ -78,7 +79,7 @@ const CreateLesson = () => {
               label={CREATE_LESSON_FORM_FIELDS.LESSON_NAME_LABEL}
               rules={[{ required: true, message: VALIDATE_MESSAGE.LESSON_REQUIRED }]}
             >
-              <Input className="border border-black rounded-md" />
+              <Input className="border rounded-md" />
             </Form.Item>
 
             <Form.Item
@@ -86,7 +87,7 @@ const CreateLesson = () => {
               label={CREATE_LESSON_FORM_FIELDS.LESSON_DESCRIPTION_LABEL}
               rules={[{ required: true, message: VALIDATE_MESSAGE.LESSON_DESCRIPTION_REQUIRED }]}
             >
-              <Input.TextArea rows={4} className="border border-black rounded-md" />
+              <Input.TextArea rows={4} className="border rounded-md" />
             </Form.Item>
 
             <Form.Item label={CREATE_LESSON_FORM_FIELDS.LESSON_VIDEO_LABEL}>

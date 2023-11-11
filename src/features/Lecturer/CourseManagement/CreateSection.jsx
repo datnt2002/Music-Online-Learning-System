@@ -34,7 +34,6 @@ const CreateSection = () => {
 
   const handleSubmitSection = (values) => {
     console.log('Received values of form:', values);
-    console.log(pathNameArray[2]);
     dispatch(
       createNewSectionAction({
         sections: values.sectionName,
