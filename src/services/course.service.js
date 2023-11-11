@@ -181,8 +181,8 @@ export const createNewCourse = (data) => {
   formData.append('description', data.description);
   formData.append('file', data.file);
   formData.append('brief', data.brief);
-  formData.append('knowledge', data.knowledge);
-  formData.append('requirement', data.requirement);
+  formData.append('knowledge', data.knowledgeString);
+  formData.append('requirement', data.requirementString);
 
   return axiosClient
     .post('courses', formData, {

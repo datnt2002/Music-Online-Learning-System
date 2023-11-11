@@ -470,6 +470,7 @@ function* createNewCourseSaga() {
 
       const knowledgeString = knowledge.toString();
       const requirementString = requirement.toString();
+
       const { accessToken } = getTokenFromStorage();
 
       const result = yield call(createNewCourse, {
@@ -484,7 +485,7 @@ function* createNewCourseSaga() {
         knowledgeString,
         requirementString,
       });
-      console.log(result);
+
       switch (result.status) {
         case 200:
           yield put(createNewCourseSuccess(result.data));

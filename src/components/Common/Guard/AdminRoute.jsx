@@ -8,7 +8,8 @@ import SiderAdmin from '../../Layout/Admin/SiderAdmin';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
 import { PUBLIC_ROUTE } from '../../../constants';
 import getTokenFromStorage from '../../../utils/getTokenFromStorage';
-export const AdminRoute = ({ children }) => {
+
+const AdminRoute = ({ children }) => {
   //check if user is login
   //If yes, show route
   //Else, go login
@@ -34,3 +35,5 @@ export const AdminRoute = ({ children }) => {
     </>
   );
 };
+
+export default AdminRoute;

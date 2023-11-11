@@ -4,25 +4,37 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUserAction } from '../redux/slice/authenticationSlice';
 import getTokenFromStorage from '../utils/getTokenFromStorage';
 
-import { AdminRoute } from '../components/Common';
+import AdminRoute from '../components/Common/Guard/AdminRoute';
 import AuthorRoute from '../components/Common/Guard/AuthorRoute';
 import UserRoute from '../components/Common/Guard/UserRoute';
 import HeaderDefault from '../components/Layout/User/HeaderDefault';
 
+//public route
 import Homepage from '../features/Home/Homepage';
+import CourseDetail from '../features/Home/Course/CourseDetail';
+import HomePosts from '../features/Forum/HomePosts';
+import PublicProfile from '../features/Profile/PublicProfile';
+
+//user route
 import Profile from '../features/Profile/Profile';
 import EditProfile from '../features/Profile/EditProfile';
 import Cart from '../features/Home/Cart';
 import LessonDetail from '../features/Home/Course/LessonDetail';
-import CourseDetail from '../features/Home/Course/CourseDetail';
+import RequestLecturerForm from '../features/Profile/RequestLecturerForm';
+import ChoosePaymentMethod from '../features/Home/Payment/ChoosePaymentMethod';
+import PurchaseECoin from '../features/Home/Payment/PurchaseECoin';
+import Messengers from '../features/Forum/Messengers';
 
-import DashBoardAdmin from '../features/Admin/Dashboard';
+//lecturer route
+import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer';
+import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
 import CreateCourse from '../features/Lecturer/CourseManagement/CreateCourse';
 import CreateSection from '../features/Lecturer/CourseManagement/CreateSection';
 import CreateLesson from '../features/Lecturer/CourseManagement/CreateLesson';
-import DashboardLecturer from '../features/Lecturer/Dashboard/DashboardLecturer';
-import LecturerCourse from '../features/Lecturer/CourseManagement/LecturerCourse';
-import ChoosePaymentMethod from '../features/Home/Payment/ChoosePaymentMethod';
+import EditCourse from '../features/Lecturer/CourseManagement/EditCourse';
+
+//admin route
+import DashBoardAdmin from '../features/Admin/Dashboard';
 import ManageListCourses from '../features/Admin/Courses/ManageListCourses';
 import ManageListAccount from '../features/Admin/Accounts/ManageListAccount';
 import CoursesPending from '../features/Admin/Courses/CoursesPending';
@@ -32,11 +44,6 @@ import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
 import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
-import HomePosts from '../features/Forum/HomePosts';
-import Messengers from '../features/Forum/Messengers';
-import RequestLecturerForm from '../features/Profile/RequestLecturerForm';
-import PurchaseECoin from '../features/Home/Payment/PurchaseECoin';
-import PublicProfile from '../features/Profile/PublicProfile';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -201,6 +208,14 @@ export const authorRoutes = [
     element: (
       <AuthorRoute>
         <CreateLesson />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: 'edit-course/:id',
+    element: (
+      <AuthorRoute>
+        <EditCourse />
       </AuthorRoute>
     ),
   },
