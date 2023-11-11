@@ -316,3 +316,14 @@ export const buyCourseByECoin = (data) => {
       return err;
     });
 };
+
+export const getDraftCourseDetail = (data) => {
+  return axiosClient
+    .get(`courses/draft/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

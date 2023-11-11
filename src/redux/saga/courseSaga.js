@@ -19,6 +19,7 @@ import {
   getDetailCourse,
   getDetailDeletedCourse,
   getDetailPendingCourse,
+  getDraftCourseDetail,
   getLessonDetail,
   getListCategory,
   getListCourses,
@@ -63,6 +64,9 @@ import {
   getDetailCourseFail,
   getDetailCourseSuccess,
   getDetailDeletedCourseAction,
+  getDetailDraftCourseAction,
+  getDetailDraftCourseFail,
+  getDetailDraftCourseSuccess,
   getDetailLessonAction,
   getDetailLessonFail,
   getDetailLessonSuccess,
@@ -355,6 +359,31 @@ function* restoreCourseSaga() {
 
         default:
           yield put(restoreDeletedCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for retrieving details of a draft course
+function* getDetailDraftCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { courseId },
+      } = yield take(getDetailDraftCourseAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getDraftCourseDetail, { courseId, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(getDetailDraftCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailDraftCourseFail(result));
           break;
       }
     } catch (error) {
@@ -833,6 +862,8 @@ export default function* courseSaga() {
   yield fork(getListCourseDeletedSaga);
   yield fork(getDetailDeletedCourseSaga);
   yield fork(restoreCourseSaga);
+  //draft course
+  yield fork(getDetailDraftCourseSaga);
   //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);

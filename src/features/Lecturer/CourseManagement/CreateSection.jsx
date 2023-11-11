@@ -9,33 +9,29 @@ import ExpandedForm from '../../../components/Container/FormListContainer/Expand
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import CourseInfoCard from '../../../components/Container/CardTemplate/CourseInfoCard';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { CREATE_SECTION_FORM_FIELDS, STORAGE } from '../../../constants';
-import {
-  createNewSectionAction,
-  getDetailCourseAction,
-  getDetailPendingCourseAction,
-} from '../../../redux/slice/courseSlice';
+import { CREATE_SECTION_FORM_FIELDS } from '../../../constants';
+import { createNewSectionAction, getDetailDraftCourseAction } from '../../../redux/slice/courseSlice';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import Loading from '../../../components/Common/Loading';
+import splitSlash from '../../../utils/splitSlash';
 
 const CreateSection = () => {
-  const currentCourse = JSON.parse(sessionStorage.getItem(STORAGE.COURSE));
   const loading = useSelector((state) => state.course.loading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const { pathname } = location;
-  const pathNameArray = pathname.split('/').filter((item) => {
-    return item;
-  });
+  const pathNameArray = splitSlash(pathname);
 
   useEffect(() => {
     dispatch(
-      getDetailPendingCourseAction({
-        courseId: pathNameArray[3],
+      getDetailDraftCourseAction({
+        courseId: pathNameArray[2],
       })
     );
   }, []);
+
   const handleSubmitSection = (values) => {
     console.log('Received values of form:', values);
     console.log(pathNameArray[2]);

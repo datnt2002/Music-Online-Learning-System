@@ -264,6 +264,48 @@ export const courseSlice = createSlice({
       state.loading = false;
     },
 
+    // get draft course
+    getListDraftCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getListDraftCourseSuccess: (state, action) => {
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        listCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
+    },
+    getListDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    getDetailDraftCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getDetailDraftCourseSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        currentCourse: action.payload,
+      };
+    },
+    getDetailDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+
     //category
     getListCategoryAction: (state) => {
       return {
@@ -479,6 +521,9 @@ export const {
   createNewLessonAction,
   createNewLessonSuccess,
   createNewLessonFail,
+  getDetailDraftCourseAction,
+  getDetailDraftCourseSuccess,
+  getDetailDraftCourseFail,
   getListCategoryAction,
   getListCategorySuccess,
   getListCategoryFail,

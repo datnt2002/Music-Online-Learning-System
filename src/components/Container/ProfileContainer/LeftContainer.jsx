@@ -23,7 +23,7 @@ const LeftContainer = () => {
   const navigate = useNavigate();
 
   const handleNavigateLecturer = () => {
-    if (role.length > 1) {
+    if (role.length > 0) {
       if (role[1]?.roleId === ROLE.LECTURER) {
         navigate(LECTURER_ROUTE.DASHBOARD);
       } else {

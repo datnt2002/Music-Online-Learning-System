@@ -1,10 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import LecturerCard from '../CardTemplate/LecturerCard';
 import { Button, Carousel } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
 
 const PopularAuthor = () => {
+  const dispatch = useDispatch()
   const ref = useRef();
+
+  useEffect(()=>{}, [])
   return (
     <div className="relative">
       <Button
