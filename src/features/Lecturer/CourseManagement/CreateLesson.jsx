@@ -11,12 +11,12 @@ import { STORAGE } from '../../../constants';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import Loading from '../../../components/Common/Loading';
 import CreateVideoLessonForm from '../../../components/Container/FormListContainer/CreateVideoLessonForm';
+import CreateExerciseForm from '../../../components/Container/FormListContainer/CreateExerciseForm';
 
 const CreateLesson = () => {
   const [typeOfLesson, setTypeOfLesson] = useState(true);
   const loading = useSelector((state) => state.course.loading);
   const { courseId } = JSON.parse(sessionStorage.getItem(STORAGE.COURSE));
-  console.log(courseId);
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,6 @@ const CreateLesson = () => {
   }, [dispatch, courseId]);
 
   const onChange = (e) => {
-    console.log(`radio checked:${e.target.value}`);
     setTypeOfLesson(e.target.value);
   };
   return (
@@ -48,7 +47,7 @@ const CreateLesson = () => {
               <Radio.Button value={false}>Exercise</Radio.Button>
             </Radio.Group>
           </div>
-          {typeOfLesson ? <CreateVideoLessonForm /> : <div></div>}
+          {typeOfLesson ? <CreateVideoLessonForm /> : <CreateExerciseForm />}
         </div>
       </div>
     </Content>
