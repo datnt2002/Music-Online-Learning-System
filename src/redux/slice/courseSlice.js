@@ -91,7 +91,7 @@ export const courseSlice = createSlice({
         loading: true,
       };
     },
-    deleteCourseFromAdminSuccess: (state, action) => {
+    deleteCourseFromAdminSuccess: (state) => {
       const courseId = sessionStorage.getItem(STORAGE.COURSE_ID);
       return {
         ...state,
@@ -208,6 +208,50 @@ export const courseSlice = createSlice({
         loading: true,
       };
     },
+
+    //list draft course slice
+    getListDraftCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getListDraftCourseSuccess: (state, action) => {
+      const { courses, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        listCourse: courses,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
+    },
+    getListDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    getDetailDraftCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getDetailDraftCourseSuccess: (state, action) => {
+      const { Sections } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        currentCourse: action.payload,
+        listSections: Sections,
+      };
+    },
+    getDetailDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     //create course
     createNewCourseAction: (state) => {
       return {
@@ -262,50 +306,6 @@ export const courseSlice = createSlice({
     },
     getDetailLessonFail: (state) => {
       state.loading = false;
-    },
-
-    // get draft course
-    getListDraftCourseAction: (state) => {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    getListDraftCourseSuccess: (state, action) => {
-      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
-      return {
-        ...state,
-        loading: false,
-        listCourse: data,
-        pagination: { pageIndex, pageSize, totalCount, totalPages },
-      };
-    },
-    getListDraftCourseFail: (state) => {
-      return {
-        ...state,
-        loading: false,
-      };
-    },
-    getDetailDraftCourseAction: (state) => {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    getDetailDraftCourseSuccess: (state, action) => {
-      const { Sections } = action.payload;
-      return {
-        ...state,
-        loading: false,
-        currentCourse: action.payload,
-        listSections: Sections
-      };
-    },
-    getDetailDraftCourseFail: (state) => {
-      return {
-        ...state,
-        loading: false,
-      };
     },
 
     //category
@@ -485,6 +485,7 @@ export const courseSlice = createSlice({
 
 export const {
   resetCourseSliceAction,
+  //approved course
   getListFeatureCourseAction,
   getListFeatureCourseSuccess,
   getListFeatureCourseFail,
@@ -494,26 +495,36 @@ export const {
   deleteCourseFromAdminAction,
   deleteCourseFromAdminSuccess,
   deleteCourseFromAdminFail,
+  getDetailCourseAction,
+  getDetailCourseSuccess,
+  getDetailCourseFail,
+  getDetailLessonAction,
+  getDetailLessonSuccess,
+  getDetailLessonFail,
+  //pending course
   getListCoursePendingAction,
   getListCoursePendingSuccess,
   getListCoursePendingFail,
   approvedCoursePendingAction,
   approvedCoursePendingSuccess,
   approvedCoursePendingFail,
+  getDetailPendingCourseAction,
+  //deleted course
   getListDeletedCourseAction,
   getListDeletedCourseSuccess,
   getListDeletedCourseFail,
   restoreDeletedCourseAction,
   restoreDeletedCourseSuccess,
   restoreDeletedCourseFail,
-  getDetailCourseAction,
-  getDetailPendingCourseAction,
   getDetailDeletedCourseAction,
-  getDetailCourseSuccess,
-  getDetailCourseFail,
-  getDetailLessonAction,
-  getDetailLessonSuccess,
-  getDetailLessonFail,
+  //draft course
+  getListDraftCourseAction,
+  getListDraftCourseSuccess,
+  getListDraftCourseFail,
+  getDetailDraftCourseAction,
+  getDetailDraftCourseSuccess,
+  getDetailDraftCourseFail,
+  //create course
   createNewCourseAction,
   createNewCourseSuccess,
   createNewCourseFail,
@@ -523,9 +534,7 @@ export const {
   createNewLessonAction,
   createNewLessonSuccess,
   createNewLessonFail,
-  getDetailDraftCourseAction,
-  getDetailDraftCourseSuccess,
-  getDetailDraftCourseFail,
+  //category
   getListCategoryAction,
   getListCategorySuccess,
   getListCategoryFail,
@@ -535,6 +544,7 @@ export const {
   editCategoryAction,
   editCategorySuccess,
   editCategoryFail,
+  //subcategory
   getSubCategoriesAction,
   getSubCategoriesSuccess,
   getSubCategoriesFail,
@@ -547,6 +557,7 @@ export const {
   editSubCategoriesAction,
   editSubCategoriesSuccess,
   editSubCategoriesFail,
+  //payment
   createPaymentAction,
   createPaymentSuccess,
   createPaymentFail,

@@ -1,5 +1,6 @@
 import axiosClient from './api.service';
 
+//approved course
 export const getListCourses = (data) => {
   console.log(data);
   return axiosClient
@@ -11,7 +12,27 @@ export const getListCourses = (data) => {
       return err;
     });
 };
-
+export const getDetailCourse = (data) => {
+  return axiosClient
+    .get(`courses/${data.courseId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+export const approvedCourse = (data) => {
+  console.log(data);
+  return axiosClient
+    .patch(`courses/approve/${data.courseId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 //not done
 export const getListFeaturesCourses = (data) => {
   console.log(data);
@@ -35,7 +56,19 @@ export const deleteCourseFromAdmin = (data) => {
       return err;
     });
 };
+export const getLessonDetail = (data) => {
+  console.log(data);
+  return axiosClient
+    .get(`lessons/${data.lessonId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 
+//pending course
 export const getListPendingCourse = (data) => {
   console.log(data);
   return axiosClient
@@ -50,11 +83,9 @@ export const getListPendingCourse = (data) => {
       return err;
     });
 };
-
-export const approvedCourse = (data) => {
-  console.log(data);
+export const getDetailPendingCourse = (data) => {
   return axiosClient
-    .patch(`courses/approve/${data.courseId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get(`courses/pending/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -63,6 +94,7 @@ export const approvedCourse = (data) => {
     });
 };
 
+//deleted course
 export const getListDeleteCourse = (data) => {
   return axiosClient
     .get('courses/deleted', {
@@ -76,7 +108,6 @@ export const getListDeleteCourse = (data) => {
       return err;
     });
 };
-
 export const restoreDeleteCourse = (data) => {
   return axiosClient
     .patch(
@@ -93,29 +124,6 @@ export const restoreDeleteCourse = (data) => {
       return err;
     });
 };
-
-export const getDetailCourse = (data) => {
-  return axiosClient
-    .get(`courses/${data.courseId}`)
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
-export const getDetailPendingCourse = (data) => {
-  return axiosClient
-    .get(`courses/pending/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
 export const getDetailDeletedCourse = (data) => {
   return axiosClient
     .get(`courses/deleted/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
@@ -127,6 +135,33 @@ export const getDetailDeletedCourse = (data) => {
     });
 };
 
+//draft course
+export const getListDraftCourse = (data) => {
+  return axiosClient
+    .get('courses/draft', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getDraftCourseDetail = (data) => {
+  return axiosClient
+    .get(`courses/draft/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+// course create
 export const createNewCourse = (data) => {
   const formData = new FormData();
   formData.append('courseName', data.courseName);
@@ -181,18 +216,7 @@ export const createNewLesson = (data) => {
     });
 };
 
-export const getLessonDetail = (data) => {
-  console.log(data);
-  return axiosClient
-    .get(`lessons/${data.lessonId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
+//category
 export const getListCategory = (data) => {
   console.log(data);
   return axiosClient
@@ -234,7 +258,7 @@ export const EditCategory = (data) => {
       return err;
     });
 };
-
+//subcategory
 export const getAllSubCategories = () => {
   return axiosClient
     .get('sub-categories')
@@ -288,6 +312,7 @@ export const editSubCate = (data) => {
     });
 };
 
+//payment
 export const createPayment = (data) => {
   console.log(data);
   return axiosClient
@@ -308,17 +333,6 @@ export const buyCourseByECoin = (data) => {
   const body = [];
   return axiosClient
     .post('buy-courses', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
-export const getDraftCourseDetail = (data) => {
-  return axiosClient
-    .get(`courses/draft/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })

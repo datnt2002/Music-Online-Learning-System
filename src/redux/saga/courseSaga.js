@@ -24,6 +24,7 @@ import {
   getListCategory,
   getListCourses,
   getListDeleteCourse,
+  getListDraftCourse,
   getListPendingCourse,
   getSubCategoriesByCategory,
   restoreDeleteCourse,
@@ -83,6 +84,9 @@ import {
   getListDeletedCourseAction,
   getListDeletedCourseFail,
   getListDeletedCourseSuccess,
+  getListDraftCourseAction,
+  getListDraftCourseFail,
+  getListDraftCourseSuccess,
   getSubCategoriesAction,
   getSubCategoriesByCategoryAction,
   getSubCategoriesByCategoryFail,
@@ -359,6 +363,29 @@ function* restoreCourseSaga() {
 
         default:
           yield put(restoreDeletedCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for retrieving the list of draft courses
+function* getListDraftCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { pageSize, pageIndex },
+      } = yield take(getListDraftCourseAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getListDraftCourse, { pageSize, pageIndex, accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(getListDraftCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getListDraftCourseFail(result));
           break;
       }
     } catch (error) {
@@ -816,7 +843,6 @@ function* paymentSaga() {
     }
   }
 }
-
 // Saga for buying new course
 function* buyCourseByECoinSaga() {
   while (true) {
@@ -858,6 +884,7 @@ export default function* courseSaga() {
   yield fork(getDetailDeletedCourseSaga);
   yield fork(restoreCourseSaga);
   //draft course
+  yield fork(getListDraftCourseSaga);
   yield fork(getDetailDraftCourseSaga);
   //create course
   yield fork(createNewSectionSaga);
