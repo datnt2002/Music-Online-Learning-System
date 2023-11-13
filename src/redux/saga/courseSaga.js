@@ -679,6 +679,11 @@ function* createNewQuestionInQuizSaga() {
             `,
             confirmButtonText: 'Got it',
           });
+          // .then((result) => {
+          //     if (result.isConfirmed) {
+          //       navigate(LECTURER_ROUTE.CREATE_NEW_LESSON);
+          //     }
+          //   });
           break;
 
         default:

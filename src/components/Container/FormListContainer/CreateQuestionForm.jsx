@@ -1,17 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
+
 import { CREATE_LESSON_FORM_FIELDS, STORAGE } from '../../../constants';
-import { useDispatch } from 'react-redux';
 import { createNewQuestionInQuizAction } from '../../../redux/slice/courseSlice';
 
 const CreateQuestionForm = () => {
   const dispatch = useDispatch();
-
   const handleSubmitQuestion = (values) => {
     console.log(values);
     const question = { quizId: sessionStorage.getItem(STORAGE.QUIZ_ID), questions: values.questions };
-    console.log(question);
     dispatch(createNewQuestionInQuizAction({ question }));
   };
 
