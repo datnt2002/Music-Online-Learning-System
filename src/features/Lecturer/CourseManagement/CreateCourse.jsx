@@ -30,7 +30,6 @@ const CreateCourse = () => {
   const navigate = useNavigate();
   const onFinish = (values) => {
     console.log('form', values);
-
     dispatch(
       createNewCourseAction({
         courseName: values.courseName,

@@ -10,6 +10,7 @@ import {
   createNewCategory,
   createNewCourse,
   createNewLesson,
+  createNewQuiz,
   createNewSection,
   createPayment,
   createSubCate,
@@ -46,6 +47,9 @@ import {
   createNewLessonAction,
   createNewLessonFail,
   createNewLessonSuccess,
+  createNewQuizAction,
+  createNewQuizFail,
+  createNewQuizSuccess,
   createNewSectionAction,
   createNewSectionFail,
   createNewSectionSuccess,
@@ -606,6 +610,45 @@ function* createNewLessonSaga() {
     }
   }
 }
+// Saga for creating a new quiz
+function* createNewQuizSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { sectionId, title },
+      } = yield take(createNewQuizAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(createNewQuiz, { sectionId, title, accessToken });
+      console.log(result);
+
+      switch (result.status) {
+        case 201:
+          yield put(createNewQuizSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(createNewQuizFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 // Saga for retrieving details of a lesson
 function* getDetailLessonSaga() {
   while (true) {
@@ -934,6 +977,7 @@ export default function* courseSaga() {
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);
   yield fork(createNewLessonSaga);
+  yield fork(createNewQuizSaga);
   // course
   yield fork(getDetailLessonSaga);
   yield fork(paymentSaga);

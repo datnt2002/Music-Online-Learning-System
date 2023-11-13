@@ -325,7 +325,19 @@ export const courseSlice = createSlice({
     getDetailLessonFail: (state) => {
       state.loading = false;
     },
-
+    createNewQuizAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    createNewQuizSuccess: (state, action) => {
+      state.loading = false;
+      // state.currentLesson = action.payload;
+    },
+    createNewQuizFail: (state) => {
+      state.loading = false;
+    },
     //category
     getListCategoryAction: (state) => {
       return {
@@ -555,6 +567,9 @@ export const {
   createNewLessonAction,
   createNewLessonSuccess,
   createNewLessonFail,
+  createNewQuizAction,
+  createNewQuizSuccess,
+  createNewQuizFail,
   //category
   getListCategoryAction,
   getListCategorySuccess,

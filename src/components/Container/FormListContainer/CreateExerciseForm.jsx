@@ -1,32 +1,25 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, Select } from 'antd';
 
 import { CREATE_LESSON_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants/formfield';
-import { createNewLessonAction } from '../../../redux/slice/courseSlice';
+import { createNewQuizAction } from '../../../redux/slice/courseSlice';
 
 const CreateExerciseForm = () => {
   const listSections = useSelector((state) => state.course.listSections);
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmitQuiz = (values) => {
     console.log(values);
     dispatch(
-      createNewLessonAction({
+      createNewQuizAction({
         sectionId: values.sectionId,
-        lessonName: values.lessonName,
-        lessonDescription: values.lessonDescription,
-
-        navigate,
+        title: values.title,
       })
     );
-
-    form.resetFields();
   };
 
   const formLayout = {
