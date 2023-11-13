@@ -34,7 +34,10 @@ const CreateLesson = () => {
   return (
     <Content>
       {loading && <Loading />}
-      <div className="p-6 h-screen" style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
+      <div
+        className="p-6 min-h-screen h-auto"
+        style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}
+      >
         <div className="pl-6">
           <BreadCrumbCustom />
         </div>

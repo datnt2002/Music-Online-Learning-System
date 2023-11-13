@@ -9,6 +9,7 @@ const initialState = {
   currentCourse: {},
   currentSection: {},
   currentLesson: {},
+  isCreateQuizSuccess: false,
   listCategory: [],
   listSubcategories: [],
 };
@@ -332,11 +333,18 @@ export const courseSlice = createSlice({
       };
     },
     createNewQuizSuccess: (state, action) => {
-      state.loading = false;
       // state.currentLesson = action.payload;
+      return {
+        ...state,
+        loading: false,
+        isCreateQuizSuccess: true,
+      };
     },
     createNewQuizFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     //category
     getListCategoryAction: (state) => {
