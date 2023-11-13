@@ -14,7 +14,6 @@ const CreateExerciseForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmitQuiz = (values) => {
-    console.log(values);
     dispatch(
       createNewQuizAction({
         sectionId: values.sectionId,

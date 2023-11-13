@@ -1,12 +1,18 @@
 import React from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
+import { CREATE_LESSON_FORM_FIELDS, STORAGE } from '../../../constants';
+import { useDispatch } from 'react-redux';
+import { createNewQuestionInQuizAction } from '../../../redux/slice/courseSlice';
 
 const CreateQuestionForm = () => {
-  const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
   const handleSubmitQuestion = (values) => {
     console.log(values);
+    const question = { quizId: sessionStorage.getItem(STORAGE.QUIZ_ID), questions: values.questions };
+    console.log(question);
+    dispatch(createNewQuestionInQuizAction({ question }));
   };
 
   const formLayout = {
@@ -17,9 +23,11 @@ const CreateQuestionForm = () => {
       span: 20,
     },
   };
+
+  const initValueAnswer = { content: '', isCorrect: false };
+  const initValueQuestion = { content: '' };
   return (
     <Form
-      form={form}
       {...formLayout}
       autoComplete="off"
       onFinish={handleSubmitQuestion}
@@ -43,21 +51,28 @@ const CreateQuestionForm = () => {
                   />
                 }
               >
-                <Form.Item label="Question" name={[field.name, 'content']}>
+                <Form.Item
+                  label={CREATE_LESSON_FORM_FIELDS.QUESTION_LABEL}
+                  name={[field.name, CREATE_LESSON_FORM_FIELDS.QUESTION_CONTENT_NAME]}
+                >
                   <Input />
                 </Form.Item>
 
                 {/* Nest Form.List */}
-                <Form.Item label="Answer">
-                  <Form.List name={[field.name, 'answer']}>
+                <Form.Item label={CREATE_LESSON_FORM_FIELDS.ANSWER_LABEL}>
+                  <Form.List name={[field.name, CREATE_LESSON_FORM_FIELDS.ANSWER_ARRAY_NAME]}>
                     {(subFields, subOpt) => (
                       <div className="flex flex-col gap-4">
                         {subFields.map((subField) => (
                           <Space key={subField.key}>
-                            <Form.Item noStyle name={[subField.name, 'content']}>
-                              <Input placeholder="answer" />
+                            <Form.Item noStyle name={[subField.name, CREATE_LESSON_FORM_FIELDS.ANSWER_CONTENT_NAME]}>
+                              <Input placeholder={CREATE_LESSON_FORM_FIELDS.ANSWER_LABEL} />
                             </Form.Item>
-                            <Form.Item noStyle valuePropName="checked" name={[subField.name, 'isCorrect']}>
+                            <Form.Item
+                              noStyle
+                              valuePropName="checked"
+                              name={[subField.name, CREATE_LESSON_FORM_FIELDS.CHECKBOX_CORRECT]}
+                            >
                               <Checkbox defaultChecked={false}>Correct Answer</Checkbox>
                             </Form.Item>
                             <CloseOutlined
@@ -68,7 +83,7 @@ const CreateQuestionForm = () => {
                             />
                           </Space>
                         ))}
-                        <Button type="dashed" onClick={() => subOpt.add({ content: '', isCorrect: false })} block>
+                        <Button type="dashed" onClick={() => subOpt.add(initValueAnswer)} block>
                           + Add Answer
                         </Button>
                       </div>
@@ -78,7 +93,7 @@ const CreateQuestionForm = () => {
               </Card>
             ))}
 
-            <Button type="dashed" onClick={() => add({ content: '' })} block>
+            <Button type="dashed" onClick={() => add(initValueQuestion)} block>
               + Add Question
             </Button>
           </div>

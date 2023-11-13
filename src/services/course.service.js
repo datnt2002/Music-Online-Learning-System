@@ -239,6 +239,19 @@ export const createNewQuiz = (data) => {
     });
 };
 
+export const createNewQuestionInQuiz = (data) => {
+  const body = data.question;
+  console.log(body);
+  return axiosClient
+    .post('questions', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //category
 export const getListCategory = (data) => {
   console.log(data);

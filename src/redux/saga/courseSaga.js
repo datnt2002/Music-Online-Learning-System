@@ -10,6 +10,7 @@ import {
   createNewCategory,
   createNewCourse,
   createNewLesson,
+  createNewQuestionInQuiz,
   createNewQuiz,
   createNewSection,
   createPayment,
@@ -47,6 +48,9 @@ import {
   createNewLessonAction,
   createNewLessonFail,
   createNewLessonSuccess,
+  createNewQuestionInQuizAction,
+  createNewQuestionInQuizFail,
+  createNewQuestionInQuizSuccess,
   createNewQuizAction,
   createNewQuizFail,
   createNewQuizSuccess,
@@ -619,7 +623,6 @@ function* createNewQuizSaga() {
       } = yield take(createNewQuizAction);
       const { accessToken } = getTokenFromStorage();
       const result = yield call(createNewQuiz, { sectionId, title, accessToken });
-      console.log(result);
 
       switch (result.status) {
         case 201:
@@ -642,6 +645,44 @@ function* createNewQuizSaga() {
 
         default:
           yield put(createNewQuizFail());
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for creating a new question in quiz
+function* createNewQuestionInQuizSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { question },
+      } = yield take(createNewQuestionInQuizAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(createNewQuestionInQuiz, { question, accessToken });
+
+      switch (result.status) {
+        case 201:
+          yield put(createNewQuestionInQuizSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(createNewQuestionInQuizFail(result));
           break;
       }
     } catch (error) {
@@ -978,6 +1019,7 @@ export default function* courseSaga() {
   yield fork(createNewCourseSaga);
   yield fork(createNewLessonSaga);
   yield fork(createNewQuizSaga);
+  yield fork(createNewQuestionInQuizSaga);
   // course
   yield fork(getDetailLessonSaga);
   yield fork(paymentSaga);

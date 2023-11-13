@@ -333,7 +333,8 @@ export const courseSlice = createSlice({
       };
     },
     createNewQuizSuccess: (state, action) => {
-      // state.currentLesson = action.payload;
+      console.log(action.payload);
+      sessionStorage.setItem(STORAGE.QUIZ_ID, action.payload?.quizId);
       return {
         ...state,
         loading: false,
@@ -341,6 +342,26 @@ export const courseSlice = createSlice({
       };
     },
     createNewQuizFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    createNewQuestionInQuizAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    createNewQuestionInQuizSuccess: (state, action) => {
+      // sessionStorage.setItem(STORAGE.QUIZ_ID, action.payload?.quizId);
+      return {
+        ...state,
+        loading: false,
+        // isCreateQuizSuccess: true,
+      };
+    },
+    createNewQuestionInQuizFail: (state) => {
       return {
         ...state,
         loading: false,
@@ -578,6 +599,9 @@ export const {
   createNewQuizAction,
   createNewQuizSuccess,
   createNewQuizFail,
+  createNewQuestionInQuizAction,
+  createNewQuestionInQuizSuccess,
+  createNewQuestionInQuizFail,
   //category
   getListCategoryAction,
   getListCategorySuccess,

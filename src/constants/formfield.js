@@ -116,8 +116,12 @@ export const CREATE_LESSON_FORM_FIELDS = {
   SECTION_LABEL: 'Section Name',
   QUIZ_TITLE_NAME: 'title',
   QUIZ_TITLE_LABEL: 'Title',
-  QUESTION_NAME: 'content',
+  QUESTION_CONTENT_NAME: 'content',
   QUESTION_LABEL: 'Question',
+  ANSWER_CONTENT_NAME: 'content',
+  ANSWER_ARRAY_NAME: 'answer',
+  ANSWER_LABEL: 'Answer',
+  CHECKBOX_CORRECT: 'isCorrect',
 };
 
 export const VALIDATE_MESSAGE = {
