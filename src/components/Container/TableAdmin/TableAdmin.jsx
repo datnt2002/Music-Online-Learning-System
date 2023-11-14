@@ -16,6 +16,8 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       const result = flattenObj(clone);
       return result;
     });
+    // Filter the listCourse array to include only rows with status 'approved' or 'pending'
+    const approvedAndPendingCourses = flattenData.filter((course) => course.status !== TABLE_COLUMN.STATUS_DRAFT);
 
     //get title of table by get key of obj
     const titleColumnList = Object.keys(flattenData[0]);
@@ -83,7 +85,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       <Table
         size="small"
         columns={columns}
-        dataSource={flattenData}
+        dataSource={approvedAndPendingCourses}
         onChange={onChange}
         className="max-w-full rounded-xl"
         scroll={{ x: totalColumnsWidth }}

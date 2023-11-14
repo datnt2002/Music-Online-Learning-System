@@ -7,6 +7,7 @@ import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import CategoryTotal from '../../../components/Container/DashboardContainer/Admin/CategoryTotal';
 import PieChart from '../../../components/Container/DashboardContainer/Admin/PieChart';
 import MultiLineChart from '../../../components/Container/DashboardContainer/Admin/MultiLineChart';
+import RankingBoard from '../../../components/Container/DashboardContainer/Admin/RankingBoard';
 const DashBoardAdmin = () => {
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
@@ -34,7 +35,9 @@ const DashBoardAdmin = () => {
           <MultiLineChart />
           <PieChart />
 
-          <div className="col-span-12 xl:col-span-8">{/* <TableOne /> */}</div>
+          <div className="col-span-12">
+            <RankingBoard />
+          </div>
           {/* <ChatCard /> */}
         </div>
       </Content>

@@ -37,8 +37,19 @@ const ExpandedForm = ({ title, nameFormList, placeholder }) => {
   return (
     <div className="flex flex-1 p-5 m-5 shadow-xl rounded-2xl">
       <div className="flex flex-1 flex-col">
-        <Form.List name={nameFormList}>
-          {(fields, { add, remove }) => (
+        <Form.List
+          name={nameFormList}
+          rules={[
+            {
+              validator: async (_, names) => {
+                if (!names || names.length < 2) {
+                  return Promise.reject(new Error('Add at least 1 field'));
+                }
+              },
+            },
+          ]}
+        >
+          {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (
                 <Form.Item
@@ -73,6 +84,7 @@ const ExpandedForm = ({ title, nameFormList, placeholder }) => {
                 <Button type="dashed" onClick={() => add()} className="w-full" icon={<PlusOutlined />}>
                   Add field
                 </Button>
+                <Form.ErrorList errors={errors} />
               </Form.Item>
             </>
           )}

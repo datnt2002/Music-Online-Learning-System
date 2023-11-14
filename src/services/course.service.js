@@ -2,7 +2,6 @@ import axiosClient from './api.service';
 
 //approved course
 export const getListCourses = (data) => {
-  console.log(data);
   return axiosClient
     .get('courses', { params: { pageIndex: data.pageIndex, pageSize: data.pageSize } })
     .then((res) => {
@@ -22,10 +21,9 @@ export const getDetailCourse = (data) => {
       return err;
     });
 };
-export const approvedCourse = (data) => {
-  console.log(data);
+export const deleteCourseFromAdmin = (data) => {
   return axiosClient
-    .patch(`courses/approve/${data.courseId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .delete(`courses/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -38,17 +36,6 @@ export const getListFeaturesCourses = (data) => {
   console.log(data);
   return axiosClient
     .get('courses', { params: { pageIndex: data.pageIndex, pageSize: data.pageSize } })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
-export const deleteCourseFromAdmin = (data) => {
-  return axiosClient
-    .delete(`courses/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -93,7 +80,17 @@ export const getDetailPendingCourse = (data) => {
       return err;
     });
 };
-
+export const approvedCourse = (data) => {
+  console.log(data);
+  return axiosClient
+    .patch(`courses/approve/${data.courseId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 //deleted course
 export const getListDeleteCourse = (data) => {
   return axiosClient
