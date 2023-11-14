@@ -156,6 +156,7 @@ export const VALIDATE_MESSAGE = {
   LESSON_REQUIRED: 'Please enter lesson name',
   LESSON_DESCRIPTION_REQUIRED: 'Please enter lesson description',
   REQUIRED: 'Please input this field.',
+  EXPANDED_REQUIRED: 'Add at least 1 field',
   INTRODUCTION_MIN: 'Introduction must be at least 50 characters long',
 };
 

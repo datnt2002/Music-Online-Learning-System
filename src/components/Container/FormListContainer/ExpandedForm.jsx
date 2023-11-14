@@ -42,8 +42,8 @@ const ExpandedForm = ({ title, nameFormList, placeholder }) => {
           rules={[
             {
               validator: async (_, names) => {
-                if (!names || names.length < 2) {
-                  return Promise.reject(new Error('Add at least 1 field'));
+                if (!names || names.length < 1) {
+                  return Promise.reject(new Error(VALIDATE_MESSAGE.EXPANDED_REQUIRED));
                 }
               },
             },
@@ -55,7 +55,6 @@ const ExpandedForm = ({ title, nameFormList, placeholder }) => {
                 <Form.Item
                   {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
                   label={index === 0 ? title : ''}
-                  // name={[field.name, 'items']}
                   key={field.key}
                 >
                   <Form.Item

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import { createNewLessonAction } from '../../../redux/slice/courseSlice';
 
 const CreateVideoLessonForm = () => {
   const listSections = useSelector((state) => state.course.listSections);
+  const isCreateSuccess = useSelector((state) => state.course.isCreateLessonSuccess);
   const [file, setFile] = useState();
   const [form] = Form.useForm();
 
@@ -17,7 +18,6 @@ const CreateVideoLessonForm = () => {
   const navigate = useNavigate();
 
   const handleSubmitLesson = (values) => {
-    console.log(values, file);
     dispatch(
       createNewLessonAction({
         sectionId: values.sectionId,
@@ -27,9 +27,14 @@ const CreateVideoLessonForm = () => {
         navigate,
       })
     );
-
-    form.resetFields();
   };
+
+  useEffect(() => {
+    if (isCreateSuccess) {
+      setFile('');
+      form.resetFields();
+    }
+  }, [isCreateSuccess, form]);
 
   const formLayout = {
     labelCol: { span: 4 },

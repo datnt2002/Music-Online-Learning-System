@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
 
-import { CREATE_LESSON_FORM_FIELDS, STORAGE } from '../../../constants';
+import { CREATE_LESSON_FORM_FIELDS, STORAGE, VALIDATE_MESSAGE } from '../../../constants';
 import { createNewQuestionInQuizAction } from '../../../redux/slice/courseSlice';
 
 const CreateQuestionForm = () => {
@@ -34,8 +34,19 @@ const CreateQuestionForm = () => {
         items: [{}],
       }}
     >
-      <Form.List name="questions">
-        {(fields, { add, remove }) => (
+      <Form.List
+        name="questions"
+        rules={[
+          {
+            validator: async (_, names) => {
+              if (!names || names.length < 1) {
+                return Promise.reject(new Error(VALIDATE_MESSAGE.EXPANDED_REQUIRED));
+              }
+            },
+          },
+        ]}
+      >
+        {(fields, { add, remove }, { errors }) => (
           <div className="flex flex-col gap-4">
             {fields.map((field) => (
               <Card
@@ -59,8 +70,19 @@ const CreateQuestionForm = () => {
 
                 {/* Nest Form.List */}
                 <Form.Item label={CREATE_LESSON_FORM_FIELDS.ANSWER_LABEL}>
-                  <Form.List name={[field.name, CREATE_LESSON_FORM_FIELDS.ANSWER_ARRAY_NAME]}>
-                    {(subFields, subOpt) => (
+                  <Form.List
+                    name={[field.name, CREATE_LESSON_FORM_FIELDS.ANSWER_ARRAY_NAME]}
+                    rules={[
+                      {
+                        validator: async (_, names) => {
+                          if (!names || names.length < 1) {
+                            return Promise.reject(new Error(VALIDATE_MESSAGE.EXPANDED_REQUIRED));
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    {(subFields, subOpt, subMeta) => (
                       <div className="flex flex-col gap-4">
                         {subFields.map((subField) => (
                           <Space key={subField.key}>
@@ -85,6 +107,9 @@ const CreateQuestionForm = () => {
                         <Button type="dashed" onClick={() => subOpt.add(initValueAnswer)} block>
                           + Add Answer
                         </Button>
+                        {subMeta.errors && subMeta.errors.length > 0 && (
+                          <Form.ErrorList errors={subMeta.errors} className="text-red-600" />
+                        )}
                       </div>
                     )}
                   </Form.List>
@@ -95,6 +120,7 @@ const CreateQuestionForm = () => {
             <Button type="dashed" onClick={() => add(initValueQuestion)} block>
               + Add Question
             </Button>
+            <Form.ErrorList errors={errors} className="text-red-600" />
           </div>
         )}
       </Form.List>

@@ -9,6 +9,7 @@ const initialState = {
   currentCourse: {},
   currentSection: {},
   currentLesson: {},
+  isCreateLessonSuccess: false,
   isCreateQuizSuccess: false,
   listCategory: [],
   listSubcategories: [],
@@ -239,7 +240,7 @@ export const courseSlice = createSlice({
       };
     },
     getDetailDraftCourseSuccess: (state, action) => {
-      const { Sections } = action.payload;
+      const { Sections } = action.payload?.course;
       return {
         ...state,
         loading: false,
@@ -293,25 +294,40 @@ export const courseSlice = createSlice({
       };
     },
     createNewSectionSuccess: (state, action) => {
-      state.loading = false;
-      state.currentSection = action.payload;
+      return {
+        ...state,
+        loading: false,
+        currentSection: action.payload,
+      };
     },
     createNewSectionFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     //create lesson
     createNewLessonAction: (state) => {
       return {
         ...state,
         loading: true,
+        isCreateLessonSuccess: false,
       };
     },
     createNewLessonSuccess: (state, action) => {
-      state.loading = false;
-      state.currentLesson = action.payload;
+      return {
+        ...state,
+        loading: false,
+        isCreateLessonSuccess: true,
+        currentLesson: action.payload,
+      };
     },
     createNewLessonFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+        isCreateLessonSuccess: false,
+      };
     },
     getDetailLessonAction: (state) => {
       return {
@@ -336,6 +352,7 @@ export const courseSlice = createSlice({
       return {
         ...state,
         loading: true,
+        isCreateQuizSuccess: false,
       };
     },
     createNewQuizSuccess: (state, action) => {
