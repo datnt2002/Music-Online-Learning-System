@@ -1,81 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import ImgCrop from 'antd-img-crop';
-import { Button, Form, Input, InputNumber, Select, Upload, message } from 'antd';
+import { Button, Form, Input, InputNumber, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { InboxOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
 import {
-  createNewCourseAction,
+  getDetailDraftCourseAction,
   getListCategoryAction,
   getSubCategoriesByCategoryAction,
 } from '../../../redux/slice/courseSlice';
-import { CREATE_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
+import { CREATE_COURSE_FORM_FIELDS, EDIT_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
-import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import Loading from '../../../components/Common/Loading';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
+import splitSlash from '../../../utils/splitSlash';
+import defaultCourse from '../../../assets/imgs/default-course.png';
 
 const EditCourse = () => {
-  const [file, setFile] = useState();
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+  const pathNameArray = splitSlash(pathname);
+
   const listCategories = useSelector((state) => state.course.listCategory);
   const listSubCategories = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
+  const currentEditCourse = useSelector((state) => state.course.currentCourse);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const onFinish = (values) => {
-    console.log('form', values);
-
+  useEffect(() => {
     dispatch(
-      createNewCourseAction({
-        courseName: values.courseName,
-        description: values.description,
-        brief: values.brief_description,
-        price: values.price,
-        isFree: values.price > 0 ? false : true,
-        subCateId: values.subcategory,
-        file: file,
-        knowledge: values.knowledge,
-        requirement: values.requirement,
-        navigate,
+      getDetailDraftCourseAction({
+        courseId: pathNameArray[2],
       })
     );
+  }, []);
+
+  useEffect(() => {
+    const initData = {
+      courseId: currentEditCourse?.course?.courseId,
+      courseName: currentEditCourse?.course?.courseName,
+      brief: currentEditCourse?.course?.brief,
+      price: currentEditCourse?.course?.price,
+      description: currentEditCourse?.course?.description,
+      knowledge: currentEditCourse?.course?.knowledge.split(','),
+      requirement: currentEditCourse?.course?.requirement.split(','),
+    };
+
+    form.setFieldsValue(initData);
+  }, [form, currentEditCourse]);
+
+  const handleEditCourse = (values) => {
+    console.log('form', values);
+
+    // dispatch(
+    //   createNewCourseAction({
+    //     courseName: values.courseName,
+    //     description: values.description,
+    //     brief: values.brief_description,
+    //     price: values.price,
+    //     isFree: values.price > 0 ? false : true,
+    //     subCateId: values.subcategory,
+    //     knowledge: values.knowledge,
+    //     requirement: values.requirement,
+    //     navigate,
+    //   })
+    // );
   };
 
   useEffect(() => {
     dispatch(getListCategoryAction({ pageSize: PAGINATION.PAGE_SIZE }));
   }, [dispatch]);
-
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-
-  const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-  };
 
   const handleChooseCategory = (value) => {
     dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
@@ -85,13 +85,11 @@ const EditCourse = () => {
     labelCol: { span: 5 },
     wrapperCol: { span: 19 },
   };
+
   return (
-    <Content>
+    <Content className="min-h-screen" style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}>
       {loading && <Loading />}
-      <div
-        className="flex flex-1 flex-col p-6"
-        style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto' }}
-      >
+      <div className="flex flex-1 flex-col p-6">
         <div className="pl-6 mb-4">
           <BreadCrumbCustom />
         </div>
@@ -99,12 +97,20 @@ const EditCourse = () => {
         {/* form */}
         <div className="bg-white rounded-2xl p-6 border border-black">
           <h1 className="font-semibold text-2xl">Edit Course</h1>
-          <Form layout="horizontal" onFinish={onFinish} {...formLayout} labelWrap>
+
+          <Form layout="horizontal" form={form} onFinish={handleEditCourse} {...formLayout} labelWrap>
             <div className="flex flex-col md:flex-row">
               <div className="md:w-3/5 p-5">
+                <div className="relative mx-auto mb-6 h-40 w-3/5 overflow-hidden border border-black ">
+                  <img src={currentEditCourse?.course?.courseImg || defaultCourse} alt="" className="aspect-video" />
+                </div>
+                <Form.Item label={EDIT_COURSE_FORM_FIELDS.COURSE_ID_LABEL} name={EDIT_COURSE_FORM_FIELDS.COURSE_ID}>
+                  <Input className="rounded-md" disabled />
+                </Form.Item>
+
                 <Form.Item
-                  label={CREATE_COURSE_FORM_FIELDS.COURSE_NAME_LABEL}
-                  name={CREATE_COURSE_FORM_FIELDS.COURSE_NAME}
+                  label={EDIT_COURSE_FORM_FIELDS.COURSE_NAME_LABEL}
+                  name={EDIT_COURSE_FORM_FIELDS.COURSE_NAME}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.COURSE_NAME_REQUIRED }]}
                 >
                   <Input className="rounded-md" />
@@ -140,47 +146,25 @@ const EditCourse = () => {
                   </Select>
                 </Form.Item>
                 <Form.Item
-                  label={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION_LABEL}
-                  name={CREATE_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}
+                  label={EDIT_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION_LABEL}
+                  name={EDIT_COURSE_FORM_FIELDS.BRIEF_DESCRIPTION}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.BRIEF_DESCRIPTION_REQUIRED }]}
                 >
                   <Input className="rounded-md" />
                 </Form.Item>
                 <Form.Item
-                  label={CREATE_COURSE_FORM_FIELDS.PRICE_LABEL}
-                  name={CREATE_COURSE_FORM_FIELDS.PRICE}
+                  label={EDIT_COURSE_FORM_FIELDS.PRICE_LABEL}
+                  name={EDIT_COURSE_FORM_FIELDS.PRICE}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.PRICE_REQUIRED }]}
                 >
                   <InputNumber className="w-full rounded-md" />
                 </Form.Item>
                 <Form.Item
-                  label={CREATE_COURSE_FORM_FIELDS.DESCRIPTION_LABEL}
-                  name={CREATE_COURSE_FORM_FIELDS.DESCRIPTION}
+                  label={EDIT_COURSE_FORM_FIELDS.DESCRIPTION_LABEL}
+                  name={EDIT_COURSE_FORM_FIELDS.DESCRIPTION}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.DESCRIPTION_REQUIRED }]}
                 >
                   <TextArea rows={4} className="rounded-md" />
-                </Form.Item>
-
-                <Form.Item label={CREATE_COURSE_FORM_FIELDS.COURSE_IMAGE_LABEL}>
-                  <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={() => {}}>
-                    <ImgCrop zoomSlider showReset cropShape="rect" aspect={16 / 9}>
-                      <Upload.Dragger
-                        onPreview={onPreview}
-                        name="files"
-                        maxCount={1}
-                        customRequest={(info) => {
-                          setFile(info.file);
-                        }}
-                        beforeUpload={beforeUpload}
-                      >
-                        <p className="ant-upload-drag-icon">
-                          <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                        <p className="ant-upload-hint">Support for a single upload.</p>
-                      </Upload.Dragger>
-                    </ImgCrop>
-                  </Form.Item>
                 </Form.Item>
               </div>
 
@@ -189,12 +173,12 @@ const EditCourse = () => {
                 <ExpandedForm
                   title="Knowledge"
                   placeholder="Knowledge"
-                  nameFormList={CREATE_COURSE_FORM_FIELDS.WHAT_WILL_LEARN}
+                  nameFormList={EDIT_COURSE_FORM_FIELDS.WHAT_WILL_LEARN}
                 />
                 <ExpandedForm
                   title="Requirement"
                   placeholder="Requirement"
-                  nameFormList={CREATE_COURSE_FORM_FIELDS.REQUIREMENT}
+                  nameFormList={EDIT_COURSE_FORM_FIELDS.REQUIREMENT}
                 />
                 <Form.Item className="flex-1 mx-5" wrapperCol={{ span: 24 }}>
                   <Button type="primary" htmlType="submit" className="bg-black w-full">

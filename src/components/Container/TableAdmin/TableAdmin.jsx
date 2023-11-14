@@ -22,7 +22,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       if (course?.isDeleted) {
         return course.status !== TABLE_COLUMN.STATUS_DRAFT;
       }
-      return course
+      return course;
     });
     console.log(approvedAndPendingCourses);
     //get title of table by get key of obj
@@ -75,7 +75,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
     columns.push({
       title: 'Actions',
       fixed: 'right',
-      width: 120,
+      width: 140,
       align: 'center',
       render: (record) => {
         return actions(record);

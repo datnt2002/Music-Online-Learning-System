@@ -16,13 +16,13 @@ import WhatLearnDetail from '../../../components/Container/CourseContainer/WhatL
 import CourseContent from '../../../components/Container/CourseContainer/CourseContent';
 import RequirementContainer from '../../../components/Container/CourseContainer/RequirementContainer';
 import { PAGINATION } from '../../../constants';
+import splitSlash from '../../../utils/splitSlash';
 
 const CourseDetail = () => {
   const location = useLocation();
   const { pathname } = location;
-  const pathNameArray = pathname.split('/').filter((item) => {
-    return item;
-  });
+  const pathNameArray = splitSlash(pathname)
+  
   const currentCourse = useSelector((state) => state.course.currentCourse);
   const listCourse = useSelector((state) => state.course.listCourse);
   console.log(currentCourse);

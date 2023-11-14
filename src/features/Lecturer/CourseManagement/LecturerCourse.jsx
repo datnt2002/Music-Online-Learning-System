@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Content } from 'antd/es/layout/layout';
 import { Button, Modal, Popconfirm, Space } from 'antd';
-import { EyeOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EyeOutlined, UploadOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
-import { PAGINATION } from '../../../constants';
+import { LECTURER_ROUTE, PAGINATION } from '../../../constants';
 import {
   deleteCourseFromAdminAction,
   getDetailDraftCourseAction,
@@ -15,6 +15,7 @@ import {
   publishDraftCourseAction,
 } from '../../../redux/slice/courseSlice';
 import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
+import { useNavigate } from 'react-router-dom';
 
 const LecturerCourse = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +23,7 @@ const LecturerCourse = () => {
   const listCourse = useSelector((state) => state.course.listCourse);
   const pagination = useSelector((state) => state.course.pagination);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
@@ -40,6 +42,10 @@ const LecturerCourse = () => {
       })
     );
     setOpen(true);
+  };
+
+  const handleEditDraftCourse = (record) => {
+    navigate(LECTURER_ROUTE.EDIT_COURSE + `/${record?.courseId}`);
   };
 
   const handlePublishCourse = (record) => {
@@ -80,6 +86,12 @@ const LecturerCourse = () => {
                 handleViewDetailDraftCourse(record);
               }}
               icon={<EyeOutlined />}
+            />
+            <Button
+              onClick={() => {
+                handleEditDraftCourse(record);
+              }}
+              icon={<EditOutlined />}
             />
             <Popconfirm
               title="Publish this course"

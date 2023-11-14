@@ -75,6 +75,27 @@ export const CREATE_COURSE_FORM_FIELDS = {
   COURSE_IMAGE_LABEL: 'Course Image',
 };
 
+export const EDIT_COURSE_FORM_FIELDS = {
+  COURSE_ID: 'courseId',
+  COURSE_ID_LABEL: 'Course ID',
+  COURSE_NAME: 'courseName',
+  COURSE_NAME_LABEL: 'Course Name',
+  CATEGORY: 'category',
+  CATEGORY_LABEL: 'Category',
+  SUB_CATEGORY: 'subcategory',
+  SUB_CATEGORY_LABEL: 'Sub Category',
+  BRIEF_DESCRIPTION: 'brief',
+  BRIEF_DESCRIPTION_LABEL: 'Brief Description',
+  PRICE: 'price',
+  PRICE_LABEL: 'Price',
+  DESCRIPTION: 'description',
+  DESCRIPTION_LABEL: 'Description',
+  WHAT_WILL_LEARN: 'knowledge',
+  WHAT_WILL_LEARN_LABEL: 'What Will Learn',
+  REQUIREMENT: 'requirement',
+  COURSE_IMAGE_LABEL: 'Course Image',
+};
+
 export const CREATE_SECTION_FORM_FIELDS = {
   SECTION_NAME: 'sectionName',
   TITLE: 'Section',
