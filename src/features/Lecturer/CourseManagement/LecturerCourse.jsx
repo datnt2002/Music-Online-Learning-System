@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Content } from 'antd/es/layout/layout';
-import { Button, Popconfirm, Space } from 'antd';
-import { EditOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, Modal, Popconfirm, Space } from 'antd';
+import { EyeOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
@@ -10,11 +10,14 @@ import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import { PAGINATION } from '../../../constants';
 import {
   deleteCourseFromAdminAction,
+  getDetailDraftCourseAction,
   getListDraftCourseAction,
   publishDraftCourseAction,
 } from '../../../redux/slice/courseSlice';
+import ModalCourseDetail from '../../../components/Container/ModalContainer/ModalCourseDetail';
 
 const LecturerCourse = () => {
+  const [open, setOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
   const pagination = useSelector((state) => state.course.pagination);
@@ -30,8 +33,13 @@ const LecturerCourse = () => {
     return () => {};
   }, [dispatch, pageIndex]);
 
-  const handleEditDraftCourse = (record) => {
-    console.log(record);
+  const handleViewDetailDraftCourse = (record) => {
+    dispatch(
+      getDetailDraftCourseAction({
+        courseId: record?.courseId,
+      })
+    );
+    setOpen(true);
   };
 
   const handlePublishCourse = (record) => {
@@ -49,7 +57,9 @@ const LecturerCourse = () => {
       })
     );
   };
-
+  const handleCancel = () => {
+    setOpen(false);
+  };
   const cancel = (e) => {};
   return (
     <Content
@@ -67,9 +77,9 @@ const LecturerCourse = () => {
           <Space>
             <Button
               onClick={() => {
-                handleEditDraftCourse(record);
+                handleViewDetailDraftCourse(record);
               }}
-              icon={<EditOutlined />}
+              icon={<EyeOutlined />}
             />
             <Popconfirm
               title="Publish this course"
@@ -101,6 +111,21 @@ const LecturerCourse = () => {
           </Space>
         )}
       />
+      {open && (
+        <Modal
+          width={850}
+          open={open}
+          title="Course Detail"
+          onCancel={handleCancel}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return
+            </Button>,
+          ]}
+        >
+          <ModalCourseDetail />
+        </Modal>
+      )}
     </Content>
   );
 };
