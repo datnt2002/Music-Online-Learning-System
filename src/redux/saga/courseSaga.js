@@ -598,11 +598,6 @@ function* createNewLessonSaga() {
             `,
             confirmButtonText: 'Got it',
           });
-          // .then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
-          //   }
-          // });
           break;
 
         default:
