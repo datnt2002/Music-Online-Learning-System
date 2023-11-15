@@ -19,6 +19,8 @@ import { useNavigate } from 'react-router-dom';
 
 const LecturerCourse = () => {
   const [open, setOpen] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [dataOfRecord, setDataOfRecord] = useState();
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
   const pagination = useSelector((state) => state.course.pagination);
@@ -45,7 +47,12 @@ const LecturerCourse = () => {
   };
 
   const handleEditDraftCourse = (record) => {
-    navigate(LECTURER_ROUTE.EDIT_COURSE + `/${record?.courseId}`);
+    navigate(LECTURER_ROUTE.EDIT_COURSE + `/${record}`);
+  };
+
+  const showModal = (record) => {
+    setDataOfRecord(record);
+    setOpenModalEdit(true);
   };
 
   const handlePublishCourse = (record) => {
@@ -65,6 +72,7 @@ const LecturerCourse = () => {
   };
   const handleCancel = () => {
     setOpen(false);
+    setOpenModalEdit(false);
   };
   const cancel = (e) => {};
   return (
@@ -89,7 +97,7 @@ const LecturerCourse = () => {
             />
             <Button
               onClick={() => {
-                handleEditDraftCourse(record);
+                showModal(record);
               }}
               icon={<EditOutlined />}
             />
@@ -137,6 +145,25 @@ const LecturerCourse = () => {
         >
           <ModalCourseDetail />
         </Modal>
+      )}
+      {openModalEdit && (
+        <Modal
+          width={600}
+          open={openModalEdit}
+          title={`Edit Course ${dataOfRecord?.courseName}`}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return
+            </Button>,
+            <Button key="edit-section" onClick={handleCancel}>
+              Edit Section
+            </Button>,
+            <Button key="edit-course" onClick={() => handleEditDraftCourse(dataOfRecord?.courseId)}>
+              Edit Course
+            </Button>,
+          ]}
+        ></Modal>
       )}
     </Content>
   );

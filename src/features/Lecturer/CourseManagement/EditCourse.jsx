@@ -44,14 +44,21 @@ const EditCourse = () => {
   }, []);
 
   useEffect(() => {
+    let knowledgeArr, requirementArr;
+    if (currentEditCourse?.course?.knowledge) {
+      knowledgeArr = currentEditCourse?.course?.knowledge.split(',');
+    }
+    if (currentEditCourse?.course?.requirement) {
+      requirementArr = currentEditCourse?.course?.requirement.split(',');
+    }
     const initData = {
       courseId: currentEditCourse?.course?.courseId,
       courseName: currentEditCourse?.course?.courseName,
       brief: currentEditCourse?.course?.brief,
       price: currentEditCourse?.course?.price,
       description: currentEditCourse?.course?.description,
-      knowledge: currentEditCourse?.course?.knowledge.split(','),
-      requirement: currentEditCourse?.course?.requirement.split(','),
+      knowledge: knowledgeArr,
+      requirement: requirementArr,
     };
 
     form.setFieldsValue(initData);
