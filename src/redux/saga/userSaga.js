@@ -19,6 +19,9 @@ import {
   getUserByIdAction,
   getUserByIdFail,
   getUserByIdSuccess,
+  rejectRequestRoleAction,
+  rejectRequestRoleFail,
+  rejectRequestRoleSuccess,
 } from '../slice/userSlice';
 import {
   approvedRoleRequest,
@@ -26,6 +29,7 @@ import {
   getListRoleRequest,
   getListUser,
   getUserById,
+  rejectRoleRequest,
 } from '../../services/account.service';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 import { PAGINATION } from '../../constants';
@@ -185,10 +189,51 @@ function* approveRequestRoleSaga() {
   }
 }
 
+function* rejectRequestRoleSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { requestId },
+      } = yield take(rejectRequestRoleAction);
+      console.log(requestId);
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(rejectRoleRequest, { requestId, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(rejectRequestRoleSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          yield put(getListRoleRequestAction({ pageIndex: 1, pageSize: PAGINATION.PAGE_SIZE }));
+          break;
+        default:
+          yield put(rejectRequestRoleFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* userSaga() {
   yield fork(getListAccountSaga);
   yield fork(getUserByIdSaga);
   yield fork(disableUserSaga);
   yield fork(getListChangeRoleSaga);
   yield fork(approveRequestRoleSaga);
+  yield fork(rejectRequestRoleSaga);
 }

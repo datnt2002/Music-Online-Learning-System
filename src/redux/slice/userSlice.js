@@ -74,6 +74,15 @@ export const userSlice = createSlice({
     approvedRequestRoleFail: (state) => {
       return { ...state, loading: false };
     },
+    rejectRequestRoleAction: (state) => {
+      return { ...state, loading: true };
+    },
+    rejectRequestRoleSuccess: (state) => {
+      return { ...state, loading: false };
+    },
+    rejectRequestRoleFail: (state) => {
+      return { ...state, loading: false };
+    },
   },
 });
 
@@ -94,6 +103,9 @@ export const {
   approvedRequestRoleAction,
   approvedRequestRoleSuccess,
   approvedRequestRoleFail,
+  rejectRequestRoleAction,
+  rejectRequestRoleSuccess,
+  rejectRequestRoleFail,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,7 +7,11 @@ import { Content } from 'antd/es/layout/layout';
 import TableAdmin from '../../../components/Container/TableAdmin/TableAdmin';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { PAGINATION } from '../../../constants';
-import { approvedRequestRoleAction, getListRoleRequestAction } from '../../../redux/slice/userSlice';
+import {
+  approvedRequestRoleAction,
+  getListRoleRequestAction,
+  rejectRequestRoleAction,
+} from '../../../redux/slice/userSlice';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const LecturerRequests = () => {
@@ -29,7 +33,6 @@ const LecturerRequests = () => {
   }, [dispatch, pageIndex]);
 
   const handleAcceptRequest = (record) => {
-    console.log(record);
     dispatch(
       approvedRequestRoleAction({
         requestId: record?.id,
@@ -37,7 +40,13 @@ const LecturerRequests = () => {
     );
   };
 
-  const handleRejectRequest = (record) => {};
+  const handleRejectRequest = (record) => {
+    dispatch(
+      rejectRequestRoleAction({
+        requestId: record?.id,
+      })
+    );
+  };
 
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
