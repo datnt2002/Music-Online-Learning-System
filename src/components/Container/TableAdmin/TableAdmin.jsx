@@ -16,7 +16,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       const result = flattenObj(clone);
       return result;
     });
-    console.log(flattenData);
+
     // Filter the listCourse array to include only rows with status 'approved' or 'pending'
     const approvedAndPendingCourses = flattenData.filter((course) => {
       if (course?.isDeleted) {
@@ -24,7 +24,7 @@ const TableAdmin = ({ dataSource, actions, pagination, setPageIndex }) => {
       }
       return course;
     });
-    console.log(approvedAndPendingCourses);
+
     //get title of table by get key of obj
     const titleColumnList = Object.keys(flattenData[0]);
     const columns = titleColumnList.map((column, index) => {

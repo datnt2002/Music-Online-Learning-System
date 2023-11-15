@@ -25,6 +25,7 @@ export const LECTURER_ROUTE = {
   CREATE_NEW_SECTION: '/lecturer/create-section',
   CREATE_NEW_LESSON: '/lecturer/create-lesson',
   EDIT_COURSE: '/lecturer/edit-course',
+  EDIT_SECTION: '/lecturer/edit-section',
 };
 
 export const ADMIN_ROUTE = {

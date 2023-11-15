@@ -102,6 +102,15 @@ export const CREATE_SECTION_FORM_FIELDS = {
   SECTION_PLACEHOLDER: 'Enter section',
 };
 
+export const EDIT_SECTION_FORM_FIELDS = {
+  COURSE_ID: 'courseId',
+  COURSE_ID_LABEL: 'Course ID',
+  SECTION_ID: 'sectionId',
+  SECTION_ID_LABEL: 'Section ID',
+  SECTION_NAME: 'sectionName',
+  TITLE: 'Section',
+};
+
 export const CREATE_CATEGORY_FORM_FIELDS = {
   CATEGORY_NAME: 'cateName',
   TITLE: 'Category Name',

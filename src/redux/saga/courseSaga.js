@@ -17,6 +17,7 @@ import {
   createSubCate,
   deleteCourseFromAdmin,
   editDraftCourse,
+  editSection,
   editSubCate,
   getAllSubCategories,
   getDetailCourse,
@@ -71,6 +72,9 @@ import {
   editDraftCourseAction,
   editDraftCourseFail,
   editDraftCourseSuccess,
+  editDraftSectionAction,
+  editDraftSectionFail,
+  editDraftSectionSuccess,
   editSubCategoriesAction,
   editSubCategoriesFail,
   editSubCategoriesSuccess,
@@ -472,7 +476,7 @@ function* publishDraftCourseSaga() {
     }
   }
 }
-// Saga for creating a new course
+// Saga for edit a course
 function* editDraftCourseSaga() {
   while (true) {
     try {
@@ -535,6 +539,45 @@ function* editDraftCourseSaga() {
 
         default:
           yield put(editDraftCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for edit a section
+function* editSectionSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { sectionId, courseId, sectionName },
+      } = yield take(editDraftSectionAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(editSection, { sectionId, courseId, sectionName, accessToken });
+
+      switch (result.status) {
+        case 200:
+          yield put(editDraftSectionSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+                rgba(0,0,123,0.4)
+                url(${backdropSweetAlert})
+                left top
+                no-repeat
+              `,
+            confirmButtonText: 'Got it',
+          });
+          yield put(getDetailDraftCourseAction({ courseId: courseId }));
+          break;
+        default:
+          yield put(editDraftSectionFail(result));
           break;
       }
     } catch (error) {
@@ -1089,6 +1132,7 @@ export default function* courseSaga() {
   yield fork(getDetailDraftCourseSaga);
   yield fork(publishDraftCourseSaga);
   yield fork(editDraftCourseSaga);
+  yield fork(editSectionSaga);
   //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);

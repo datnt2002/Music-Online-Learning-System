@@ -67,7 +67,7 @@ const ManageListCategories = () => {
         <BreadCrumbCustom />
       </div>
       <Content
-        className="h-screen overflow-auto"
+        className="min-h-screen overflow-auto"
         style={{
           padding: 24,
           margin: 0,

@@ -45,9 +45,12 @@ const LecturerCourse = () => {
     );
     setOpen(true);
   };
+  const handleEditSectionCourse = (courseId) => {
+    navigate(LECTURER_ROUTE.EDIT_SECTION + `/${courseId}`);
+  };
 
-  const handleEditDraftCourse = (record) => {
-    navigate(LECTURER_ROUTE.EDIT_COURSE + `/${record}`);
+  const handleEditDraftCourse = (courseId) => {
+    navigate(LECTURER_ROUTE.EDIT_COURSE + `/${courseId}`);
   };
 
   const showModal = (record) => {
@@ -156,7 +159,10 @@ const LecturerCourse = () => {
             <Button key="back" onClick={handleCancel}>
               Return
             </Button>,
-            <Button key="edit-section" onClick={handleCancel}>
+            <Button key="edit-lesson" onClick={handleCancel}>
+              Edit Lesson
+            </Button>,
+            <Button key="edit-section" onClick={() => handleEditSectionCourse(dataOfRecord?.courseId)}>
               Edit Section
             </Button>,
             <Button key="edit-course" onClick={() => handleEditDraftCourse(dataOfRecord?.courseId)}>

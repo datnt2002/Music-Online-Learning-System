@@ -32,6 +32,7 @@ import CreateCourse from '../features/Lecturer/CourseManagement/CreateCourse';
 import CreateSection from '../features/Lecturer/CourseManagement/CreateSection';
 import CreateLesson from '../features/Lecturer/CourseManagement/CreateLesson';
 import EditCourse from '../features/Lecturer/CourseManagement/EditCourse';
+import EditSection from '../features/Lecturer/CourseManagement/EditSection';
 
 //admin route
 import DashBoardAdmin from '../features/Admin/Dashboard';
@@ -216,6 +217,14 @@ export const authorRoutes = [
     element: (
       <AuthorRoute>
         <EditCourse />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: 'edit-section/:id',
+    element: (
+      <AuthorRoute>
+        <EditSection />
       </AuthorRoute>
     ),
   },

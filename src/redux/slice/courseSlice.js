@@ -305,9 +305,26 @@ export const courseSlice = createSlice({
         ...state,
         loading: false,
       };
-      state.currentCourse = action.payload;
     },
     editDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    editDraftSectionAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editDraftSectionSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    editDraftSectionFail: (state) => {
       return {
         ...state,
         loading: false,
@@ -638,6 +655,9 @@ export const {
   editDraftCourseAction,
   editDraftCourseSuccess,
   editDraftCourseFail,
+  editDraftSectionAction,
+  editDraftSectionSuccess,
+  editDraftSectionFail,
   //create course
   createNewCourseAction,
   createNewCourseSuccess,

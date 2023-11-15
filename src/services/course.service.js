@@ -272,6 +272,21 @@ export const editDraftCourse = (data) => {
       return err;
     });
 };
+export const editSection = (data) => {
+  return axiosClient
+    .put(
+      `sections/${data.sectionId}`,
+      { courseId: data.courseId, sectionName: data.sectionName },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //category
 export const getListCategory = (data) => {
   console.log(data);
