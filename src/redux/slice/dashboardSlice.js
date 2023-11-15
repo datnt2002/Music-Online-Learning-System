@@ -3,6 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   categoriesCount: 0,
+  usersCount: 0,
+  approvedCourseCount: 0,
+  subCategoriesCount: 0,
 };
 
 export const dashboardSlice = createSlice({
@@ -11,6 +14,34 @@ export const dashboardSlice = createSlice({
   reducers: {
     resetSliceAction: () => {
       return initialState;
+    },
+    //courses
+    getCountApprovedCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getCountApprovedCourseSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        approvedCourseCount: action.payload,
+      };
+    },
+    //users
+    getCountUsersAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getCountUsersSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        usersCount: action.payload,
+      };
     },
     //categories
     getCountCategoriesAction: (state) => {
@@ -26,7 +57,7 @@ export const dashboardSlice = createSlice({
         categoriesCount: action.payload,
       };
     },
-    getCountCategoriesFail: (state) => {
+    getCountFail: (state) => {
       return {
         ...state,
         loading: false,
@@ -35,6 +66,14 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export const { resetSliceAction, getCountCategoriesAction, getCountCategoriesSuccess, getCountCategoriesFail } =
-  dashboardSlice.actions;
+export const {
+  resetSliceAction,
+  getCountApprovedCourseAction,
+  getCountApprovedCourseSuccess,
+  getCountUsersAction,
+  getCountUsersSuccess,
+  getCountCategoriesAction,
+  getCountCategoriesSuccess,
+  getCountFail,
+} = dashboardSlice.actions;
 export default dashboardSlice.reducer;
