@@ -4,15 +4,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputNumber, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
 import {
+  editDraftCourseAction,
   getDetailDraftCourseAction,
   getListCategoryAction,
   getSubCategoriesByCategoryAction,
 } from '../../../redux/slice/courseSlice';
-import { CREATE_COURSE_FORM_FIELDS, EDIT_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
+import { EDIT_COURSE_FORM_FIELDS, PAGINATION, VALIDATE_MESSAGE } from '../../../constants';
 import ExpandedForm from '../../../components/Container/FormListContainer/ExpandedForm';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import Loading from '../../../components/Common/Loading';
@@ -39,6 +40,7 @@ const EditCourse = () => {
         courseId: pathNameArray[2],
       })
     );
+    dispatch(getListCategoryAction({ pageSize: PAGINATION.PAGE_SIZE }));
   }, []);
 
   useEffect(() => {
@@ -53,33 +55,38 @@ const EditCourse = () => {
     };
 
     form.setFieldsValue(initData);
+
+    form.setFieldsValue({
+      [EDIT_COURSE_FORM_FIELDS.CATEGORY]: currentEditCourse?.subCate?.cateId,
+      [EDIT_COURSE_FORM_FIELDS.SUB_CATEGORY]: currentEditCourse?.subCate?.subCateId,
+    });
+    dispatch(getSubCategoriesByCategoryAction({ cateId: currentEditCourse?.subCate?.cateId }));
   }, [form, currentEditCourse]);
 
   const handleEditCourse = (values) => {
     console.log('form', values);
 
-    // dispatch(
-    //   createNewCourseAction({
-    //     courseName: values.courseName,
-    //     description: values.description,
-    //     brief: values.brief_description,
-    //     price: values.price,
-    //     isFree: values.price > 0 ? false : true,
-    //     subCateId: values.subcategory,
-    //     knowledge: values.knowledge,
-    //     requirement: values.requirement,
-    //     navigate,
-    //   })
-    // );
+    dispatch(
+      editDraftCourseAction({
+        courseId: values.courseId,
+        courseName: values.courseName,
+        description: values.description,
+        brief: values.brief_description,
+        price: values.price,
+        isFree: values.price > 0 ? false : true,
+        subCateId: values.subcategory,
+        knowledge: values.knowledge,
+        requirement: values.requirement,
+        navigate,
+      })
+    );
   };
-
-  useEffect(() => {
-    dispatch(getListCategoryAction({ pageSize: PAGINATION.PAGE_SIZE }));
-  }, [dispatch]);
 
   const handleChooseCategory = (value) => {
     dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
   };
+
+  const handleEditCourseImg = () => {};
 
   const formLayout = {
     labelCol: { span: 5 },
@@ -101,8 +108,14 @@ const EditCourse = () => {
           <Form layout="horizontal" form={form} onFinish={handleEditCourse} {...formLayout} labelWrap>
             <div className="flex flex-col md:flex-row">
               <div className="md:w-3/5 p-5">
-                <div className="relative mx-auto mb-6 h-40 w-3/5 overflow-hidden border border-black ">
-                  <img src={currentEditCourse?.course?.courseImg || defaultCourse} alt="" className="aspect-video" />
+                <div className="relative mx-auto mb-6 h-40 w-3/5 overflow-hidden border border-black group">
+                  <img
+                    src={currentEditCourse?.course?.courseImg || defaultCourse}
+                    alt=""
+                    className="aspect-video group-hover:opacity-75 transition-opacity duration-300 ease-in-out"
+                    onClick={handleEditCourseImg}
+                  />
+                  <UploadOutlined className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
                 </div>
                 <Form.Item label={EDIT_COURSE_FORM_FIELDS.COURSE_ID_LABEL} name={EDIT_COURSE_FORM_FIELDS.COURSE_ID}>
                   <Input className="rounded-md" disabled />
@@ -116,8 +129,8 @@ const EditCourse = () => {
                   <Input className="rounded-md" />
                 </Form.Item>
                 <Form.Item
-                  label={CREATE_COURSE_FORM_FIELDS.CATEGORY_LABEL}
-                  name={CREATE_COURSE_FORM_FIELDS.CATEGORY}
+                  label={EDIT_COURSE_FORM_FIELDS.CATEGORY_LABEL}
+                  name={EDIT_COURSE_FORM_FIELDS.CATEGORY}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.CATEGORY_REQUIRED }]}
                 >
                   <Select onChange={handleChooseCategory} className="rounded-md">
@@ -131,8 +144,8 @@ const EditCourse = () => {
                   </Select>
                 </Form.Item>
                 <Form.Item
-                  label={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY_LABEL}
-                  name={CREATE_COURSE_FORM_FIELDS.SUB_CATEGORY}
+                  label={EDIT_COURSE_FORM_FIELDS.SUB_CATEGORY_LABEL}
+                  name={EDIT_COURSE_FORM_FIELDS.SUB_CATEGORY}
                   rules={[{ required: true, message: VALIDATE_MESSAGE.SUB_CATEGORY_REQUIRED }]}
                 >
                   <Select className="rounded-md">

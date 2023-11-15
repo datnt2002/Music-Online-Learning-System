@@ -16,6 +16,7 @@ import {
   createPayment,
   createSubCate,
   deleteCourseFromAdmin,
+  editDraftCourse,
   editSubCate,
   getAllSubCategories,
   getDetailCourse,
@@ -67,6 +68,9 @@ import {
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
+  editDraftCourseAction,
+  editDraftCourseFail,
+  editDraftCourseSuccess,
   editSubCategoriesAction,
   editSubCategoriesFail,
   editSubCategoriesSuccess,
@@ -461,6 +465,76 @@ function* publishDraftCourseSaga() {
 
         default:
           yield put(publishDraftCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for creating a new course
+function* editDraftCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: {
+          courseId,
+          courseName,
+          brief,
+          price,
+          isFree,
+          subCateId,
+          description,
+          knowledge,
+          requirement,
+          navigate,
+        },
+      } = yield take(editDraftCourseAction);
+
+      const knowledgeString = knowledge.toString();
+      const requirementString = requirement.toString();
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(editDraftCourse, {
+        courseId,
+        courseName,
+        brief,
+        price,
+        isFree,
+        subCateId,
+        description,
+        accessToken,
+        knowledgeString,
+        requirementString,
+      });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(editDraftCourseSuccess(result.data));
+          sessionStorage.setItem(STORAGE.COURSE, JSON.stringify(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
+            }
+          });
+          break;
+
+        default:
+          yield put(editDraftCourseFail(result));
           break;
       }
     } catch (error) {
@@ -1014,6 +1088,7 @@ export default function* courseSaga() {
   yield fork(getListDraftCourseSaga);
   yield fork(getDetailDraftCourseSaga);
   yield fork(publishDraftCourseSaga);
+  yield fork(editDraftCourseSaga);
   //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);

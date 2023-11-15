@@ -248,7 +248,30 @@ export const createNewQuestionInQuiz = (data) => {
       return err;
     });
 };
+export const editDraftCourse = (data) => {
+  const formData = new FormData();
+  formData.append('courseName', data.courseName);
+  formData.append('subCateId', data.subCateId);
+  formData.append('price', data.price);
+  formData.append('isFree', data.isFree);
+  formData.append('description', data.description);
+  formData.append('brief', data.brief);
+  formData.append('knowledge', data.knowledgeString);
+  formData.append('requirement', data.requirementString);
 
+  return axiosClient
+    .patch(`courses/${data.courseId}`, formData, {
+      headers: {
+        Authorization: `Bearer ${data.accessToken}`,
+      },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 //category
 export const getListCategory = (data) => {
   console.log(data);

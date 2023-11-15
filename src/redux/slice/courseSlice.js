@@ -280,11 +280,38 @@ export const courseSlice = createSlice({
       };
     },
     createNewCourseSuccess: (state, action) => {
-      state.loading = false;
-      state.currentCourse = action.payload;
+      return {
+        ...state,
+        loading: false,
+        currentCourse: action.payload,
+      };
     },
     createNewCourseFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    //edit draft course
+    editDraftCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editDraftCourseSuccess: (state, action) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        loading: false,
+      };
+      state.currentCourse = action.payload;
+    },
+    editDraftCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
     },
     //create section
     createNewSectionAction: (state) => {
@@ -608,6 +635,9 @@ export const {
   publishDraftCourseAction,
   publishDraftCourseSuccess,
   publishDraftCourseFail,
+  editDraftCourseAction,
+  editDraftCourseSuccess,
+  editDraftCourseFail,
   //create course
   createNewCourseAction,
   createNewCourseSuccess,
