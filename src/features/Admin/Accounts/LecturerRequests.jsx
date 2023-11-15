@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Layout, Modal } from 'antd';
+import { Button, Layout, Popconfirm } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSwitchOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
@@ -11,10 +11,7 @@ import { approvedRequestRoleAction, getListRoleRequestAction } from '../../../re
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 
 const LecturerRequests = () => {
-  //state of modal
-  const [open, setOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
-  const [dataOfRecord, setDataOfRecord] = useState();
   //get list accounts from store
   const listRequests = useSelector((state) => state.user.listRequests);
   // useSelector((state) => state.user.listAccounts);
@@ -30,25 +27,17 @@ const LecturerRequests = () => {
     );
     return () => {};
   }, [dispatch, pageIndex]);
-  const showModal = (record) => {
-    setDataOfRecord(record);
-    setOpen(true);
-  };
 
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
-  const handleAcceptRequest = () => {
+  const handleAcceptRequest = (record) => {
+    console.log(record);
     dispatch(
       approvedRequestRoleAction({
-        requestId: dataOfRecord.id,
+        requestId: record?.id,
       })
     );
-    setOpen(false);
   };
 
-  const handleRejectRequest = () => {};
+  const handleRejectRequest = (record) => {};
 
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
@@ -68,35 +57,20 @@ const LecturerRequests = () => {
           setPageIndex={setPageIndex}
           actions={(record) => (
             <>
-              <Button
-                onClick={() => {
-                  showModal(record);
-                }}
-                icon={<UserSwitchOutlined />}
-              />
+              <Popconfirm
+                title="Approve the request"
+                description="Are you sure to approve this request?"
+                onConfirm={() => handleAcceptRequest(record)}
+                onCancel={() => handleRejectRequest(record)}
+                okText="Accept"
+                cancelText="Reject"
+                okButtonProps={{ style: { backgroundColor: 'black', color: 'white' } }}
+              >
+                <Button icon={<UserSwitchOutlined />} />
+              </Popconfirm>
             </>
           )}
         />
-        {open && (
-          <Modal
-            open={open}
-            title="Accept Lecturer Request"
-            onCancel={handleCancel}
-            footer={[
-              <Button key="back" onClick={handleCancel}>
-                Return
-              </Button>,
-              <Button key="reject" onClick={handleRejectRequest}>
-                Reject
-              </Button>,
-              <Button className="bg-black" key="submit" type="primary" onClick={handleAcceptRequest}>
-                Accept
-              </Button>,
-            ]}
-          >
-            <p>Accept request of user {dataOfRecord?.userId}</p>
-          </Modal>
-        )}
       </Content>
     </Layout>
   );

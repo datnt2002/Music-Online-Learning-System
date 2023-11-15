@@ -151,7 +151,7 @@ function* approveRequestRoleSaga() {
       const {
         payload: { requestId },
       } = yield take(approvedRequestRoleAction);
-
+      console.log(requestId);
       const { accessToken } = getTokenFromStorage();
 
       const result = yield call(approvedRoleRequest, { requestId, accessToken });

@@ -56,7 +56,7 @@ export const approvedRoleRequest = (data) => {
   console.log(data);
   return axiosClient
     .patch(
-      `users/request-change-role/${data.requestId}`,
+      `users/approve-change-role/${data.requestId}`,
       {},
       {
         headers: { Authorization: `Bearer ${data.accessToken}` },
@@ -70,3 +70,20 @@ export const approvedRoleRequest = (data) => {
     });
 };
 
+export const rejectRoleRequest = (data) => {
+  console.log(data);
+  return axiosClient
+    .patch(
+      `users/reject-change-role/${data.requestId}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${data.accessToken}` },
+      }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
