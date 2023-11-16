@@ -27,14 +27,14 @@ const AuthorRoute = ({ children }) => {
     }
   }, [navigate, dispatch]);
 
-  useEffect(() => {
-    const isLecturer = currentRole.some((role) => {
-      return role.roleId === ROLE.LECTURER;
-    });
-    if (!isLecturer) {
-      navigate(PUBLIC_ROUTE.SIGN_IN);
-    }
-  }, [currentRole]);
+  // useEffect(() => {
+  //   const isLecturer = currentRole.some((role) => {
+  //     return role.roleId === ROLE.LECTURER;
+  //   });
+  //   if (!isLecturer) {
+  //     navigate(PUBLIC_ROUTE.SIGN_IN);
+  //   }
+  // }, [currentRole]);
 
   return (
     <>
