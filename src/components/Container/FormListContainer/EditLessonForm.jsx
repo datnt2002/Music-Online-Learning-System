@@ -18,7 +18,7 @@ const EditLessonForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmitLesson = (values) => {
+  const handleEditLesson = (values) => {
     // dispatch(
     //   createNewLessonAction({
     //     sectionId: values.sectionId,
@@ -28,11 +28,6 @@ const EditLessonForm = () => {
     //     navigate,
     //   })
     // );
-  };
-
-  const formLayout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
   };
 
   const handleChooseSection = (value) => {
@@ -50,8 +45,12 @@ const EditLessonForm = () => {
     form.setFieldsValue(currentLesson);
   }, [currentLesson]);
 
+  const formLayout = {
+    labelCol: { span: 4 },
+    wrapperCol: { span: 20 },
+  };
   return (
-    <Form form={form} name="create-lesson" onFinish={handleSubmitLesson} labelWrap {...formLayout}>
+    <Form form={form} name="create-lesson" onFinish={handleEditLesson} labelWrap {...formLayout}>
       <Form.Item
         label={CREATE_LESSON_FORM_FIELDS.SECTION_LABEL}
         name={CREATE_LESSON_FORM_FIELDS.SECTION_ID}
