@@ -12,7 +12,6 @@ import HeaderDefault from '../components/Layout/User/HeaderDefault';
 //public route
 import Homepage from '../features/Home/Homepage';
 import CourseDetail from '../features/Home/Course/CourseDetail';
-import HomePosts from '../features/Forum/HomePosts';
 import PublicProfile from '../features/Profile/PublicProfile';
 
 //user route
@@ -74,14 +73,6 @@ export const publicRoutes = [
     element: (
       <PublicLayout>
         <CourseDetail />
-      </PublicLayout>
-    ),
-  },
-  {
-    path: 'forums',
-    element: (
-      <PublicLayout>
-        <HomePosts />
       </PublicLayout>
     ),
   },

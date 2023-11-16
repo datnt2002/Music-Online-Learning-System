@@ -4,7 +4,6 @@ export const PUBLIC_ROUTE = {
   SIGN_UP: '/signup',
   FORGOT_PASSWORD: '/forgotpassword',
   COURSE_DETAIL: '/course-detail',
-  FORUMS: '/forums',
 };
 
 export const USER_ROUTE = {

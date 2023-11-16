@@ -25,9 +25,6 @@ const HeaderDefault = () => {
   };
   const content = (
     <div className="flex flex-col items-center">
-      <Link className="ml-2 mb-2" to={PUBLIC_ROUTE.FORUMS}>
-        <Button className="border border-black">Forums</Button>
-      </Link>
       <div className="flex ml-2">{isAuthenticated ? <CombineAvatarAndCart /> : <AuthenticationButton />}</div>
     </div>
   );
@@ -54,10 +51,6 @@ const HeaderDefault = () => {
         </div>
 
         <div className="hidden md:flex">
-          <Link className="mr-4" to={PUBLIC_ROUTE.FORUMS}>
-            Forums
-          </Link>
-
           <div className="flex ml-2">{isAuthenticated ? <CombineAvatarAndCart /> : <AuthenticationButton />}</div>
         </div>
         <div className="flex items-center -mr-4 md:hidden">

@@ -51,7 +51,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.status === 403 && error.response.data.errors === 'token expired':
+      case error.response.data.errors === 'token expired':
         try {
           //call api get new access token
           const result = await getAccessToken();
@@ -66,14 +66,14 @@ axiosClient.interceptors.response.use(
           console.log(error);
         }
         break;
-      // case error.response.data.status === 403:
-      //   Swal.fire({
-      //     title: 'Error!',
-      //     text: error.response.data.message || API_ERROR.DEFAULT,
-      //     icon: 'error',
-      //     confirmButtonText: 'Got it!',
-      //   });
-      //   break;
+      case error.response.data.status === 403:
+        Swal.fire({
+          title: 'Error!',
+          text: error.response.data.message || API_ERROR.DEFAULT,
+          icon: 'error',
+          confirmButtonText: 'Got it!',
+        });
+        break;
       case error.response.data.status === 404:
         Swal.fire({
           title: 'Error!',
