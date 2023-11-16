@@ -44,6 +44,7 @@ import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
 import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
+import EditLesson from '../features/Lecturer/CourseManagement/EditLesson';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -216,6 +217,14 @@ export const authorRoutes = [
     element: (
       <AuthorRoute>
         <EditSection />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: 'edit-lesson/:id',
+    element: (
+      <AuthorRoute>
+        <EditLesson />
       </AuthorRoute>
     ),
   },

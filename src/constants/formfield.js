@@ -136,6 +136,8 @@ export const SUB_CATEGORY_FORM_FIELDS = {
 };
 
 export const CREATE_LESSON_FORM_FIELDS = {
+  LESSON_ID: 'lessonId',
+  LESSON_ID_LABEL: 'Lesson ID',
   LESSON_NAME: 'lessonName',
   LESSON_NAME_LABEL: 'Lesson Name',
   LESSON_DESCRIPTION: 'lessonDescription',

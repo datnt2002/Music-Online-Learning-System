@@ -692,7 +692,7 @@ function* createNewLessonSaga() {
   while (true) {
     try {
       const {
-        payload: { lessonName, sectionId, file, lessonDescription, navigate },
+        payload: { lessonName, sectionId, file },
       } = yield take(createNewLessonAction);
 
       const { accessToken } = getTokenFromStorage();
@@ -817,7 +817,7 @@ function* getDetailLessonSaga() {
 
       const { accessToken } = getTokenFromStorage();
       const result = yield call(getLessonDetail, { lessonId, accessToken });
-
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getDetailLessonSuccess(result.data));

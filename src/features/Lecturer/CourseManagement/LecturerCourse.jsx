@@ -53,6 +53,10 @@ const LecturerCourse = () => {
     navigate(LECTURER_ROUTE.EDIT_COURSE + `/${courseId}`);
   };
 
+  const handleEditLessonCourse = (courseId) => {
+    navigate(LECTURER_ROUTE.EDIT_LESSON + `/${courseId}`);
+  };
+
   const showModal = (record) => {
     setDataOfRecord(record);
     setOpenModalEdit(true);
@@ -159,7 +163,7 @@ const LecturerCourse = () => {
             <Button key="back" onClick={handleCancel}>
               Return
             </Button>,
-            <Button key="edit-lesson" onClick={handleCancel}>
+            <Button key="edit-lesson" onClick={() => handleEditLessonCourse(dataOfRecord?.courseId)}>
               Edit Lesson
             </Button>,
             <Button key="edit-section" onClick={() => handleEditSectionCourse(dataOfRecord?.courseId)}>
