@@ -121,7 +121,7 @@ import {
   restoreDeletedCourseFail,
   restoreDeletedCourseSuccess,
 } from '../slice/courseSlice';
-import { ADMIN_ROUTE, LECTURER_ROUTE, STORAGE } from '../../constants';
+import { ADMIN_ROUTE, LECTURER_ROUTE, PAGINATION, STORAGE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 // Saga for retrieving the list of approved courses
@@ -469,6 +469,8 @@ function* publishDraftCourseSaga() {
             `,
             confirmButtonText: 'Got it',
           });
+
+          yield put(getListDraftCourseAction({pageIndex: 1, pageSize: PAGINATION.pageSize}))
           break;
 
         default:

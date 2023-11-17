@@ -19,7 +19,7 @@ const CourseDetailFloatingPanel = () => {
     );
   };
   return (
-    <div className="lg:bg-white border-black border w-5/6 rounded-3xl mx-auto mb-6 shadow-2xl lg:fixed top-24 right-2/100  lg:top-32 lg:right-28 lg:w-96">
+    <div className="lg:bg-white border-black border w-5/6 rounded-3xl z-50 mx-auto mb-6 shadow-2xl lg:fixed top-24 right-2/100  lg:top-32 lg:right-28 lg:w-96">
       <img
         className="aspect-video rounded-2xl mx-auto -mt-6 shadow-xl w-11/12 border border-black"
         src={currentCourse?.course?.courseImg || defaultCourse}

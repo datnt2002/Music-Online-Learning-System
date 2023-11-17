@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Carousel, Rate } from 'antd';
+import { Button, Carousel } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
@@ -11,6 +11,7 @@ import formatPrice from '../../../utils/formatPrice';
 
 const ListContainer = () => {
   const listCourse = useSelector((state) => state.course.listCourse);
+  console.log(listCourse);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ref = useRef();
@@ -76,25 +77,21 @@ const ListContainer = () => {
       <Carousel ref={ref} rows={1} slidesPerRow={slidesToShow} dots={false} draggable infinite={true}>
         {listCourse.map((course) => {
           return (
-            <div key={course.courseId} className="my-3">
+            <div key={course?.courseId} className="my-3">
               <div
-                onClick={() => handleViewDetailCourse(course.courseId)}
+                onClick={() => handleViewDetailCourse(course?.courseId)}
                 className="relative flex w-[14rem] h-80 flex-col border border-black rounded-lg hover:scale-105"
               >
                 <div className="relative m-4 h-40 overflow-hidden">
-                  <img src={course.courseImg || defaultCourse} alt="error" className="object-cover h-full w-full" />
+                  <img src={course?.courseImg || defaultCourse} alt="error" className="object-cover h-full w-full" />
                 </div>
                 <div className="px-6 pb-6 pt-3">
                   <h1 className="truncate text-lg font-bohemian font-semibold leading-snug text-blue-gray-900 antialiased">
-                    {course.courseName}
+                    {course?.courseName}
                   </h1>
                   <p className="underline font-sans text-xs font-light leading-relaxed truncate">Author</p>
-                  <div className="flex">
-                    <p className="font-sans text-sm font-light leading-relaxed truncate"> 4.5</p>
-                    <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
-                  </div>
-                  <p className="font-sans text-base font-medium leading-relaxed truncate">
-                    ${formatPrice(course.price)}
+                  <p className="font-sans text-lg font-medium leading-relaxed truncate mt-4">
+                    ${formatPrice(course?.price)}
                   </p>
                 </div>
               </div>

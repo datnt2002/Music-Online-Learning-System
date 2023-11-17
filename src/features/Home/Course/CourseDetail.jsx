@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Divider, Rate } from 'antd';
-import { ClockCircleOutlined, HighlightOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Divider } from 'antd';
+import { ClockCircleOutlined, NotificationOutlined } from '@ant-design/icons';
 
 import { getDetailCourseAction, getListCourseAction } from '../../../redux/slice/courseSlice';
 import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
@@ -15,17 +15,19 @@ import Footer from '../../../components/Common/Footer';
 import WhatLearnDetail from '../../../components/Container/CourseContainer/WhatLearnDetail';
 import CourseContent from '../../../components/Container/CourseContainer/CourseContent';
 import RequirementContainer from '../../../components/Container/CourseContainer/RequirementContainer';
-import { PAGINATION } from '../../../constants';
+import { DAY_FORMAT, PAGINATION } from '../../../constants';
 import splitSlash from '../../../utils/splitSlash';
+import dayjs from 'dayjs';
 
 const CourseDetail = () => {
   const location = useLocation();
   const { pathname } = location;
-  const pathNameArray = splitSlash(pathname)
-  
+  const pathNameArray = splitSlash(pathname);
+
   const currentCourse = useSelector((state) => state.course.currentCourse);
+
   const listCourse = useSelector((state) => state.course.listCourse);
-  console.log(currentCourse);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -55,14 +57,8 @@ const CourseDetail = () => {
             <h1 className="text-3xl my-2 font-bohemian">{currentCourse?.course?.courseName}</h1>
             <h2 className="text-xl my-2">{currentCourse?.course?.brief}</h2>
             <div className="flex my-2 flex-wrap">
-              <p className="bg-yellow-300 text-sm text-black py-1 px-2 mr-2 lg:mb-0">Best seller</p>
-              <p className="align-middle mx-2 leading-1">4.5</p>
-              <Rate disabled allowHalf defaultValue={2.5} className="leading-none mx-2" />
-              <p className="align-middle mx-2 leading-1">
-                <HighlightOutlined className="align-[0.125rem]" /> 224 Rating
-              </p>
-              <p className="align-middle mx-2 leading-1">
-                <NotificationOutlined className="align-[0.125rem]" /> 448 Subscribes
+              <p className="align-middle leading-1">
+                <NotificationOutlined className="align-[0.125rem]" /> {currentCourse?.course?.boughtCount} Subscribes
               </p>
             </div>
             <p className="my-2">
@@ -70,7 +66,8 @@ const CourseDetail = () => {
             </p>
 
             <p className="mr-2">
-              <ClockCircleOutlined className="align-[0.125rem]" /> Last update at {currentCourse?.course?.updatedAt}
+              <ClockCircleOutlined className="align-[0.125rem]" /> Last update at
+              {dayjs(currentCourse?.course?.updatedAt).format(DAY_FORMAT.D_M_Y)}
             </p>
           </div>
         </div>
