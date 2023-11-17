@@ -449,7 +449,7 @@ export const courseSlice = createSlice({
         ...state,
         loading: false,
         currentQuiz: action.payload,
-        listQuestions: Questions
+        listQuestions: Questions,
       };
     },
     getDetailQuizFail: (state) => {

@@ -23,3 +23,8 @@ export const PAGINATION = {
   PAGE_SIZE: 10,
   PAGE_INDEX: 1,
 };
+
+export const LESSON_TYPE = {
+  LESSON: '_Lesson',
+  QUIZ: '_Quiz',
+};

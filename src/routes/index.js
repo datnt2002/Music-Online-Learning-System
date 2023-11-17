@@ -121,6 +121,14 @@ export const userRoutes = [
     ),
   },
   {
+    path: 'lesson-detail',
+    element: (
+      <UserRoute>
+        <LessonDetail />
+      </UserRoute>
+    ),
+  },
+  {
     path: 'lecturer-request-form',
     element: (
       <UserRoute>
