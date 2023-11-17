@@ -96,19 +96,13 @@ const CourseDetail = () => {
             <LecturerCard />
           </div>
 
-          <div>
+          <div className="mt-6 mb-16">
             <h2 className="text-xl mb-4 font-medium">Students also bought</h2>
             <div className="">
-              {/* {listCourse.map((course) => {
+              {listCourse.map((course) => {
                 return <CourseHorizontalCard courseData={course} />;
-              })} */}
+              })}
             </div>
-          </div>
-
-          {/* cmt and rating */}
-          <div>
-            <h2 className="text-xl mb-4 font-medium">Rating And Comments</h2>
-            <div></div>
           </div>
         </div>
       </div>

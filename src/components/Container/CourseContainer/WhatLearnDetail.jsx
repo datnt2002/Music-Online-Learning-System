@@ -18,9 +18,9 @@ const WhatLearnDetail = () => {
     <div className="rounded-2xl border-2 shadow-md border-black py-4 ">
       <h2 className="text-xl mx-6 mb-2 font-medium"> What you learn in this course</h2>
       <ul className="flex flex-col flex-wrap justify-between mx-6">
-        {listKnowledge.map((knowledge) => {
+        {listKnowledge.map((knowledge, index) => {
           return (
-            <li className="mb-1">
+            <li className="mb-1" key={index}>
               <CheckOutlined className="align-[0.125rem]" /> {knowledge}
             </li>
           );

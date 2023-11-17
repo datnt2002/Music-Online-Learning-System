@@ -14,7 +14,7 @@ const CourseHorizontalCard = ({ courseData }) => {
 
   return (
     <div
-      className="flex flex-col p-6 border border-black rounded-2xl lg:flex-row lg:ml-4 cursor-pointer"
+      className="flex flex-col p-6 border border-black rounded-2xl lg:flex-row lg:ml-4 cursor-pointer my-2 "
       onClick={handleViewDetail}
     >
       <div className="lg:mr-6 lg:mb-0 mb-2 flex justify-center basis-1/3">
