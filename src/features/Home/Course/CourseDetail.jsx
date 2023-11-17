@@ -25,7 +25,6 @@ const CourseDetail = () => {
   const pathNameArray = splitSlash(pathname);
 
   const currentCourse = useSelector((state) => state.course.currentCourse);
-
   const listCourse = useSelector((state) => state.course.listCourse);
 
   const dispatch = useDispatch();
@@ -99,8 +98,12 @@ const CourseDetail = () => {
           <div className="mt-6 mb-16">
             <h2 className="text-xl mb-4 font-medium">Students also bought</h2>
             <div className="">
-              {listCourse.map((course) => {
-                return <CourseHorizontalCard courseData={course} />;
+              {listCourse.map((course, index) => {
+                return (
+                  <div key={index}>
+                    <CourseHorizontalCard courseData={course} />
+                  </div>
+                );
               })}
             </div>
           </div>

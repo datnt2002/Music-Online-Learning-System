@@ -412,7 +412,7 @@ export const createPayment = (data) => {
 };
 
 export const buyCourseByECoin = (data) => {
-  const body = [];
+  const body = data?.courseIdArray;
   return axiosClient
     .post('buy-courses', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {

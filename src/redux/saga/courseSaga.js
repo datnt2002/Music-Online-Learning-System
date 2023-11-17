@@ -470,7 +470,7 @@ function* publishDraftCourseSaga() {
             confirmButtonText: 'Got it',
           });
 
-          yield put(getListDraftCourseAction({pageIndex: 1, pageSize: PAGINATION.pageSize}))
+          yield put(getListDraftCourseAction({ pageIndex: 1, pageSize: PAGINATION.pageSize }));
           break;
 
         default:
@@ -1125,7 +1125,7 @@ function* buyCourseByECoinSaga() {
       const {
         payload: { courseIdArray },
       } = yield take(buyCourseByECoinAction);
-
+      console.log(courseIdArray);
       const { accessToken } = getTokenFromStorage();
 
       const result = yield call(buyCourseByECoin, { courseIdArray, accessToken });
