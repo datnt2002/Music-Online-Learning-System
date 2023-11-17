@@ -9,6 +9,8 @@ const initialState = {
   currentCourse: {},
   currentSection: {},
   currentLesson: {},
+  currentQuiz: {},
+  listQuestions: [],
   isCreateLessonSuccess: false,
   isCreateQuizSuccess: false,
   listCategory: [],
@@ -414,6 +416,7 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+
     createNewQuestionInQuizAction: (state) => {
       return {
         ...state,
@@ -428,6 +431,28 @@ export const courseSlice = createSlice({
       };
     },
     createNewQuestionInQuizFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    getDetailQuizAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getDetailQuizSuccess: (state, action) => {
+      console.log(action.payload);
+      const { Questions } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        currentQuiz: action.payload,
+        listQuestions: Questions
+      };
+    },
+    getDetailQuizFail: (state) => {
       return {
         ...state,
         loading: false,
@@ -658,6 +683,9 @@ export const {
   editDraftSectionAction,
   editDraftSectionSuccess,
   editDraftSectionFail,
+  getDetailQuizAction,
+  getDetailQuizSuccess,
+  getDetailQuizFail,
   //create course
   createNewCourseAction,
   createNewCourseSuccess,

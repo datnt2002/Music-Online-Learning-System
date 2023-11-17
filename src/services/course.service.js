@@ -54,6 +54,17 @@ export const getLessonDetail = (data) => {
       return err;
     });
 };
+export const getQuizDetail = (data) => {
+  console.log(data);
+  return axiosClient
+    .get(`quizzes/${data.quizId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 
 //pending course
 export const getListPendingCourse = (data) => {

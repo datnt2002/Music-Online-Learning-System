@@ -146,6 +146,8 @@ export const CREATE_LESSON_FORM_FIELDS = {
   LESSON_VIDEO_LABEL: 'Video',
   SECTION_ID: 'sectionId',
   SECTION_LABEL: 'Section Name',
+  QUIZ_ID_NAME: 'quizId',
+  QUIZ_ID_LABEL: 'Quiz ID',
   QUIZ_TITLE_NAME: 'title',
   QUIZ_TITLE_LABEL: 'Title',
   QUESTION_CONTENT_NAME: 'content',

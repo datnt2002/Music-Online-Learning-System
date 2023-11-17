@@ -30,6 +30,7 @@ import {
   getListDeleteCourse,
   getListDraftCourse,
   getListPendingCourse,
+  getQuizDetail,
   getSubCategoriesByCategory,
   publishDraftCourse,
   restoreDeleteCourse,
@@ -89,6 +90,9 @@ import {
   getDetailLessonFail,
   getDetailLessonSuccess,
   getDetailPendingCourseAction,
+  getDetailQuizAction,
+  getDetailQuizFail,
+  getDetailQuizSuccess,
   getListCategoryAction,
   getListCategoryFail,
   getListCategorySuccess,
@@ -832,6 +836,31 @@ function* getDetailLessonSaga() {
     }
   }
 }
+// Saga for retrieving details of a lesson
+function* getDetailQuizSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { quizId },
+      } = yield take(getDetailQuizAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(getQuizDetail, { quizId, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getDetailQuizSuccess(result.data));
+          break;
+
+        default:
+          yield put(getDetailQuizFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 // Saga for retrieving the list of categories
 function* getListCategorySaga() {
   while (true) {
@@ -1139,6 +1168,7 @@ export default function* courseSaga() {
   yield fork(createNewLessonSaga);
   yield fork(createNewQuizSaga);
   yield fork(createNewQuestionInQuizSaga);
+  yield fork(getDetailQuizSaga);
   // course
   yield fork(getDetailLessonSaga);
   yield fork(paymentSaga);

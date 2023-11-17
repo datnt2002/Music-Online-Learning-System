@@ -66,14 +66,6 @@ const CreateVideoLessonForm = () => {
         <Input className="border rounded-md" />
       </Form.Item>
 
-      <Form.Item
-        name={CREATE_LESSON_FORM_FIELDS.LESSON_DESCRIPTION}
-        label={CREATE_LESSON_FORM_FIELDS.LESSON_DESCRIPTION_LABEL}
-        rules={[{ required: true, message: VALIDATE_MESSAGE.LESSON_DESCRIPTION_REQUIRED }]}
-      >
-        <Input.TextArea rows={4} className="border rounded-md" />
-      </Form.Item>
-
       <Form.Item label={CREATE_LESSON_FORM_FIELDS.LESSON_VIDEO_LABEL}>
         <Form.Item name={CREATE_LESSON_FORM_FIELDS.LESSON_VIDEO} valuePropName="fileList" getValueFromEvent={() => {}}>
           <Upload.Dragger
