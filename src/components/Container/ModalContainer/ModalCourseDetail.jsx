@@ -15,13 +15,12 @@ const ModalCourseDetail = () => {
   const data = useSelector((state) => state.course.currentCourse);
   const listSections = useSelector((state) => state.course.listSections);
   const loading = useSelector((state) => state.course.loading);
-
+  console.log(data);
   const navigate = useNavigate();
 
   const items = listSections.map((section) => {
     const combineLessons = [...section?.Lessons, ...section?.Quizzes];
     const sortedItems = combineLessons.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    console.log(sortedItems);
     return {
       key: section?.sectionId,
       label: section?.sectionName,
@@ -54,9 +53,11 @@ const ModalCourseDetail = () => {
           <h1 className="mr-2">Price: ${data?.course?.price && formatPrice(data?.course?.price)}</h1>
           <h2 className="text-xl my-2 font-bohemian">{data?.course?.courseName}</h2>
 
-          <p className="my-2">
-            Created by <Link className="underline">{data?.course?.createdBy}</Link>
-          </p>
+          {data?.course?.user && (
+            <p className="my-2 ">
+              Created by <Link className="underline">{data?.course?.user?.username}</Link>
+            </p>
+          )}
 
           <p className="mr-2">
             <ClockCircleOutlined className="align-[0.125rem]" /> <span className="mr-1">Last update at</span>

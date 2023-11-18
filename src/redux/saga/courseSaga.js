@@ -405,7 +405,7 @@ function* getListDraftCourseSaga() {
       const result = yield call(getListDraftCourse, { pageSize, pageIndex, accessToken });
       switch (result.status) {
         case 200:
-          yield put(getListDraftCourseSuccess(result.data));
+          yield put(getListDraftCourseSuccess(result));
           break;
 
         default:

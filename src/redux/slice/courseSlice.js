@@ -221,11 +221,12 @@ export const courseSlice = createSlice({
       };
     },
     getListDraftCourseSuccess: (state, action) => {
-      const { courses, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      console.log(action.payload);
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
       return {
         ...state,
         loading: false,
-        listCourse: courses,
+        listCourse: data,
         pagination: { pageIndex, pageSize, totalCount, totalPages },
       };
     },

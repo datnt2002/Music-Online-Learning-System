@@ -23,6 +23,7 @@ const LecturerCourse = () => {
   const [dataOfRecord, setDataOfRecord] = useState();
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
+  console.log(listCourse);
   const pagination = useSelector((state) => state.course.pagination);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const LecturerCourse = () => {
       })
     );
     return () => {};
-  }, [dispatch, pageIndex]);
+  }, []);
 
   const handleViewDetailDraftCourse = (record) => {
     dispatch(
