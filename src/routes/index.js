@@ -32,6 +32,7 @@ import CreateSection from '../features/Lecturer/CourseManagement/CreateSection';
 import CreateLesson from '../features/Lecturer/CourseManagement/CreateLesson';
 import EditCourse from '../features/Lecturer/CourseManagement/EditCourse';
 import EditSection from '../features/Lecturer/CourseManagement/EditSection';
+import EditLesson from '../features/Lecturer/CourseManagement/EditLesson';
 
 //admin route
 import DashBoardAdmin from '../features/Admin/Dashboard';
@@ -44,7 +45,7 @@ import CreateNewCategory from '../features/Admin/Categories/CreateNewCategory';
 import CreateSubCate from '../features/Admin/Categories/CreateSubCate';
 import EditSubCate from '../features/Admin/Categories/EditSubCate';
 import CoursesDeleting from '../features/Admin/Courses/CoursesDeleting';
-import EditLesson from '../features/Lecturer/CourseManagement/EditLesson';
+import AddSection from '../features/Lecturer/CourseManagement/AddSection';
 
 const PublicLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -225,6 +226,14 @@ export const authorRoutes = [
     element: (
       <AuthorRoute>
         <EditSection />
+      </AuthorRoute>
+    ),
+  },
+  {
+    path: 'add-section',
+    element: (
+      <AuthorRoute>
+        <AddSection />
       </AuthorRoute>
     ),
   },
