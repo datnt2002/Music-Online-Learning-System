@@ -230,7 +230,7 @@ export const authorRoutes = [
     ),
   },
   {
-    path: 'add-section',
+    path: 'add-section/:id',
     element: (
       <AuthorRoute>
         <AddSection />

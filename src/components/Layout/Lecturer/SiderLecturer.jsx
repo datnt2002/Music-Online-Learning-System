@@ -38,11 +38,11 @@ const SiderLecturer = () => {
           label: 'Create Course',
           icon: <FolderAddOutlined />,
         },
-        {
-          key: LECTURER_ROUTE.ADD_SECTION,
-          label: 'Add Section',
-          icon: <FileAddOutlined />,
-        },
+        // {
+        //   key: LECTURER_ROUTE.ADD_SECTION,
+        //   label: 'Add Section',
+        //   icon: <FileAddOutlined />,
+        // },
       ],
     },
     {

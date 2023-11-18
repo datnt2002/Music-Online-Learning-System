@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,28 +7,20 @@ import { Content } from 'antd/es/layout/layout';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
-import { createNewSectionAction, getDetailDraftCourseAction } from '../../../redux/slice/courseSlice';
+import { createNewSectionAction } from '../../../redux/slice/courseSlice';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import Loading from '../../../components/Common/Loading';
 import splitSlash from '../../../utils/splitSlash';
-import { CREATE_SECTION_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants';
+import { CREATE_SECTION_FORM_FIELDS } from '../../../constants';
 
 const AddSection = () => {
   const loading = useSelector((state) => state.course.loading);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
   const { pathname } = location;
   const pathNameArray = splitSlash(pathname);
-
-  useEffect(() => {
-    dispatch(
-      getDetailDraftCourseAction({
-        courseId: pathNameArray[2],
-      })
-    );
-  }, []);
 
   const handleAddSection = (values) => {
     console.log('Received values of form:', values);
@@ -79,18 +71,7 @@ const AddSection = () => {
         <div className="flex flex-1 p-5 m-5 shadow-2xl rounded-2xl">
           <div className="flex flex-1 flex-col">
             <Form {...formItemLayoutWithOutLabel} onFinish={handleAddSection}>
-              <Form.List
-                name="section"
-                rules={[
-                  {
-                    validator: async (_, names) => {
-                      if (!names || names.length < 2) {
-                        return Promise.reject(new Error(VALIDATE_MESSAGE.EXPANDED_REQUIRED));
-                      }
-                    },
-                  },
-                ]}
-              >
+              <Form.List name={CREATE_SECTION_FORM_FIELDS.SECTION_NAME}>
                 {(fields, { add, remove }, { errors }) => (
                   <>
                     {fields.map((field, index) => (
@@ -100,19 +81,9 @@ const AddSection = () => {
                         required={false}
                         key={field.key}
                       >
-                        <Form.Item
-                          {...field}
-                          rules={[
-                            {
-                              required: true,
-                              whitespace: true,
-                              message: VALIDATE_MESSAGE.REQUIRED,
-                            },
-                          ]}
-                          noStyle
-                        >
+                        <Form.Item {...field} noStyle>
                           <Input
-                            placeholder="passenger name"
+                            placeholder={CREATE_SECTION_FORM_FIELDS.SECTION_PLACEHOLDER}
                             style={{
                               width: '60%',
                             }}
