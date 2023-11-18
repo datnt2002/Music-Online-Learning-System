@@ -49,7 +49,7 @@ const AvatarDropdown = () => {
     },
     {
       key: '5',
-      label: <Link>Messages</Link>,
+      label: <Link to={USER_ROUTE.MESSAGES}>Messages</Link>,
     },
     {
       type: 'divider',
