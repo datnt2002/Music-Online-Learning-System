@@ -23,7 +23,6 @@ const LecturerCourse = () => {
   const [dataOfRecord, setDataOfRecord] = useState();
   const [pageIndex, setPageIndex] = useState(1);
   const listCourse = useSelector((state) => state.course.listCourse);
-  console.log(listCourse);
   const pagination = useSelector((state) => state.course.pagination);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,9 +45,12 @@ const LecturerCourse = () => {
     );
     setOpen(true);
   };
+  const handleAddLessonCourse = (courseId) => {
+    navigate(LECTURER_ROUTE.CREATE_NEW_LESSON + `/${courseId}`);
+  };
 
   const handleAddSectionCourse = (courseId) => {
-    navigate(LECTURER_ROUTE.ADD_SECTION + `/${courseId}`);
+    navigate(LECTURER_ROUTE.CREATE_NEW_SECTION + `/${courseId}`);
   };
 
   const handleEditSectionCourse = (courseId) => {
@@ -167,8 +169,8 @@ const LecturerCourse = () => {
           title={`Edit Course ${dataOfRecord?.courseName}`}
           onCancel={handleCancel}
           footer={[
-            <Button key="back" onClick={handleCancel}>
-              Return
+            <Button key="add-lesson" onClick={() => handleAddLessonCourse(dataOfRecord?.courseId)}>
+              Add Lesson
             </Button>,
             <Button key="add-section" onClick={() => handleAddSectionCourse(dataOfRecord?.courseId)}>
               Add Section

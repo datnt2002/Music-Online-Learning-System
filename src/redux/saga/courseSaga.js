@@ -679,7 +679,7 @@ function* createNewSectionSaga() {
             confirmButtonText: 'Got it',
           }).then((result) => {
             if (result.isConfirmed) {
-              navigate(LECTURER_ROUTE.CREATE_NEW_LESSON);
+              navigate(LECTURER_ROUTE.CREATE_NEW_LESSON + `/${courseId}`);
             }
           });
           break;

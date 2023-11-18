@@ -7,26 +7,29 @@ import { Content } from 'antd/es/layout/layout';
 import StepsCustom from '../../../components/Container/StepsContainer/StepsCustom';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import { getDetailDraftCourseAction } from '../../../redux/slice/courseSlice';
-import { STORAGE } from '../../../constants';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import Loading from '../../../components/Common/Loading';
 import CreateVideoLessonForm from '../../../components/Container/FormListContainer/CreateVideoLessonForm';
 import CreateExerciseForm from '../../../components/Container/FormListContainer/CreateExerciseForm';
+import { useLocation } from 'react-router-dom';
+import splitSlash from '../../../utils/splitSlash';
 
 const CreateLesson = () => {
   const [typeOfLesson, setTypeOfLesson] = useState(true);
   const loading = useSelector((state) => state.course.loading);
-  const { courseId } = JSON.parse(sessionStorage.getItem(STORAGE.COURSE));
+  const location = useLocation();
+  const { pathname } = location;
+  const pathNameArray = splitSlash(pathname);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
       getDetailDraftCourseAction({
-        courseId,
+        courseId: pathNameArray[2],
       })
     );
-  }, [dispatch, courseId]);
+  }, []);
 
   const onChange = (e) => {
     setTypeOfLesson(e.target.value);
