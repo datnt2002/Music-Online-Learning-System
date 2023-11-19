@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { Divider } from 'antd';
 import { ClockCircleOutlined, NotificationOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 
 import { getDetailCourseAction, getListCourseAction } from '../../../redux/slice/courseSlice';
 import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
@@ -15,9 +16,8 @@ import Footer from '../../../components/Common/Footer';
 import WhatLearnDetail from '../../../components/Container/CourseContainer/WhatLearnDetail';
 import CourseContent from '../../../components/Container/CourseContainer/CourseContent';
 import RequirementContainer from '../../../components/Container/CourseContainer/RequirementContainer';
-import { DAY_FORMAT, PAGINATION } from '../../../constants';
+import { DAY_FORMAT, PAGINATION, PUBLIC_ROUTE } from '../../../constants';
 import splitSlash from '../../../utils/splitSlash';
-import dayjs from 'dayjs';
 
 const CourseDetail = () => {
   const location = useLocation();
@@ -61,11 +61,14 @@ const CourseDetail = () => {
               </p>
             </div>
             <p className="my-2">
-              Created by <Link className="underline">Author Name</Link>
+              Created by
+              <Link to={PUBLIC_ROUTE.PUBLIC_PROFILE + `/${currentCourse?.course?.user?.id}`} className="underline ml-1">
+                {currentCourse?.course?.user?.firstName + ' ' + currentCourse?.course?.user?.lastName}
+              </Link>
             </p>
 
             <p className="mr-2">
-              <ClockCircleOutlined className="align-[0.125rem]" /> Last update at
+              <ClockCircleOutlined className="align-[0.125rem]" /> <span className="mr-1">Last update at</span>
               {dayjs(currentCourse?.course?.updatedAt).format(DAY_FORMAT.D_M_Y)}
             </p>
           </div>
@@ -92,7 +95,7 @@ const CourseDetail = () => {
 
           <div>
             <h2 className="text-xl mb-2 font-medium">Instructor</h2>
-            <LecturerCard />
+            <LecturerCard authorData={currentCourse?.course?.user} />
           </div>
 
           <div className="mt-6 mb-16">

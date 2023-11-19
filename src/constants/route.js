@@ -4,6 +4,7 @@ export const PUBLIC_ROUTE = {
   SIGN_UP: '/signup',
   FORGOT_PASSWORD: '/forgotpassword',
   COURSE_DETAIL: '/course-detail',
+  PUBLIC_PROFILE: '/profile',
 };
 
 export const USER_ROUTE = {

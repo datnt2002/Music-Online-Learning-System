@@ -26,12 +26,12 @@ const CourseHorizontalCard = ({ courseData }) => {
           <h1 className="mb-2 font-bohemian block text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
             {courseData?.courseName}
           </h1>
-          <h1 className="underline font-sans text-base font-light leading-relaxed">Author</h1>
+          <h1 className="font-sans text-base leading-relaxed mb-2">{courseData?.brief}</h1>
           <div className="flex">
             <h1 className="mr-4 font-sans text-sm font-light leading-relaxed">
               Updated {dayjs(courseData?.updatedAt).format(DAY_FORMAT.D_M_Y)}
             </h1>
-            <h1 className='font-sans text-sm font-light leading-relaxed"'>45 lecturers</h1>
+            <h1 className='font-sans text-sm font-light leading-relaxed"'>{courseData?.sectionCount} lecturers</h1>
           </div>
         </div>
         <h1 className="text-base font-semibold leading-snug text-blue-gray-900 antialiased">

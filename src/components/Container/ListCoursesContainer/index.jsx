@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Carousel } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined, BookOutlined } from '@ant-design/icons';
 
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
 import { PUBLIC_ROUTE, STORAGE } from '../../../constants';
@@ -89,7 +89,10 @@ const ListContainer = () => {
                   <h1 className="truncate text-lg font-bohemian font-semibold leading-snug text-blue-gray-900 antialiased">
                     {course?.courseName}
                   </h1>
-                  <p className="underline font-sans text-xs font-light leading-relaxed truncate">Author</p>
+                  <h1 className="truncate text-sm my-1 leading-snug text-blue-gray-900 antialiased">{course?.brief}</h1>
+                  <p className="font-sans text-base leading-relaxed truncate">
+                    <BookOutlined className="align-[0.125rem]" /> {course?.sectionCount} sections
+                  </p>
                   <p className="font-sans text-lg font-medium leading-relaxed truncate mt-4">
                     ${formatPrice(course?.price)}
                   </p>

@@ -45,7 +45,7 @@ const ListFeatureCourses = () => {
               className="flex flex-col lg:!flex lg:flex-row p-6 cursor-pointer"
               key={course?.courseId}
               onClick={() => {
-                handleViewDetail(course.courseId);
+                handleViewDetail(course?.courseId);
               }}
             >
               <div className="mr-6 flex flex-1">
@@ -58,22 +58,21 @@ const ListFeatureCourses = () => {
 
               <div className="flex flex-col flex-1 justify-between ml-8">
                 <div className="flex flex-col gap-1">
-                  <h1 className="text-3xl font-bohemian font-semibold leading-snug text-blue-gray-900 antialiased">
+                  <h1 className="text-4xl font-bohemian font-semibold leading-snug text-blue-gray-900 antialiased">
                     {course?.courseName}
                   </h1>
-                  <h1>
-                    Acoustic Guitar Theory, Fingerpicking, Fretting, Chords: Most Important 25 Videos For Getting
-                    Started w/ Playing Guitar
-                  </h1>
-                  <h1 className="underline font-sans text-base font-light leading-relaxed">Author</h1>
+                  <h1 className="text-lg my-2">{course?.brief}</h1>
+
                   <div className="flex">
-                    <h1 className="mr-4 font-sans text-sm font-light leading-relaxed">
+                    <h1 className="mr-4 font-sans text-base font-light leading-relaxed">
                       Updated {dayjs(course.updatedAt).format(DAY_FORMAT.D_M_Y)}
                     </h1>
-                    <h1 className='font-sans text-sm font-light leading-relaxed"'>45 lecturers</h1>
+                    <h1 className='font-sans text-base font-light leading-relaxed"'>
+                      {course?.sectionCount} lecturers
+                    </h1>
                   </div>
                 </div>
-                <h1 className="text-xl font-semibold leading-snug text-blue-gray-900 antialiased">
+                <h1 className="text-3xl font-semibold leading-snug text-blue-gray-900 antialiased">
                   ${course.price && formatPrice(course.price)}
                 </h1>
               </div>
