@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
-import bgImg from '../../assets/imgs/backdropprofile.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+
 import { Button, Divider } from 'antd';
 import { UserAddOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
+
+import bgImg from '../../assets/imgs/backdropprofile.jpg';
 import { getUserByIdAction } from '../../redux/slice/userSlice';
-import { useLocation } from 'react-router-dom';
 import defaultAvatar from '../../assets/imgs/defaultAvatar.webp';
+import { addFriendAction } from '../../redux/slice/forumSlice';
+import splitSlash from '../../utils/splitSlash';
 
 const PublicProfile = () => {
+  const accountProfile = useSelector((state) => state.user.accountProfile);
+
+  const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = location;
-  const pathNameArray = pathname.split('/').filter((item) => {
-    return item;
-  });
-  const accountProfile = useSelector((state) => state.user.accountProfile);
+  const pathNameArray = splitSlash(pathname);
   console.log(accountProfile);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
@@ -24,6 +27,14 @@ const PublicProfile = () => {
       })
     );
   }, []);
+
+  const handleAddFriend = () => {
+    dispatch(
+      addFriendAction({
+        friendId: pathNameArray[1],
+      })
+    );
+  };
 
   return (
     <div className="relative">
@@ -43,7 +54,10 @@ const PublicProfile = () => {
             </div>
             <div class="w-full lg:w-4/12 px-4 lg:order-3 text-center lg:self-center">
               <div class="py-6 px-3 sm:mt-0 md:-mt-16">
-                <Button className="bg-black text-white font-bold hover:shadow-md shadow rounded-xl">
+                <Button
+                  className="bg-black text-white font-bold hover:shadow-md shadow rounded-xl"
+                  onClick={handleAddFriend}
+                >
                   <UserAddOutlined /> Add Friend
                 </Button>
               </div>

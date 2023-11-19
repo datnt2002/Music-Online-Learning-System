@@ -28,3 +28,15 @@ export const sendMessage = (data) => {
       return err;
     });
 };
+
+export const addFriend = (data) => {
+  console.log(data);
+  return axiosClient
+    .post(`users/add-friend/${data.friendId}`, {}, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

@@ -52,11 +52,34 @@ export const forumSlice = createSlice({
       };
     },
     sendMessageFail: (state) => {
-      return {};
+      return {
+        ...state,
+        loading: false,
+      };
     },
     addArrivalMessage: (state, action) => {
       console.log(action.payload);
       state.content.push(action.payload);
+    },
+
+    //friend
+    addFriendAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    addFriendSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    addFriendFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
     },
   },
 });
@@ -70,6 +93,9 @@ export const {
   sendMessageSuccess,
   sendMessageFail,
   addArrivalMessage,
+  addFriendAction,
+  addFriendSuccess,
+  addFriendFail,
 } = forumSlice.actions;
 
 export default forumSlice.reducer;

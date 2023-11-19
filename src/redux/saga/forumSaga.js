@@ -1,7 +1,10 @@
 import { call, fork, put, take } from 'redux-saga/effects';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
-import { getConservation, sendMessage } from '../../services/forum.service';
+import { addFriend, getConservation, sendMessage } from '../../services/forum.service';
 import {
+  addFriendAction,
+  addFriendFail,
+  addFriendSuccess,
   getConservationAction,
   getConservationFail,
   getConservationSuccess,
@@ -58,7 +61,33 @@ function* sendMessageSaga() {
   }
 }
 
+function* addFriendSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { friendId },
+      } = yield take(addFriendAction);
+      console.log(friendId);
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(addFriend, { friendId, accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(addFriendSuccess(result));
+          break;
+
+        default:
+          yield put(addFriendFail(result));
+          break;
+      }
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 export default function* forumSaga() {
   yield fork(getConservationsSaga);
   yield fork(sendMessageSaga);
+  yield fork(addFriendSaga);
 }
