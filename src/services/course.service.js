@@ -298,6 +298,20 @@ export const editSection = (data) => {
     });
 };
 
+export const editQuiz = (data) => {
+  return axiosClient
+    .put(
+      `quizzes/${data.quizId}`,
+      { sectionId: data.sectionId, title: data.title },
+      { headers: { Authorization: `Bearer ${data.accessToken}` } }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 //category
 export const getListCategory = (data) => {
   console.log(data);

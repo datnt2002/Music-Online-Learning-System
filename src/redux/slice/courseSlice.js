@@ -333,6 +333,24 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    editDraftQuizAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editDraftQuizSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    editDraftQuizFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     //create section
     createNewSectionAction: (state) => {
       return {
@@ -687,6 +705,9 @@ export const {
   getDetailQuizAction,
   getDetailQuizSuccess,
   getDetailQuizFail,
+  editDraftQuizAction,
+  editDraftQuizSuccess,
+  editDraftQuizFail,
   //create course
   createNewCourseAction,
   createNewCourseSuccess,

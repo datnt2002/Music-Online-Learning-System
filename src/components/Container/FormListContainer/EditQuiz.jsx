@@ -5,7 +5,7 @@ import { Button, Card, Checkbox, Form, Input, Select, Space, Typography } from '
 import { CloseOutlined } from '@ant-design/icons';
 
 import { CREATE_LESSON_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants/formfield';
-import { getDetailQuizAction } from '../../../redux/slice/courseSlice';
+import { editDraftQuizAction, getDetailQuizAction } from '../../../redux/slice/courseSlice';
 
 const EditQuiz = () => {
   const listSections = useSelector((state) => state.course.listSections);
@@ -17,14 +17,16 @@ const EditQuiz = () => {
   const dispatch = useDispatch();
 
   const handleEditQuiz = (values) => {
-    // dispatch(
-    //   createNewQuizAction({
-    //     sectionId: values.sectionId,
-    //     title: values.title,
-    //   })
-    // );
+    console.log(values);
+    dispatch(
+      editDraftQuizAction({
+        sectionId: values.sectionId,
+        title: values.title,
+        quizId: values.quizId,
+      })
+    );
   };
-  console.log(listQuestions);
+
   const handleSubmitQuestion = (values) => {};
 
   const handleChooseSection = (value) => {

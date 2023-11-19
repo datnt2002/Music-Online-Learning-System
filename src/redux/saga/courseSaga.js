@@ -17,6 +17,7 @@ import {
   createSubCate,
   deleteCourseFromAdmin,
   editDraftCourse,
+  editQuiz,
   editSection,
   editSubCate,
   getAllSubCategories,
@@ -73,6 +74,9 @@ import {
   editDraftCourseAction,
   editDraftCourseFail,
   editDraftCourseSuccess,
+  editDraftQuizAction,
+  editDraftQuizFail,
+  editDraftQuizSuccess,
   editDraftSectionAction,
   editDraftSectionFail,
   editDraftSectionSuccess,
@@ -584,6 +588,44 @@ function* editSectionSaga() {
           break;
         default:
           yield put(editDraftSectionFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for edit quiz
+function* EditQuizSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { sectionId, title, quizId },
+      } = yield take(editDraftQuizAction);
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(editQuiz, { sectionId, title, quizId, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(editDraftQuizSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(editDraftQuizFail(result));
           break;
       }
     } catch (error) {
@@ -1164,6 +1206,7 @@ export default function* courseSaga() {
   yield fork(publishDraftCourseSaga);
   yield fork(editDraftCourseSaga);
   yield fork(editSectionSaga);
+  yield fork(EditQuizSaga);
   //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);
