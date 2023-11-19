@@ -190,6 +190,17 @@ export const DeleteLesson = (data) => {
       return err;
     });
 };
+export const deleteQuiz = (data) => {
+  console.log(data);
+  return axiosClient
+    .delete(`quizzes/${data.quizId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 // course create
 export const createNewCourse = (data) => {
   const formData = new FormData();

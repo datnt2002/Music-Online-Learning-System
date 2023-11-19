@@ -17,6 +17,7 @@ import {
   createPayment,
   createSubCate,
   deleteCourseFromAdmin,
+  deleteQuiz,
   editDraftCourse,
   editQuiz,
   editSection,
@@ -72,6 +73,7 @@ import {
   deleteLessonAction,
   deleteLessonFail,
   deleteLessonSuccess,
+  deleteQuizAction,
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
@@ -919,6 +921,48 @@ function* deleteLessonSaga() {
 
       const { accessToken } = getTokenFromStorage();
       const result = yield call(DeleteLesson, { lessonId, accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(deleteLessonSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
+            }
+          });
+          break;
+
+        default:
+          yield put(deleteLessonFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for delete of a quiz
+function* deleteQuizSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { quizId, navigate },
+      } = yield take(deleteQuizAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(deleteQuiz, { quizId, accessToken });
       console.log(result);
       switch (result.status) {
         case 200:
@@ -952,7 +996,6 @@ function* deleteLessonSaga() {
     }
   }
 }
-
 // Saga for retrieving the list of categories
 function* getListCategorySaga() {
   while (true) {
@@ -1268,6 +1311,7 @@ export default function* courseSaga() {
   yield fork(buyCourseByECoinSaga);
   //delete
   yield fork(deleteLessonSaga);
+  yield fork(deleteQuizSaga);
 
   // category
   yield fork(getListCategorySaga);

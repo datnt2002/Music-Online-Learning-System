@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Card, Checkbox, Form, Input, Select, Space, Typography } from 'antd';
+import { Button, Card, Checkbox, Form, Input, Popconfirm, Select, Space, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
 import { CREATE_LESSON_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants/formfield';
-import { editDraftQuizAction, getDetailQuizAction } from '../../../redux/slice/courseSlice';
+import { deleteQuizAction, editDraftQuizAction, getDetailQuizAction } from '../../../redux/slice/courseSlice';
+import { useNavigate } from 'react-router-dom';
 
 const EditQuiz = () => {
   const listSections = useSelector((state) => state.course.listSections);
@@ -15,7 +16,7 @@ const EditQuiz = () => {
   const [form] = Form.useForm();
   const [formQuestion] = Form.useForm();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleEditQuiz = (values) => {
     console.log(values);
     dispatch(
@@ -28,6 +29,15 @@ const EditQuiz = () => {
   };
 
   const handleSubmitQuestion = (values) => {};
+
+  const handleDeleteQuiz = () => {
+    dispatch(
+      deleteQuizAction({
+        quizId: currentQuiz?.quizId,
+        navigate,
+      })
+    );
+  };
 
   const handleChooseSection = (value) => {
     const currentSection = listSections.find((section) => section?.sectionId === value);
@@ -105,6 +115,22 @@ const EditQuiz = () => {
             Submit
           </Button>
         </Form.Item>
+        {currentQuiz?.quizId && (
+          <Form.Item wrapperCol={{ span: 24 }}>
+            <Popconfirm
+              title="Delete the quiz"
+              description="Are you sure to delete this quiz?"
+              onConfirm={handleDeleteQuiz}
+              okText="Yes"
+              cancelText="No"
+              okButtonProps={{ style: { backgroundColor: 'black', color: 'white' } }}
+            >
+              <Button danger className="w-full">
+                Delete Quiz
+              </Button>
+            </Popconfirm>
+          </Form.Item>
+        )}
       </Form>
 
       <Form
