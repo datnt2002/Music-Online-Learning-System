@@ -4,6 +4,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 
 import {
+  DeleteLesson,
   EditCategory,
   approvedCourse,
   buyCourseByECoin,
@@ -68,6 +69,9 @@ import {
   deleteCourseFromAdminAction,
   deleteCourseFromAdminFail,
   deleteCourseFromAdminSuccess,
+  deleteLessonAction,
+  deleteLessonFail,
+  deleteLessonSuccess,
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
@@ -905,6 +909,50 @@ function* getDetailQuizSaga() {
     }
   }
 }
+// Saga for delete of a lesson
+function* deleteLessonSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { lessonId, navigate },
+      } = yield take(deleteLessonAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(DeleteLesson, { lessonId, accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(deleteLessonSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
+            }
+          });
+          break;
+
+        default:
+          yield put(deleteLessonFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 // Saga for retrieving the list of categories
 function* getListCategorySaga() {
   while (true) {
@@ -1218,6 +1266,9 @@ export default function* courseSaga() {
   yield fork(getDetailLessonSaga);
   yield fork(paymentSaga);
   yield fork(buyCourseByECoinSaga);
+  //delete
+  yield fork(deleteLessonSaga);
+
   // category
   yield fork(getListCategorySaga);
   yield fork(createCategorySaga);

@@ -179,6 +179,17 @@ export const publishDraftCourse = (data) => {
     });
 };
 
+export const DeleteLesson = (data) => {
+  console.log(data);
+  return axiosClient
+    .delete(`lessons/${data.lessonId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 // course create
 export const createNewCourse = (data) => {
   const formData = new FormData();
@@ -297,7 +308,6 @@ export const editSection = (data) => {
       return err;
     });
 };
-
 export const editQuiz = (data) => {
   return axiosClient
     .put(

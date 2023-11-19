@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Form, Input, Select, Upload } from 'antd';
+import { Button, Form, Input, Popconfirm, Select, Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 
 import { CREATE_LESSON_FORM_FIELDS, VALIDATE_MESSAGE } from '../../../constants/formfield';
-import { getDetailLessonAction } from '../../../redux/slice/courseSlice';
+import { deleteLessonAction, getDetailLessonAction } from '../../../redux/slice/courseSlice';
 import ReactPlayer from 'react-player';
 const EditLessonForm = () => {
   const listSections = useSelector((state) => state.course.listSections);
@@ -30,14 +30,22 @@ const EditLessonForm = () => {
     // );
   };
 
+  const handleDeleteLesson = () => {
+    dispatch(
+      deleteLessonAction({
+        lessonId: currentLesson?.lessonId,
+        navigate,
+      })
+    );
+  };
+
+  console.log(listLesson);
   const handleChooseSection = (value) => {
-    console.log(value);
     const currentSection = listSections.find((section) => section?.sectionId === value);
     setListLesson(currentSection?.Lessons);
   };
 
   const handleChooseLesson = (lessonId) => {
-    console.log(lessonId);
     dispatch(getDetailLessonAction({ lessonId }));
   };
 
@@ -50,7 +58,7 @@ const EditLessonForm = () => {
     wrapperCol: { span: 20 },
   };
   return (
-    <Form form={form} name="create-lesson" onFinish={handleEditLesson} labelWrap {...formLayout}>
+    <Form form={form} name="edit-lesson" onFinish={handleEditLesson} labelWrap {...formLayout}>
       <Form.Item
         label={CREATE_LESSON_FORM_FIELDS.SECTION_LABEL}
         name={CREATE_LESSON_FORM_FIELDS.SECTION_ID}
@@ -96,7 +104,7 @@ const EditLessonForm = () => {
       <div className="my-6">
         <ReactPlayer
           style={{ margin: 'auto' }}
-          url={currentLesson.videoPath}
+          url={currentLesson?.videoPath}
           playing={false}
           controls={true}
           height="50%"
@@ -127,6 +135,22 @@ const EditLessonForm = () => {
           Submit
         </Button>
       </Form.Item>
+      {currentLesson?.lessonId && (
+        <Form.Item wrapperCol={{ span: 24 }}>
+          <Popconfirm
+            title="Delete the lesson"
+            description="Are you sure to delete this lesson?"
+            onConfirm={handleDeleteLesson}
+            okText="Yes"
+            cancelText="No"
+            okButtonProps={{ style: { backgroundColor: 'black', color: 'white' } }}
+          >
+            <Button danger className="w-full">
+              Delete Lesson
+            </Button>
+          </Popconfirm>
+        </Form.Item>
+      )}
     </Form>
   );
 };

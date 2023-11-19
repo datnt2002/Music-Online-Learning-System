@@ -477,6 +477,27 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+
+    //delete lesson
+    deleteLessonAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    deleteLessonSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    deleteLessonFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+
     //category
     getListCategoryAction: (state) => {
       return {
@@ -724,6 +745,10 @@ export const {
   createNewQuestionInQuizAction,
   createNewQuestionInQuizSuccess,
   createNewQuestionInQuizFail,
+  // delete lesson
+  deleteLessonAction,
+  deleteLessonSuccess,
+  deleteLessonFail,
   //category
   getListCategoryAction,
   getListCategorySuccess,
