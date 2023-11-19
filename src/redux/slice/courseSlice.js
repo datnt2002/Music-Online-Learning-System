@@ -5,12 +5,13 @@ const initialState = {
   loading: false,
   listCourse: [],
   listSections: [],
+  listQuestions: [],
+  listMyBoughtCourse: [],
   pagination: {},
   currentCourse: {},
   currentSection: {},
   currentLesson: {},
   currentQuiz: {},
-  listQuestions: [],
   isCreateLessonSuccess: false,
   isCreateQuizSuccess: false,
   listCategory: [],
@@ -675,6 +676,30 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+
+    // user course
+    getListMyBoughtCourseAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getListMyBoughtCourseSuccess: (state, action) => {
+      console.log(action.payload);
+      // const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        listMyBoughtCourse: action.payload,
+        // pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
+    },
+    getListMyBoughtCourseFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
   },
 });
 
@@ -785,6 +810,10 @@ export const {
   buyCourseByECoinAction,
   buyCourseByECoinSuccess,
   buyCourseByECoinFail,
+  // user course
+  getListMyBoughtCourseAction,
+  getListMyBoughtCourseSuccess,
+  getListMyBoughtCourseFail,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

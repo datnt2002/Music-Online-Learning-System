@@ -33,6 +33,7 @@ import {
   getListDeleteCourse,
   getListDraftCourse,
   getListPendingCourse,
+  getMyBoughtCourse,
   getQuizDetail,
   getSubCategoriesByCategory,
   publishDraftCourse,
@@ -118,6 +119,9 @@ import {
   getListDraftCourseAction,
   getListDraftCourseFail,
   getListDraftCourseSuccess,
+  getListMyBoughtCourseAction,
+  getListMyBoughtCourseFail,
+  getListMyBoughtCourseSuccess,
   getSubCategoriesAction,
   getSubCategoriesByCategoryAction,
   getSubCategoriesByCategoryFail,
@@ -134,6 +138,8 @@ import {
 import { ADMIN_ROUTE, LECTURER_ROUTE, PAGINATION, STORAGE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
+//course management
+//approved course
 // Saga for retrieving the list of approved courses
 function* getListCourseSaga() {
   while (true) {
@@ -224,6 +230,7 @@ function* deleteCourseFromAdminSaga() {
     }
   }
 }
+//pending course
 // Saga for retrieving the list of pending courses
 function* getListCoursePendingSaga() {
   while (true) {
@@ -314,6 +321,7 @@ function* approvedCoursePendingSaga() {
     }
   }
 }
+//deleted course
 // Saga for retrieving the list of deleted courses
 function* getListCourseDeletedSaga() {
   while (true) {
@@ -404,6 +412,7 @@ function* restoreCourseSaga() {
     }
   }
 }
+//draft course
 // Saga for retrieving the list of draft courses
 function* getListDraftCourseSaga() {
   while (true) {
@@ -639,6 +648,91 @@ function* EditQuizSaga() {
     }
   }
 }
+// Saga for delete of a lesson
+function* deleteLessonSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { lessonId, navigate },
+      } = yield take(deleteLessonAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(DeleteLesson, { lessonId, accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(deleteLessonSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
+            }
+          });
+          break;
+
+        default:
+          yield put(deleteLessonFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// Saga for delete of a quiz
+function* deleteQuizSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { quizId, navigate },
+      } = yield take(deleteQuizAction);
+
+      const { accessToken } = getTokenFromStorage();
+      const result = yield call(deleteQuiz, { quizId, accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(deleteLessonSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
+            }
+          });
+          break;
+
+        default:
+          yield put(deleteLessonFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+//create course
 // Saga for creating a new course
 function* createNewCourseSaga() {
   while (true) {
@@ -911,91 +1005,7 @@ function* getDetailQuizSaga() {
     }
   }
 }
-// Saga for delete of a lesson
-function* deleteLessonSaga() {
-  while (true) {
-    try {
-      const {
-        payload: { lessonId, navigate },
-      } = yield take(deleteLessonAction);
-
-      const { accessToken } = getTokenFromStorage();
-      const result = yield call(DeleteLesson, { lessonId, accessToken });
-      switch (result.status) {
-        case 200:
-          yield put(deleteLessonSuccess(result));
-          Swal.fire({
-            title: result.message,
-            width: 850,
-            padding: '3em',
-            color: '#716add',
-            background: `#fff `,
-            backdrop: `
-              rgba(0,0,123,0.4)
-              url(${backdropSweetAlert})
-              left top
-              no-repeat
-            `,
-            confirmButtonText: 'Got it',
-          }).then((r) => {
-            if (r.isConfirmed) {
-              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
-            }
-          });
-          break;
-
-        default:
-          yield put(deleteLessonFail(result));
-          break;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-// Saga for delete of a quiz
-function* deleteQuizSaga() {
-  while (true) {
-    try {
-      const {
-        payload: { quizId, navigate },
-      } = yield take(deleteQuizAction);
-
-      const { accessToken } = getTokenFromStorage();
-      const result = yield call(deleteQuiz, { quizId, accessToken });
-      console.log(result);
-      switch (result.status) {
-        case 200:
-          yield put(deleteLessonSuccess(result));
-          Swal.fire({
-            title: result.message,
-            width: 850,
-            padding: '3em',
-            color: '#716add',
-            background: `#fff `,
-            backdrop: `
-              rgba(0,0,123,0.4)
-              url(${backdropSweetAlert})
-              left top
-              no-repeat
-            `,
-            confirmButtonText: 'Got it',
-          }).then((r) => {
-            if (r.isConfirmed) {
-              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
-            }
-          });
-          break;
-
-        default:
-          yield put(deleteLessonFail(result));
-          break;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
+//category
 // Saga for retrieving the list of categories
 function* getListCategorySaga() {
   while (true) {
@@ -1101,6 +1111,7 @@ function* editCategorySaga() {
     }
   }
 }
+//subcategory
 // Saga for retrieving all subcategories
 function* getAllSubCategoriesSaga() {
   while (true) {
@@ -1232,6 +1243,7 @@ function* editSubCateSaga() {
     }
   }
 }
+//payment
 // Saga for initiating a payment
 function* paymentSaga() {
   while (true) {
@@ -1278,6 +1290,28 @@ function* buyCourseByECoinSaga() {
   }
 }
 
+//user course
+function* getListMyBoughtCourseSaga() {
+  while (true) {
+    try {
+      yield take(getListMyBoughtCourseAction);
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getMyBoughtCourse, { accessToken });
+      switch (result.status) {
+        case 200:
+          yield put(getListMyBoughtCourseSuccess(result.data));
+          break;
+
+        default:
+          yield put(getListMyBoughtCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 export default function* courseSaga() {
   // approved course
   yield fork(getListCourseSaga);
@@ -1322,4 +1356,6 @@ export default function* courseSaga() {
   yield fork(getSubCategoriesByCategorySaga);
   yield fork(createSubCateSaga);
   yield fork(editSubCateSaga);
+  //user course
+  yield fork(getListMyBoughtCourseSaga);
 }

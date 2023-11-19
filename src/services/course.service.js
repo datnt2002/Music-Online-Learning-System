@@ -180,7 +180,6 @@ export const publishDraftCourse = (data) => {
 };
 
 export const DeleteLesson = (data) => {
-  console.log(data);
   return axiosClient
     .delete(`lessons/${data.lessonId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
@@ -191,7 +190,6 @@ export const DeleteLesson = (data) => {
     });
 };
 export const deleteQuiz = (data) => {
-  console.log(data);
   return axiosClient
     .delete(`quizzes/${data.quizId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
@@ -450,6 +448,18 @@ export const buyCourseByECoin = (data) => {
   const body = data?.courseIdArray;
   return axiosClient
     .post('buy-courses', body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+// get course in homepage
+export const getMyBoughtCourse = (data) => {
+  return axiosClient
+    .get('courses/bought', { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
