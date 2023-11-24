@@ -1,0 +1,7 @@
+services:
+  final:
+    build: .
+    container_name: frontend_c
+    ports:
+      - '5000:5000'
+  
