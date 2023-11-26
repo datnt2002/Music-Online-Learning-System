@@ -78,7 +78,7 @@ const EditCourse = () => {
         courseId: values.courseId,
         courseName: values.courseName,
         description: values.description,
-        brief: values.brief_description,
+        brief: values.brief,
         price: values.price,
         isFree: values.price > 0 ? false : true,
         subCateId: values.subcategory,

@@ -21,7 +21,7 @@ const EditProfile = () => {
   const loading = useSelector((state) => state.authentication.loading);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
+  console.log(currentUser);
   useEffect(() => {
     form.setFieldsValue(currentUser);
   }, [currentUser, form]);
@@ -30,17 +30,17 @@ const EditProfile = () => {
     console.log('form', values);
     dispatch(
       editProfileAction({
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        phoneNumber: values.phoneNumber,
-        address: values.address,
-        nation: values.nation,
-        gender: values.gender,
-        dob: values.dob,
-        facebook: values.facebook,
-        instagram: values.instagram,
-        bio: values.bio,
+        firstName: values?.firstName,
+        lastName: values?.lastName,
+        email: values?.email,
+        phoneNumber: values?.phoneNumber,
+        address: values?.address,
+        nation: values?.nation,
+        gender: values?.gender,
+        dob: values?.dob,
+        facebook: values?.facebook,
+        instagram: values?.instagram,
+        bio: values?.bio,
       })
     );
   };
@@ -160,25 +160,8 @@ const EditProfile = () => {
               </Button>
             </Form.Item>
 
-            <Form.Item
-              rules={[
-                {
-                  type: 'email',
-                  message: VALIDATE_MESSAGE.EMAIL_NOT_VALID,
-                },
-                {
-                  required: true,
-                  message: VALIDATE_MESSAGE.EMAIL_REQUIRED,
-                },
-                {
-                  min: 10,
-                  message: VALIDATE_MESSAGE.EMAIL_LENGTH,
-                },
-              ]}
-              label={PROFILE_FORM_FIELDS.EMAIL_LABEL}
-              name={PROFILE_FORM_FIELDS.EMAIL}
-            >
-              <Input />
+            <Form.Item label={PROFILE_FORM_FIELDS.EMAIL_LABEL} name={PROFILE_FORM_FIELDS.EMAIL}>
+              <Input disabled />
             </Form.Item>
             <Form.Item
               label={PROFILE_FORM_FIELDS.PHONE_NUMBER_LABEL}
@@ -214,11 +197,12 @@ const EditProfile = () => {
           <div className="flex flex-col md:w-1/2 p-4">
             <Form.Item label={PROFILE_FORM_FIELDS.GENDER_LABEL} name={PROFILE_FORM_FIELDS.GENDER}>
               <Select>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE_VALUE}>
-                  {PROFILE_FORM_FIELDS.GENDER_MALE}
-                </Select.Option>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE_VALUE}>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE}>{PROFILE_FORM_FIELDS.GENDER_MALE}</Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE}>
                   {PROFILE_FORM_FIELDS.GENDER_FEMALE}
+                </Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_OTHER}>
+                  {PROFILE_FORM_FIELDS.GENDER_OTHER}
                 </Select.Option>
               </Select>
             </Form.Item>
