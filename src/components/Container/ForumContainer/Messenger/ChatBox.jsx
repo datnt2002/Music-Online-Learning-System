@@ -1,11 +1,12 @@
 import { Avatar, Button, Divider, Form } from 'antd';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PhoneOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { SendOutlined, UserOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
 import TextArea from 'antd/es/input/TextArea';
-import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
 import { io } from 'socket.io-client';
+
+import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
 
 const ChatBox = ({ receiverId }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const ChatBox = ({ receiverId }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   console.log(currentUser);
   const contents = useSelector((state) => state.forum.content);
-
+  const [form] = Form.useForm();
   useEffect(() => {
     socket.current = io('http://localhost:5000');
 
@@ -25,11 +26,6 @@ const ChatBox = ({ receiverId }) => {
         })
       );
     });
-
-    // return () => {
-    //   // Clean up socket when the component unmounts
-    //   socket.current.disconnect();
-    // };
   }, []);
 
   useEffect(() => {
@@ -58,6 +54,7 @@ const ChatBox = ({ receiverId }) => {
         content: values.mess,
       })
     );
+    form.setFieldValue('mess', '');
   };
 
   const scrollRef = useRef();
@@ -66,40 +63,42 @@ const ChatBox = ({ receiverId }) => {
   }, [contents]);
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex">
-        <Avatar />
-        <div>
-          <PhoneOutlined />
-          <VideoCameraOutlined />
-        </div>
+    <div className="w-full md:w-auto flex flex-1 flex-col border rounded-3xl border-black mb-4 md:-mt-16 mx-4 md:mx-0 md:mr-4">
+      <div className="flex p-4">
+        <Avatar icon={<UserOutlined />} />
+        <h1 className="ml-2 self-center">Name</h1>
       </div>
-      <div className="h-96 overflow-y-scroll">
+      <Divider className="my-0 bg-black" />
+      <div className="h-[60vh] md:h-[80vh] overflow-y-scroll p-2">
         {contents &&
           contents.length > 0 &&
           contents.map((content, index) => {
             const isOwn = content?.senderId === currentUser?.id;
             return (
-              <div ref={scrollRef}>
+              <div ref={scrollRef} className="" key={index}>
                 <TextMessage text={content.content} isOwn={isOwn} />
               </div>
             );
           })}
       </div>
-      <Divider />
-      <div className="flex">
-        <Form onFinish={handleSendMessage}>
-          <Form.Item name="mess">
-            <TextArea autoSize />
-          </Form.Item>
+      <Divider className="bg-black my-0" />
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <Form form={form} onFinish={handleSendMessage} className="flex p-4">
+        <Form.Item name="mess" className="flex-1 mr-2 mb-0">
+          <TextArea autoSize className="border border-black w-full rounded-2xl" />
+        </Form.Item>
+
+        <Form.Item className="mb-0">
+          <Button
+            type="primary"
+            htmlType="submit"
+            icon={<SendOutlined className="align-[0.125rem]" />}
+            className="bg-black rounded-2xl"
+          >
+            Send
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };

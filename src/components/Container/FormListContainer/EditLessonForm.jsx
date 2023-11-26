@@ -19,15 +19,15 @@ const EditLessonForm = () => {
   const navigate = useNavigate();
 
   const handleEditLesson = (values) => {
-    // dispatch(
-    //   createNewLessonAction({
-    //     sectionId: values.sectionId,
-    //     lessonName: values.lessonName,
-    //     lessonDescription: values.lessonDescription,
-    //     file: file,
-    //     navigate,
-    //   })
-    // );
+    dispatch(
+      ({
+        sectionId: values.sectionId,
+        lessonName: values.lessonName,
+        lessonDescription: values.lessonDescription,
+        file: file,
+        navigate,
+      })
+    );
   };
 
   const handleDeleteLesson = () => {

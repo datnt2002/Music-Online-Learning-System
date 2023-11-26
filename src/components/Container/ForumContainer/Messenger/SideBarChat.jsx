@@ -4,10 +4,17 @@ import { Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import Search from 'antd/es/input/Search';
+import { useNavigate } from 'react-router-dom';
+import { USER_ROUTE } from '../../../../constants/route';
 
 const SideBarChat = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const onSearchFriend = (value) => console.log(value);
+  const navigate = useNavigate();
+
+  const handleChooseChat = () => {
+    navigate(USER_ROUTE.MESSAGES + `/2`);
+  };
   return (
     <div className="flex flex-col w-full border border-black m-4 rounded-3xl p-4">
       <div>
@@ -25,7 +32,7 @@ const SideBarChat = () => {
         )}
       </div>
       <Divider className="my-1 bg-black" />
-      <div className="flex p-2 r hover:bg-gray-300 rounded-xl">
+      <div className="flex p-2 r hover:bg-gray-300 rounded-xl" onClick={handleChooseChat}>
         <Avatar icon={<UserOutlined />} />
         <h1 className=" ml-2 self-center">Name</h1>
       </div>
