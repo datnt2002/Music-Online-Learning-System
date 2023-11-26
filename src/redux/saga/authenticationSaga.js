@@ -40,8 +40,9 @@ import {
 } from '../slice/authenticationSlice';
 import backdropSweetAlert from '../../assets/imgs/cat-nyan-cat-backdrop.gif';
 import { ROLE } from '../../constants/role';
-import { ADMIN_ROUTE, PUBLIC_ROUTE, TOKEN, USER_ROUTE } from '../../constants';
+import { ADMIN_ROUTE, DAY_FORMAT, PUBLIC_ROUTE, TOKEN, USER_ROUTE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
+import dayjs from 'dayjs';
 
 function* signInSaga() {
   while (true) {
@@ -196,20 +197,25 @@ function* editProfileSaga() {
   while (true) {
     try {
       const {
-        payload: { firstName, lastName, email, phoneNumber, address, nation, gender, dob, facebook, instagram, bio },
+        payload: { firstName, lastName, phoneNumber, address, nation, gender, dob, facebook, instagram, bio },
       } = yield take(editProfileAction);
+      console.log(address, nation, gender, dob);
+      let dobFormat;
+      if (dob) {
+        const date = dob.$d;
+        dobFormat = dayjs(date).format('YYYY-MM-DD');
+      }
       const { accessToken } = getTokenFromStorage();
       const result = yield call(editProfile, {
         firstName,
         lastName,
-        email,
         phoneNumber,
         address,
         nation,
         gender,
-        dob,
-        facebook,
-        instagram,
+        dobFormat,
+        // facebook,
+        // instagram,
         bio,
         accessToken,
       });
