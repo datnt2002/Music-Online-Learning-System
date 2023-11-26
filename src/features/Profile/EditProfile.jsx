@@ -197,11 +197,12 @@ const EditProfile = () => {
           <div className="flex flex-col md:w-1/2 p-4">
             <Form.Item label={PROFILE_FORM_FIELDS.GENDER_LABEL} name={PROFILE_FORM_FIELDS.GENDER}>
               <Select>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE_VALUE}>
-                  {PROFILE_FORM_FIELDS.GENDER_MALE}
-                </Select.Option>
-                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE_VALUE}>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_MALE}>{PROFILE_FORM_FIELDS.GENDER_MALE}</Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_FEMALE}>
                   {PROFILE_FORM_FIELDS.GENDER_FEMALE}
+                </Select.Option>
+                <Select.Option value={PROFILE_FORM_FIELDS.GENDER_OTHER}>
+                  {PROFILE_FORM_FIELDS.GENDER_OTHER}
                 </Select.Option>
               </Select>
             </Form.Item>
