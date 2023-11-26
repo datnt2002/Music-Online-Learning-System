@@ -1,10 +1,11 @@
-import { Avatar, Button, Divider, Form } from 'antd';
-import React, { useEffect, useRef } from 'react';
+import { Avatar, Button, Divider } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SendOutlined, UserOutlined } from '@ant-design/icons';
+import { SendOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
 import TextArea from 'antd/es/input/TextArea';
 import { io } from 'socket.io-client';
+import EmojiPicker from 'emoji-picker-react';
 
 import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
 
@@ -14,7 +15,9 @@ const ChatBox = ({ receiverId }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   console.log(currentUser);
   const contents = useSelector((state) => state.forum.content);
-  const [form] = Form.useForm();
+  const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
+  const [msg, setMsg] = useState('');
+
   useEffect(() => {
     socket.current = io('http://localhost:5000');
 
@@ -38,23 +41,23 @@ const ChatBox = ({ receiverId }) => {
 
   const conversationId = useSelector((state) => state.forum.conversationId);
 
-  const handleSendMessage = (values) => {
+  const handleSendMessage = () => {
     console.log(currentUser?.id);
-    console.log(values.mess);
     socket.current.emit('send-msg', {
       to: receiverId,
       from: currentUser?.id,
-      msg: values.mess,
+      msg: msg,
     });
 
     dispatch(
       sendMessageAction({
         receiverId: receiverId,
         conversationId: conversationId,
-        content: values.mess,
+        content: msg,
       })
     );
-    form.setFieldValue('mess', '');
+    setMsg('');
+    setIsEmojiPickerVisible(false);
   };
 
   const scrollRef = useRef();
@@ -62,13 +65,19 @@ const ChatBox = ({ receiverId }) => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [contents]);
 
+  const handleEmojiClick = (event) => {
+    let message = msg;
+    message += event?.emoji;
+    setMsg(message);
+  };
+
   return (
     <div className="w-full md:w-auto flex flex-1 flex-col border rounded-3xl border-black mb-4 md:-mt-16 mx-4 md:mx-0 md:mr-4">
       <div className="flex p-4">
         <Avatar icon={<UserOutlined />} />
         <h1 className="ml-2 self-center">Name</h1>
       </div>
-      <Divider className="my-0 bg-black" />
+      <Divider className="mt-0 mb-1 bg-black" />
       <div className="h-[60vh] md:h-[80vh] overflow-y-scroll p-2">
         {contents &&
           contents.length > 0 &&
@@ -83,22 +92,33 @@ const ChatBox = ({ receiverId }) => {
       </div>
       <Divider className="bg-black my-0" />
 
-      <Form form={form} onFinish={handleSendMessage} className="flex p-4">
-        <Form.Item name="mess" className="flex-1 mr-2 mb-0">
-          <TextArea autoSize className="border border-black w-full rounded-2xl" />
-        </Form.Item>
+      {isEmojiPickerVisible && (
+        <div className="absolute top-60 right-14 z-50 mt-12">
+          <EmojiPicker lazyLoadEmojis={true} onEmojiClick={handleEmojiClick} />
+        </div>
+      )}
 
-        <Form.Item className="mb-0">
-          <Button
-            type="primary"
-            htmlType="submit"
-            icon={<SendOutlined className="align-[0.125rem]" />}
-            className="bg-black rounded-2xl"
-          >
-            Send
-          </Button>
-        </Form.Item>
-      </Form>
+      <div className="flex p-4">
+        <TextArea
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+          autoSize
+          className="border border-black w-full rounded-2xl"
+        />
+        <SmileOutlined
+          className="text-2xl mx-2 leading-7 cursor-pointer"
+          onClick={() => {
+            setIsEmojiPickerVisible((prev) => !prev);
+          }}
+        />
+        <Button
+          onClick={handleSendMessage}
+          icon={<SendOutlined className="align-[0.125rem]" />}
+          className="bg-black rounded-2xl text-white"
+        >
+          Send
+        </Button>
+      </div>
     </div>
   );
 };
