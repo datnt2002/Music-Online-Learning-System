@@ -1298,6 +1298,7 @@ function* getListMyBoughtCourseSaga() {
       const { accessToken } = getTokenFromStorage();
 
       const result = yield call(getMyBoughtCourse, { accessToken });
+      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getListMyBoughtCourseSuccess(result.data));

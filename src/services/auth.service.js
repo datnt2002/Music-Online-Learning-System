@@ -2,6 +2,7 @@ import { TOKEN } from '../constants';
 import axiosClient from './api.service';
 
 export const signIn = (data) => {
+  console.log(data);
   return axiosClient
     .post('users/auth/login', data)
     .then((res) => {
@@ -10,6 +11,28 @@ export const signIn = (data) => {
     .catch((error) => {
       return error;
     });
+};
+
+export const getCurrentUser = (data) => {
+  return axiosClient
+    .get('users/profile', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const changePassword = (data) => {
+  const { oldPassword, newPassword, accessToken } = data;
+
+  return axiosClient
+    .put('users/changepassword', { oldPassword, newPassword }, { headers: { Authorization: `Bearer ${accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => err);
 };
 
 export const signUp = (data) => {
@@ -31,28 +54,6 @@ export const forgotPassword = (data) => {
     })
     .catch((error) => {
       return error;
-    });
-};
-
-export const changePassword = (data) => {
-  const { oldPassword, newPassword, accessToken } = data;
-
-  return axiosClient
-    .put('users/changepassword', { oldPassword, newPassword }, { headers: { Authorization: `Bearer ${accessToken}` } })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => err);
-};
-
-export const getCurrentUser = (data) => {
-  return axiosClient
-    .get('users/profile', { headers: { Authorization: `Bearer ${data.accessToken}` } })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
     });
 };
 

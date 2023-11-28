@@ -653,10 +653,16 @@ export const courseSlice = createSlice({
       };
     },
     createPaymentSuccess: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     createPaymentFail: (state) => {
-      state.loading = false;
+      return {
+        ...state,
+        loading: false,
+      };
     },
     buyCourseByECoinAction: (state) => {
       return {

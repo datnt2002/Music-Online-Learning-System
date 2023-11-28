@@ -21,7 +21,7 @@ const RightContainer = () => {
         {myListCourse.map((course, index) => {
           return (
             <div key={index}>
-              <CourseHorizontalCard courseData={course} />;
+              <CourseHorizontalCard courseData={course?.Course} />;
             </div>
           );
         })}

@@ -1,6 +1,12 @@
 export const API_ERROR = {
   DEFAULT: 'Something went wrong !',
   CHECK_USERNAME_OR_EMAIL: 'Please check your username or email',
+  TOKEN_EXPIRED: 'token expired',
+};
+
+export const HOST = {
+  LOCAL: 'http://localhost:5000',
+  SERVER: 'http://www.eschoolhub.click/',
 };
 
 export const TOKEN = {

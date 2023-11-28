@@ -1,12 +1,13 @@
-import axios from 'axios';
+// baseURL: 'http://localhost:5000/api/',
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-import { API_ERROR, TOKEN } from '../constants';
+import { API_ERROR, HOST, TOKEN } from '../constants';
 import { getAccessToken } from './auth.service';
+
+import axios from 'axios';
 
 const axiosClient = axios.create({
   baseURL: 'http://localhost:5000/api/',
-  // baseURL: 'http://www.eschoolhub.click/',
 });
 
 // Add a request interceptor
@@ -25,7 +26,6 @@ axiosClient.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-
     return response.data;
   },
   async function (error) {
@@ -51,7 +51,7 @@ axiosClient.interceptors.response.use(
           confirmButtonText: 'Got it!',
         });
         break;
-      case error.response.data.errors === 'token expired':
+      case error.response.data.errors === API_ERROR.TOKEN_EXPIRED:
         try {
           //call api get new access token
           const result = await getAccessToken();

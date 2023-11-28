@@ -44,7 +44,7 @@ const Homepage = () => {
           {/* Popular authors */}
           <div className="my-16">
             <h1 className="text-2xl font-semibold mb-10 text-center">Popular authors</h1>
-            {/* <PopularAuthor /> */}
+            <PopularAuthor />
           </div>
 
           <div className="my-16">

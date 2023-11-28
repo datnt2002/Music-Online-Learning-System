@@ -19,10 +19,8 @@ function* getConservationsSaga() {
       const {
         payload: { receiverId },
       } = yield take(getConservationAction);
-      console.log(receiverId);
       const { accessToken } = getTokenFromStorage();
       const result = yield call(getConservation, { receiverId, accessToken });
-      console.log(result);
       switch (result.status) {
         case 200:
           yield put(getConservationSuccess(result.data));
@@ -44,12 +42,9 @@ function* sendMessageSaga() {
       const {
         payload: { receiverId, conversationId, content },
       } = yield take(sendMessageAction);
-      console.log(receiverId, conversationId, content);
       const { accessToken } = getTokenFromStorage();
-
       const result = yield call(sendMessage, { receiverId, conversationId, content, accessToken });
-      console.log(result);
-      if (result.messageId) {
+      if (result?.messageId) {
         yield put(sendMessageSuccess(result.data));
         yield put(getConservationAction({ receiverId }));
       } else {

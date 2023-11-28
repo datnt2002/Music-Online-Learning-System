@@ -18,7 +18,9 @@ const LecturerCard = ({ authorData }) => {
         />
       </div>
       <div className="flex flex-1 flex-col py-4">
-        <h1 className="px-4 ">{authorData?.firstName + ' ' + authorData?.lastName}</h1>
+        <h1 className="px-4 ">Author Name</h1>
+        {/* <h1 className="px-4 ">{authorData?.firstName + ' ' + authorData?.lastName}</h1> */}
+
         <h1 className="pr-4 truncate">
           <LikeFilled className="align-[0.125rem] px-4" />
           763,787 Students
