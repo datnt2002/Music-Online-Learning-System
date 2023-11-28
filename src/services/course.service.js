@@ -429,7 +429,6 @@ export const editSubCate = (data) => {
 
 //payment
 export const createPayment = (data) => {
-  console.log(data);
   return axiosClient
     .post(
       'createPayment',

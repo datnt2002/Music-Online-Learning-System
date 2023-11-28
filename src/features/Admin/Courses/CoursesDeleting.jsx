@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Layout, Modal, Space } from 'antd';
+import { Button, Layout, Modal, Popconfirm, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { EyeOutlined, RetweetOutlined } from '@ant-design/icons';
 
@@ -54,6 +54,8 @@ const CoursesDeleting = () => {
       })
     );
   };
+  const cancel = (e) => {};
+
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       <div className="my-5 ml-6">
@@ -79,12 +81,19 @@ const CoursesDeleting = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-              <Button
-                onClick={() => {
+              <Popconfirm
+                title="Approve this course"
+                description="Are you sure to approve this course?"
+                onConfirm={() => {
                   handleRestoreCourse(record);
                 }}
-                icon={<RetweetOutlined />}
-              />
+                onCancel={cancel}
+                okText="Yes"
+                cancelText="No"
+                okButtonProps={{ style: { backgroundColor: 'black', color: 'white' } }}
+              >
+                <Button icon={<RetweetOutlined />} />
+              </Popconfirm>
             </Space>
           )}
         />

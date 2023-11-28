@@ -26,13 +26,13 @@ const Cart = () => {
             <div class="flex flex-1 flex-col rounded-lg border p-6 shadow-xl">
               <div class="mb-2 flex justify-between">
                 <p class="text-gray-700">Amount</p>
-                <p class="text-gray-700">$129.99</p>
+                <p class="text-gray-700">259</p>
               </div>
               <Divider className="bg-black" />
               <div class="flex justify-between">
                 <p class="text-lg font-bold">Total</p>
                 <div class="">
-                  <p class="mb-1 text-lg font-bold">134.98 ECoin</p>
+                  <p class="mb-1 text-lg font-bold">259 ECoin</p>
                   <p class="text-sm text-gray-700">including VAT</p>
                 </div>
               </div>

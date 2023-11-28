@@ -8,18 +8,21 @@ import { io } from 'socket.io-client';
 import EmojiPicker from 'emoji-picker-react';
 
 import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
+import { HOST } from '../../../../constants';
 
 const ChatBox = ({ receiverId }) => {
-  const dispatch = useDispatch();
   const socket = useRef();
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const conversationId = useSelector((state) => state.forum.conversationId);
+  const dispatch = useDispatch();
   console.log(currentUser);
   const contents = useSelector((state) => state.forum.content);
   const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
+  const scrollRef = useRef();
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    socket.current = io('http://localhost:5000');
+    socket.current = io(HOST.SERVER);
 
     socket.current.on('msg-recieve', (msg) => {
       dispatch(
@@ -38,8 +41,6 @@ const ChatBox = ({ receiverId }) => {
   useEffect(() => {
     dispatch(getConservationAction({ receiverId }));
   }, []);
-
-  const conversationId = useSelector((state) => state.forum.conversationId);
 
   const handleSendMessage = () => {
     console.log(currentUser?.id);
@@ -60,7 +61,6 @@ const ChatBox = ({ receiverId }) => {
     setIsEmojiPickerVisible(false);
   };
 
-  const scrollRef = useRef();
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [contents]);

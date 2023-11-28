@@ -15,7 +15,6 @@ const VideoLesson = () => {
   const pathNameArray = splitSlash(pathname);
 
   useEffect(() => {
-    console.log('re-render');
     dispatch(
       getDetailLessonAction({
         lessonId: pathNameArray[2],

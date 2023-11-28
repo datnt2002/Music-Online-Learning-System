@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Layout, Modal, Space } from 'antd';
+import { Button, Layout, Modal, Popconfirm, Space } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { EyeOutlined, CarryOutOutlined } from '@ant-design/icons';
 
@@ -54,6 +54,7 @@ const CoursesPending = () => {
       })
     );
   };
+  const cancel = (e) => {};
 
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
@@ -80,12 +81,19 @@ const CoursesPending = () => {
                 }}
                 icon={<EyeOutlined />}
               />
-              <Button
-                onClick={() => {
+              <Popconfirm
+                title="Approve this course"
+                description="Are you sure to approve this course?"
+                onConfirm={() => {
                   handleAcceptCourse(record);
                 }}
-                icon={<CarryOutOutlined />}
-              />
+                onCancel={cancel}
+                okText="Yes"
+                cancelText="No"
+                okButtonProps={{ style: { backgroundColor: 'black', color: 'white' } }}
+              >
+                <Button icon={<CarryOutOutlined />} />
+              </Popconfirm>
             </Space>
           )}
         />

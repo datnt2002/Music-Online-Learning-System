@@ -12,14 +12,6 @@ const CartHoverDropDown = ({ icon, buttonTitle }) => {
       label: <CardInCart />,
     },
     {
-      key: '1',
-      label: <CardInCart />,
-    },
-    {
-      key: '1',
-      label: <CardInCart />,
-    },
-    {
       type: 'divider',
     },
     {

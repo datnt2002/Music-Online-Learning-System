@@ -16,7 +16,7 @@ const ProfitTotal = () => {
           <div className="flex justify-between p-6">
             <div>
               <h1 className="text-xl text-gray-500 font-medium">Profit</h1>
-              <h4 className="text-2xl font-bold text-black ">{usersCount}</h4>
+              <h4 className="text-2xl font-bold text-black ">100000</h4>
             </div>
             <div className="bg-gray-200 h-12 w-12 p-4 rounded-full flex items-center justify-center">
               <MoneyCollectOutlined className="text-xl " />
