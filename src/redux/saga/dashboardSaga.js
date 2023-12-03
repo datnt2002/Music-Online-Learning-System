@@ -1,5 +1,7 @@
 import { call, fork, put, take } from 'redux-saga/effects';
 import {
+  getCategoryByNumberOfCoursesAction,
+  getCategoryByNumberOfCoursesSuccess,
   getCountApprovedCourseAction,
   getCountApprovedCourseSuccess,
   getCountCategoriesAction,
@@ -10,7 +12,13 @@ import {
   getProfitAdminAction,
   getProfitAdminSuccess,
 } from '../slice/dashboardSlice';
-import { getCountCategories, getCountCourses, getCountUsers, getProfit } from '../../services/dashboard.service';
+import {
+  getCategoryByNumberOfCourses,
+  getCountCategories,
+  getCountCourses,
+  getCountUsers,
+  getProfit,
+} from '../../services/dashboard.service';
 
 function* getCategoriesCountSaga() {
   while (true) {
@@ -91,9 +99,31 @@ function* getApprovedCourseCountSaga() {
     }
   }
 }
+
+function* getCategoryByNumberOfCoursesSaga() {
+  while (true) {
+    try {
+      yield take(getCategoryByNumberOfCoursesAction);
+      const result = yield call(getCategoryByNumberOfCourses, {});
+      switch (result.status) {
+        case 200:
+          yield put(getCategoryByNumberOfCoursesSuccess(result?.data));
+          break;
+
+        default:
+          yield put(getCountFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* dashboardSaga() {
   yield fork(getCategoriesCountSaga);
   yield fork(getUsersCountSaga);
   yield fork(getApprovedCourseCountSaga);
   yield fork(getProfitAdminSaga);
+  yield fork(getCategoryByNumberOfCoursesSaga);
 }

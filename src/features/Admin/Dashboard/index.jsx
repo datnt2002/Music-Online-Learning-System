@@ -12,6 +12,7 @@ import MultiLineChart from '../../../components/Container/DashboardContainer/Adm
 import RankingBoard from '../../../components/Container/DashboardContainer/Admin/RankingBoard';
 import UserTotal from '../../../components/Container/DashboardContainer/Admin/UserTotal';
 import {
+  getCategoryByNumberOfCoursesAction,
   getCountApprovedCourseAction,
   getCountCategoriesAction,
   getCountUsersAction,
@@ -19,6 +20,7 @@ import {
 } from '../../../redux/slice/dashboardSlice';
 import CoursesTotal from '../../../components/Container/DashboardContainer/Admin/CoursesTotal';
 import ProfitTotal from '../../../components/Container/DashboardContainer/Admin/ProfitTotal';
+import NumberOfCourseInCateChart from '../../../components/Container/DashboardContainer/Admin/NumberOfCourseInCateChart';
 
 const DashBoardAdmin = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,9 @@ const DashBoardAdmin = () => {
     dispatch(getCountCategoriesAction({}));
     dispatch(getCountApprovedCourseAction({}));
     dispatch(getProfitAdminAction({}));
+    dispatch(getCategoryByNumberOfCoursesAction({}));
   }, []);
+
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>
       <div className="my-5 ml-6">
@@ -49,15 +53,13 @@ const DashBoardAdmin = () => {
         </div>
 
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 ">
-          <PieChart />
-          <MultiLineChart />
-          <MultiLineChart />
-          <PieChart />
+          <NumberOfCourseInCateChart />
+          {/* <MultiLineChart /> */}
+          {/* <PieChart /> */}
 
           <div className="col-span-12">
             <RankingBoard />
           </div>
-          {/* <ChatCard /> */}
         </div>
       </Content>
     </Layout>

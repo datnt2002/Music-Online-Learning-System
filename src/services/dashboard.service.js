@@ -43,3 +43,14 @@ export const getProfit = () => {
       return err;
     });
 };
+
+export const getCategoryByNumberOfCourses = () => {
+  return axiosClient
+    .get('dashboard/getCategoryByNumberOfCourses')
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
