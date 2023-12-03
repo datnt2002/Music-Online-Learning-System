@@ -7,8 +7,10 @@ import {
   getCountFail,
   getCountUsersAction,
   getCountUsersSuccess,
+  getProfitAdminAction,
+  getProfitAdminSuccess,
 } from '../slice/dashboardSlice';
-import { getCountCategories, getCountCourses, getCountUsers } from '../../services/dashboard.service';
+import { getCountCategories, getCountCourses, getCountUsers, getProfit } from '../../services/dashboard.service';
 
 function* getCategoriesCountSaga() {
   while (true) {
@@ -49,6 +51,27 @@ function* getUsersCountSaga() {
     }
   }
 }
+
+function* getProfitAdminSaga() {
+  while (true) {
+    try {
+      yield take(getProfitAdminAction);
+      const result = yield call(getProfit, {});
+      switch (result.status) {
+        case 200:
+          yield put(getProfitAdminSuccess(result?.data));
+          break;
+
+        default:
+          yield put(getCountFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function* getApprovedCourseCountSaga() {
   while (true) {
     try {
@@ -72,4 +95,5 @@ export default function* dashboardSaga() {
   yield fork(getCategoriesCountSaga);
   yield fork(getUsersCountSaga);
   yield fork(getApprovedCourseCountSaga);
+  yield fork(getProfitAdminSaga);
 }

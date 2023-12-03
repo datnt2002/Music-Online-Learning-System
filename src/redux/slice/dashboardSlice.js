@@ -6,6 +6,7 @@ const initialState = {
   usersCount: 0,
   approvedCourseCount: 0,
   subCategoriesCount: 0,
+  profitAdminCount: 0,
 };
 
 export const dashboardSlice = createSlice({
@@ -43,6 +44,20 @@ export const dashboardSlice = createSlice({
         usersCount: action.payload,
       };
     },
+    //profit of admin
+    getProfitAdminAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getProfitAdminSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        profitAdminCount: action.payload,
+      };
+    },
     //categories
     getCountCategoriesAction: (state) => {
       return {
@@ -72,6 +87,8 @@ export const {
   getCountApprovedCourseSuccess,
   getCountUsersAction,
   getCountUsersSuccess,
+  getProfitAdminAction,
+  getProfitAdminSuccess,
   getCountCategoriesAction,
   getCountCategoriesSuccess,
   getCountFail,
