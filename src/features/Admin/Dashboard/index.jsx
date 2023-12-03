@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { Content } from 'antd/es/layout/layout';
 import { Layout } from 'antd';
+
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import CategoryTotal from '../../../components/Container/DashboardContainer/Admin/CategoryTotal';
@@ -14,6 +15,7 @@ import {
   getCountApprovedCourseAction,
   getCountCategoriesAction,
   getCountUsersAction,
+  getProfitAdminAction,
 } from '../../../redux/slice/dashboardSlice';
 import CoursesTotal from '../../../components/Container/DashboardContainer/Admin/CoursesTotal';
 import ProfitTotal from '../../../components/Container/DashboardContainer/Admin/ProfitTotal';
@@ -24,6 +26,7 @@ const DashBoardAdmin = () => {
     dispatch(getCountUsersAction({}));
     dispatch(getCountCategoriesAction({}));
     dispatch(getCountApprovedCourseAction({}));
+    dispatch(getProfitAdminAction({}));
   }, []);
   return (
     <Layout style={{ backgroundImage: `url(${repeatBg})`, backgroundSize: '100% auto', padding: '0 24px 24px' }}>

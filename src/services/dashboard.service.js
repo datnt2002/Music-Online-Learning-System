@@ -35,7 +35,7 @@ export const getCountCourses = () => {
 
 export const getProfit = () => {
   return axiosClient
-    .get('dashboard/users')
+    .get('dashboard/Ecoin')
     .then((res) => {
       return res;
     })
