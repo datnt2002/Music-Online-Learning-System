@@ -8,6 +8,7 @@ const initialState = {
   subCategoriesCount: 0,
   profitAdminCount: 0,
   NoOfCourseInCate: [],
+  userByMonth: [],
 };
 
 export const dashboardSlice = createSlice({
@@ -73,7 +74,7 @@ export const dashboardSlice = createSlice({
         categoriesCount: action.payload,
       };
     },
-    //bar chart data
+
     getCategoryByNumberOfCoursesAction: (state) => {
       return {
         ...state,
@@ -85,6 +86,19 @@ export const dashboardSlice = createSlice({
         ...state,
         loading: false,
         NoOfCourseInCate: action.payload,
+      };
+    },
+    getUserByMonthAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getUserByMonthSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        userByMonth: action.payload,
       };
     },
     getCountFail: (state) => {
@@ -108,6 +122,8 @@ export const {
   getCountCategoriesSuccess,
   getCategoryByNumberOfCoursesAction,
   getCategoryByNumberOfCoursesSuccess,
+  getUserByMonthAction,
+  getUserByMonthSuccess,
   getCountFail,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

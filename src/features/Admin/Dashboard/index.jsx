@@ -7,7 +7,6 @@ import { Layout } from 'antd';
 import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import CategoryTotal from '../../../components/Container/DashboardContainer/Admin/CategoryTotal';
-import PieChart from '../../../components/Container/DashboardContainer/Admin/PieChart';
 import MultiLineChart from '../../../components/Container/DashboardContainer/Admin/MultiLineChart';
 import RankingBoard from '../../../components/Container/DashboardContainer/Admin/RankingBoard';
 import UserTotal from '../../../components/Container/DashboardContainer/Admin/UserTotal';
@@ -17,10 +16,12 @@ import {
   getCountCategoriesAction,
   getCountUsersAction,
   getProfitAdminAction,
+  getUserByMonthAction,
 } from '../../../redux/slice/dashboardSlice';
 import CoursesTotal from '../../../components/Container/DashboardContainer/Admin/CoursesTotal';
 import ProfitTotal from '../../../components/Container/DashboardContainer/Admin/ProfitTotal';
 import NumberOfCourseInCateChart from '../../../components/Container/DashboardContainer/Admin/NumberOfCourseInCateChart';
+import BarChartAdmin from '../../../components/Container/DashboardContainer/Admin/BarChartAdmin';
 
 const DashBoardAdmin = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const DashBoardAdmin = () => {
     dispatch(getCountApprovedCourseAction({}));
     dispatch(getProfitAdminAction({}));
     dispatch(getCategoryByNumberOfCoursesAction({}));
+    dispatch(getUserByMonthAction({}));
   }, []);
 
   return (
@@ -55,6 +57,7 @@ const DashBoardAdmin = () => {
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 ">
           <NumberOfCourseInCateChart />
           <MultiLineChart />
+          <BarChartAdmin />
           {/* <PieChart /> */}
 
           <div className="col-span-12">

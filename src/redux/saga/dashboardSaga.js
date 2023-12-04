@@ -11,6 +11,8 @@ import {
   getCountUsersSuccess,
   getProfitAdminAction,
   getProfitAdminSuccess,
+  getUserByMonthAction,
+  getUserByMonthSuccess,
 } from '../slice/dashboardSlice';
 import {
   getCategoryByNumberOfCourses,
@@ -18,6 +20,7 @@ import {
   getCountCourses,
   getCountUsers,
   getProfit,
+  getUserByMonth,
 } from '../../services/dashboard.service';
 
 function* getCategoriesCountSaga() {
@@ -120,10 +123,31 @@ function* getCategoryByNumberOfCoursesSaga() {
   }
 }
 
+function* getUserByMonthSaga() {
+  while (true) {
+    try {
+      yield take(getUserByMonthAction);
+      const result = yield call(getUserByMonth, {});
+      switch (result.status) {
+        case 200:
+          yield put(getUserByMonthSuccess(result?.data));
+          break;
+
+        default:
+          yield put(getCountFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* dashboardSaga() {
   yield fork(getCategoriesCountSaga);
   yield fork(getUsersCountSaga);
   yield fork(getApprovedCourseCountSaga);
   yield fork(getProfitAdminSaga);
   yield fork(getCategoryByNumberOfCoursesSaga);
+  yield fork(getUserByMonthSaga);
 }

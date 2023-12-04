@@ -54,3 +54,14 @@ export const getCategoryByNumberOfCourses = () => {
       return err;
     });
 };
+
+export const getUserByMonth = () => {
+  return axiosClient
+    .get('dashboard/getUserByMonth')
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
