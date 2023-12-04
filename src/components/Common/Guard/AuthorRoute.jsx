@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 
 import SiderLecturer from '../../Layout/Lecturer/SiderLecturer';
 import HeaderLecturer from '../../Layout/Lecturer/HeaderLecturer';
-import { PUBLIC_ROUTE, ROLE, TOKEN } from '../../../constants';
+import { PUBLIC_ROUTE, TOKEN } from '../../../constants';
 import { getCurrentUserAction } from '../../../redux/slice/authenticationSlice';
 import getTokenFromStorage from '../../../utils/getTokenFromStorage';
 
@@ -24,7 +24,8 @@ const AuthorRoute = ({ children }) => {
     } else {
       dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
       const decodeToken = jwtDecode(authToken.accessToken);
-      if (decodeToken?.roleId !== ROLE.LECTURER) {
+      console.log(decodeToken);
+      if (decodeToken?.roleId.length < 2) {
         localStorage.removeItem(TOKEN.AUTH_TOKEN);
         sessionStorage.removeItem(TOKEN.AUTH_TOKEN);
         navigate(PUBLIC_ROUTE.SIGN_IN);

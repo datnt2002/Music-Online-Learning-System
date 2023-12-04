@@ -26,7 +26,7 @@ const AdminRoute = ({ children }) => {
     } else {
       dispatch(getCurrentUserAction({ accessToken: authToken.accessToken }));
       const decodeToken = jwtDecode(authToken.accessToken);
-      if (decodeToken?.roleId !== ROLE.ADMIN) {
+      if (decodeToken?.roleId[0] !== ROLE.ADMIN) {
         localStorage.removeItem(TOKEN.AUTH_TOKEN);
         sessionStorage.removeItem(TOKEN.AUTH_TOKEN);
         navigate(PUBLIC_ROUTE.SIGN_IN);
