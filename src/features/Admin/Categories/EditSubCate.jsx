@@ -19,6 +19,7 @@ const EditSubCate = () => {
   const [selectedSubCate, setSelectedSubCate] = useState();
 
   const listCategories = useSelector((state) => state.course.listCategory);
+
   const listSubCate = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
   const [form] = Form.useForm();

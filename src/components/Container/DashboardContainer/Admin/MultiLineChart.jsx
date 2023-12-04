@@ -6,7 +6,7 @@ const MultiLineChart = () => {
     labels: [1, 2, 3, 4, 5, 6, 7],
     datasets: [
       {
-        label: 'My First Dataset',
+        label: 'ECoin',
         data: [65, 59, 80, 81, 56, 55, 40],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
