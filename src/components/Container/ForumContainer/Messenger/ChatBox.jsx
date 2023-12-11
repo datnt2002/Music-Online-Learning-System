@@ -74,7 +74,6 @@ const ChatBox = ({ receiverId }) => {
   };
 
   useEffect(() => {
-    console.log(receiverId);
     dispatch(
       getUserByIdAction({
         userId: receiverId,

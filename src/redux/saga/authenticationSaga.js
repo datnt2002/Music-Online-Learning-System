@@ -199,7 +199,7 @@ function* editProfileSaga() {
       const {
         payload: { firstName, lastName, phoneNumber, address, nation, gender, dob, facebook, instagram, bio },
       } = yield take(editProfileAction);
-      console.log(address, nation, gender, dob);
+      console.log(instagram, facebook, dob);
       let dobFormat;
       if (dob) {
         const date = dob.$d;
@@ -214,8 +214,8 @@ function* editProfileSaga() {
         nation,
         gender,
         dobFormat,
-        // facebook,
-        // instagram,
+        facebook,
+        instagram,
         bio,
         accessToken,
       });

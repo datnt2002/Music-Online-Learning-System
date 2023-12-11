@@ -84,6 +84,7 @@ export const uploadAvatar = (data) => {
 };
 
 export const editProfile = (data) => {
+  console.log(data.dobFormat);
   const body = {
     firstName: data?.firstName,
     lastName: data?.lastName,
@@ -91,9 +92,9 @@ export const editProfile = (data) => {
     address: data?.address,
     nation: data?.nation,
     gender: data?.gender,
-    dob: data?.dob,
-    // facebook: data?.facebook,
-    // instagram: data?.instagram,
+    dob: data?.dobFormat,
+    facebook: data?.facebook,
+    instagram: data?.instagram,
     bio: data?.bio,
   };
   return axiosClient
