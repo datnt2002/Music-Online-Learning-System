@@ -22,7 +22,7 @@ const ChatBox = ({ receiverId }) => {
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    socket.current = io(HOST.SERVER);
+    socket.current = io(HOST.LOCAL);
 
     socket.current.on('msg-recieve', (msg) => {
       dispatch(

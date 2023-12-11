@@ -143,7 +143,7 @@ import {
   restoreDeletedCourseFail,
   restoreDeletedCourseSuccess,
 } from '../slice/courseSlice';
-import { ADMIN_ROUTE, LECTURER_ROUTE, PAGINATION, STORAGE } from '../../constants';
+import { ADMIN_ROUTE, LECTURER_ROUTE, PAGINATION, PUBLIC_ROUTE, STORAGE } from '../../constants';
 import getTokenFromStorage from '../../utils/getTokenFromStorage';
 
 //course management
@@ -1406,7 +1406,7 @@ function* getListFilterByCateSaga() {
       switch (result.status) {
         case 200:
           yield put(getListCourseFilterByCateSuccess(result));
-          // navigate()
+          navigate(PUBLIC_ROUTE.FILTER_CATE + `/${cateId}`)
           break;
 
         default:

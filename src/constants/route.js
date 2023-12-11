@@ -5,6 +5,7 @@ export const PUBLIC_ROUTE = {
   FORGOT_PASSWORD: '/forgotpassword',
   COURSE_DETAIL: '/course-detail',
   PUBLIC_PROFILE: '/profile',
+  FILTER_CATE: '/category',
 };
 
 export const USER_ROUTE = {
