@@ -16,6 +16,7 @@ const initialState = {
   isCreateQuizSuccess: false,
   listCategory: [],
   listSubcategories: [],
+  filterCourse: [],
 };
 
 export const courseSlice = createSlice({
@@ -723,6 +724,29 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+
+    //filter course
+    getListCourseFilterByCateAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getListCourseFilterByCateSuccess: (state, action) => {
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        filterCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
+    },
+    getListCourseFilterFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
   },
 });
 
@@ -840,6 +864,10 @@ export const {
   getListMyBoughtCourseAction,
   getListMyBoughtCourseSuccess,
   getListMyBoughtCourseFail,
+  //filter
+  getListCourseFilterByCateAction,
+  getListCourseFilterByCateSuccess,
+  getListCourseFilterFail,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

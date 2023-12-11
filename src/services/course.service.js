@@ -494,11 +494,53 @@ export const buyCourseByECoin = (data) => {
 
 // get course in homepage
 export const getMyBoughtCourse = (data) => {
-  console.log(data);
   return axiosClient
-    .get('courses/bought', 
-    { params: { pageIndex: data.pageIndex, pageSize: data.pageSize }, 
-    headers: { Authorization: `Bearer ${data.accessToken}` } } )
+    .get('courses/bought', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getListCourseFilterByCate = (data) => {
+  return axiosClient
+    .get(`courses/approved/category/${data.cateId}`, {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      // headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getListCourseFilterBySubCate = (data) => {
+  return axiosClient
+    .get('courses/bought', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getListSearchCourse = (data) => {
+  return axiosClient
+    .get('courses/bought', {
+      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      headers: { Authorization: `Bearer ${data.accessToken}` },
+    })
     .then((res) => {
       return res;
     })

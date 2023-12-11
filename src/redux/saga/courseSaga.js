@@ -30,6 +30,7 @@ import {
   getDraftCourseDetail,
   getLessonDetail,
   getListCategory,
+  getListCourseFilterByCate,
   getListCourses,
   getListDeleteCourse,
   getListDraftCourse,
@@ -113,6 +114,9 @@ import {
   getListCategorySuccess,
   getListCourseAction,
   getListCourseFail,
+  getListCourseFilterByCateAction,
+  getListCourseFilterByCateSuccess,
+  getListCourseFilterFail,
   getListCoursePendingAction,
   getListCoursePendingFail,
   getListCoursePendingSuccess,
@@ -152,7 +156,6 @@ function* getListCourseSaga() {
       const {
         payload: { pageSize, pageIndex },
       } = yield take(getListCourseAction);
-      console.log(pageSize);
       //call get list course api
       const result = yield call(getListCourses, { pageSize, pageIndex });
 
@@ -1176,7 +1179,6 @@ function* getAllSubCategoriesSaga() {
     try {
       yield take(getSubCategoriesAction);
       const result = yield call(getAllSubCategories, {});
-      console.log(result);
 
       switch (result.status) {
         case 200:
@@ -1377,6 +1379,7 @@ function* getListMyBoughtCourseSaga() {
       switch (result.status) {
         case 200:
           yield put(getListMyBoughtCourseSuccess(result));
+          
           break;
 
         default:
@@ -1388,6 +1391,88 @@ function* getListMyBoughtCourseSaga() {
     }
   }
 }
+
+//user course
+function* getListFilterByCateSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { cateId, pageSize, pageIndex, navigate },
+      } = yield take(getListCourseFilterByCateAction);
+      console.log(cateId, pageIndex);
+
+      const result = yield call(getListCourseFilterByCate, { cateId, pageIndex, pageSize });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getListCourseFilterByCateSuccess(result));
+          // navigate()
+          break;
+
+        default:
+          yield put(getListCourseFilterFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+//user course
+function* getListFilterBySubCateSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { pageSize, pageIndex },
+      } = yield take(getListMyBoughtCourseAction);
+      console.log(pageSize, pageIndex);
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getMyBoughtCourse, { accessToken, pageIndex, pageSize });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getListMyBoughtCourseSuccess(result));
+          break;
+
+        default:
+          yield put(getListMyBoughtCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+//user course
+function* getListSearchCourseSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { pageSize, pageIndex },
+      } = yield take(getListMyBoughtCourseAction);
+      console.log(pageSize, pageIndex);
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getMyBoughtCourse, { accessToken, pageIndex, pageSize });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getListMyBoughtCourseSuccess(result));
+          break;
+
+        default:
+          yield put(getListMyBoughtCourseFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* courseSaga() {
   // approved course
   yield fork(getListCourseSaga);
@@ -1435,4 +1520,5 @@ export default function* courseSaga() {
   yield fork(editSubCateSaga);
   //user course
   yield fork(getListMyBoughtCourseSaga);
+  yield fork(getListFilterByCateSaga);
 }
