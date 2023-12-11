@@ -8,7 +8,6 @@ import BreadCrumbCustom from '../../../components/Container/BreadCrumbContainer/
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import CategoryTotal from '../../../components/Container/DashboardContainer/Admin/CategoryTotal';
 import MultiLineChart from '../../../components/Container/DashboardContainer/Admin/MultiLineChart';
-import RankingBoard from '../../../components/Container/DashboardContainer/Admin/RankingBoard';
 import UserTotal from '../../../components/Container/DashboardContainer/Admin/UserTotal';
 import {
   getCategoryByNumberOfCoursesAction,
@@ -22,6 +21,7 @@ import CoursesTotal from '../../../components/Container/DashboardContainer/Admin
 import ProfitTotal from '../../../components/Container/DashboardContainer/Admin/ProfitTotal';
 import NumberOfCourseInCateChart from '../../../components/Container/DashboardContainer/Admin/NumberOfCourseInCateChart';
 import BarChartAdmin from '../../../components/Container/DashboardContainer/Admin/BarChartAdmin';
+import NumberOfCourseDoughnut from '../../../components/Container/DashboardContainer/Admin/NumberOfCourseDoughnut';
 
 const DashBoardAdmin = () => {
   const dispatch = useDispatch();
@@ -58,11 +58,7 @@ const DashBoardAdmin = () => {
           <NumberOfCourseInCateChart />
           <MultiLineChart />
           <BarChartAdmin />
-          {/* <PieChart /> */}
-
-          <div className="col-span-12">
-            <RankingBoard />
-          </div>
+          <NumberOfCourseDoughnut />
         </div>
       </Content>
     </Layout>

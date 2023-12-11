@@ -350,6 +350,23 @@ export const editQuiz = (data) => {
       return err;
     });
 };
+
+export const editLesson = (data) => {
+  const formData = new FormData();
+  formData.append('lessonName', data.lessonName);
+  formData.append('sectionId', data.sectionId);
+  formData.append('file', data.file);
+  console.log(data);
+  return axiosClient
+    .put(`lessons/${data?.lessonId}`, formData, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //category
 export const getListCategory = (data) => {
   console.log(data);
