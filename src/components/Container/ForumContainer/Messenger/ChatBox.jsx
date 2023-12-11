@@ -1,7 +1,7 @@
 import { Avatar, Button, Divider } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SendOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons';
+import { SendOutlined, SmileOutlined } from '@ant-design/icons';
 import TextMessage from './TextMessage';
 import TextArea from 'antd/es/input/TextArea';
 import { io } from 'socket.io-client';
@@ -9,13 +9,15 @@ import EmojiPicker from 'emoji-picker-react';
 
 import { addArrivalMessage, getConservationAction, sendMessageAction } from '../../../../redux/slice/forumSlice';
 import { HOST } from '../../../../constants';
-
+import { getUserByIdAction } from '../../../../redux/slice/userSlice';
+import defaultAvatar from '../../../../assets/imgs/defaultAvatar.webp';
 const ChatBox = ({ receiverId }) => {
   const socket = useRef();
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const conversationId = useSelector((state) => state.forum.conversationId);
+  const receiverProfile = useSelector((state) => state.user.accountProfile);
   const dispatch = useDispatch();
-  console.log(currentUser);
+  console.log(receiverProfile);
   const contents = useSelector((state) => state.forum.content);
   const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
   const scrollRef = useRef();
@@ -71,11 +73,20 @@ const ChatBox = ({ receiverId }) => {
     setMsg(message);
   };
 
+  useEffect(() => {
+    console.log(receiverId);
+    dispatch(
+      getUserByIdAction({
+        userId: receiverId,
+      })
+    );
+  }, [receiverId]);
+
   return (
     <div className="w-full md:w-auto flex flex-1 flex-col border rounded-3xl border-black mb-4 md:-mt-16 mx-4 md:mx-0 md:mr-4">
       <div className="flex p-4">
-        <Avatar icon={<UserOutlined />} />
-        <h1 className="ml-2 self-center">Name</h1>
+        <Avatar src={receiverProfile?.avatar || defaultAvatar} />
+        <h1 className="ml-2 self-center">{receiverProfile?.username}</h1>
       </div>
       <Divider className="mt-0 mb-1 bg-black" />
       <div className="h-[60vh] md:h-[80vh] overflow-y-scroll p-2">
