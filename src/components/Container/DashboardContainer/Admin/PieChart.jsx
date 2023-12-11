@@ -4,12 +4,12 @@ import { Chart as ChartJS } from 'chart.js/auto';
 
 const PieChart = () => {
   const data = {
-    labels: ['Red', 'Blue', 'Yellow'],
+    labels: ['Draft Course', 'Approved Course'],
     datasets: [
       {
-        label: 'My First Dataset',
-        data: [300, 50, 100],
-        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+        label: 'Number Of Courses',
+        data: [2, 3],
+        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)'],
       },
     ],
   };
