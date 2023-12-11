@@ -152,7 +152,7 @@ function* getListCourseSaga() {
       const {
         payload: { pageSize, pageIndex },
       } = yield take(getListCourseAction);
-
+      console.log(pageSize);
       //call get list course api
       const result = yield call(getListCourses, { pageSize, pageIndex });
 
@@ -1366,7 +1366,9 @@ function* buyCourseByECoinSaga() {
 function* getListMyBoughtCourseSaga() {
   while (true) {
     try {
-      const { payload: {pageSize, pageIndex} } = yield take(getListMyBoughtCourseAction);
+      const {
+        payload: { pageSize, pageIndex },
+      } = yield take(getListMyBoughtCourseAction);
       console.log(pageSize, pageIndex);
       const { accessToken } = getTokenFromStorage();
 

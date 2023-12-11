@@ -10,7 +10,6 @@ const AllCourses = () => {
   const listCourses = useSelector((state) => state.course.listCourse);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
   const pagination = useSelector((state) => state.course.pagination);
-  console.log(pagination);
 
   const [pageIndex, setPageIndex] = useState(1);
   const dispatch = useDispatch();
@@ -55,8 +54,8 @@ const AllCourses = () => {
           <Menu onClick={handleFilterBySubCate} mode="inline" items={items} className="rounded-2xl bg-white/50" />
         </div>
         <div className="flex flex-1 flex-col gap-3">
-          {listCourses.map((course) => {
-            return <CourseHorizontalCard courseData={course} />;
+          {listCourses.map((course, index) => {
+            return index < 5 ? <CourseHorizontalCard courseData={course} /> : <></>;
           })}
 
           <Pagination
