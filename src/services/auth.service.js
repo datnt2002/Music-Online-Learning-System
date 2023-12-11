@@ -121,3 +121,26 @@ export const requestLecturer = (data) => {
       return err;
     });
 };
+
+export const getCart = (data) => {
+  return axiosClient
+    .get('cart', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addToCart = (data) => {
+  const body = { courseId: data?.courseId };
+  return axiosClient
+    .post(`cart/${data?.carId}`, body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

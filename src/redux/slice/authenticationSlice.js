@@ -6,6 +6,7 @@ const initialState = {
   currentUser: {},
   loading: false,
   currentUserRole: [],
+  cart: {},
 };
 
 export const authenticationSlice = createSlice({
@@ -179,6 +180,47 @@ export const authenticationSlice = createSlice({
         loading: false,
       };
     },
+
+    //cart
+
+    getCartAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getCartSuccess: (state, action) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        loading: false,
+        cart: action.payload,
+      };
+    },
+    getCartFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    addToCartAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    addToCartSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    addToCartFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
   },
 });
 
@@ -208,6 +250,12 @@ export const {
   requestLecturerAction,
   requestLecturerSuccess,
   requestLecturerFail,
+  getCartAction,
+  getCartSuccess,
+  getCartFail,
+  addToCartAction,
+  addToCartSuccess,
+  addToCartFail,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

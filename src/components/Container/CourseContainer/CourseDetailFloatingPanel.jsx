@@ -6,9 +6,13 @@ import { YoutubeOutlined, MobileOutlined, RollbackOutlined } from '@ant-design/i
 import defaultCourse from '../../../assets/imgs/default-course.png';
 import formatPrice from '../../../utils/formatPrice';
 import { buyCourseByECoinAction } from '../../../redux/slice/courseSlice';
+import { addToCartAction } from '../../../redux/slice/authenticationSlice';
 
 const CourseDetailFloatingPanel = () => {
   const currentCourse = useSelector((state) => state.course.currentCourse);
+  const cart = useSelector((state) => state.authentication.cart);
+  console.log(currentCourse);
+  console.log(cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -28,6 +32,16 @@ const CourseDetailFloatingPanel = () => {
     );
     setIsModalOpen(false);
   };
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCartAction({
+        courseId: currentCourse?.course?.courseId,
+        carId: cart?.carId,
+      })
+    );
+  };
+
   return (
     <>
       <div className="lg:bg-white border-black border w-5/6 rounded-3xl z-50 mx-auto mb-6 shadow-2xl lg:fixed top-24 right-2/100  lg:top-32 lg:right-28 lg:w-96">
@@ -43,7 +57,7 @@ const CourseDetailFloatingPanel = () => {
               ${currentCourse?.course?.price && formatPrice(currentCourse?.course?.price)}
             </h1>
 
-            <Button className="border border-black my-1" size="middle">
+            <Button className="border border-black my-1" size="middle" onClick={handleAddToCart}>
               Add to Cart
             </Button>
             <Button className="border border-black my-1" size="middle" onClick={showModal}>

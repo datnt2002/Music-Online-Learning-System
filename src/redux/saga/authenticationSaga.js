@@ -3,9 +3,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
 import {
+  addToCart,
   changePassword,
   editProfile,
   forgotPassword,
+  getCart,
   getCurrentUser,
   requestLecturer,
   signIn,
@@ -13,6 +15,9 @@ import {
   uploadAvatar,
 } from '../../services/auth.service';
 import {
+  addToCartAction,
+  addToCartFail,
+  addToCartSuccess,
   changePasswordAction,
   changePasswordFail,
   changePasswordSuccess,
@@ -22,6 +27,9 @@ import {
   forgotPasswordAction,
   forgotPasswordFail,
   forgotPasswordSuccess,
+  getCartAction,
+  getCartFail,
+  getCartSuccess,
   getCurrentUserAction,
   getCurrentUserFail,
   getCurrentUserSuccess,
@@ -372,6 +380,72 @@ function* requestLecturerSaga() {
     }
   }
 }
+
+function* getCartSaga() {
+  while (true) {
+    try {
+      yield take(getCartAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getCart, { accessToken });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(getCartSuccess(result.data));
+
+          break;
+
+        default:
+          yield put(getCartFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+function* addToCartSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { carId, courseId },
+      } = yield take(addToCartAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(addToCart, { accessToken, courseId, carId });
+
+      switch (result.status) {
+        case 201:
+          yield put(addToCartSuccess(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
+          break;
+
+        default:
+          yield put(addToCartFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export default function* authenticationSaga() {
   yield fork(signInSaga);
   yield fork(signUpSaga);
@@ -381,4 +455,6 @@ export default function* authenticationSaga() {
   yield fork(changePasswordSaga);
   yield fork(upLoadAvatarSaga);
   yield fork(requestLecturerSaga);
+  yield fork(getCartSaga);
+  yield fork(addToCartSaga);
 }

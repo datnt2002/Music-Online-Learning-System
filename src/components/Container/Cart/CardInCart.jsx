@@ -1,6 +1,7 @@
 import React from 'react';
 
-const CardInCart = () => {
+const CardInCart = ({ data }) => {
+  console.log(data);
   return (
     <div className="flex max-w-[18rem]">
       <div className="flex basis-1/3 mr-2">
