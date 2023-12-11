@@ -178,7 +178,10 @@ function* getDetailCourseSaga() {
       const {
         payload: { courseId },
       } = yield take(getDetailCourseAction);
-      const result = yield call(getDetailCourse, { courseId });
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(getDetailCourse, { courseId, accessToken });
 
       switch (result.status) {
         case 200:
@@ -1330,9 +1333,23 @@ function* buyCourseByECoinSaga() {
 
       const result = yield call(buyCourseByECoin, { courseIdArray, accessToken });
       console.log(result);
-      switch (result.data) {
+      switch (result.status) {
         case 200:
           yield put(buyCourseByECoinSuccess(result));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          });
           break;
 
         default:
@@ -1349,14 +1366,15 @@ function* buyCourseByECoinSaga() {
 function* getListMyBoughtCourseSaga() {
   while (true) {
     try {
-      yield take(getListMyBoughtCourseAction);
+      const { payload: {pageSize, pageIndex} } = yield take(getListMyBoughtCourseAction);
+      console.log(pageSize, pageIndex);
       const { accessToken } = getTokenFromStorage();
 
-      const result = yield call(getMyBoughtCourse, { accessToken });
+      const result = yield call(getMyBoughtCourse, { accessToken, pageIndex, pageSize });
       console.log(result);
       switch (result.status) {
         case 200:
-          yield put(getListMyBoughtCourseSuccess(result.data));
+          yield put(getListMyBoughtCourseSuccess(result));
           break;
 
         default:

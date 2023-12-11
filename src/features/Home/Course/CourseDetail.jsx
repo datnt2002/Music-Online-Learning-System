@@ -11,7 +11,6 @@ import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/
 import CourseDetailFloatingPanel from '../../../components/Container/CourseContainer/CourseDetailFloatingPanel';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
 import LecturerCard from '../../../components/Container/CardTemplate/LecturerCard';
-import CourseHorizontalCard from '../../../components/Container/CardTemplate/CourseHorizontalCard';
 import Footer from '../../../components/Common/Footer';
 import WhatLearnDetail from '../../../components/Container/CourseContainer/WhatLearnDetail';
 import CourseContent from '../../../components/Container/CourseContainer/CourseContent';
@@ -25,7 +24,6 @@ const CourseDetail = () => {
   const pathNameArray = splitSlash(pathname);
 
   const currentCourse = useSelector((state) => state.course.currentCourse);
-  const listCourse = useSelector((state) => state.course.listCourse);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -93,22 +91,9 @@ const CourseDetail = () => {
             <p>{currentCourse?.course?.description}</p>
           </div>
 
-          <div>
+          <div className="mb-10">
             <h2 className="text-xl mb-2 font-medium">Instructor</h2>
             <LecturerCard authorData={currentCourse?.course?.user} />
-          </div>
-
-          <div className="mt-6 mb-16">
-            <h2 className="text-xl mb-4 font-medium">Students also bought</h2>
-            <div className="">
-              {listCourse.map((course, index) => {
-                return (
-                  <div key={index}>
-                    <CourseHorizontalCard courseData={course} />
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </div>

@@ -32,9 +32,9 @@ const CourseContent = () => {
     };
   });
 
-  const onClick = (e) => {
-    navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
-  };
+  // const onClick = (e) => {
+  //   navigate(`${USER_ROUTE.LESSON_DETAIL}/${e.key}`);
+  // };
 
   return (
     <div className="my-6">
@@ -48,7 +48,7 @@ const CourseContent = () => {
         </div>
       </div>
 
-      <Menu className=" bg-white/90 rounded-2xl mt-6" onClick={onClick} mode="inline" items={items} />
+      <Menu className=" bg-white/90 rounded-2xl mt-6" mode="inline" items={items} />
     </div>
   );
 };

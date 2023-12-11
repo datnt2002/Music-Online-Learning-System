@@ -12,8 +12,9 @@ export const getListCourses = (data) => {
     });
 };
 export const getDetailCourse = (data) => {
+  console.log(data);
   return axiosClient
-    .get(`courses/${data.courseId}`)
+    .get(`courses/${data.courseId}`, { headers: { Authorization: `Bearer ${data.accessToken}` } })
     .then((res) => {
       return res;
     })
@@ -493,8 +494,11 @@ export const buyCourseByECoin = (data) => {
 
 // get course in homepage
 export const getMyBoughtCourse = (data) => {
+  console.log(data);
   return axiosClient
-    .get('courses/bought', { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .get('courses/bought', 
+    { params: { pageIndex: data.pageIndex, pageSize: data.pageSize }, 
+    headers: { Authorization: `Bearer ${data.accessToken}` } } )
     .then((res) => {
       return res;
     })

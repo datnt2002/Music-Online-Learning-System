@@ -709,13 +709,12 @@ export const courseSlice = createSlice({
       };
     },
     getListMyBoughtCourseSuccess: (state, action) => {
-      console.log(action.payload);
-      // const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
       return {
         ...state,
         loading: false,
-        listMyBoughtCourse: action.payload,
-        // pagination: { pageIndex, pageSize, totalCount, totalPages },
+        listMyBoughtCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
       };
     },
     getListMyBoughtCourseFail: (state) => {

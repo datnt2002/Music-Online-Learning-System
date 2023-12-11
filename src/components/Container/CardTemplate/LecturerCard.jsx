@@ -1,14 +1,12 @@
 import React from 'react';
 import { Avatar } from 'antd';
-import { PlayCircleFilled, LikeFilled } from '@ant-design/icons';
 
 import defaultAvatar from '../../../assets/imgs/defaultAvatar.webp';
 
 const LecturerCard = ({ authorData }) => {
-  console.log(authorData);
   return (
-    <div className="flex flex-1 rounded-2xl mr-4 border border-black">
-      <div className="flex basis-1/4 pl-6">
+    <div className="flex flex-1 rounded-2xl mr-4 mb-6 ">
+      <div className="flex basis-1/4">
         <Avatar
           size={68}
           alt="avatar author"
@@ -18,16 +16,7 @@ const LecturerCard = ({ authorData }) => {
         />
       </div>
       <div className="flex flex-1 flex-col py-4">
-        <h1 className="px-4 ">Author Name</h1>
-        {/* <h1 className="px-4 ">{authorData?.firstName + ' ' + authorData?.lastName}</h1> */}
-
-        <h1 className="pr-4 truncate">
-          <LikeFilled className="align-[0.125rem] px-4" />
-          763,787 Students
-        </h1>
-        <h1 className="pr-4 truncate">
-          <PlayCircleFilled className="align-[0.125rem] px-4" />8 Courses
-        </h1>
+        <h1 className="px-4 ">{authorData?.firstName + ' ' + authorData?.lastName}</h1>
       </div>
     </div>
   );
