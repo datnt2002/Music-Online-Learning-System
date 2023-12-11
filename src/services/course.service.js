@@ -303,6 +303,25 @@ export const editDraftCourse = (data) => {
       return err;
     });
 };
+
+export const editCourseImage = (data) => {
+  const formData = new FormData();
+  formData.append('file', data.file);
+
+  return axiosClient
+    .patch(`courses/update-img/${data.courseId}`, formData, {
+      headers: {
+        Authorization: `Bearer ${data.accessToken}`,
+      },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const editSection = (data) => {
   return axiosClient
     .put(

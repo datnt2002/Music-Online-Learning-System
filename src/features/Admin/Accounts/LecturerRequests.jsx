@@ -18,6 +18,7 @@ const LecturerRequests = () => {
   const [pageIndex, setPageIndex] = useState(1);
   //get list accounts from store
   const listRequests = useSelector((state) => state.user.listRequests);
+  console.log(listRequests);
   // useSelector((state) => state.user.listAccounts);
   const pagination = useSelector((state) => state.user.pagination);
   const dispatch = useDispatch();

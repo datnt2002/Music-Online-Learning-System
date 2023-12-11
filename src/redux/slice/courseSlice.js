@@ -352,6 +352,24 @@ export const courseSlice = createSlice({
         loading: false,
       };
     },
+    editCourseImageAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    editCourseImageSuccess: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    editCourseImageFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
     //create section
     createNewSectionAction: (state) => {
       return {
@@ -765,6 +783,9 @@ export const {
   editDraftQuizAction,
   editDraftQuizSuccess,
   editDraftQuizFail,
+  editCourseImageAction,
+  editCourseImageSuccess,
+  editCourseImageFail,
   //create course
   createNewCourseAction,
   createNewCourseSuccess,

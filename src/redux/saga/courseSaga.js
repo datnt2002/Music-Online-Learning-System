@@ -18,6 +18,7 @@ import {
   createSubCate,
   deleteCourseFromAdmin,
   deleteQuiz,
+  editCourseImage,
   editDraftCourse,
   editQuiz,
   editSection,
@@ -78,6 +79,9 @@ import {
   editCategoryAction,
   editCategoryFail,
   editCategorySuccess,
+  editCourseImageAction,
+  editCourseImageFail,
+  editCourseImageSuccess,
   editDraftCourseAction,
   editDraftCourseFail,
   editDraftCourseSuccess,
@@ -571,6 +575,57 @@ function* editDraftCourseSaga() {
     }
   }
 }
+
+// Saga for edit a course image
+function* editCourseImageSaga() {
+  while (true) {
+    try {
+      const {
+        payload: { file, navigate, courseId },
+      } = yield take(editCourseImageAction);
+
+      const { accessToken } = getTokenFromStorage();
+
+      const result = yield call(editCourseImage, {
+        file,
+        accessToken,
+        courseId,
+      });
+      console.log(result);
+      switch (result.status) {
+        case 200:
+          yield put(editCourseImageSuccess(result.data));
+          sessionStorage.setItem(STORAGE.COURSE, JSON.stringify(result.data));
+          Swal.fire({
+            title: result.message,
+            width: 850,
+            padding: '3em',
+            color: '#716add',
+            background: `#fff `,
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(${backdropSweetAlert})
+              left top
+              no-repeat
+            `,
+            confirmButtonText: 'Got it',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              navigate(LECTURER_ROUTE.MY_COURSE_MANAGEMENT);
+            }
+          });
+          break;
+
+        default:
+          yield put(editCourseImageFail(result));
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 // Saga for edit a section
 function* editSectionSaga() {
   while (true) {
@@ -1333,6 +1388,7 @@ export default function* courseSaga() {
   yield fork(editDraftCourseSaga);
   yield fork(editSectionSaga);
   yield fork(EditQuizSaga);
+  yield fork(editCourseImageSaga);
   //create course
   yield fork(createNewSectionSaga);
   yield fork(createNewCourseSaga);

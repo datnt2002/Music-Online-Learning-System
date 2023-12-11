@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ImgCrop from 'antd-img-crop';
 
-import { Button, Form, Input, InputNumber, Select } from 'antd';
+import { Button, Form, Input, InputNumber, Modal, Select, Upload, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 
 import {
+  editCourseImageAction,
   editDraftCourseAction,
   getDetailDraftCourseAction,
   getListCategoryAction,
@@ -33,6 +35,7 @@ const EditCourse = () => {
   const listSubCategories = useSelector((state) => state.course.listSubcategories);
   const loading = useSelector((state) => state.course.loading);
   const currentEditCourse = useSelector((state) => state.course.currentCourse);
+  const [isModalEditCourseImgOpen, setIsModalEditCourseImgOpen] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -93,11 +96,57 @@ const EditCourse = () => {
     dispatch(getSubCategoriesByCategoryAction({ cateId: value }));
   };
 
-  const handleEditCourseImg = () => {};
+  const handleEditCourseImg = (file) => {
+    dispatch(
+      editCourseImageAction({
+        file: file.file,
+        courseId: pathNameArray[2],
+        navigate,
+      })
+    );
+    setIsModalEditCourseImgOpen(false);
+  };
+
+  const showModalEditCourseImg = () => {
+    setIsModalEditCourseImgOpen(true);
+  };
+
+  const handleCancelModalEditCourseImg = () => {
+    setIsModalEditCourseImgOpen(false);
+  };
 
   const formLayout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 19 },
+  };
+
+  const beforeUpload = (file) => {
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    const isAllowedType = allowedTypes.includes(file.type);
+    if (!isAllowedType) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+
+    return isAllowedType && isLt2M;
+  };
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
   };
 
   return (
@@ -120,7 +169,7 @@ const EditCourse = () => {
                     src={currentEditCourse?.course?.courseImg || defaultCourse}
                     alt=""
                     className="aspect-video group-hover:opacity-75 transition-opacity duration-300 ease-in-out"
-                    onClick={handleEditCourseImg}
+                    onClick={showModalEditCourseImg}
                   />
                   <UploadOutlined className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
                 </div>
@@ -210,6 +259,29 @@ const EditCourse = () => {
           </Form>
         </div>
       </div>
+      {isModalEditCourseImgOpen && (
+        <Modal
+          className="text-center"
+          destroyOnClose={true}
+          title="Course Image Edit"
+          open={isModalEditCourseImgOpen}
+          onCancel={handleCancelModalEditCourseImg}
+          footer={null}
+        >
+          {/* <ModalEditAvatar handleOk={handleOkModalEditAvatar} /> */}
+          <ImgCrop zoomSlider showReset cropShape="rect" aspect={16 / 9}>
+            <Upload
+              customRequest={handleEditCourseImg}
+              listType="picture-circle"
+              beforeUpload={beforeUpload}
+              onPreview={onPreview}
+              maxCount={1}
+            >
+              <PlusOutlined /> Upload
+            </Upload>
+          </ImgCrop>
+        </Modal>
+      )}
     </Content>
   );
 };

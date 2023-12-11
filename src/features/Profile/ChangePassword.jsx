@@ -11,8 +11,8 @@ const ChangePassword = ({ handleOk }) => {
   const onFinish = (values) => {
     dispatch(
       changePasswordAction({
-        oldPassword: values.oldPassword,
-        newPassword: values.newPassword,
+        oldPassword: values?.oldPassword,
+        newPassword: values?.newPassword,
       })
     );
     handleOk();
