@@ -8,7 +8,6 @@ import { COLOR } from '../../../../constants';
 const NumberOfCourseInCateChart = () => {
   const noOfCourseInCate = useSelector((state) => state.dashboard.NoOfCourseInCate);
   const loading = useSelector((state) => state.dashboard.loading);
-
   const data = {
     labels: noOfCourseInCate.map((data) => data?.cateName),
     datasets: [

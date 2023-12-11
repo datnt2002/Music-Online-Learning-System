@@ -9,6 +9,7 @@ const initialState = {
   profitAdminCount: 0,
   NoOfCourseInCate: [],
   userByMonth: [],
+  eCoinPerMonth: [],
 };
 
 export const dashboardSlice = createSlice({
@@ -101,6 +102,19 @@ export const dashboardSlice = createSlice({
         userByMonth: action.payload,
       };
     },
+    getECoinPerMonthAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getECoinPerMonthSuccess: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        eCoinPerMonth: action.payload,
+      };
+    },
     getCountFail: (state) => {
       return {
         ...state,
@@ -124,6 +138,8 @@ export const {
   getCategoryByNumberOfCoursesSuccess,
   getUserByMonthAction,
   getUserByMonthSuccess,
+  getECoinPerMonthAction,
+  getECoinPerMonthSuccess,
   getCountFail,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

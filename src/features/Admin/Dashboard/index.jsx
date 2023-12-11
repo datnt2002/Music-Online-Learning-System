@@ -14,6 +14,7 @@ import {
   getCountApprovedCourseAction,
   getCountCategoriesAction,
   getCountUsersAction,
+  getECoinPerMonthAction,
   getProfitAdminAction,
   getUserByMonthAction,
 } from '../../../redux/slice/dashboardSlice';
@@ -32,6 +33,7 @@ const DashBoardAdmin = () => {
     dispatch(getProfitAdminAction({}));
     dispatch(getCategoryByNumberOfCoursesAction({}));
     dispatch(getUserByMonthAction({}));
+    dispatch(getECoinPerMonthAction({}));
   }, []);
 
   return (

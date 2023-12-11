@@ -65,3 +65,14 @@ export const getUserByMonth = () => {
       return err;
     });
 };
+
+export const getEcoinPerMonth = () => {
+  return axiosClient
+    .get('dashboard/getEcoinPerMonth')
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
