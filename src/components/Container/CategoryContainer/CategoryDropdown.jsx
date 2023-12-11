@@ -5,12 +5,13 @@ import { Dropdown, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { getListCategoryAction, getSubCategoriesAction } from '../../../redux/slice/courseSlice';
-import { PAGINATION } from '../../../constants';
+import { PAGINATION, PUBLIC_ROUTE } from '../../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const CategoryDropdown = () => {
   const categories = useSelector((state) => state.course.listCategory);
   const listSubCate = useSelector((state) => state.course.listSubcategories);
-
+  const navigate = useNavigate();
   const items = categories.map((category) => {
     return {
       key: category.cateId,
@@ -39,6 +40,7 @@ const CategoryDropdown = () => {
 
   const handleChooseSubCategory = ({ key }) => {
     console.log(`Click on item ${key}`);
+    navigate(PUBLIC_ROUTE.FILTER_SUB_CATE + `/${key}`);
   };
 
   return (

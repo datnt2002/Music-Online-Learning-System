@@ -5,10 +5,10 @@ import CourseHorizontalCard from '../../components/Container/CardTemplate/Course
 import repeatBg from '../../assets/imgs/repeatbg.jpg';
 import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCategory';
 import Footer from '../../components/Common/Footer';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import splitSlash from '../../utils/splitSlash';
-import { getListCourseFilterByCateAction } from '../../redux/slice/courseSlice';
-import { PAGINATION } from '../../constants';
+import { getListCourseFilterByCateAction, getListCourseFilterBySubCateAction } from '../../redux/slice/courseSlice';
+import { PAGINATION, PUBLIC_ROUTE } from '../../constants';
 
 const FilterCourse = () => {
   const listCategories = useSelector((state) => state.course.listCategory);
@@ -22,8 +22,18 @@ const FilterCourse = () => {
   console.log(filterCourse);
   const [pageIndex, setPageIndex] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleFilterBySubCate = ({ key }) => {
     console.log('click ', key);
+    navigate(PUBLIC_ROUTE.FILTER_SUB_CATE + `/${key}`);
+    dispatch(
+      getListCourseFilterBySubCateAction({
+        subCateId: pathNameArray[1],
+        pageIndex: pageIndex,
+        pageSize: PAGINATION.PAGE_SIZE,
+        navigate,
+      })
+    );
   };
 
   const items = listCategories.map((cate) => {
@@ -50,10 +60,19 @@ const FilterCourse = () => {
           cateId: pathNameArray[1],
           pageIndex: pageIndex,
           pageSize: PAGINATION.PAGE_SIZE,
+          navigate,
+        })
+      );
+    } else {
+      dispatch(
+        getListCourseFilterBySubCateAction({
+          subCateId: pathNameArray[1],
+          pageIndex: pageIndex,
+          pageSize: PAGINATION.PAGE_SIZE,
         })
       );
     }
-  }, []);
+  }, [pathNameArray[1]]);
   return (
     <>
       <div

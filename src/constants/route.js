@@ -6,6 +6,7 @@ export const PUBLIC_ROUTE = {
   COURSE_DETAIL: '/course-detail',
   PUBLIC_PROFILE: '/profile',
   FILTER_CATE: '/category',
+  FILTER_SUB_CATE: '/subcategory',
 };
 
 export const USER_ROUTE = {

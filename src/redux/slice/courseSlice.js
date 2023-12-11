@@ -741,6 +741,21 @@ export const courseSlice = createSlice({
         pagination: { pageIndex, pageSize, totalCount, totalPages },
       };
     },
+    getListCourseFilterBySubCateAction: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getListCourseFilterBySubCateSuccess: (state, action) => {
+      const { data, pageIndex, pageSize, totalCount, totalPages } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        filterCourse: data,
+        pagination: { pageIndex, pageSize, totalCount, totalPages },
+      };
+    },
     getListCourseFilterFail: (state) => {
       return {
         ...state,
@@ -867,6 +882,8 @@ export const {
   //filter
   getListCourseFilterByCateAction,
   getListCourseFilterByCateSuccess,
+  getListCourseFilterBySubCateAction,
+  getListCourseFilterBySubCateSuccess,
   getListCourseFilterFail,
 } = courseSlice.actions;
 

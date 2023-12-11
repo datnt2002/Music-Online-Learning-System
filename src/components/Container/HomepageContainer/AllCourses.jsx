@@ -4,6 +4,8 @@ import { Menu, Pagination } from 'antd';
 
 import CourseHorizontalCard from '../CardTemplate/CourseHorizontalCard';
 import { getListCourseAction } from '../../../redux/slice/courseSlice';
+import { useNavigate } from 'react-router-dom';
+import { PUBLIC_ROUTE } from '../../../constants';
 
 const AllCourses = () => {
   const listCategories = useSelector((state) => state.course.listCategory);
@@ -13,8 +15,10 @@ const AllCourses = () => {
 
   const [pageIndex, setPageIndex] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleFilterBySubCate = ({ key }) => {
     console.log('click ', key);
+    navigate(PUBLIC_ROUTE.FILTER_SUB_CATE + `/${key}`);
   };
 
   const items = listCategories.map((cate) => {

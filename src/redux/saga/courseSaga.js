@@ -31,6 +31,7 @@ import {
   getLessonDetail,
   getListCategory,
   getListCourseFilterByCate,
+  getListCourseFilterBySubCate,
   getListCourses,
   getListDeleteCourse,
   getListDraftCourse,
@@ -116,6 +117,8 @@ import {
   getListCourseFail,
   getListCourseFilterByCateAction,
   getListCourseFilterByCateSuccess,
+  getListCourseFilterBySubCateAction,
+  getListCourseFilterBySubCateSuccess,
   getListCourseFilterFail,
   getListCoursePendingAction,
   getListCoursePendingFail,
@@ -1379,7 +1382,7 @@ function* getListMyBoughtCourseSaga() {
       switch (result.status) {
         case 200:
           yield put(getListMyBoughtCourseSuccess(result));
-          
+
           break;
 
         default:
@@ -1406,7 +1409,7 @@ function* getListFilterByCateSaga() {
       switch (result.status) {
         case 200:
           yield put(getListCourseFilterByCateSuccess(result));
-          navigate(PUBLIC_ROUTE.FILTER_CATE + `/${cateId}`)
+          navigate(PUBLIC_ROUTE.FILTER_CATE + `/${cateId}`);
           break;
 
         default:
@@ -1424,20 +1427,20 @@ function* getListFilterBySubCateSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize, pageIndex },
-      } = yield take(getListMyBoughtCourseAction);
-      console.log(pageSize, pageIndex);
-      const { accessToken } = getTokenFromStorage();
+        payload: { subCateId, pageSize, pageIndex },
+      } = yield take(getListCourseFilterBySubCateAction);
+      console.log(subCateId, pageIndex);
 
-      const result = yield call(getMyBoughtCourse, { accessToken, pageIndex, pageSize });
+      const result = yield call(getListCourseFilterBySubCate, { subCateId, pageIndex, pageSize });
       console.log(result);
       switch (result.status) {
         case 200:
-          yield put(getListMyBoughtCourseSuccess(result));
+          yield put(getListCourseFilterBySubCateSuccess(result));
+          // navigate(PUBLIC_ROUTE.FILTER_SUB_CATE + `/${subCateId}`);
           break;
 
         default:
-          yield put(getListMyBoughtCourseFail(result));
+          yield put(getListCourseFilterFail(result));
           break;
       }
     } catch (error) {
@@ -1521,4 +1524,5 @@ export default function* courseSaga() {
   //user course
   yield fork(getListMyBoughtCourseSaga);
   yield fork(getListFilterByCateSaga);
+  yield fork(getListFilterBySubCateSaga);
 }

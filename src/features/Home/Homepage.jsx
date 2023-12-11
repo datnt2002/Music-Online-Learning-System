@@ -42,10 +42,10 @@ const Homepage = () => {
           </div>
 
           {/* Popular authors */}
-          <div className="my-16">
+          {/* <div className="my-16">
             <h1 className="text-2xl font-semibold mb-10 text-center">Popular authors</h1>
             <PopularAuthor />
-          </div>
+          </div> */}
 
           <div className="my-16">
             <h1 className="text-2xl font-semibold mb-10 text-center">All Music Courses</h1>

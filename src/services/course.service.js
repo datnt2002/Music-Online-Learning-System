@@ -523,9 +523,9 @@ export const getListCourseFilterByCate = (data) => {
 
 export const getListCourseFilterBySubCate = (data) => {
   return axiosClient
-    .get('courses/bought', {
+    .get(`courses/approved/subcate/${data.subCateId}`, {
       params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
-      headers: { Authorization: `Bearer ${data.accessToken}` },
+      // headers: { Authorization: `Bearer ${data.accessToken}` },
     })
     .then((res) => {
       return res;
