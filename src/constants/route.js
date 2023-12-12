@@ -7,6 +7,7 @@ export const PUBLIC_ROUTE = {
   PUBLIC_PROFILE: '/profile',
   FILTER_CATE: '/category',
   FILTER_SUB_CATE: '/subcategory',
+  SEARCH: '/search',
 };
 
 export const USER_ROUTE = {

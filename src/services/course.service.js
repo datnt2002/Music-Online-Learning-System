@@ -537,9 +537,9 @@ export const getListCourseFilterBySubCate = (data) => {
 
 export const getListSearchCourse = (data) => {
   return axiosClient
-    .get('courses/bought', {
-      params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
-      headers: { Authorization: `Bearer ${data.accessToken}` },
+    .get(`courses/search/${data.keyword}`, {
+      // params: { pageIndex: data.pageIndex, pageSize: data.pageSize },
+      // headers: { Authorization: `Bearer ${data.accessToken}` },
     })
     .then((res) => {
       return res;

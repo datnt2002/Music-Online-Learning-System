@@ -36,6 +36,7 @@ import {
   getListDeleteCourse,
   getListDraftCourse,
   getListPendingCourse,
+  getListSearchCourse,
   getMyBoughtCourse,
   getQuizDetail,
   getSubCategoriesByCategory,
@@ -133,6 +134,8 @@ import {
   getListMyBoughtCourseAction,
   getListMyBoughtCourseFail,
   getListMyBoughtCourseSuccess,
+  getListSearchCourseAction,
+  getListSearchCourseSuccess,
   getSubCategoriesAction,
   getSubCategoriesByCategoryAction,
   getSubCategoriesByCategoryFail,
@@ -1454,20 +1457,18 @@ function* getListSearchCourseSaga() {
   while (true) {
     try {
       const {
-        payload: { pageSize, pageIndex },
-      } = yield take(getListMyBoughtCourseAction);
-      console.log(pageSize, pageIndex);
-      const { accessToken } = getTokenFromStorage();
+        payload: { keyword },
+      } = yield take(getListSearchCourseAction);
 
-      const result = yield call(getMyBoughtCourse, { accessToken, pageIndex, pageSize });
+      const result = yield call(getListSearchCourse, { keyword });
       console.log(result);
       switch (result.status) {
         case 200:
-          yield put(getListMyBoughtCourseSuccess(result));
+          yield put(getListSearchCourseSuccess(result.data));
           break;
 
         default:
-          yield put(getListMyBoughtCourseFail(result));
+          yield put(getListCourseFilterFail(result));
           break;
       }
     } catch (error) {
@@ -1525,4 +1526,5 @@ export default function* courseSaga() {
   yield fork(getListMyBoughtCourseSaga);
   yield fork(getListFilterByCateSaga);
   yield fork(getListFilterBySubCateSaga);
+  yield fork(getListSearchCourseSaga);
 }

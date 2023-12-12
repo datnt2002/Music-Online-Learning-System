@@ -7,7 +7,11 @@ import SubNavCategory from '../../components/Container/SubnavContainer/SubNavCat
 import Footer from '../../components/Common/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import splitSlash from '../../utils/splitSlash';
-import { getListCourseFilterByCateAction, getListCourseFilterBySubCateAction } from '../../redux/slice/courseSlice';
+import {
+  getListCourseFilterByCateAction,
+  getListCourseFilterBySubCateAction,
+  getListSearchCourseAction,
+} from '../../redux/slice/courseSlice';
 import { PAGINATION, PUBLIC_ROUTE } from '../../constants';
 
 const FilterCourse = () => {
@@ -61,6 +65,12 @@ const FilterCourse = () => {
           pageIndex: pageIndex,
           pageSize: PAGINATION.PAGE_SIZE,
           navigate,
+        })
+      );
+    } else if (pathNameArray[0] === 'search') {
+      dispatch(
+        getListSearchCourseAction({
+          keyword: pathNameArray[1],
         })
       );
     } else {

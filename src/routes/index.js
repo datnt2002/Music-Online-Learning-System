@@ -102,6 +102,14 @@ export const publicRoutes = [
       </PublicLayout>
     ),
   },
+  {
+    path: 'search/:id',
+    element: (
+      <PublicLayout>
+        <FilterCourse />
+      </PublicLayout>
+    ),
+  },
 ];
 
 export const userRoutes = [
