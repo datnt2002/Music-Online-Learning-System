@@ -144,3 +144,15 @@ export const addToCart = (data) => {
       return err;
     });
 };
+
+export const deleteCart = (data) => {
+  const body = { courseId: data?.courseId };
+  return axiosClient
+    .delete(`cart/${data?.carId}`, body, { headers: { Authorization: `Bearer ${data.accessToken}` } })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

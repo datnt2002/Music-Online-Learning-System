@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -6,7 +6,11 @@ import { Divider } from 'antd';
 import { ClockCircleOutlined, NotificationOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
-import { getDetailCourseAction, getListCourseAction } from '../../../redux/slice/courseSlice';
+import {
+  getDetailCourseAction,
+  getListCourseAction,
+  getListMyBoughtCourseAction,
+} from '../../../redux/slice/courseSlice';
 import BreadcrumbCustom from '../../../components/Container/BreadCrumbContainer/BreadCrumbCustom';
 import CourseDetailFloatingPanel from '../../../components/Container/CourseContainer/CourseDetailFloatingPanel';
 import repeatBg from '../../../assets/imgs/repeatbg.jpg';
@@ -22,9 +26,18 @@ const CourseDetail = () => {
   const location = useLocation();
   const { pathname } = location;
   const pathNameArray = splitSlash(pathname);
-
+  const [isBought, setIsBought] = useState(false);
   const currentCourse = useSelector((state) => state.course.currentCourse);
+  const boughtCourse = useSelector((state) => state.course.listMyBoughtCourse);
+  console.log(boughtCourse);
 
+  useEffect(() => {
+    const isBought2 = boughtCourse.some((course) => course?.Course.courseId === pathNameArray[1]);
+    console.log(isBought2);
+    setIsBought(isBought2);
+  }, [boughtCourse]);
+
+  console.log(isBought);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -39,6 +52,8 @@ const CourseDetail = () => {
         pageIndex: 1,
       })
     );
+
+    dispatch(getListMyBoughtCourseAction({}));
   }, []);
 
   return (
@@ -74,7 +89,7 @@ const CourseDetail = () => {
         <Divider className="bg-black mt-10 mb-0" />
       </div>
 
-      <CourseDetailFloatingPanel />
+      <CourseDetailFloatingPanel isBought={isBought} />
 
       {/* What you learn */}
       <div className="mx-auto max-w-7xl">

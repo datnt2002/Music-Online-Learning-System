@@ -10,11 +10,15 @@ import { USER_ROUTE } from '../../../constants';
 
 const CartHoverDropDown = ({ icon, buttonTitle }) => {
   const cart = useSelector((state) => state.authentication.cart);
-
+  console.log(cart);
+  let noOfItems = 0;
+  if (cart?.cartItems) {
+    noOfItems = cart?.cartItems.length;
+  }
   const items = [
     {
       key: '1',
-      label: <CardInCart />,
+      label: `${noOfItems} courses in cart`,
     },
     {
       type: 'divider',
