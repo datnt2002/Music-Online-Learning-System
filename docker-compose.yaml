@@ -3,5 +3,5 @@ services:
     build: .
     container_name: frontend_c
     ports:
-      - '5000:5000'
+      - '3000:3000'
   
