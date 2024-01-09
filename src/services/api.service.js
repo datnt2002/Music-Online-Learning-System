@@ -7,7 +7,7 @@ import { getAccessToken } from './auth.service';
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:5000/api/',
+  baseURL: 'http://18.136.104.115/api/',
 });
 
 // Add a request interceptor
